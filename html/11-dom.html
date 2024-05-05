@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/html/01-zajeciaWprowadzajace.db4c380e.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.1022625c.css"><link rel="stylesheet" href="/HelpCreatingWebsite/html/11-dom.18f45e93.css"><title>DOM</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> </nav> </header> <main class="main-container">  <section class="text"> <article> <h1>Moduł6 - Zajęcia 11 - DOM</h1> <h2>Obiektowy model dokumentu</h2> <p> Kiedy pracujemy z przeglądarką, dostępna funkcjonalność składa się z kilku modułów, ponieważ sam JavaScript nie posiada narzędzi do pracy z przeglądarką. </p> <div class="section1-img-container"> <img src="/HelpCreatingWebsite/browser-js.b88b989c.png" alt=""> </div> <p> Obiektowy model dokumentu (Document Object Model) to niezależny od języka interfejs do pracy z dokumentami HTML. Zawiera zestaw właściwości i metod, które umożliwiają wyszukiwanie, tworzenie i usuwanie elementów, reagowanie na działania użytkownika i wiele więcej. Oznacza to, że łączy stronę HTML z naszym programem. </p> <p> DOM jest reprezentacją dokumentu HTML - strukturą zorganizowana hierarchicznie, w której każdy węzeł (node) jest obiektem JavaScript z właściwościami i metodami reprezentującymi część dokumentu HTML. Każdy element w dokumencie, w tym cały dokument, nagłówki, linki, akapity itd są częściami DOM danego dokumentu, więc wszystkie mogą być zmienione przy użyciu kodu JavaScript. </p> <p> Model obiektowy przeglądarki (Browser Object Model) to niezależny od języka interfejs do pracy z kartą przeglądarki. Zawiera zestaw właściwości i metod, które umożliwiają bezpośredni dostęp do bieżącej karty i szeregu funkcji przeglądarki. Zawiera obiekt do pracy z historią nawigacji, lokalizacją (adresem otwartej strony) i nie tylko. </p> </article> <article> <h2>Dokument HTML i DOM</h2> <p> Zgodnie z modelem DOM każdy tag tworzy osobny element (węzeł), każdy fragment tekstu - element tekstowy. Dokument HTML to drzewo hierarchiczne, w którym każdy element (z wyjątkiem "korzeniowego" root) ma tylko jednego rodzica, czyli element, w którym się znajduje. To drzewo składa się z zagnieżdżonej struktury tagów i elementów tekstowych. </p> <div class="section1-img-container"> <img src="/HelpCreatingWebsite/dom-tree.90d6d4aa.png" alt=""> </div> <p> Aby wyświetlić dokument HTML, przeglądarka najpierw konwertuje go do formatu, który rozumie — DOM. Silnik przeglądarki posiada specjalny kod - HTML parser, który służy do konwersji HTML do DOM. </p> <p> W HTML zagnieżdżenie definiuje relację rodzic-dziecko między elementami. W DOM obiekty są połączone w drzewiastą strukturę danych, fiksując te relacje. </p> <p> Przeglądarka buduje DOM stopniowo, gdy tylko pojawią się pierwsze linijki, zaczyna parsować kod HTML, dodając węzły do struktury drzewa. </p> <div class="section1-img-container"> <img src="/HelpCreatingWebsite/html-parser.51aafbac.gif" alt=""> </div> <p> Po utworzeniu drzewa DOM możesz znaleźć w nim element za pomocą JavaScript i wykonać na nim pewne akcje, ponieważ każdy element stanowi obiekt i ma interfejs z wieloma właściwościami i metodami. </p> <div class="section1-img-container"> <img src="/HelpCreatingWebsite/js-engine.72d7a157.gif" alt=""> </div> </article> <article> <h2>Drzewo DOM</h2> <p> Renderujemy drzewo dokumentów HTML za pomocą usługi generator drzewa DOM. </p> <div class="section1-img-container"> <img src="/HelpCreatingWebsite/drzewoDom.861992d8.jpg" alt=""> </div> <div class="section1-img-container"> <img src="/HelpCreatingWebsite/live-dom-tree.ef805d81.png" alt=""> </div> <p>To drzewo ma dwa rodzaje węzłów.</p> <ul class="unnumbered-list-container"> <li> Węzły elementów (element node) są tworzone przez znaczniki, oczywiście niektóre elementy są zagnieżdżane w innych. Tylko one tworzą strukturę drzewa. </li> <li> Węzły tekstowe (text node) - utworzone przez tekst wewnątrz elementów. Węzeł tekstowy zawiera tylko tekst i nie może mieć dzieci, to znaczy zawsze znajduje się na najniższym poziomie hierarchii. Spacje i podziały wierszy to także węzły tekstowe. </li> </ul> <p> Są wyjątki od tej reguły: spacje przed head są ignorowane, a treść po body nie tworzy elementu, ponieważ przeglądarka kończy DOM wraz z końcem body. </p> </article> </section>  <section class="text"> <article> <h2>Poruszanie się po drzewie DOM</h2> <p> DOM daje szerokie możliwości pracy z elementami i jego zawartością, ale aby to zrobić, musisz najpierw uzyskać do niego dostęp. Dostęp do DOM zaczyna się od obiektu document, z którego można dostać się do wszystkich zagnieżdżonych elementów DOM </p> <p> document jest częścią globalnego obiektu window, który jest zawsze dostępny w skrypcie, gdy jest wykonywany w przeglądarce. Podobnie jak alert, console.log, prompt i wiele innych. </p> <p> Elementy drzewa DOM są ze sobą hierarchicznie powiązane. Terminy przodek (ancestor), potomek (descendant), rodzic (parent), dziecko (child) i sąsiad (sibling) są używane do opisu relacji. </p> <ul class="unnumbered-list-container"> <li>Najwyższy element nazywa się korzeniem (root node).</li> <li>Każdy element, poza korzeniem, ma tylko jednego rodzica.</li> <li>Element może mieć tyle dzieci, ile chcesz.</li> <li> Sąsiedzi to elementy ze wspólnym rodzicem i nie zagnieżdżone w sobie. </li> <li> Elementy potomne (dzieci) — elementy, które leżą bezpośrednio wewnątrz bieżącego elementu (pierwsze zagnieżdżenie). </li> <li> Potomkowie - wszystkie elementy, które leżą wewnątrz obecnego, wraz z ich dziećmi, dziećmi ich dzieci i tak dalej. To znaczy całe "pod-drzewo". </li> </ul> <div class="section2-img-container"> <img src="/HelpCreatingWebsite/dom-traversal.e34056c2.png" alt=""> </div> <p> Elementy mają następujące właściwości umożliwiające poruszanie się po tej hierarchii. </p> <ul class="unnumbered-list-container"> <li>elem.parentNode - wybierze rodzica elem.</li> <li> elem.childNodes - pseudotablica, przechowująca wszystkie elementy potomne, w tym tekstowe. </li> <li> elem.children - pseudotablica, przechowuje tylko węzły potomne, czyli odpowiadające znacznikom. </li> <li> elem.firstChild - wybierze pierwszy element potomny wewnątrz elem, w tym węzły tekstowe. </li> <li> elem.firstElementChild - wybierze pierwszy węzeł potomny wewnątrz elem. </li> <li> elem.lastChild - wybierze ostatni element potomny wewnątrz elem, w tym węzły tekstowe. </li> <li> elem.lastElementChild - wybierze ostatni węzeł potomny wewnątrz elem. </li> <li> elem.previousElementSibling - wybierze element "po lewej stronie" od elem (jego poprzedniego sąsiada). </li> <li> elem.nextElementSibling - wybierze węzeł "po prawej stronie" od elem (jego następnego sąsiada). </li> </ul> <pre>
+            console.log(document);
+
+            const body = document.body;
+            console.log(body);
+
+            const list = document.querySelector(".list");
+            console.log(list);
+
+            const firstListItem = list.firstElementChild;
+            console.log(firstListItem);
+
+            const lastListItem = list.lastElementChild;
+            console.log(lastListItem);
+
+            const listItems = list.children;
+            console.log(listItems);
+          </pre> <p> Kolekcje DOM, takie jak childNodes i children są pseudotablicami (NodeList) i nie posiadają większości metod tablicowych. </p> </article> </section>  <section class="text"> <article> <h2>Wyszukiwanie elementów</h2> <p> Już wiemy, że element DOM to obiekt z właściwościami i metodami. Czas nauczyć się, jak szybko znaleźć element za pomocą dowolnego selektora CSS. Grupa metod elem.querySelector* to nowoczesny standard wyszukiwania elementów. Pozwalają znaleźć element lub grupę elementów za pomocą selektora CSS o dowolnej złożoności. </p> <p> Najczęściej w miejscu elem znajdziemy po prostu document dzięki czemu szukamy elementów na całej stronie. </p> <pre>
+            element.querySelector(selector);
+          </pre> <p> Stosuje się, gdy trzeba znaleźć tylko jeden, najczęściej unikalny element na przykład po atrybucie id. </p> <ul class="unnumbered-list-container"> <li> Zwraca pierwszy element znaleziony w element, który pasuje do selektora CSS znajdującego się w zmiennej selector. </li> <li>Jeśli nic nie zostanie znalezione, zwróci null.</li> </ul> <pre>
+            element.querySelectorAll(selector);
+          </pre> <p> Jest używany, gdy konieczne jest znalezienie kolekcji elementów, czyli uzyskanie tablicy odniesień do elementów z tym samym selektorem. Przykładem będą wszystkie elementy na liście z klasą menu-item. </p> <ul class="unnumbered-list-container"> <li> Zwraca pseudotablicę wszystkich elementów wewnątrz elementu element, które spełniają wymagania selektora CSS selector. </li> <li>Jeśli nic nie zostanie znalezione, zwróci pustą tablicę.</li> </ul> <p> Otwórz ten przykład w osobnym oknie i zobacz logi w konsoli programisty. </p> <ul id="menu" class="menu"> <li class="menu-item">home</li> <li class="menu-item">about</li> <li class="menu-item">gallery</li> <li>blog</li> </ul> </article> </section>  <section class="text"> <article> <h2>Właściwości i atrybuty</h2> <p> Podczas utworzenia drzewa DOM niektóre standardowe atrybuty HTML stają się właściwościami elementów. Przyjrzyjmy się kilku powszechnie używanym właściwościom. </p> <ul class="unnumbered-list-container"> <li> value - zawiera aktualną wartość elementów formularza. (string) </li> <li> checked - przechowuje stan pola wyboru lub przycisku radiowego. (boolean) </li> <li> name - przechowuje wartość określoną w atrybucie HTML name. (string) </li> <li>src - ścieżka do obrazu znacznika <img>. (string)</li> </ul> <p>Przykład:</p> <pre>
+            const image = document.querySelector('.image');
+            console.log(image.src); // https://picsum.photos/id/9/320/240
+            console.log(image.alt); // A laptop
+
+            image.src = 'https://picsum.photos/id/13/640/480';
+            image.alt = 'River bank';
+          </pre> <img class="image" src="https://picsum.photos/id/9/320/240" alt="A laptop" width="300"> </article> <article> <h3>Właściwość textContent</h3> <p> elem.textContent zwraca zawartość tekstową wewnątrz elementu. Dostępna jest do odczytu i zapisu. Bez względu na to, co zostanie przekazane do textContent, dane będą zawsze zapisywane jako tekst. </p> <p>Przykład:</p> <pre>
+            const textEl = document.querySelector('.article-text');
+            console.log(textEl.textContent); // text inside p.article-text
+
+            const titleEl = document.querySelector('.article-title');
+            titleEl.textContent = 'Welcome to Bahamas!';
+          </pre> <article class="article"> <h2 class="article-title">Welcome to Hawaii!</h2> <p class="article-text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident quaerat nemo veritatis quasi eius eum aliquid, nobis dolore nisi, magnam eaque iusto, necessitatibus atque laborum quam tempora ducimus dicta ipsam. </p> </article> </article> <article> <h3>Właściwość classList</h3> <p> Właściwość classList przechowuje obiekt z metodami pracy z klasami elementu (tymi które wykorzystujemy do stylowania w CSS). </p> <ul class="unnumbered-list-container"> <li> elem.classList.contains(cls) - zwraca true lub false w zależności od tego, czy element ma klasę cls. </li> <li> elem.classList.add(cls) - dodaje klasę cls do listy klas elementów. </li> <li> elem.classList.remove(cls) - usuwa klasę cls z listy klas elementów. </li> <li> elem.classList.toggle(cls) - jeśli nie ma klasy cls to dodaje ją, jeśli jest to ją usuwa. </li> <li> elem.classList.replace(oldClass, newClass) - zastępuje istniejącą klasę oldClass podaną newClass. </li> </ul> <p class="example">Przykład -------------------------------</p> <pre>
+            const link = document.querySelector(".link");
+            console.log(link.classList);
+
+            const hasActiveClass = link.classList.contains("is-active");
+            console.log(`hasActiveClass - ${hasActiveClass}`);
+
+            link.classList.add("special");
+            console.log(link.classList);
+
+            link.classList.remove("is-active");
+            console.log(link.classList);
+
+            link.classList.toggle("is-active");
+            console.log(link.classList);
+
+            link.classList.replace("special", "regular");
+            console.log(link.classList);
+          </pre> <a class="section4-is-active section4-link" href="">A random link</a> <p class="example">PrzykładEND -------------------------------</p> </article> <article> <h3>Właściwość style</h3> <p> Służy do odczytywania i zmiany stylów wbudowanych (inline). Zwraca obiekt CSSStyleDeclaration, który zawiera listę wszystkich właściwości określonych tylko w stylach wbudowanych elementu, (a nie wszystkie reguły CSS dla elementu). W tym obiekcie właściwości są zapisywane w camelCase, to znaczy background-color staje się element.style.backgroundColor itd. </p> <pre>
+            const button = document.querySelector(".btn");
+
+            button.style.backgroundColor = "teal";
+            button.style.fontSize = "24px";
+            button.style.textAlign = "center";
+
+            console.log(button.style);// inline styles object
+          </pre> <p> W praktyce stylizowanie elementów odbywa się poprzez dodawanie klas CSS. Właściwość style służy do dodawania pewnego rodzaju stylów dynamicznych, na przykład podczas animacji. W innych przypadkach używanie jej nie będzie dobrą praktyką i utrudni nam stylowanie. Zawsze starajmy się najpierw rozwiązać stylowanie poprzez klasy. </p> </article> <article> <h3>Atrybuty</h3> <p> Elementom DOM odpowiadają tagi HTML, które mają często atrybuty tekstowe. Jeśli atrybut nie posiada swojej własnej określonej właściwości (jak value dla pól input) to dostęp do atrybutów uzyskuje się przy użyciu standardowych metod. Te metody operują na wartości, która jest w HTML. </p> <ul class="unnumbered-list-container"> <li> elem.hasAttribute(name) - sprawdza obecność atrybutu o nazwie name, zwraca true lub false. </li> <li> elem.getAttribute(name) - pobiera wartość atrybutu i zwraca ją. </li> <li>elem.setAttribute(name, value) - ustawia atrybut.</li> <li>elem.removeAttribute(name) - usuwa atrybut.</li> <li> elem.attributes - właściwość, zwraca obiekt ze wszystkimi atrybutami elementu. </li> </ul> <p class="example">Przykład -------------------------------</p> <pre>
+            const image = document.querySelector(".image");
+            console.log(image.attributes); // NamedNodeMap {0: class, 1: src, 2: alt, length: 3}
+            console.log(image.hasAttribute("src")); // true
+            console.log(image.getAttribute("alt")); // "Rocks and waterfall"
+            image.setAttribute("alt", "Amazing nature");
+            console.log(image.getAttribute("alt")); // Amazing nature
+          </pre> <img class="section4-image" src="https://picsum.photos/id/15/320/240" alt="Rocks and waterfall" width="300"> <p class="example">PrzykładEND -------------------------------</p> </article> <article> <h3>Atrybuty data</h3> <p> Umożliwia dodanie dowolnego atrybutu do tagu i uzyskanie jego wartości w JavaScript. Możliwość ta jest wykorzystywana w celu uproszczenia pisania kodu, na przykład powiązania danych i znaczników za pomocą unikalnego identyfikatora, wskazania rodzaju akcji na przyciskach itp. </p> <div class="section4-img-container"> <img src="/HelpCreatingWebsite/section4AtrybutyData.28d052bc.jpg" alt=""> </div> <p> Do pobrania wartości właściwości data-atrybutu używana jest właściwość dataset, po której znajduje się nazwa atrybutu. Oznacza to, że data- jest odrzucane, a reszta nazwy jest zapisywana jako nazwa właściwości obiektu. </p> <pre>
+            const saveBtn = document.querySelector('button[data-action="save"]');
+            console.log(saveBtn.dataset.action);// "save"
+
+            const closeBtn = document.querySelector('button[data-action="close"]');
+            console.log(closeBtn.dataset.action);// "close"
+          </pre> <p class="example">Przykład -------------------------------</p> <pre>
+            const saveBtn = document.querySelector('.editor button[data-action="save"]');
+            const closeBtn = document.querySelector('.editor button[data-action="close"]');
+
+            console.log(saveBtn.dataset.action); //save
+            console.log(closeBtn.dataset.action); //close
+          </pre> <div class="editor"> <p> Donec id justo. Praesent porttitor, nulla vitae posuere iaculis, arcu nisl dignissim dolor, a pretium mi sem ut ipsum. Curabitur suscipit suscipit tellus. Phasellus gravida semper nisi. </p> <div class="actions"> <button type="button" class="btn" data-action="save"> Save text </button> <button type="button" class="btn" data-action="close"> Close editor </button> </div> </div> <p class="example">PrzykładEND -------------------------------</p> </article> </section>  <section class="text"> <article id="article1"> <h2>Tworzenie i usuwanie elementów</h2> <p> DOM API pozwala nie tylko wybierać lub modyfikować już istniejące, ale także usuwać i tworzyć nowe elementy, a następnie dodawać je do dokumentu. </p> </article> <article id="article2"> <h3>Tworzenie</h3> <pre>
+            document.createElement(tagName);
+          </pre> <p> Tworzy element o nazwie tagName i zwraca link do niego jako wynik wykonania metody. tagName to string wskazujący typ tworzonego elementu. Element jest tworzony w pamięci, nie ma go jeszcze w DOM. </p> <pre>
+            const heading = document.createElement("h1");
+            console.log(heading);// h1>/h1>
+            heading.textContent = "This is a heading";
+            console.log(heading);// h1>This is a heading/h1>
+            const image = document.createElement("img");
+            image.src = "https://placeimg.com/640/480/nature";
+            image.alt = "Nature";
+            console.log(image);// img src="https://placeimg.com/640/480/nature" alt="Nature" />
+          </pre> </article> <article id="article3"> <h3>Dodawanie</h3> <p> Aby utworzony element został wyświetlony na stronie, musi zostać dodany do już istniejącego elementu w drzewie DOM. Powiedzmy, że dodajemy go do jakiegoś elementu w zmiennej element, możemy skorzystać z następujących metod: </p> <ul class="unnumbered-list-container"> <li> element.append(el1, el2, ...) - dodaje jeden lub więcej elementów pod wszystkimi dziećmi elementu element (czyli na jego "końcu"). </li> <li> element.prepend(el1, el2, ...) - dodaje jeden lub więcej elementów przed wszystkimi dziećmi elementu element (czyli na jego początku). </li> <li> element.after(el1, el2, ...) - dodaje jeden lub więcej elementów po elemencie element. </li> <li> element.before(el1, el2, ...) - dodaje jeden lub więcej elementów przed elementem element. </li> </ul> <p> We wszystkich tych metodach el1 i el2 to elementy stworzone np. przy użyciu document.createElement() lub stringi w dowolnej kombinacji i ilości. Stringi są dodawane jako węzły tekstowe. </p> <p class="example">Przykład -------------------------------</p> <pre>
+            const list = document.querySelector(".usernames");
+
+            // Adds an item to the end of the list
+            const lastItem = document.createElement("li");
+            lastItem.textContent = "Poly";
+            list.append(lastItem);
+
+            // Adds an item to the beginning of the list
+            const firstItem = document.createElement("li");
+            firstItem.textContent = "Ajax";
+            list.prepend(firstItem);
+
+            // Adds a title before the list
+            const title = document.createElement("h2");
+            title.textContent = "USERNAMES";
+            list.before(title);
+
+            // Adds a paragraph after the list
+            const text = document.createElement("p");
+            text.textContent =
+            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum tenetur assumenda fugiat maxime, soluta
+             aspernatur quasi nihil in asperiores ad distinctio illo et debitis error iure voluptate numquam maiores
+              nisi. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum tenetur assumenda fugiat maxime,
+               soluta aspernatur quasi nihil in asperiores ad distinctio illo et debitis error iure voluptate numquam
+                maiores nisi!";
+            list.after(text);
+          </pre> <div class="section5-container"> <ul class="section5-usernames"> <li>Mango</li> </ul> </div> <p class="example">PrzykładEND -------------------------------</p> <p> Jeżeli wstawiany element znajduje się już w DOM, to jest usuwany ze starego miejsca i dodawany do nowego. Wynika to z zasady, że jeden i ten sam element nie może znajdować się jednocześnie w dwóch miejscach. </p> </article> <article> <h3>Usuwanie</h3> <pre>
+            elem.remove();
+          </pre> <p> Aby usunąć element, użyj metody remove(). Znajduje się ona na samym elemencie elem, który należy usunąć. </p> <p class="example">Przykład -------------------------------</p> <pre>
+            const text = document.querySelector('.text');
+            text.remove();
+          </pre> <article class="article"> <h2 class="title">Article title</h2> <p class="section5-text"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, ipsa quibusdam! Praesentium accusantium fugiat distinctio quidem minima fugit eos, veniam, nam laboriosam deleniti nisi qui neque explicabo perspiciatis, consectetur non. </p> <a class="link" href="">Read more</a> </article> <p class="example">PrzykładEND -------------------------------</p> </article> <article> <h3>Optymalizacja drzewa DOM</h3> <p> Nowoczesne przeglądarki próbują zoptymalizować proces renderowania strony bez interwencji programisty. Każda zmiana drzewa DOM pozostaje jednak kosztowną operacją, dlatego trzeba starać się zminimalizować liczbę wywołań DOM. </p> <p> Repaint - występuje, gdy zmiany wpłynęły na style, które wpływają na wygląd elementu, ale nie na geometrię. Na przykład opacity, background-color, visibility i outline. Przeglądarka ponownie renderuje element, uwzględniając nowy styl. Sprawdzana jest również widoczność innych elementów, jeden lub więcej może być ukrytych pod zmienionym wyglądem. </p> <p> Reflow - występuje, gdy zmiany wpływają na treść, strukturę dokumentu, położenie elementów. Pozycjonowanie i wymiary są przeliczane, co prowadzi do przerysowania części lub całości dokumentu. Zmiana rozmiaru jednego kontenera nadrzędnego wpłynie na wszystkie jego dzieci i przodków. Ma znacznie większy wpływ na wydajność niż repaint </p> <p> Wszystkie powyższe operacje blokują przeglądarkę. Strona nie może wykonywać żadnych innych operacji, gdy trwa reflow lub repaint. Przyczynami mogą być: </p> <ul class="unnumbered-list-container"> <li> Manipulacje drzewa DOM (dodawanie, usuwanie, zmiana, przestawianie elementów) </li> <li>Zmiana treści, m.in. tekstu w polach formularza</li> <li>Obliczanie lub modyfikacja właściwości CSS</li> <li>Dodawanie i usuwanie arkuszy stylów</li> <li>Manipulacja z atrybutem class</li> <li> Manipulacje z oknem przeglądarki (zmiana rozmiaru, przewijanie) </li> <li>Aktywacja pseudoklas (na przykład :hover)</li> </ul> </article> </section>  <section class="text">  <article> <h1>Właściwość innerHTML</h1> <p> Innym sposobem tworzenia elementów DOM i umieszczania ich w drzewie jest użycie stringów zawierających tagi HTML i pozwolenie przeglądarce na wykonanie całej ciężkiej pracy. Takie podejście ma swoje plusy i minusy. </p> </article>  <article> <h2>Czytanie</h2> <p> Właściwość innerHTML przechowuje zawartość elementu, w tym znaczniki, jako stringi. Zwracana wartość jest zawsze prawidłowym kodem HTML. </p> <p class="example">Przykład -------------------------------</p> <pre>
+            const article = document.querySelector(".article");
+            console.log(article.innerHTML);
+
+            const title = document.querySelector(".article .title");
+            console.log(title.innerHTML);
+
+            const text = document.querySelector(".article .text");
+            console.log(text.innerHTML);
+
+            const link = document.querySelector(".article .link");
+            console.log(link.innerHTML);
+          </pre> <article class="section6-article"> <h2 class="section6-title">Article title</h2> <p class="section6-text"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, ipsa quibusdam! <strong>Praesentium</strong> accusantium fugiat distinctio quidem minima fugit eos, veniam, nam laboriosam deleniti nisi qui neque explicabo perspiciatis, consectetur non. </p> <a class="section6-link" href="">Read more</a> </article> <p class="example">PrzykładEND -------------------------------</p> </article>  <article> <h2>Zmiana</h2> <p> Właściwość innerHTML może służyć zarówno do odczytu jak i zapisu. Jeśli zapiszesz do niej ciąg ze znacznikami HTML, to przeglądarka podczas parsowania stringa zamieni je na odpowiednie elementy i doda je do drzewa DOM. </p> <p class="example">Przykład -------------------------------</p> <pre>
+           const title = document.querySelector(".article .title");
+           title.innerHTML = 'New and span class="accent">improved/span> title';
+          </pre> <article class="section6Zmiana-article"> <h2 class="section6Zmiana-title">Article title</h2> <p class="section6Zmiana-text"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, ipsa quibusdam! <strong>Praesentium</strong> accusantium fugiat distinctio quidem minima fugit eos, veniam, nam laboriosam deleniti nisi qui neque explicabo perspiciatis, consectetur non. </p> <a class="section6Zmiana-link" href="">Read more</a> </article> <p class="example">PrzykładEND -------------------------------</p> <p> Jeśli napiszesz pusty ciąg do właściwości innerHTML zawartość elementu zostanie wyczyszczona. To łatwy i szybki sposób na usunięcie całej zawartości. </p> <p> Dzięki takiemu podejściu, w przeciwieństwie do document.createElement(), nie otrzymujemy odniesienia do utworzonego elementu DOM. To pierwszy krok w kierunku tworzenia szablonów - tworzenia dużej ilości tego samego typu znaczników z różnymi danymi zgodnie z predefiniowanym szablonem. Na przykład jak na liście produktów sklepu internetowego itp. </p> <p> Jednolite (szablonowe) znaczniki są tworzone z tablicy danych. Podejście polega na iteracji po tablicy i skomponowaniu jednego wiersza ze znacznikami HTML, który następnie zapisujemy w innerHTML elementu. </p> <p class="example">Przykład -------------------------------</p> <pre>
+            const technologies = ["HTML", "CSS", "JavaScript", "React", "Node"];
+            const list = document.querySelector(".list");
+
+            const markup = technologies
+            .map((technology) => `li class="list-item">${technology}/li>`)
+            .join("");
+
+            // Check the console, you'll see a single string with HTML tags
+            console.log(markup);
+
+            // Adding all the markup in one operation
+            list.innerHTML = markup;
+          </pre> <section> <h2>Popular technologies</h2> <ul class="section6list"></ul> </section> <p class="example">PrzykładEND -------------------------------</p> </article>  <article> <h2>Dodanie</h2> <p> Zmiana elem.innerHTML całkowicie usunie i ponownie utworzy wszystkich potomków elementu elem. Jeśli element nie jest początkowo pusty, wystąpią dodatkowe koszty serializacji istniejących znaczników, co źle wpłynie na optymalizację. </p> <p class="example">Przykład -------------------------------</p> <pre>
+            const article = document.querySelector(".article");
+            const htmlString = `p class="article-text">Nullam quis ante. Vestibulum dapibus nunc ac augue.
+             In consectetuer turpis ut velit./p>   
+            a class="link" href="#">Read more.../a>`;
+
+            // Replace += with = operator. See the difference? 
+            // Article title is lost because we overwrite element content.
+            article.innerHTML += htmlString;
+          </pre> <article class="section6article4-article"> <h2>Article title</h2> </article> <p class="example">PrzykładEND -------------------------------</p> <p> Użyj właściwości elem.innerHTML do dodania elementu tylko wtedy, gdy element elem jest pusty lub jeśli chcesz całkowicie zastąpić jego zawartość. </p> </article> </section>  <section class="text">  <article> <h2>Metoda insertAdjacentHTML()</h2> <p> Nowoczesna metoda dodawania ciągu znaków z tagami HTML przed, po lub wewnątrz elementu. Rozwiązuje problem innerHTML z ponownym serializowaniem zawartości elementu podczas dodawania znaczników do istniejących. </p> <pre>
+            elem.insertAdjacentHTML(position, string);
+          </pre> <p> Argument position to ciąg znaków, pozycja względem elementu elem. Przyjmuje jedną z czterech wartości. </p> <div class="section7-img-container"> <img src="/HelpCreatingWebsite/insert-adjacent.2c603e66.png" alt=""> </div> <ul class="unnumbered-list-container"> <li>"beforebegin" - przed elem</li> <li>"afterbegin" - wewnątrz elem, przed wszystkimi dziećmi</li> <li>beforeend" - wewnątrz elem, po wszystkich dzieciach</li> <li>afterend" - po elem</li> </ul> <p class="example">Przykład -------------------------------</p> <pre>
+            const list = document.querySelector(".list");
+
+            const newTechnologies = ["React", "TypeScript", "Node.js"];
+            const markup = newTechnologies
+            .map((technology) => `li class="list-item new">${technology}/li>`)
+            .join("");
+
+            list.insertAdjacentHTML("beforeend", markup);
+            list.insertAdjacentHTML("beforebegin", "h2>Popular technologies/h2>");
+          </pre> <ul class="section7article1-list"> <li class="section7article1-list-item">HTML</li> <li class="section7article1-list-item">CSS</li> <li class="section7article1-list-item">JavaScript</li> </ul> <p class="example">PrzykładEND -------------------------------</p> <p> "beforebegin" i "afterend" działają tylko wtedy, gdy elem jest już w drzewie DOM. </p> </article> </section>  <section class="text">  <article> <h2>Łączenie skryptów</h2> <p> Załadowanie i wykonanie skryptu określonego w znaczniku script bez żadnych atrybutów zablokuje przetwarzanie dokumentu HTML i utworzenie DOM. To powoduje problemy. </p> <pre>
+            script src="path-to-script.js">/script>
+          </pre> <p> Gdy przeglądarka napotka taki znacznik, przetwarzanie dokumentu HTML zostaje wstrzymane i rozpoczyna się pobieranie pliku skryptu określonego w atrybucie src. Po załadowaniu skrypt jest wykonywany, a dopiero potem wznawiane jest przetwarzanie HTML. Nazywamy to skryptem "blokującym". </p> <p> Atrybuty defer i async zostały wprowadzone, aby dać programistom większą kontrolę nad tym, jak ładować skrypty i kiedy je wykonywać. </p> </article>  <article> <h2>Atrybut defer</h2> <pre>
+            script defer src="path-to-script.js">/script>
+          </pre> <p> Atrybut defer mówi przeglądarce, aby załadować plik skryptu w tle, równolegle z przetwarzaniem dokumentu HTML i tworzeniem DOM. Skrypt zostanie jednak wykonany dopiero po przetworzeniu dokumentu HTML i utworzeniu DOM. Takie skrypty nie blokują utworzenia drzewa DOM i gwarantują wykonanie w kolejności, w jakiej zostały określone w dokumencie HTML, a na dodatek gwarantują, że DOM jest już dla nas dostępny. </p> </article>  <article> <h2>Atrybut async</h2> <pre>
+            script async src="path-to-script.js">/script>
+          </pre> <p> Załadowanie skryptu z atrybutem async nie blokuje utworzenia DOM, ale jest wykonywane natychmiast po zakończeniu ładowania. Oznacza to, że takie skrypty mogą blokować utworzenie DOM i są wykonywane w dowolnej kolejności co sprawia, że są trudniejsze do prawidłowego zaprojektowania. </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>05.05.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/html/01-zajeciaWprowadzajace.1415475f.js"></script> <script defer src="/HelpCreatingWebsite/html/11-dom.f4347d83.js" type="module"></script><script defer src="/HelpCreatingWebsite/html/11-dom.de8361d0.js" nomodule=""></script> </body></html>

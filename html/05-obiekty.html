@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/html/01-zajeciaWprowadzajace.db4c380e.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.1022625c.css"><link rel="stylesheet" href="/HelpCreatingWebsite/html/05-obiekty.ce399473.css"><title>Obiekty</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> </nav> </header> <main class="main-container">  <section class="text"> <article id="article1"> <h1>Moduł3 - Zajęcia 5 - Obiekty</h1> <p> Obiekty to rodzaj danych pozwalający opisać i pogrupować cechy w jedną strukturę. Możemy w ten sposób opisać użytkownika, książkę, produkt itp. Obiekty nazywane są czasem słownikami, to znaczy zawierają terminy (właściwości) i ich definicje (wartości). </p> </article> <article id="article2"> <h2>Section1 Article2: Tworzenie obiektu</h2> <p> Aby zadeklarować obiekt używane są nawiasy klamrowe { } - literał obiektowy. Przypomina on nieco literał tablicowy [ ] </p> <pre>
+            const book = {
+                title: "The Last Kingdom",
+                author: "Bernard Cornwell",
+                genres: ["historical prose", "adventure"],
+                isPublic: true,
+                rating: 8.38,
+            };
+          </pre> <p> Kiedy tworzysz obiekt, możesz dodać właściwości (properties lub props), z których każda jest opisana parami key:value. Klucz jest również nazywany nazwą właściwości i zawsze jest ciągiem znaków. Wartość właściwości może być dowolnego typu: prymitywy, tablice, obiekty, wartości logiczne, funkcje itp. Kolejne właściwości są oddzielone przecinkami. </p> <p>Zasady nazewnictwa kluczy są proste:</p> <ul class="unnumbered-list-container"> <li> Jeśli klucz jest ujęty w cudzysłów, może to być dowolny ciąg. </li> <li> Jeśli nie ma cudzysłowiu, to nazwa ma pewne ograniczenia - nie może mieć spacji i zaczyna się od litery lub znaków _ i $ (podobnie jak nazwy zmiennych). </li> </ul> </article> <article id="article3"> <h2>Section1 Article3: Właściwości zagnieżdżone</h2> <p> Wartość właściwości może być kolejnym obiektem w celu przechowywania dołączonych i pogrupowanych danych. Dla przykładu, statystyki użytkownika sieci społecznościowej składają się z liczby obserwujących, wyświetleń i polubień, więc najwygodniej jest przechowywać te dane w postaci obiektu w jednej z właściwości. Tak samo będzie z lokalizacją, która składa się osobno z kraju i miasta. </p> <pre>
+            const user = {
+                name: "Jacques Gluke",
+                tag: "jgluke",
+                location: {
+                    country: "Jamaica",
+                    city: "Ocho Rios",
+                },
+                stats: {
+                    followers: 5603,
+                    views: 4827,
+                    likes: 1308,
+                },
+            };
+          </pre> <p> W przyszłości będziemy mogli wykorzystać to do wyszukiwania użytkowników według kraju, miasta, minimalnej lub maksymalnej liczby obserwujących itp. </p> </article> <article id="article4"> <h2> Section1 Article4: Odwołanie się do właściwości za pomocą kropki </h2> <p> Pierwszym sposobem uzyskania dostępu do właściwości obiektu jest składnia object.propertyName. Odwołanie za pomocą kropki jest używane w większości przypadków i jest przydatne, gdy znamy z góry nazwę (klucz) właściwości, do której chcemy uzyskać dostęp. </p> <ul class="unnumbered-list-container"> <li> Wartość właściwości o podanej samej nazwie zostanie zwrócona w miejscu odwołania się do niej. </li> <li> Jeśli w obiekcie nie ma właściwości o tej samej nazwie, zostanie zwrócone undefined w miejscu odwołania się. </li> </ul> <pre>
+            const book = {
+                title: "The Last Kingdom",
+                author: "Bernard Cornwell",
+                genres: ["historical prose", "adventure"],
+                isPublic: true,
+                rating: 8.38,
+            };
+
+            const bookTitle = book.title;
+            console.log(bookTitle);// 'The Last Kingdom'
+
+            const bookGenres = book.genres;
+            console.log(bookGenres);// ['historical prose', 'adventurs']
+
+            const bookPrice = book.price;
+            console.log(bookPrice);// undefined
+          </pre> </article> <article id="article5"> <h2> Section1 Article5: Odwołanie się do zagnieżdżonych właściwości </h2> <p> Aby uzyskać dostęp do zagnieżdżonych właściwości, używany jest łańcuch odwołań "przez kropki". Dla przykładu, jeśli chcesz uzyskać wartość kraju użytkownika, użyj konstrukcji user.location.country, gdzie user.location jest odwołaniem (ścieżką) do obiektu we właściwości location, natomiast user.locaton.country jest odwołaniem do właściwości country w tym obiekcie . Każda kolejna "kropka" wskazuje na następne zagnieżdżenie. </p> <pre>
+            const user = {
+                name: "Jacques Gluke",
+                tag: "jgluke",
+                location: {
+                    country: "Jamaica",
+                    city: "Ocho Rios",
+                },
+                hobbies: ["swimming", "music", "sci-fi"],
+            };
+
+            const location = user.location;
+            console.log(location);// { country: "Jamaica", city: "Ocho Rios" }
+
+            const country = user.location.country;
+            console.log(country);// 'Jamaica'
+          </pre> <p> Jeśli wartością właściwości jest tablica, to w naszym przykładzie user.hobbies będzie odwołaniem do tej tablicy. Następnie możesz uzyskać dostęp do jej elementów przez nawiasy kwadratowe i indeks lub użyć właściwości i metod tablicowych tak jak wtedy kiedy odwołujemy się do tablicy w zwykłej zmiennej. </p> <pre>
+            const user = {
+                name: "Jacques Gluke",
+                tag: "jgluke",
+                location: {
+                    country: "Jamaica",
+                    city: "Ocho Rios",
+                },
+                hobbies: ["swimming", "music", "sci-fi"],
+            };
+
+            const hobbies = user.hobbies;
+            console.log(hobbies);// ['swimming', 'music', 'sci-fi']
+
+            const firstHobby = user.hobbies[0];
+            console.log(firstHobby);// 'swimming'
+
+            const numberOfHobbies = user.hobbies.length;
+            console.log(numberOfHobbies);// 3
+          </pre> </article> <article id="article6"> <h2> Section1 Article6: Odwołanie się do właściwości za pomocą nawiasów kwadratowych </h2> <p> Drugim sposobem uzyskania dostępu do właściwości obiektu jest użycie składni obiekt["nazwa właściwości"]. Ten sposób jest podobny do odwoływania się do elementu tablicy, z tą różnicą, że w nawiasach podaje się nie indeks elementu, ale nazwę właściwości jako string. </p> <p> Składnia "nawiasów kwadratowych" jest używana znacznie rzadziej, zazwyczaj wtedy gdy nazwa właściwości nie jest z góry znana lub jest przechowywana w zmiennej, na przykład jako wartość parametru funkcji. </p> <ul class="unnumbered-list-container"> <li> Wartość właściwości o tej samej nazwie zostanie zwrócona do miejsca odwołania się. </li> <li> Jeśli obiekt nie posiada właściwości o tej samej nazwie, do miejsca odwołania się powróci undefined. </li> </ul> <pre>
+            const book = {
+                title: "The Last Kingdom",
+                author: "Bernard Cornwell",
+                genres: ["historical prose", "adventure"],
+                isPublic: true,
+                rating: 8.38,
+            };
+
+            const bookTitle = book["title"];
+            console.log(bookTitle);// 'The Last Kingdom'
+
+            const bookGenres = book["genres"];
+            console.log(bookGenres);// ['historical prose', 'adventure']
+
+            const propKey = "author";
+            const bookAuthor = book[propKey];
+            console.log(bookAuthor);// 'Bernard Cornwell'
+          </pre> </article> <article id="article7"> <h2>Section1 Article7: Zmiana wartości właściwości</h2> <p> Po utworzeniu obiektu można zmienić wartość jego właściwości. Aby to zrobić, musisz odnieść się do nich poprzez nazwę, na przykład „przez kropkę" i przypisać nową wartość. Działa to podobnie jak w przypadku tablic. </p> <pre>
+            const book = {
+                title: "The Last Kingdom",
+                author: "Bernard Cornwell",
+                genres: ["historical prose", "adventure"],
+                isPublic: true,
+                rating: 8.38,
+            };
+
+            book.rating = 9;
+            book.isPublic = false;
+            book.genres.push("drama");
+
+            console.log(book.rating);// 9
+            console.log(book.isPublic);// false
+            console.log(book.genres);// ['historical prose', 'adventures', 'drama']
+          </pre> </article> <article id="article8"> <h2>Section1 Article8: Dodawanie właściwości</h2> <p> Operacja dodawania nowej właściwości po utworzeniu obiektu nie różni się od zmiany wartości istniejącej właściwości. Jeśli podczas przypisania wartości przez jej nazwę nie ma jeszcze takiej właściwości w obiekcie to zostanie ona utworzona. Znowu widzimy tu analogię do tablic w których również możemy przypisać wartość pod indeks który wartości jeszcze nie przechowuje. </p> <pre>
+            const book = {
+                title: "The Last Kingdom",
+                author: "Bernard Cornwell",
+                genres: ["historical prose", "adventure"],
+                isPublic: true,
+                rating: 8.38,
+            };
+
+            book.pageCount = 836;
+            book.originalLanguage = "en";
+            book.translations = ["ua", "ru"];
+
+            console.log(book.pageCount);// 836
+            console.log(book.originalLanguage);// 'en'
+            console.log(book.translations);// ['ua', 'ru']
+          </pre> </article> <article id="article9"> <h2>Section1 Article9: Shorthand Property</h2> <p> Czasami podczas tworzenia obiektu wartość właściwości musi zostać pobrana ze zmiennej lub parametru funkcji o tej samej nazwie którą chcemy nadać właściwości. </p> <p> Składnia w poniższym przykładzie jest mniej czytelna i dłuższa, ponieważ trzeba powielić nazwę właściwości i nazwę zmiennej przechowującej wymaganą wartość. </p> <pre>
+            const name = "Henry Cibola";
+            const age = 25;
+
+            const user = {
+                name: name,
+                age: age,
+            };
+
+            console.log(user.name);// "Henry Cibola"
+            console.log(user.age);// 25
+          </pre> <p> Skrócona składnia shorthand property rozwiązuje ten problem, umożliwiając użycie nazwy zmiennej jako nazwy właściwości i jej wartości jako wartości właściwości. </p> <pre>
+            const name = "Henry Cibola";
+            const age = 25;
+
+            const user = {
+                name,
+                age,
+            };
+
+            console.log(user.name);// "Henry Cibola"
+            console.log(user.age);// 25
+          </pre> <p> Oznacza to, że podczas deklarowania obiektu wystarczy podać tylko nazwę właściwości, a wartość zostanie pobrana ze zmiennej o tej samej nazwie. Podane powyżej przykłady osiągają dokładnie ten sam efekt, jednak przykład drugi zawiera mniej kodu. </p> </article> <article id="article10"> <h2>Section1 Article10: Computed properties</h2> <p> Zdarzają się sytuacje, w których podczas deklarowania obiektu konieczne jest dodanie właściwości o nazwie, której z góry nie znamy, ponieważ jest ona przechowywana jako wartość zmiennej lub jako wynik funkcji. </p> <p> We wcześniejszych standardach JavaScript w tym celu trzeba było najpierw utworzyć obiekt, a następnie dodać właściwości za pomocą nawiasów kwadratowych, co komplikuje zapis. </p> <pre>
+            const propName = "name";
+            const user = {
+                age: 25,
+            };
+
+            user[propName] = "Henry Cibola";
+            console.log(user.name);// 'Henry Cibola'
+          </pre> <p> Składnia obliczonych właściwości (computed properties) pomaga uniknąć niepotrzebnego kodu. Wartością obliczonej właściwości może być dowolne poprawne wyrażenie. </p> <pre>
+            const propName = "name";
+            const user = {
+                age: 25,
+                // Nazwa tej właściwości zostanie pobrana z wartości zmiennej propName
+                [propName]: "Henry Cibola",
+            };
+
+            console.log(user.name);// 'Henry Cibola'
+          </pre> </article> <article id="article11"> <h2>Section1 Article11: Metody obiektowe</h2> <p> Do tej pory traktowaliśmy obiekty tylko jako magazyny powiązanych ze sobą właściwości, na przykład informacji o książce itp. Tego typu obiekty często znajdziemy w tablicach gdzie poszczególne elementy przechowują podobne do siebie obiekty z takimi samymi właściwościami o innych wartościach (np. lista książek z informacjami o ich gatunku, autorze itp) </p> <p> Obiekty mogą przechowywać jednak nie tylko dane, ale także funkcje do pracy z tymi danymi - metody. Jeśli wartością właściwości jest funkcja, właściwość ta nazywana jest właśnie metodą obiektową. Oznacz to, że każda metoda jest funkcją, ale nie każda funkcja jest metodą. </p> <pre>
+            // ✅ Widzimy zgrupowane ze sobą właściwości i metody w strukturze obiektu
+            const bookShelf = {
+              books: ["The Last Kingdom", "Dream Guardian"],
+    
+              // To jest metoda obiektowa
+              getBooks() {
+                console.log("Ta metoda zwróci wszystkie książki - właściwość books");
+              },
+    
+              // To jest metoda obiektowa
+              addBook(bookName) {
+                console.log("Ta metoda doda nową książkę do właściwości books");
+              },
+            };
+
+            // Wywołania metod
+            bookShelf.getBooks();
+            bookShelf.addBook("Nowa książka");
+          </pre> <p> Takie obiekty można nazwać "modelami". Wiążą dane i metody do pracy z tymi danymi. W teorii moglibyśmy zadeklarować zmienną books oraz dwie funkcje getBooks() i addBook(bookName), ale wtedy byłyby trzema niezależnymi strukturami bez wyraźnego połączenia logicznego. </p> <pre>
+            // ❌ Luźno powiązane, niezależne od siebie struktury
+            const books = [];
+            function getBooks() {}
+            function addBook() {}
+          </pre> </article> <article id="article12"> <h2>Section1 Article12: Dostęp do właściwości obiektu w metodach</h2> <p> Metody służą do pracy z właściwościami obiektów i ich zmiany. Aby uzyskać dostęp do obiektu, metoda która się w nim znajduje, nie używa nazwy zmiennej, na przykład bookShelf, ale słowa kluczowego this - kontekstu swojego wykonywania. Wartością this będzie obiekt przed "kropką", czyli obiekt, na którym wywołaliśmy tę metodę, czyli w naszym przypadku jest to link do obiektu bookShelf. </p> <pre>
+          const bookShelf = {
+            books: ["The Last Kingdom"],
+            getBooks() {
+              console.log(this);
+            },
+          };
+
+          // Kropka jest poprzedzona obiektem bookShelf,
+          // więc kiedy metoda jest wywoływana,
+          // this będzie przechowywało link do niego.
+          bookShelf.getBooks();// {books: ['The Last Kingdom'], getBooks: f getBooks()}
+        </pre> <p> Aby uzyskać dostęp do właściwości obiektu w metodach, odwołujemy się do niego przez this, a następnie, jak zwykle, przez kropkę, do właściwości. </p> <pre>
+          const bookShelf = {
+          books: ["The Last Kingdom"],
+          getBooks() {
+            return this.books;
+          },
+  
+          addBook(bookName) {
+            this.books.push(bookName);
+          },
+  
+          removeBook(bookName) {
+            const bookIndex = this.books.indexOf(bookName);
+            this.books.splice(bookIndex, 1);
+          },
+        };
+
+        console.log(bookShelf.getBooks());// ["The Last Kingdom"]
+        bookShelf.addBook("The Mist");
+        bookShelf.addBook("Dream Guardian");
+        console.log(bookShelf.getBooks());// ['The Last Kingdom', 'The Mist', 'Dream Guardian']
+        bookShelf.removeBook("The Mist");
+        console.log(bookShelf.getBooks());// ['The Last Kingdom', 'Dream Guardian']
+        </pre> <p> Można zadać pytanie - dlaczego nie używamy nazwy obiektu podczas odwołania się do właściwości, skoro ta nie wydaje się zmieniać? Podejście to wynika z następujących powodów: </p> <ul class="unnumbered-list-container"> <li> nazwa obiektu może się zmienić i musielibyśmy wtedy zmienić ją wtedy w każdej metodzie </li> <li> metody jednego obiektu można skopiować do drugiego (który będzie miał inną nazwę) </li> <li> w przyszłości przekonamy się, że często tworząc obiekt w ogóle nie znamy jego nazwy z góry. </li> </ul> <p> Użycie this jest wygodnym sposobem na upewnienie się, że metoda działa dokładnie na obiekcie, który ją wywołał. </p> <p> Więcej szczegółów na temat słowa kluczowego this i wszystkich jego pułapek omówimy w następnych lekcjach, ale na razie wystarczy po prostu używać this podczas odwoływania się do właściwości obiektu w jego metodach. </p> </article> </section>  <section class="text"> <article id="article1"> <h2>Section2 Article1: Iteracja po obiekcie</h2> <p> W przeciwieństwie do tablicy lub stringa, obiekt nie jest strukturą iterowalną, czyli nie możemy "przejśc" po nim za pomocą pętli for lub for...of. </p> </article> <article id="article2"> <h3>Section2 Article2: Pętla for...in</h3> <p> Jednym ze sposobów do iteracji po obiektach jest specjalna pętla for...in, która iteruje po kluczach obiektu object. Jest ona podobna do pętli for...of. </p> <pre>
+            for (key in object) {
+              // instrukcje
+            }
+          </pre> <p> Zmienna key jest dostępna tylko w ciele pętli. W każdej iteracji zostanie do niej zapisana wartość klucza (nazwa) właściwości. Aby uzyskać wartość właściwości z takim kluczem (nazwą), używana jest składnia nawiasów kwadratowych. </p> <pre>
+            const book = {
+              title: "The Last Kingdom",
+              author: "Bernard Cornwell",
+              genres: ["historical prose", "adventure"],
+              rating: 8.38,
+            };
+
+            for (const key in book) {
+              // Klucz
+              console.log(key);
+              // Wartość właściwości pod tym kluczem
+              console.log(book[key]);
+            }
+          </pre> </article> <article id="article3"> <h3>Section2 Article3: Metoda hasOwnProperty()</h3> <p> Przeanalizujmy pojęcie własnych (own) i dziedziczonych (inherited) właściwości obiektu i nauczmy się poprawnie używać pętli for...in. </p> <pre>
+            const animal = {
+              legs: 4,
+            };
+            const dog = Object.create(animal);
+            dog.name = "Mango";
+
+            console.log(dog);// {name: 'Mango'}
+            console.log(dog.name);// 'Mango'
+            console.log(dog.legs);// 4
+          </pre> <p> Metoda Object.create(animal) tworzy i zwraca nowy obiekt, używając i wiążąc go z obiektem animal. W związku z tym możemy uzyskać wartość właściwości legs przez odniesienie do niej jako dog.legs, mimo że nie znajduje się ona jako tako w obiekcie dog - jest to jej właściwość dziedziczona obiektu animal. </p> <p> Operator in, który jest używany w pętli for...in, nie rozróżnia własnych i dziedziczonych właściwości obiektu. To zachowanie może nam przeszkadzać, ponieważ raczej chcemy iterować tylko po własnych właściwościach obiektu. Aby dowiedzieć się, czy dana właściwość obiektu jest "własna", używana jest metoda hasOwnProperty(key), która zwraca true albo false. </p> <pre>
+            const animal = {
+              legs: 4,
+            };
+            const dog = Object.create(animal);
+            dog.name = "Mango";
+
+            // ❌ Zwraca true dla wszystkich właściwości
+            console.log("name" in dog);// true
+            console.log("legs" in dog);// true
+
+            // ✅ Zwraca true tylko dla własnych właściwości
+            console.log(dog.hasOwnProperty("name"));// true
+            console.log(dog.hasOwnProperty("legs"));// false
+          </pre> <p> Dlatego podczas iteracji w pętli for...in konieczne jest dodanie sprawdzenia właściwości przy każdej iteracji. Nawet jeśli teoretycznie mamy pewność, że obiekt nie ma dziedziczonych właściwości, uchroni to przed ewentualnymi błędami w przyszłości podczas wprowadzania zmian w kodzie. </p> <pre>
+            const book = {
+              title: "The Last Kingdom",
+              author: "Bernard Cornwell",
+              genres: ["historical prose", "adventure"],
+              rating: 8.38,
+            };
+
+            for (const key in book) {
+              // Jeśli to jest własna właściwość, wykonaj instrukcje w bloku if
+              if (book.hasOwnProperty(key)) {
+                console.log(key);
+                console.log(book[key]);
+              }
+              // Jeśli to nie jest własna właściwość, nie rób nic
+            }
+          </pre> </article> <article id="article4"> <h3>Section2 Article4: Metoda Object.keys()</h3> <p> Wbudowana w JavaScript klasa Object posiada kilka przydatnych metod do pracy z obiektami. Pierwsza z nich to Object.keys(obj), która pobiera obiekt i zwraca tablicę kluczy jej własnych właściwości. Jeśli obiekt nie ma właściwości, metoda zwróci pustą tablicę. </p> <pre>
+            const book = {
+              title: "The Last Kingdom",
+              author: "Bernard Cornwell",
+              genres: ["historical prose", "adventure"],
+              rating: 8.38,
+            };
+            const keys = Object.keys(book);
+            console.log(keys);// ['title', 'author', 'genres', 'rating']
+          </pre> <p> Łącząc wynik Object.keys() i pętlę for...of można wygodnie iterować po własnych właściwościach obiektu bez użycia archaicznej pętli for...in łączonej ze sprawdzeniem własności właściwości. </p> <pre>
+            const book = {
+              title: "The Last Kingdom",
+              author: "Bernard Cornwell",
+              genres: ["historical prose", "adventure"],
+              rating: 8.38,
+            };
+            const keys = Object.keys(book);
+
+            for (const key of keys) {
+              // Klucz
+              console.log(key);
+              // Wartość właściwości
+              console.log(book[key]);
+            }
+          </pre> <p> Iterujemy po tablicy kluczy obiektu i w każdej iteracji dostajemy się do wartości właściwości z danym kluczem. </p> </article> <article id="article5"> <h3>Section2 Article5: Metoda Object.values()</h3> <p> O ile metoda Object.keys(obj) zwraca tablicę kluczy własnych właściwości obiektu, to metoda Object.values(obj) zwraca tablicę wartości jego własnych właściwości. Jeśli obiekt nie ma właściwości, metoda Object.values(obj) zwróci pustą tablicę. </p> <pre>
+            const book = {
+              title: "The Last Kingdom",
+              author: "Bernard Cornwell",
+              rating: 8.38,
+            };
+            const keys = Object.keys(book);
+            console.log(keys);// ['title', 'author', 'rating']
+
+            const values = Object.values(book);
+            console.log(values);// ['The Last Kingdom', 'Bernard Cornwell', 8.38]
+          </pre> <p> Tablicę wartości właściwości można również iterować za pomocą pętli for...of, na przykład, aby uzyskać łączną sumę wartości liczbowych. </p> <p> Dla przykładu, mamy do czynienia z zadaniem obliczenia całkowitej liczby produktów w obiekcie w formacie nazwa-produktu: ilość-produktu. Wtedy metoda Object.values() jest odpowiednia, aby uzyskać tablicę wszystkich wartości, a następnie wygodnie je zsumować. </p> <pre>
+            const goods = {
+              apples: 6,
+              grapes: 3,
+              bread: 4,
+              cheese: 7,
+            };
+
+            const values = Object.values(goods);// [6, 3, 4, 7]
+            let total = 0;
+
+            for (const value of values) {
+              total += value;
+            }
+
+            console.log(total);// 20
+          </pre> </article> <article id="article6"> <h2>Section2 Article6: Metoda Object.entries()</h2> <p> Metoda Object.entries(obj) zwraca tablicę w której każdy element będzie kolejną tablicą składającą się z dwóch elementów: nazwa właściwości i wartość tej właściwości z obiektu obj. </p> <pre>
+            const book = {
+              title: "The Last Kingdom",
+              author: "Bernard Cornwell",
+              rating: 8.38,
+            };
+            const keys = Object.keys(book);
+            console.log(keys);// ['title', 'author', 'rating']
+
+            const values = Object.values(book);
+            console.log(values);// ['The Last Kingdom', 'Bernard Cornwell', 8.38]
+
+            const entries = Object.entries(book);
+            console.log(entries);
+            // [["title", "The Last Kingdom"], ["author", "Bernard Cornwell"], ["rating", 8.38]]
+          </pre> <p> W praktyce metoda Object.entries(obj) jest rzadko używana. Najczęściej wystarczy użycie metody Object.keys() lub Object.values(). </p> </article> </section>  <section class="text"> <article id="article1"> <h2>Section3 Article1: Tablica obiektów</h2> <p> Standardowym zadaniem programisty będzie manipulowanie tablicą obiektów tego samego rodzaju. Oznacza to, że wszystkie obiekty w tablicy mają ten sam zestaw właściwości, ale z różnymi wartościami. </p> <pre>
+            const books = [
+            {
+              title: "The Last Kingdom",
+              author: "Bernard Cornwell",
+              rating: 8.38,
+            },
+            {
+              title: "Beside Still Waters",
+              author: "Robert Sheckley",
+              rating: 8.51,
+            },
+            {
+              title: "Sen śmiesznego człowieka",
+              author: "Fiodor Dostojewski",
+              rating: 7.75,
+            },
+            ];
+          </pre> <p> Do iteracji po takiej tablicy używana jest standardowa pętla for...of. Wartości właściwości każdego obiektu można uzyskać za pomocą składni przez "kropkę", ponieważ w każdym obiekcie zestaw właściwości i ich nazwy będą takie same, różnią się tylko wartości. </p> <pre>
+            for (const book of books) {
+              // Obiekt książki
+              console.log(book);
+              // Tytuł
+              console.log(book.title);
+              // Autor
+              console.log(book.author);
+              // Ocena
+              console.log(book.rating);
+            }
+          </pre> <p> W poniższym przykładzie uzyskaliśmy listę tytułów wszystkich książek z kolekcji books. </p> <pre>
+            const bookNames = [];
+
+            for (const book of books) {
+              bookNames.push(book.title);
+            }
+
+            console.log(bookNames);// ["The Last Kingdom", "Beside Still Waters", "Sen śmiesznego człowieka"]
+          </pre> <p> Odnajdźmy teraz średnią ocenę całej naszej kolekcji. Aby to zrobić, zsumuj wszystkie oceny, a następnie podziel tę wartość przez liczbę książek w kolekcji. </p> <pre>
+            let totalRating = 0;
+
+            for (const book of books) {
+              totalRating += book.rating;
+            }
+
+            const averageRating = (totalRating / books.length).toFixed(1);
+            console.log(averageRating); // 8.2
+          </pre> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>04.05.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/html/01-zajeciaWprowadzajace.1415475f.js"></script> <script defer src="/HelpCreatingWebsite/html/05-obiekty.5c76240c.js" type="module"></script><script defer src="/HelpCreatingWebsite/html/05-obiekty.2b5cb667.js" nomodule=""></script> </body></html>

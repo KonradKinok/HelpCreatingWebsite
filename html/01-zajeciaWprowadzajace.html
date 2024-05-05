@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/html/01-zajeciaWprowadzajace.db4c380e.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.1022625c.css"><link rel="stylesheet" href="/HelpCreatingWebsite/html/01-zajeciaWprowadzajace.107db93d.css"><title>Zmienne i typy</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> </nav> </header> <main class="main-container">  <section> <div class="text"> <h1>Moduł1 - Zajęcia 1 - Zmienne i typy</h1> <h2>Section1: Poznawanie JavaScript</h2> <p class="text-p"> Kiedy myślimy o programowaniu, pierwszym skojarzeniem może być lista instrukcji w pliku tekstowym, które ma wykonać komputer. </p> <p class="text-p"> Kod źródłowy (source code) - pliki zawierające "treść" programu komputerowego zapisaną przy pomocy określonego języka programowania. Opisują one operacje, jakie powinien wykonać komputer na przechowywanych w pamięci lub przesyłanych do niego danych. </p> <p class="text-p"> Kod źródłowy nie jest zrozumiały w swojej bezpośredniej postaci dla komputera, dlatego istnieje dodatkowy krok, który konwertuje kod źródłowy w pliku w zestaw instrukcji zrozumiałych dla podzespołów (między innymi procesora). Za ten krok odpowiada osobny program - kompilator lub interpreter. Można powiedzieć, że kod piszemy nie dla komputera tylko dla programisty. Kod źródłowy musi być zrozumiały i oczywiście odpowiadać naszym wymaganiom co do jego działania. </p> </div> </section>  <section> <div class="text"> <h2>Section2: Logiczne myślenie</h2> <p class="text-p"> Na świecie istnieje wiele języków programowania. Kiedy opanujemy jeden z nich, to nauczenie się kolejnych nie jest tak skomplikowane, jak uczenie się języków używanych przez nas na co dzień. Związane jest to z tym, że liczba konstrukcji semantycznych, jest znaczniej mniejsza i na dodatek wiele konceptów po prostu powtarza się niezależnie od tego z którego języka korzystamy (czasem z nieco zmienioną składnią) </p> <p class="text-p"> Doświadczeni programiści analizują problemy pod kątem algorytmów - zestawu kroków, które należy wykonać, aby osiągnąć określony cel. Algorytm możemy porównać do naszych codziennych działań takich jak przygotowanie herbaty - czynność ta składa się z kolejnych etapów, które pozwalają osiągnąć określony cel. Kiedy zaczniesz odpowiednio analizować problem do rozwiązania, myśląc o nim algorytmicznie i rozbijając go na poszczególne kroki, język programowania stanie się po prostu narzędziem do użycia. </p> </div> </section>  <section> <div class="text"> <h2>Section3: JavaScript</h2> <p class="text-p"> JavaScript - implementacja specyfikacji EcmaScript, język programowania "wysokiego poziomu", obsługiwany przez każdą współczesną przeglądarkę. Początkowo on został zaprojektowany do zarządzania elementami stron internetowych i obsługiwania interakcji z użytkownikiem (m.in. nasłuchiwania jego akcji takich jak kliknięcia, wpisywanie wartości z klawiatury itp). </p> <p class="text-p"> JavaScript nie ma żadnego połączenia z językiem Java. To są dwa osobne języki programowania, wykorzystywane w odmiennych kontekstach. Z uwagi na podobną nazwę wśród osób nie związanych z programowaniem bywają ze sobą mylone. </p> <p class="text-p"> Przy pisaniu Front-endu, JavaScript wykorzystuje się w połączeniu z HTML i CSS dla zapewnienia funkcjonalności strony internetowej, takich jak: </p> <ul class="unnumbered-list-container"> <li>proste obliczenia</li> <li> weryfikacja i manipulacja danymi wprowadzonymi przez użytkownika </li> <li> przechowywanie danych w przeglądarce użytkownika (local storage) </li> <li>dynamiczne zmiany w dokumencie HTML</li> <li> reakcja na działania użytkownika: kliknięcia, scrollowanie strony itp </li> <li>tworzenie elementów interaktywnych: galerii, wykresów itp.</li> <li> interakcja z backendem, wysyłanie zapytań, operowanie na danych otrzymanych z serwera </li> </ul> <p class="text-p"> JavaScript połączony z HTML wykonywany jest w przeglądarce. Programista nie posiada narzędzi ani dostępu do plików lub systemu operacyjnego ze względów bezpieczeństwa. </p> <p class="text-p"> Na dzień dzisiejszy wykorzystując JavaScript można tworzyć: </p> <ul class="unnumbered-list-container"> <li> aplikacje webowe, wykorzystując frameworki takie jak React, Vue, Angular i inne </li> <li>backendowe aplikacje na Node.js</li> <li>mobilne aplikacje używając React Native ,Ionic lub Cordova</li> <li>aplikacje desktopowe za pomocą Electron</li> <li> oprogramowanie mikrokontrolerów za pomocą Johnny-Five i Espruino </li> </ul> <p class="text-p"> Niezależnie od tego do czego chcesz używać JavaScript, musisz dobrze znać składnię języka, jego cechy i mechanizmy, trenować myślenie algorytmiczne i rozwiązywać jak najwięcej praktycznych zadań. </p> </div> </section>  <section> <div class="text"> <h2>Section4: Podłaczenie skryptu</h2> <p class="text-p"> Aby użyć skryptu na swojej stronie, musimy w pliku HTML wykorzystać tag script, gdzie w atrybucie src należy wskazać ścieżkę do zewnętrznego pliku JavaScript. </p> <p class="text-p">Aby podłączyć JavaScript z zewnętrznego pliku:</p> <ul class="unnumbered-list-container"> <li>Stwórz plik z rozszerzeniem .js i umieść go w folderze js.</li> <li> Później należy wskazać ścieżkę do pliku JS w atrybucie src tagu script. </li> </ul> <div class="section4-img-container"> <img src="/HelpCreatingWebsite/podlaczenieSkryptu.af25b8f9.jpg" alt=""> </div> <p class="text-p"> Nie ma konieczności dodawania plików JavaScript do folderu js, ale jest to przydatna praktyka. </p> <p class="text-p"> Jeśli skrypt jest podłączony w "head", strona nie będzie się ładować aż do momentu, gdy skrypt w całości zostanie załadowany. Przeglądarka ładuje i wyświetla HTML krok po kroku, budując drzewo elementów HTML. Jeśli zobaczy tag "script", który nie posiada innych atrybutów, to w pierwszej kolejności wykonuje się skrypt, a dopiero później ładuje się reszta dokumentu - bardzo często powoduje to problem, ponieważ skrypt nie będzie miał wtedy dostępu do elementów strony (ponieważ nie są jeszcze załadowane). Dlatego skrypt często podłącza się przed zamykającym tagiem "body", po całej treści, jak w przykładzie. </p> <p class="text-p"> Alternatywnie możemy dodać do tagu "script" dodatkowy atrybut defer który zaczeka na załadowanie drzewa elementów, wtedy nasz skrypt możemy podłączyć w "head" jak w poniższym przykładzie </p> <div class="section4-img-container"> <img src="/HelpCreatingWebsite/podlaczenieSkryptu2.3707d009.jpg" alt=""> </div> </div> </section>  <section> <div class="text"> <h2>Section5: Kilka skryptów</h2> <p class="text-p"> Kiedy podłączamy kilka plików JavaScript do strony, interpretator "odczyta" je w takiej kolejności w jakiej są umieszczone w pliku HTML, co czasem może wywołać błędy spowodowane brakiem zmiennych, jeżeli kolejność jest nieprawidłowa. </p> <div class="section5-img-container"> <img class="section5-img" src="/HelpCreatingWebsite/kilkaSkryptow.3718f648.jpg" alt=""> </div> </div> </section>  <section> <div class="text"> <h2>Section6: Dev tools</h2> <p class="text-p"> Podczas pisania kodu często spotykamy się z błędami, co jest normalne na każdym poziomie zaawansowania. Konsola przeglądarki pokazuje nam informację dotyczącą strony, w tym wiadomości o błędach, między innymi o tych, które pojawiły się podczas wykonywania się skryptu JS. </p> <p class="text-p"> Następujące skróty klawiszowe otwierają narzędzia developerskie, gdzie błędy odnajdziemy w zakładce Console: </p> <ul class="unnumbered-list-container"> <li>Windows / Linux - Ctrl + Shift + J lub F12</li> <li>MacOS - Command + Option + J</li> </ul> </div> </section>  <section> <div class="text"> <h2>Section7: Podstawy składni</h2> <p class="text-p"> Żeby pisać swój kod, musimy najpierw zapoznać się z terminologią i koncepcjami kodu źródłowego. W tej sekcji mniej ważne będą szczegóły jak działa dany zapis. Ważne jest, aby zapoznać się z podstawową terminologią i składnią (syntax). </p> </div> </section>  <section> <div class="text"> <h2>Instrukcja</h2> <p> Instrukcja (statement) - jest to powiązany ze sobą zestaw słów kluczowych i symboli ze składni języka, które łączą się, aby wyrazić jedną ideę, instrukcję dla komputera. </p> <p>a = b * 2;</p> <p> Instrukcje w JavaScript kończą się średnikiem, który można porównać z kropką na koniec zdania w ojczystym języku. Czasami instrukcja będzie zajmować więcej niż jedną linijkę, więc średniki nie zawsze będą kończyły każdą linię tekstu. </p> <ul class="unnumbered-list-container"> <li> a i b - zmienne (jak w równaniu algebraicznym znanym ze szkoły), jest to narzędzie do przechowywania danych, które wykorzystuje program. Zmienna składa się z identyfikatora (nazwy) i wartości przechowywanej w danej zmiennej </li> <li> 2 - wartość liczbowa. Jest to dosłowna wartość (literal value), ponieważ nie jest zapisana w zmiennej </li> <li>= i * - operatory, wykonują działania zmieniające zmienne.</li> </ul> <p> Wyobraźmy sobie, że zmienna b już przechowuje liczbę 10. Wtedy ta instrukcja zostanie zinterpretowana jako </p> <ol class="numbered-list-container"> <li> Znajdź zmienną z identyfikatorem b i dowiedz się jaką ma wartość. </li> <li>Podstaw wartość zmiennej b (10), w miejsce b</li> <li>Wykonaj operację mnożenia 10 na 2.</li> <li> Zapisz rezultat wyrażenia po prawej części jako wartość zmiennej a. </li> </ol> <p> Zakończenie instrukcji średnikiem nie zawsze jest konieczne, ale rekomendujemy na początku zawsze go używać. Dzięki temu lepiej zrozumiemy kod i unikniemy ciężkich do odnalezienia błędów. </p> </div> </section>  <section> <div class="text"> <h2>Section9: Wyrażenie</h2> <p> Instrukcje składają się z elementów składni danego języka, których zbiór nazywamy wyrażeniem, podobnie jak zdanie w języku mówionym składa się z wyrazów. </p> <p> Wyrażenia (expression) - wartość lub instrukcje które zostają zinterpretowane i sprowadzają się do wartości </p> <p>[ [a] = [ [b] * [2] ] ]</p> <p> Instrukcja z przykładu powyżej zawiera 5 wyrażeń, które są oddzielone kwadratowym nawiasem dla wizualizacji (powyższa instrukcja nie jest poprawną składnią języka): </p> <ul class="unnumbered-list-container"> <li>[2] - dosłowna wartość.</li> <li> [b]i[a] - zmienne, oznaczające potrzebę podstawienia wartości zmiennej, ale dopiero wtedy, gdy zmienna znajduje się po prawej stronie wyrażenia. </li> <li>[b * 2] - arytmetyczne wyrażenie mnożenia.</li> <li> [a = b * 2] - wyrażenie przypisania. W naszym przypadku wskazuje potrzebę ewaluacji (obliczenia) prawej strony wyrażenia i przypisania wyniku do zmiennej a po lewej stronie wyrażenia. </li> </ul> <p> Istnieją też wyrażenia wywoływania funkcji, porównania wartości itp. Nie będziemy teraz rozważać wszystkich z nich. Istotne na ten moment jest, abyśmy zrozumieli, z jakich części składa się kod źródłowy i jak poprawnie go odczytać. Pozostałe elementy i inne wyrażenia poznamy w kolejnych modułach. </p> </div> </section>  <section> <div class="text"> <h2>Section10: Interfejs</h2> <p> Kiedy prowadzimy samochód, korzystamy z jego systemów które pozwalają na zmianę jego zachowania (kierownica, pedały, przyciski i przełączniki) W programowaniu zbiór takich "narzędzi" nazywamy interfejsem. </p> <p> Interfejs - zbiór właściwości i metod dostępnych do użycia w kodzie źródłowym. </p> <h3>Właściwość</h3> <p> Każdy z nas ma właściwości: wzrost, wagę, kolor oczu, czyli opisowe cechy. Dane w kodzie źródłowym również mają właściwości, na przykład, wiersz tekstu ma właściwość - jego długość. Składnia odwoływania się do właściwości jest bardzo prosta - używamy kropki i podajemy nazwę właściwości (zdefiniowaną w standardzie JavaScriptu i do której wartość zostaje przypisana automatycznie bez naszej ingerencji). </p> <p>essence.nazwa_właściwości</p> <p> Dla przykładu przejdźmy do właściwości dla wiersza, length, która zawiera liczbę znaków w danym wierszu </p> <p>"JavaScript is awesome".length;</p> <p>W tym miejscu, wartością tej właściwości będzie liczba 21</p> <h3>Metoda</h3> <p> Idąc za poprzednią metaforą, metoda to wywołanie akcji, na przykład usiądź lub płyń, czyli aktywne działanie. Podobnie, dane mają własne predefiniowane metody, na przykład możesz dodawać lub usuwać elementy z tablicy, przekształcać ciąg znaków z małych na duże litery itp. Składnia wywoływania metody jest bardzo podobna do wywoływania właściwości, ale na końcu dodawane są nawiasy w których czasem możemy podać dalsze modyfikatory (o tym więcej w innym modułach). </p> <p>essence.nazwa_metody()</p> <p> Dla przykładu zwróćmy się do metody wiersza toUpperCase(), który przekształci wszystkie litery na duże. </p> <p>"JavaScript is awesome".toUpperCase();</p> <p>Taka instrukcja zostanie ewaluowana do:</p> <p>"JAVASCRIPT IS AWESOME"</p> <p> Ta wartość może potem zostać na przykład przypisana do zmiennej i wykorzystana dalej. </p> <h3>Use strict</h3> <p> Nowa instrukcja w specyfikacji ECMAScript 5, która wymusza interpretowanie skryptu w pełnej zgodności z nowoczesnym standardem. Zapobiega to pewnym błędom wynikającym z używania niebezpiecznych i przestarzałych konstrukcji. </p> <p> Aby ustawić skrypt w trybie ścisłym wystarczy podać dyrektywę na początku pliku JS. Zawsze pisz swój kod w trybie strict (ścisłym). </p> <p>script.js</p> <p>"use strict";</p> </div> </section>  <section> <div class="text"> <h2>Section11: Zmienne i typy prymitywne</h2> <p> Zmienne służą do przechowywania danych i składają się z identyfikatora (nazwy) oraz obszaru w pamięci, w którym przechowywana jest ich wartość. Zmienną możemy sobie wyobrazić jako pudełko z nazwą, w którym przechowywana jest zawartość (wartość zmiennej) </p> <p>"słowo_kluczowe" "nazwa_zmiennej" = "znaczenie"</p> </div> </section>  <section> <div class="text"> <h2>Section12: Nazwa zmiennej</h2> <ul class="unnumbered-list-container"> <li> Pierwszym symbolem musi być litera a-z lub A-Z, symbol podkreślenia _ lub znak dolara $. </li> <li> Kolejne symbole mogą być literami a-z, A-Z, cyframi 0-9, podkreśleniem _ i znakiem dolara $ </li> <li> W identyfikatorach rozróżniana jest wielkość liter. To oznacza, że zmienne user, usEr i User nie są tym samym. </li> </ul> <p> Nazwa zmiennej powinna być możliwe zwięzła ale przede wszystkim zrozumiała również dla człowieka czytającego kod. </p> <p> Standardowo w JavaScript używamy camelCase, przyjęło się również, że zmienne nazywamy po angielsku. </p> <p> W notacji camelCase pierwsze słowo jest pisane małymi literami, a każda kolejne zaczyna się od dużej np. user, greetUser, getUserData, isActive, activeGuestCount, totalWorkerSalary./p> </p> <p> Istnieje lista zarezerwowanych słów kluczowych, które mają specjalne znaczenie i są używane jako część składni języka. Nie można użyć słów kluczowych jako identyfikatorów (nazw zmiennych) ponieważ interpreter nie będzie rozumiał naszego zapisu i pojawi się błąd. </p> </div> </section>  <section> <div class="text"> <h2>Section13: Deklaracja zmiennej</h2> <p> Deklaracja zmiennej najczęściej zaczyna się od słowa kluczowego const. Taka zmienna musi mieć nadaną wartość, po przypisaniu której nie może już być nadpisana. </p> <pre>
+            // Zmienne const obowiązkowo powinny mieć nadaną
+            // wartość podczas deklaracji, w innym przypadku pojawi się błąd.
+            const yearOfBirth = 2006;
+            console.log(yearOfBirth); // 2006
+            
+            // Jeśli zadeklarowaliśmy zmienną const, nie możemy już zmienić jej wartości,
+            // Przy próbie nadania nowej wartości pojawi się błąd przy wykonaniu skryptu.
+            yearOfBirth = 2020; // ❌ Nieprawidłowo, pojawi się błąd
+          </pre> <p> W celu zadeklarowania zmiennej, której w przyszłości będzie można przypisać nową wartość, używane jest słowo kluczowe let. </p> <pre>
+            // Zmienne zadeklarowane za pomocą let 
+            // nie muszą mieć wartości w momencie deklaracji.
+            let age;
+
+            // Jeśli zadeklarowanej zmiennej za pomocą let nie była przypisana wartość,
+            // automatycznie nadana zostanie wartość undefined (nie zdefiniowano).
+            console.log(age); // undefined
+
+            // console.log() to metoda do wyświetlenia danych w konsoli przeglądarki,
+            // zapoznamy się z nią nieco później.
+
+            // Jeśli zmienna jest zadeklarowana za pomocą let, 
+            // możemy nadpisać wartość tej zmiennej.
+            age = 14;
+            console.log(age); // 14
+          </pre> <p> Deklaracja zmiennej bez słowa kluczowego let lub const doprowadzi do błędu, jeśli skrypt jest wykonywany w "strict mode". </p> </div> </section>  <section> <div class="text"> <h2>Section14: Kiedy wykorzystywać const i let</h2> <p> Jedyną różnicą między const i let jest to, że const nie pozwala na ponowne przypisywanie wartości do zmiennej. Deklaracja const sprawia, że kod jest bardziej czytelny, ponieważ zmienna zawsze odnosi się do tej samej wartości. W przypadku let takiej pewności już nie ma. </p> <p>let i const należy wykorzystywać w ten sposób:</p> <ul class="unnumbered-list-container"> <li> Używaj const domyślnie, większość zmiennych będzie deklarowana właśnie w taki sposób. </li> <li> Używaj let, jeśli będziesz przypisywał nowe wartości do zmiennej podczas wykonywania skryptu. </li> </ul> </div> </section>  <section> <div class="text"> <h2>Section15: constants i CONSTANTS (stałe)</h2> <p> Nazwy CONSTANTS - są zmienne, których znaczenie nie zmienia się nigdy podczas wykonywania całego skryptu i mają znaczenie konfiguracyjne. Nazwy takich zmiennych przyjęło się zapisywać następująco: UPPER_SNAKE_CASE. </p> <pre>
+            // Zmienna stała, która zawiera wartość koloru
+            const COLOR_TEAL = "#009688";
+
+            // Zmienna stała, która zawiera wiadomość powitalną po zalogowaniu się
+            const LOGIN_SUCCESS_MESSAGE = "Witamy!";
+          </pre> <p> Zdecydowana większość zmiennych to stałe w nieco innym sensie, po prostu nie zmieniają swojej wartości po przypisaniu, ale np. przy kolejnych uruchomieniach skryptu ta wartość może być inna. Nazwy takich zmiennych są zapisywane normalnie w formacie camelCase. </p> </div> </section>  <section> <div class="text"> <h2>Section16: Odwoływanie się do zmiennej</h2> <p> Ważne jest, aby rozróżnić zmienne niezdefiniowane i niezadeklarowane. </p> <p> Niezdefiniowane (undefined) - jest to zmienna która została zadeklarowana za pomocą słowa kluczowego let, ale nie posiadająca jeszcze wartości. Domyślnie przypisana wartość początkowa to undefined. </p> <pre>
+            let username;
+            console.log(username);// undefined
+          </pre> <p> Niezadeklarowana (undeclared lub not defined) - to zmienna, o nazwie która nie została nigdzie wcześniej zadeklarowana. Próba uzyskania dostępu do zmiennej przed deklaracją spowoduje błąd- na przykład, próba odczytu lub zmiany jej wartości. </p> <pre>
+            // ❌ Nieprawidłowo, pojawi się błąd
+            age = 15; // ReferenceError: Cannot access 'age' before initialization
+            console.log(age);// ReferenceError: age is not defined
+
+            // Deklaracja zmiennej age
+            let age = 20;
+
+            // ✅ Prawidłowo, odwołujemy się do zmiennej po jej deklaracji
+            age = 25;
+            console.log(age);// 25
+          </pre> </div> </section>  <section> <div class="text"> <h2>Section17: Typy prymitywne</h2> <p> W JavaScript sama zmienna nie jest powiązana z żadnym typem danych, dopiero jej wartość będzie danego typu. Oznacza to, że zmienna może przechowywać wartości różnych typów i możemy przypisywać do tej samej zmiennej wartości różnego typu w obrębie działania naszego skryptu (nie jest to zazwyczaj dobra praktyka, ale jest to możliwe). </p> <p> Number - liczby całkowite i liczby zmiennoprzecinkowe (z wartościami dziesiętnymi po "kropce") </p> <pre>
+            const age = 20;
+            const points = 15.8;
+          </pre> <p> String - wiersz czy też sekwencja znaków. Wiersz rozpoczyna się i kończy się pojedynczym ', lub podwójnym cudzysłowem ". </p> <pre>
+            const username = "Mango";
+            const description = "JavaSript dla początkujących";
+          </pre> <p> Boolean - logiczny typ danych. Posiada tylko dwa znaczenia: true lub false. Na przykład na pytanie, czy w pokoju jest włączone światło możemy odpowiedzieć tak (true) lub nie (false). </p> <ul class="unnumbered-list-container"> <li>true — tak, prawidłowo, prawda, 1</li> <li>false — nie, nieprawidłowo, fałsz, 0</li> </ul> <p> Zwróć uwagę na nazwy zmiennych zawierających wartości logiczne. One najczęściej będą zadawać pytanie a ich wartość odpowiadać true lub false czyli prawda lub fałsz </p> <pre>
+            const isLoggedIn = true;
+            const canMerge = false;
+            const hasChildren = true;
+            const isModalOpen = false;
+          </pre> <p> null - specjalna wartość, która oznacza nic. Wykorzystujemy ją w sytuacjach, gdzie potrzebujemy wiedzieć, że nie istnieje jeszcze wartość, ale coś może się tam pojawić. Na przykład jeśli użytkownik nie wybrał żadnej z dostępnych opcji, to możemy przypisać wartość null. </p> <pre>
+            let selectedProduct = null;
+          </pre> <p> undefined - specjalna wartość. Domyślnie, gdy zmienna jest zadeklarowana, ale nie zainicjalizowana, jej wartość jest niezdefiniowana, wtedy jej wartością jest określona jako undefined. </p> <pre>
+            let username;
+            console.log(username);// undefined
+          </pre> </div> </section>  <section> <div class="text"> <h2>Section18: Operator typeof</h2> <p> Służy do sprawdzenia typu wartości zmiennej. Pokazuje typ wartości zmiennej którą podamy </p> <pre>
+            let username;
+            console.log(typeof username); // "undefined"
+
+            let inputValue = null;
+            console.log(typeof inputValue); // "object"
+
+            const quantity = 17;
+            console.log(typeof quantity); // "number"
+
+            const message = "JavaScript is awesome!";
+            console.log(typeof message); // "string"
+
+            const isSidebarOpen = false;
+            console.log(typeof isSidebarOpen); // "boolean"
+          </pre> </div> </section>  <section> <div class="text"> <h2>Section19: Interakcja z użytkownikiem</h2> <p> Przeanalizujmy podstawowe operacje input/output używane do odbioru i wyświetlania danych od użytkownika, nie korzystając z HTML-a. </p> </div> </section>  <section> <div class="text"> <h2>Section20: Output danych</h2> <p> Dla wyświetlania danych istnieją dwie metody: console.log() i alert(). W nawiasie wpisujemy nazwę zmiennej lub wartość, którą chcemy zobaczyć. </p> <pre>
+            const message = "JavaScript is awesome!";
+            console.log(message); // JavaScript is awesome!
+          </pre> <p> Czasem dla ułatwienia możemy wyświetlić kilka wartości naraz, w poniższym przykładzie mamy najpierw podany string opisujący nasz log, a następnie po przecinku wpisaną nazwę zmiennej. </p> <pre>
+            const username = "Mango";
+            console.log("Username is ", username);// Username is Mango
+          </pre> <p> Metoda alert() pokazuje okno modalne, które zawiera wartości zmiennej, którą przekażemy w nawiasie. </p> <pre>
+            const message = "JavaScript is awesome!";
+            alert(message);
+          </pre> <p> console i alert są częścią interfejsu window - obiektu globalnego, dostępnego podczas wykonywania skryptu na stronie internetowej. Wpisanie window.alert() jest zbędne, wystarczy po prostu alert() lub console.log(). Omówimy to bardziej szczegółowo w kolejnych modułach. </p> <a href="https://medium.com/free-code-camp/how-to-use-the-javascript-console-going-beyond-console-log-5128af9d573b">Going beyond console.log()</a> </div> </section>  <section> <div class="text"> <h2>Section21: Otrzymanie danych</h2> <p> Aby uzyskać dane od użytkownika możemy użyć: prompt() i confirm(). To również są metody z interfejsu window. Jako wynik ich wywołania, zwracają to, co zostało wprowadzone przez użytkownika, następnie tę informację możemy zapisać do zmiennej i wykorzystać w przyszłości. </p> <p> confirm() - pokazuje okno modalne i dwa przyciski Ok i Cancel. Przy kliknięciu na Ok, wynikiem będzie true, przy kliknięciu na Cancel - zwracana jest wartość false. </p> <pre>
+            // Prosimy klienta o potwierdzenie rezerwacji hotelu
+            // i zapisujemy te dane do zmiennej przy kliknięciu confirm
+            const isComing = confirm("Please confirm hotel reservation");
+            console.log(isComing); // true lub false
+          </pre> <p class="example">Przykład -------------------------------</p> <div id="example-theory-s21" class="example-theory"> <pre class="example-theory-pre">
+const button_s21 = document.querySelector('button#button-s21');
+const postsList_s21 = document.querySelector('ul#user-list-s21');
+
+button_s21.addEventListener('click', ev => {
+  const isComing = confirm('Please confirm hotel reservation');
+  renderHtml_s21(isComing);
+});
+
+function renderHtml_s21(isComing) {
+  const markup = `&ltli >
+          &ltp>&ltb>Method confirm:&lt/b>&lt/p>
+          &ltp>isComing: ${isComing}&lt/p>
+        &lt/li>`;
+  postsList_s21.innerHTML = markup;
+}
+          </pre> </div> <div id="example-practice-s21" class="example-practice-s21"> <button id="button-s21" class="aqua-button" type="button"> Try: confirm </button> </div> <div id="example-results-s21"> <ul id="user-list-s21" class="user-list"></ul> </div> <p class="example">PrzykładEND -------------------------------</p> <p> prompt() - pokazuje okno modalne z polem do wprowadzenia i przyciski Ok i Cancel. Przy kliknięciu Ok, rezultatem będzie to, co wprowadził użytkownik, przy Cancel - zwracamy wartość null. </p> <pre>
+            // Pytamy o nazwę hotelu z którego chciałby skorzystać klient
+            // i zapisujemy wartość do zmiennej jako rezultat wykorzystania prompt.
+            const hotelName = prompt("Please enter desired hotel name");
+            console.log(hotelName); // string wprowadzony przez użytkownika lub null
+          </pre> <p> Ważną cechą prompt jest to, że bez względu na to, co wprowadził użytkownik, zawsze zwróci się string (wiersz). Oznacza to, że jeśli użytkownik wpisał 5, to nie zostanie zwrócona liczba 5, ale string "5". </p> <pre>
+            const value = prompt("Please enter a number!");
+            console.log(typeof value); // "string"
+            console.log(value); // "5"
+          </pre> <p class="example">Przykład -------------------------------</p> <div id="example-theory-s21a" class="example-theory"> <pre class="example-theory-pre">
+const button_s21 = document.querySelector('button#button-s21');
+const postsList_s21 = document.querySelector('ul#user-list-s21');
+
+button_s21.addEventListener('click', ev => {
+  const isComing = confirm('Please confirm hotel reservation');
+  renderHtml_s21(isComing);
+});
+
+function renderHtml_s21(isComing) {
+  const markup = `&ltli >
+          &ltp>&ltb>Method confirm:&lt/b>&lt/p>
+          &ltp>isComing: ${isComing}&lt/p>
+        &lt/li>`;
+  postsList_s21.innerHTML = markup;
+}
+          </pre> </div> <div id="example-practice-s21a" class="example-practice-s21a"> <button id="button-s21a" class="aqua-button" type="button"> Try: prompt </button> </div> <div id="example-results-s21a"> <ul id="user-list-s21a" class="user-list"></ul> </div> <p class="example">PrzykładEND -------------------------------</p> </div> </section>  <section> <div class="text"> <h2>Section22: Matematyczne operatory</h2> <p> Zasady operacji matematycznych nie różnią się od ogólnie znanych działań (również kolejność wykonywania działań i honorowanie nawiasów pozostaje takie samo). Operatory zwracają wartość jako wynik wyrażenia. </p> <pre>
+            const x = 10;
+            const y = 5;
+
+            // Dodawanie
+            console.log(x + y); // 15
+
+            // Odejmowanie
+            console.log(x - y); // 5
+
+            // Mnożenie
+            console.log(x * y); // 50
+
+            // Dzielenie
+            console.log(x / y); // 2
+
+            // Reszta po dzieleniu
+            console.log(x % y); // 0
+
+            // Dodawanie i przypisanie
+            let value = 5;
+
+            // Skrócony zapis: value = value + 10;
+            value += 10;
+            console.log(value); // 15
+          </pre> <p> Warto zapamiętać terminy, które tutaj wykorzystujemy. + - * / % to operatory, a parametr z którym one są wykorzystywane - operandy. </p> </div> </section>  <section> <div class="text"> <h2>Section23: Operatory porównania</h2> <p> Wykorzystuje się do porównania dwóch wartości. Rezultatem wykonania będzie zwrócony boolean - true lub false, czyli «tak» lub «nie». </p> <ul class="unnumbered-list-container"> <li>a > b i a < b - większe / mniejsze</li> <li>a >= b i a <= b - większe lub równe / mniejsze lub równe</li> <li>a == b - równa się</li> <li>a != b - nie równa się</li> <li>a === b - ściśle równa się</li> <li>a !== b - ściśle nie równa się</li> </ul> <pre>
+            const x = 5;
+            const y = 10;
+            const z = 5;
+
+            console.log("x > y:", x > y);// false
+            console.log("x < y:", x < y);// true
+            console.log("x < z:", x < z);// false
+            console.log("x <= z:", x <= z);// true
+            console.log("x === y:", x === y);// false
+            console.log("x === z:", x === z);// true
+            console.log("x !== y:", x !== y);// true
+            console.log("x !== z:", x !== z);// false
+          </pre> </div> </section>  <section> <div class="text"> <h2>Section24: Operatory równości</h2> <p> «Nieścisłe» operatory równości == i != wykonują szereg transformacji na zmiennych różnego typu, co może spowodować błędy, tym bardziej u początkujących. Używanie operatorów == i != jest złą praktyką. </p> <pre>
+            // ❌ Źle
+            console.log(5 == "5");// true
+            console.log(5 != "5");// false
+            console.log(1 == true);// true
+            console.log(1 != true);// false
+          </pre> <p> Na następnym obrazku pokazana jest tabelka która pokazuje jak zadziała operator nieścisłego porównania. </p> <div class="section24-img-container"> <img src="/HelpCreatingWebsite/operatoryRownosci.eb133625.jpg" alt=""> </div> <p> Dlatego, aby sprawdzić równość lub nierówność dwóch wartości, wykorzystują się tylko operatory === (ścisła równość) i ! == (ścisła nierówność), które nie wykonują transformacji typów operandów. </p> <pre>
+            // ✅ Dobrze
+            console.log(5 === "5");// false
+            console.log(5 === 5);// true
+            console.log(5 !== "5");// true
+            console.log(5 !== 5);// false
+            console.log(1 === true);// false
+            console.log(1 !== true);// true
+          </pre> <p> W takim wypadku, wartość równa się tylko identycznej wartości (również pod względem typu). Przed sprawdzeniem nie odbywa się żadna transformacja. Porównywanie bardziej skomplikowanych typów danych (takich jak tablice) omówimy w dalszych modułach. </p> <div class="section24-img-container"> <img src="/HelpCreatingWebsite/scisleOperatoryRownosci.dc83222e.png" alt=""> </div> </div> </section>  <section> <div class="text"> <h2>Section25: Konwersja do liczby</h2> <p> Wszystkie liczby w JavaScript, zarówno całkowite jak i zmiennoprzecinkowe mają typ Number. </p> <p> Większość operacji arytmetycznych i funkcji matematycznych konwertuje wartość do liczby automatycznie. Aby upewnić się, że używamy wartości jako liczby, możemy użyć funkcji Number(val), przekazując jako val to, co należy przekonwertować na liczbę. </p> <p> Jeśli wartości nie można przekonwertować na liczbę, wynikiem będzie specjalna wartość liczbową NaN (Not a Number). Podobnie działa przekształcenie w innych operatorach i funkcjach matematycznych. </p> <p> Operację zmiany typu zmiennej na inny nazywamy też czasem Cast, Rzutowaniem lub Parsowaniem </p> <pre>
+            const valueA = "5";
+            console.log(Number(valueA)); // 5
+            console.log(typeof Number(valueA)); // "number"
+
+            const valueB = "random string";
+            console.log(Number(valueB)); // NaN
+            console.log(typeof Number(valueB)); // "number"
+          </pre> </div> </section>  <section> <div class="text"> <h2>Section26: Metody Number.parseInt() i Number.parseFloat()</h2> <p> Te dwie metody czytają wiersz znak po znaku tak długo, jak znaki tworzą liczbę. W momencie napotkania znaku nie-liczbowego zwracane jest to co udało się przekonwertować lub NaN jeżeli już pierwszy znak był np. literą </p> <p> Metoda Number.parseInt() próbuje sparsować liczbę całkowitą ze stringa. </p> <pre>
+            console.log(Number.parseInt("5px")); // 5
+            console.log(Number.parseInt("12qwe74")); // 12
+            console.log(Number.parseInt("12.46qwe79")); // 12
+            console.log(Number.parseInt("GBP5")); // NaN
+            console.log(Number.parseInt("qweqwe")); // NaN
+          </pre> <p> Metoda Number.parseFloat() próbuje sparsować liczbę zmiennoprzecinkową ze stringa (zwróćmy uwagę, że tylko kropka . jest rozumiana jako przecinek między częścią całkowitą a ułamkową). </p> <pre>
+            console.log(Number.parseFloat("5px"));// 5
+            console.log(Number.parseFloat("12qwe74"));// 12
+            console.log(Number.parseFloat("12.46qwe79"));// 12.46
+            console.log(Number.parseFloat("qweqwe"));// NaN
+            console.log(Number.parseFloat("5,32"));// 5
+          </pre> </div> </section>  <section> <div class="text"> <h2>Section27: Sprawdzenie liczby</h2> <p> Aby sprawdzić po rzutowaniu, czy wartość jest liczbą, możemy wykorzystać metodę Number.isNaN(val). Sprawdzi ona, czy to co sprawdzamy posiada wartość NaN czy nie. Metoda odpowiada na pytanie "Czy to jest Not A Number?" i zwraca odpowiedź : </p> <ul class="unnumbered-list-container"> <li>true - jeśli wartość val to NaN</li> <li>false - jeśli wartość val nie NaN</li> </ul> <p> Dla wszystkich wartości val oprócz NaN, przy przekazaniu w Number.isNaN(val) zwrócone zostanie false. Ta metoda nie próbuje przekształcić val na liczbę, a po prostu sprawdza czy coś ma wartość NaN. </p> <pre>
+            const validNumber = Number("51");// 51
+            console.log(Number.isNaN(validNumber));// false
+
+            const invalidNumber = Number("qweqwe");// NaN
+            console.log(Number.isNaN(invalidNumber));// true
+          </pre> </div> </section>  <section> <div class="text"> <h2>Section28: Dodawanie zmiennoprzecinkowe</h2> <p> Dodawanie liczb zmiennoprzecinkowych w JavaScript daje czasem niespodziewane efekty. Dla przykładu, 0.1 + 0.2 nie jest równe 0.3, wynik będzie nieco większy niż „0,3". Wszystko przez to, że komputer liczy w systemie binarnym. </p> <p> Liczba 0.1 w systemie binarnym jest nieskończonym ułamkiem, ponieważ w takim systemie nie możemy przechować dokładnego wyniku dzielenia 1/10. Wartości binarne nieskończonych ułamków są przechowywane tylko do określonego znaku, przez co powstaje błąd obliczeniowy. Gdy dodajemy 0.1 i 0.2, sumują się dwa ułamki okresowe, przez co pojawia się drobny błąd w obliczeniach. </p> <pre>
+            console.log(0.1 + 0.2 === 0.3);// false
+            console.log(0.1 + 0.2);// 0.30000000000000004
+          </pre> <p> Oczywiście nie oznacza to, że dokładne obliczenia dla takich liczb są niemożliwe. jest kilka metod rozwiązania tego problemu. </p> <p> Można przekształcić je w liczby całkowite, mnożąc je przez N10, dodając, a później dzieląc rezultat również przez N10 w zależności od potrzebnej nam dokładności. </p> <pre>
+            console.log(0.17 + 0.24);// 0.41000000000000003
+            console.log((0.17 * 100 + 0.24 * 100) / 100);// 0.41
+          </pre> <p> Innym sposobem jest dodanie do siebie wartości a następnie ograniczenie rezultatu tej operacji do określonego miejsca po przecinku za pomocą metody toFixed(). Sposób ten ma jednak wadę, ponieważ zwróci on string a nie number. </p> <p> W nawiasie, metodzie toFixed() podajemy ile miejsc po przecinku potrzebujemy </p> <pre>
+            console.log(0.17 + 0.24);// 0.41000000000000003
+            console.log((0.17 + 0.24).toFixed(2));// "0.41"
+            console.log((0.17 + 0.24).toFixed(3));// "0.410"
+            console.log(typeof (0.17 + 0.24).toFixed(2));// "string"
+          </pre> </div> </section>  <section> <div class="text"> <h2>Section29: Klasa Math</h2> <p> Jedna z wbudowanych klas udostępniająca zestaw metod do pracy z liczbami. Znajomość wszystkich metod na pamięć nie jest wymagana, ale należy znać te najbardziej przydatne. </p> <pre>
+            // Math.floor(num) - zwraca największą całkowitą liczbę,
+            // mniejszą, lub równą podanej liczbie, czyli zaokrągla w dół.
+            console.log(Math.floor(1.7)); // 1
+
+            // Math.ceil(num) - zwraca najmniejszą całkowitą liczbę,
+            // większą, lub równą podanej liczbie, czyli zaokrągla w górę.
+            console.log(Math.ceil(1.2)); // 2
+
+            // Math.round(num) - zwraca wartość liczby,
+            // zaokrągloną do najbliższej liczby całkowitej
+            // wedle zasad znanych ze szkoły
+            console.log(Math.round(1.2)); // 1
+            console.log(Math.round(1.5)); // 2
+
+            // Math.max(num1, num2, ...) - zwraca największą liczbę z podanych
+            console.log(Math.max(20, 10, 50, 40)); // 50
+
+            // Math.min(num1, num2, ...) - zwraca najmniejszą liczbę z podanych
+            console.log(Math.min(20, 10, 50, 40)); // 10
+
+            // Math.pow(base, exponent) - operacja potęgowania
+            console.log(Math.pow(2, 4)); // 2^4 === 16
+
+            // Math.random() - zwraca zmiennoprzecinkową liczbę pseudolosową 
+            // z zakresu [0, 1]
+            console.log(Math.random()); // pseudolosowa losowa liczba pomiędzy 0 i 1
+            console.log(Math.random() * (10 - 1) + 1); // pseudolosowa liczba od 1 do 10
+          </pre> </div> </section>  <section> <div class="text"> <h2>Section30: Strings</h2> <p> Wiersz (String) - jest to indeksowany ciąg znaków, zawarty w cudzysłów pojedynczy lub podwójny, [ ' ] lub [ " ] </p> <pre>
+            const username = "Mango";
+          </pre> <p> Należy pamiętać, że indeksowanie elementów string zaczyna się od zera. Na przykład w stringu "JavaScript " litera "J" stoi na pozycji z indeksem 0, a "t" ma indeks 9. </p> <div class="section30-img-container"> <img src="/HelpCreatingWebsite/string.14e6b8d2.png" alt=""> </div> <p> Treści wiersza nie można zmieniać, można go tylko przeczytać. Oznacza to, że nie możesz wziąć jakiegoś znaku i zamienić go, po tym jak string zostanie stworzony - zostanie on taki na zawsze. Możesz natomiast stworzyć zupełnie nowy wiersz i przypisać go do tej samej zmiennej zamiast poprzedniej wartości. </p> </div> </section>  <section> <div class="text"> <h2>Section31: Konkatenacja wierszy</h2> <p> Jeśli zastosujesz operator + pomiędzy string i dowolny inny typ danych, wynikiem operacji „dodawania" będzie nowy wiersz. Ta operacja nazywa się konkatenacją lub dodawaniem wierszy./p> </p> <p> Podczas konkatenacji dowolne typy danych są przetwarzane na string i łączą się z wierszem, natomiast co ważne - kolejność napisania operandów ma znaczenie w przeciwieństwie do operacji matematycznej. </p> <p> Kolejność ma znaczenie, ponieważ przekształcenie typów danych następuje tylko w momencie operacji dodawania z wierszem, w innych przypadkach rządzą zwykłe zasady matematyki. </p> <pre>
+            const message = "Mango " + "is" + " happy";
+            console.log(message);// Mango is happy
+          </pre> <p>Zobaczmy różną kolejność operandów.</p> <pre>
+            console.log(1 + "2");// "12"
+            console.log(1 + "2" + 4);// "124"
+            console.log(1 + 2 + "4");// "34"
+          </pre> <p> W ostatnim przykładzie odbyła się matematyczna operacja dodawania dla pierwszych dwóch liczb 1 oraz 2, po czym liczba 3 przekształciła się w wiersz "3" i została połączona z wierszem "4". </p> </div> </section>  <section> <div class="text"> <h2>Section32: Wiersze szablonowe</h2> <p> Wiersze szablonowe są alternatywą dla konkatenacji z wygodniejszą składnią. Wiersz szablonu jest ujęty w grawisy, z angielskiego backticks - `` , zamiast podwójnych lub pojedynczych cudzysłowów i może zawierać wyrażenia, które są użyte przez znak dolara i nawiasy klamrowe ${wyrażenie}`. </p> <pre>
+            // Używając zmiennych należy skomponować string z podstawionymi wartościami
+            const guestName = "Mango";
+            const roomNumber = 207;
+            const greeting =
+            "Welcome " + guestName + ", your room number is " + roomNumber + "!";
+            console.log(greeting);// "Welcome Mango, your room number is 207!"
+          </pre> <p> Komponowanie wierszy z wartościami określonymi za pomocą konkatenacji jest bardzo niewygodne. Na ratunek przychodzą wiersze szablonów. </p> <pre>
+            const guestName = "Mango";
+            const roomNumber = 207;
+            const greeting = `Welcome ${guestName}, your room number is ${roomNumber}!`;
+            console.log(greeting);// "Welcome Mango, your room number is 207!"
+          </pre> </div> </section>  <section> <div class="text"> <h2>Section33: Właściwości i metody ciągów</h2> <p> Każdy string ma swoje wbudowane właściwości i metody, zobaczmy jak działają niektóre z nich. </p> <h3>Właściwość length</h3> <p> Aby poznać długość wiersza, czyli liczbę jego znaków, dla wszystkich stringów istnieje wbudowana właściwość length, której wartość można uzyskać przez zwrócenie się do niej za pomocą kropki po nazwie zmiennej. </p> <pre>
+            const message = "Welcome to Bahamas!";
+            console.log(message.length);// 19
+            console.log("There is nothing impossible to him who will try".length);// 47</pre> <h3>Metody toLowerCase() i toUpperCase()</h3> <p> Zwracają nowy wiersz zastępując wszystkie litery odpowiednio małymi lub dużymi wersjami, nie zmieniając treści oryginalnej zmiennej. </p> <p>Cyfry i znaki specjalne nie zmieniają się.</p> <pre>
+            const message = "Welcome to Bahamas!";
+            console.log(message.toLowerCase());// "welcome to bahamas!"
+            console.log(message.toUpperCase());// "WELCOME TO BAHAMAS!"
+            console.log(message);// "Welcome to Bahamas!"
+          </pre> <p> Zdarzają się sytuacje, w których wszystkie znaki w ciągu muszą zostać przekonwertowane na jedną wielkość liter, duże lub małe. Przykładem będzie wyszukiwanie po słowie kluczowym, użytkownik wpisuje wiersz 'saMsUng', który musi zostać porównany ze stringiem 'samsung' lub 'SAMSUNG'. </p> <pre>
+            console.log("saMsUng" === "samsung");// false
+            console.log("saMsUng" === "SAMSUNG");// false
+          </pre> <p> Aby nie wymagać absolutnie dokładnych danych wejściowych, można wprowadzić «normalizację» wprowadzonego przez użytkownika wiersza, czyli przekonwertować wszystkie jego znaki na duże lub małe litery. Metody wierszy toLowerCase() i toUpperCase() zwrócą nowy wiersz w odpowiedniej postaci bez zmiany treści. </p> <pre>
+            const BRAND_NAME = "SAMSUNG";
+            const userInput = "saMsUng";
+            const normalizedToUpperCaseInput = userInput.toUpperCase();
+
+            console.log(userInput);// 'saMsUng'
+            console.log(userInput === BRAND_NAME);// false
+            console.log(normalizedToUpperCaseInput);// 'SAMSUNG'
+            console.log(normalizedToUpperCaseInput === BRAND_NAME);// true
+          </pre> <h3>Metoda indexOf()</h3> <p> Zwraca pozycję (indeks), na której zaczyna się pierwsze dopasowanie podanego stringa lub -1 jeśli nigdzie takiego nie mamy. Wielkość liter jest tutaj istotna </p> <pre>
+            const message = "Welcome to Bahamas!";
+            console.log(message.indexOf("to"));// 8
+            console.log(message.indexOf("To"));// -1
+            console.log(message.indexOf("hello"));// -1
+          </pre> <h3>Metoda includes()</h3> <p> Sprawdza, czy dany string jest zawarty w wierszu, (jest jego tak zwanym substringiem) zwraca boolean - true jeśli tak i false w przeciwnym wypadku. Dla tej metody również ważna jest wielkość liter, ponieważ litera "a" nie równa się literze "А". </p> <pre>
+            const productName = "Repair droid";
+
+            console.log(productName.includes("p"));// true
+            console.log(productName.includes("P"));// false
+            console.log(productName.includes("droid"));// true
+            console.log(productName.includes("Droid"));// false
+            console.log(productName.includes("Repair"));// true
+            console.log(productName.includes("repair"));// false</pre> <p> Wszystkie metody wierszy uwzględniają wielkość litery. Mówimy o nich, że są "case-sensitive" </p> <h3>Metoda endsWith()</h3> <p> Pozwala określić, czy wiersz kończy się określonym stringiem podanym w nawiasach, zwracając true lub false. </p> <pre>
+            const jsFileName = "script.js";
+            console.log(jsFileName.endsWith(".js"));// true
+
+            const cssFileName = "styles.css";
+            console.log(cssFileName.endsWith(".js"));// false
+          </pre> <h3>Metoda replace() i replaceAll()</h3> <p> Zwraca nowy wiersz, w którym pierwsze (replace) lub wszystkie dopasowania (replaceAll) podanego stringa są zastępowane określoną wartością (w nawiasach po przecinku). </p> <pre>
+            const jsFileName = "script.js";
+            const minifiedJsFileName = jsFileName.replace(".js", ".min.js");
+            console.log(minifiedJsFileName);// "script.min.js"
+
+            const cssFileNames = "styles.css, about.css, portfolio.css";
+            const minifiedCssFileNames = cssFileNames.replaceAll(".css", ".min.css");
+            console.log(minifiedCssFileNames);// "styles.min.css, about.min.css, portfolio.min.css"
+          </pre> <h3>Metoda slice()</h3> <p> Metodę string slice(startIndex, endIndex) wykorzystuje się do utworzenia kopii części lub całego łańcucha. Tworzy kopię elementów wiersza od znaku o indeksie startIndex i do, ale nie włączając w to znaku o indeksie podanym jako endIndex i zwraca nowy string. </p> <pre>
+            const productName = "Repair droid";
+            console.log(productName.slice(0, 4)); // "Repa"
+            console.log(productName.slice(3, 9)); // "air dr"
+            console.log(productName.slice(0, productName.length)); // "Repair droid"
+            console.log(productName.slice(7, productName.length)); // "droid"
+          </pre> </div> </section>  <section> <div class="text"> <h2>Section34: Operatory logiczne</h2> <p> Operatory logiczne służą do sprawdzenia warunków z wieloma wyrażeniami, na przykład operacjami porównania. </p> <h3>Konwertowanie typu</h3> <p> W operacjach logicznych typy operandów są konwertowane na true lub false. Konwersja występuje, gdy w kodzie zostanie znaleziony operator logiczny. </p> <p> Truthy i Falsy - terminy używane dla tych wartości, które w operacji logicznej są konwertowane na true lub false, chociaż jako takie nie miały typu boolean. </p> <p> Istnieje 6 nieprawdziwych (false) wartości, które sprowadzają się do false (są falsy) w logicznej konwersji: 0, NaN, null, undefined, pusty string czyli "" i false. Wszystkie inne wartości sprowadzają się do true (są truthy). </p> <h3>Operatory logiczne</h3> <p> W JavaScript Istnieją trzy operatory logiczne, które służą do sprawdzania wyrażeń. </p> <div class="section34-img-container"> <img src="/HelpCreatingWebsite/boolean-operators.77250db3.png" alt=""> </div> <h3>Logiczne «AND»(i)</h3> <p> Operator && sprowadzi wszystkie operandy do typu boolean i zwraca 'true' jeśli wszystkie operandy są prawdziwe. Operandy są sprawdzane w kolejności zapisu, więc jeśli lewy warunek jest false, prawy już nie będzie sprawdzany a całość wyrażenia zwróci false. </p> <pre>
+            wyrażenie && wyrażenie
+          </pre> <p> W poniższym przykładzie oba warunki zwrócą true, więc wynikiem całego wyrażenia będzie true - zostanie zwrócona wartość skrajnego prawego operandu. </p> <pre>
+            const age = 20;
+            console.log(age > 10 && age < 30);// true && true -> true
+          </pre> <p> Jeśli chociażby jeden z operandów będzie false, rezultat wyrażenia otrzyma jego wartość. </p> <pre>
+            const age = 50;
+            console.log(age > 10 && age < 30);// true && false -> false
+            console.log(age > 80 && age < 120);// false && true -> false
+          </pre> <p> Jak widzimy, logiczne «And(I)» szuka pierwszego operandu falsy i zwraca go, a jeśli go nie odnajdzie to zwróci ostatni w kolejności operand. </p> <pre>
+            console.log(1 && 5);// true && true -> 5
+            console.log(5 && 1);// true && true -> 1
+            console.log(0 && 2);// false && true -> 0
+            console.log(2 && 0);// true && false -> 0
+            console.log("" && "Mango");// false && true -> ""
+            console.log("Mango" && "");// true && false -> ""
+            console.log("Mango" && "Poly");// true && true -> "Poly"
+            console.log("Poly" && "Mango");// true && true -> "Mango"
+          </pre> <p> Przy wykonaniu logicznego «AND», prawy operand może nie być sprawdzony, jeśli lewy doprowadzi do false. </p> <h3>Logiczne «LUB(OR)»</h3> <p> Operator || konwertuje wszystkie operandy do typu boolean i zwraca wartość 'true' jeżeli chociaż jeden jest prawdziwy. Lewy operand, jeśli można go przekształcić na true, i prawy operand w przeciwnych wypadkach. </p> <pre>
+            wyrażenie || wyrażenie
+          </pre> <p> W poniższym przykładzie warunek po lewej stronie zwróci true, więc wynik całego wyrażenia będzie true - zostanie zwrócona wartość pierwszego operandu, który po wykonaniu go pokaże true. </p> <pre>
+            const age = 5;
+            console.log(age < 10 || age > 30);// true || false -> true
+          </pre> <p> Tutaj wynik też będzie true, ponieważ jeden z operandów, w tym wypadku ten po prawej po wykonaniu równał się true. </p> <pre>
+            const age = 40;
+            console.log(age < 10 || age > 30);// false || true -> true
+          </pre> <p> W kolejnym przykładzie żaden warunek nie był spełniony, dlatego otrzymujemy false - wartość ostatniego operanda. </p> <pre>
+            const age = 20;
+            console.log(age < 10 || age > 30);// false || false -> false
+          </pre> <p> Oznacza to, że logiczne «OR» wyłapuje pierwszą prawdę/wartość truthy i zwraca tę wartość lub ostatni w kolejności operand. </p> <pre>
+            console.log(true || false);// true
+            console.log(false || true);// true
+            console.log(true || true);// true
+
+            console.log(3 || false);// 3
+            console.log(false || 3);// 3
+            console.log(3 || true);// 3
+            console.log(true || 3);// true
+          </pre> <p> Przy wykonaniu logicznego «OR», prawy operand niekoniecznie musi być sprawdzony, jeśli lewy już był sprowadził się do true. </p> <h3>Logiczne «NO»</h3> <p> Wszystkie operatory, które omówiliśmy wcześniej, były binarne - zawierały dwa operandy, lewy i prawy. Logiczne "NIE" jest operatorem jednoargumentowym - operacje wykonują się na jednym operandzie po prawej stronie. </p> <pre>
+            !wyrażenie
+          </pre> <p> Operator ! konwertuje operand do typu boolean, jeśli jest to koniecznie. Później odbywa się inwersja - zmienia jego znaczenie na odwrotne true -> false lub false -> true. </p> <pre>
+            console.log(!true);// false
+            console.log(!false);// true
+            console.log(!3);// !3 -> !true -> false
+            console.log(!"Mango");// !"Mango" -> !true -> false
+            console.log(!0);// !0 -> !false -> true
+            console.log(!"");// !"" -> !false -> true
+            const isOnline = true;
+            const isNotOnline = !isOnline;// !isOnline -> !true -> false
+          </pre> </div> </section> </main> <footer class="footer hidden"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>03.05.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/html/01-zajeciaWprowadzajace.1415475f.js"></script> <script defer src="/HelpCreatingWebsite/html/01-zajeciaWprowadzajace.980a61bf.js" type="module"></script><script defer src="/HelpCreatingWebsite/html/01-zajeciaWprowadzajace.fa2e9459.js" nomodule=""></script> </body></html>
