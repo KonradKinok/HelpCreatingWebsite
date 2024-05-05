@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
+    />
+    <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
+    <link rel="stylesheet" href="../styles/stylStartowy.scss" />
+    <link rel="stylesheet" href="../styles/15-modulowoscKodu.scss" />
+    <title>Modułowość kodu</title>
+  </head>
+  <body class="body-container">
+    <header class="menu-sticky">
+      <nav class="nav-container">
+        <!-- Nawigacja do innych stron -->
+        <ul id="main-menu" class="nav-list-container"></ul>
+      </nav>
+    </header>
+    <main class="main-container">
+      <!-- section1 -->
+      <section id="section1" class="text">
+        <article id="article1">
+          <h1>Moduł8 - Zajęcia 15 - Modułowość kodu</h1>
+          <h2>Section1 Article1: Node.js</h2>
+          <p>
+            Node.js to lekkie i wydajne środowisko uruchomieniowe dla
+            JavaScript. Umożliwia pisanie aplikacji i narzędzi serwerowych o
+            wysokiej wydajności. Node.js jest zbudowany na silniku JavaScript V8
+            i napisany jest w C++.
+          </p>
+          <p>
+            Początkowo Node.js został stworzony jako środowisko po stronie
+            serwera dla frontendowych aplikacji, ale programiści zaczęli go
+            używać do tworzenia narzędzi pomagających zautomatyzować również
+            lokalne zadania takie jak kompilowanie SCSS. W rezultacie nowy
+            ekosystem narzędzi, który pojawił się wokół Node.js, doprowadził do
+            ogromnych zmian w rozwoju front-endu.
+          </p>
+        </article>
+        <article id="article2">
+          <h2>Section1 Article2: Instalacja</h2>
+          <p>
+            Aby zainstalować najnowszą stabilną wersję, przejdź do
+            <a class="link" href="https://nodejs.org/en/">strony oficjalnej</a>,
+            pobierz instalator LTS (Latest Stable Version) i postępuj zgodnie z
+            instrukcjami. Istnieją instalatory dla wszystkich popularnych
+            systemów operacyjnych - Windows, MacOS i Linux.
+          </p>
+          <p>
+            Użytkownicy systemu Windows powinni zaznaczyć odpowiednie pola
+            wyboru, aby zainstalować wszystkie dodatkowe narzędzia z wyjątkiem
+            Chocolatey. Spowodowałoby to zainstalowanie Pythona i wszelkiego
+            rodzaju narzędzi pomocniczych i kompilatorów.
+          </p>
+          <p>
+            Po instalacji, polecenie node będzie dostępne w terminalu. Aby
+            sprawdzić, czy instalacja się powiodła, sprawdź wersję, uruchamiając
+            w konsoli/terminalu polecenie node z flagą version.
+          </p>
+          <p>
+            Jeśli miałeś wcześniej otwarte okno konsoli pamiętaj aby je wyłączyć
+            i włączyć z powrotem po instalacji, inaczej komenda może nie być
+            dostępna pomimo prawidłowej instalacji.
+          </p>
+          <pre>
+            node --version
+          </pre>
+        </article>
+        <article id="article3">
+          <h2>Section1 Article3: JavaScript poza przeglądarką</h2>
+          <p>
+            Node.js umożliwia uruchamianie kodu JavaScript poza przeglądarką.
+            Otwórz dowolny terminal i wykonaj polecenie node, uruchomi się REPL
+            (read-eval-print loop) - interaktywne środowisko uruchomieniowe kodu
+            JS. Użyjmy go do wyprowadzenia czegoś do konsoli.
+          </p>
+          <div class="section1-img-container grow_up-img">
+            <img src="../images/main/node-log.png" alt="" />
+          </div>
+          <p>
+            Aby wyjść z REPL, naciśnij kombinację Ctrl + C w systemie Windows
+            lub Control + C na MacOS.
+          </p>
+          <p>
+            Teraz stwórzmy folder node-tut, a w nim plik index.js z kodem, który
+            napisaliśmy w REPL. Aby uruchomić ten plik, musisz otworzyć terminal
+            i przejść do folderu node-tut, który zawiera index.js o treści:
+          </p>
+          <pre>
+            // index.js
+            const message = "NodeJS in amazing!";
+            console.log(message);
+          </pre>
+          <p>
+            Teraz w konsoli uruchom plik za pomocą polecenia node index.js i
+            uzyskasz ten sam wynik - wyświetlenie stringa bezpośrednio w
+            terminalu (już nie w przeglądarkowej konsoli).
+          </p>
+          <div class="section1-img-container grow_up-img">
+            <img src="../images/main/node-run.png" alt="" />
+          </div>
+          <p>
+            To jest najważniejsza funkcjonalność Node.js - możliwość wykonywania
+            JavaScript poza przeglądarką. W ten sposób możesz pisać całe
+            aplikacje, na przykład serwer back-end lub oprogramowanie
+            narzędziowe niezależne od przeglądarki. Więcej o Node dowiesz się na
+            ostatnim module naszego kursu.
+          </p>
+        </article>
+      </section>
+      <!-- section2 -->
+      <section id="section2" class="text">
+        <article id="article1">
+          <h2>Section2 Article1: Menedżer pakietów npm</h2>
+          <p>
+            Aby korzystać z całego bogactwa narzędzi (lub pakietów) dla Node.js
+            potrzebujemy możliwości ich instalacji i zarządzania nimi. W tym
+            celu powstał NPM (node package manager) - manager pakietów Node.js.
+            Instaluje on wymagane pakiety i zapewnia przyjazny dla użytkownika
+            interfejs do pracy z nimi.
+          </p>
+          <p>NPM składa się z trzech głównych elementów:</p>
+          <ul class="unnumbered-list-containe">
+            <li>
+              Strona
+              <a class="link" href="https://www.npmjs.com/">npmjs.com</a> -
+              służy do wyszukiwania i zapoznania się z dokumentacją pakietu.
+            </li>
+            <li>
+              Interfejs wiersza poleceń (CLI) - program uruchamiany z terminala,
+              udostępnia zestaw poleceń do pracy z rejestrem i pakietami.
+              Umożliwia tworzenie skryptów również uruchamianych w terminalu.
+            </li>
+            <li>
+              Rejestr pakietów (registry) - duża publiczna baza danych narzędzi
+              programistycznych (pakietów).
+            </li>
+          </ul>
+          <p>
+            Pakiet / paczka (package) - to mała biblioteka JavaScript, która
+            rozwiązuje konkretny problem. Pakiety są pisane przez programistów i
+            udostępniane społeczności. Takie podejście ułatwia życie, ponieważ
+            nie trzeba wymyślać koła na nowo, wszystkie "koła" od dawna stoją na
+            półkach rejestru i są gotowe do użycia.
+          </p>
+          <p>
+            Pakiety abstrahują implementację funkcjonalności, zapewniając
+            programiście przyjazny dla użytkownika interfejs. Dzięki temu kod
+            jest czystszy, bardziej czytelny i łatwiejszy w utrzymaniu.
+          </p>
+          <p>
+            Poniżej wymienimy główne polecenia które będziemy używać i
+            szczegółowo opisywać.
+          </p>
+          <ul class="unnumbered-list-containe">
+            <li>
+              npm init - inicjuje npm w projekcie i tworzy plik package.json
+            </li>
+            <li>
+              npm install - instaluje wszystkie zależności wymienione w
+              package.json
+            </li>
+            <li>
+              npm list --depth=0 - wyświetla w terminalu listę lokalnie
+              zainstalowanych pakietów wraz z numerami ich wersji (bez ich
+              zależności)
+            </li>
+            <li>
+              npm install [package-name] - zainstaluje pakiet lokalnie w
+              folderze node_modules i zaktualizuje package.json
+            </li>
+            <li>
+              npm uninstall [package-name] - odinstaluje pakiet zainstalowany
+              lokalnie i zaktualizuje package.json
+            </li>
+            <li>
+              npm start i npm test - uruchomi skrypt start lub test,
+              zdefiniowany w w package.json
+            </li>
+            <li>
+              npm run [custom-script] - uruchomi niestandardowy skrypt
+              zdefiniowany w package.json
+            </li>
+            <li>
+              npm outdated - używany do wyszukiwania aktualizacji, programowego
+              wykrywania niekompatybilnych wersji i wyświetlania listy
+              dostępnych aktualizacji
+            </li>
+            <li>
+              npm update - zaktualizuje wszystkie pakiety do maksymalnej
+              dozwolonej wersji
+            </li>
+            <p>
+              <a class="link" href="https://docs.npmjs.com/"
+                >Dokumentacja NPM</a
+              >
+            </p>
+          </ul>
+        </article>
+        <article id="article2">
+          <h2>Section2 Article2: Inicjowanie projektu</h2>
+          <p>
+            Każdy projekt rozpoczyna się od stworzenia pliku package.json -
+            śledzi on zależności, zawiera informacje o naszym projekcie,
+            umożliwia pisanie skryptów npm oraz może służyć jako instrukcja przy
+            tworzeniu nowego projektu na podstawie gotowych ustawień. Możesz
+            utworzyć plik package.json za pomocą polecenia npm init w terminalu,
+            inicjując w ten sposób projekt w bieżącym folderze.
+          </p>
+          <pre>
+                npm init
+            </pre
+          >
+          <p>
+            Zostaniesz poproszony o podanie nazwy projektu, wersji, opisu itp.
+            Możesz po prostu naciskać Enter, aż plik package.json zostanie
+            utworzony i umieszczony w folderze projektu. Aby nie naciskać Enter,
+            pomijając puste pola, użyj polecenia init z flagą --yes. Flaga to
+            dodatkowe ustawienie polecenia.
+          </p>
+          <pre>
+                npm init --yes
+            </pre
+          >
+          <p>
+            Większość flag ma alias, czyli skrót. Aliasem dla flagi --yes jest
+            -y, więc polecenia npm init --yes i npm init -y robią to samo. Zwróć
+            uwagę na ilość myślników, ma ona znaczenie i zarówno flaga --y jak i
+            -yes nie zadziałają.
+          </p>
+          <p>
+            package.json zostanie wygenerowany z wartościami domyślnymi. Aby
+            ustawić na przykład dane autora projektu po wygenerowaniu
+            package.json, w terminalu uruchom po kolei następujące polecenia,
+            wstawiając swoje imię oraz e-mail.
+          </p>
+          <pre>
+                npm config set init.author.name "YOUR_NAME"
+                npm config set init.author.email "YOUR_EMAIL"
+            </pre
+          >
+          <div class="section1-img-container grow_up-img">
+            <img src="../images/main/npm-init.png" alt="" />
+          </div>
+          <p>
+            Możesz edytować plik package.json ręcznie lub ponownie uruchomić npm
+            init. Jeśli otworzysz package.json w edytorze, będzie to wyglądało
+            mniej więcej tak. Są tam metadane dotyczące projektu.
+          </p>
+          <pre>
+            package.json
+            {
+                "name": "node-tut",
+                "version": "1.0.0",
+                "main": "index.js",
+                "scripts": {
+                    "test": "echo \"Error: no test specified\" && exit 1"
+                },
+                "author": "Alexander Repeta mycoolemail@mail.com>",
+                "license": "ISC",
+                "keywords": [],
+                "description": ""
+            }
+          </pre>
+        </article>
+        <article id="article3">
+          <h2>Section2 Article3: Skrypty npm</h2>
+          <p>
+            Skrypty umożliwiają uruchamianie zainstalowanych pakietów i
+            zautomatyzowanie pewnych działań. Za pomocą skryptów npm można
+            tworzyć systemy budowania całych projektów. Zautomatyzujmy
+            uruchamianie index.js. W tym celu w pliku package.json we
+            właściwości scripts dodaj skrypt startowy start.
+          </p>
+          <pre>
+                package.json
+                {
+                    "scripts": {
+                        "start": "node index.js"
+                    }
+                }
+            </pre
+          >
+          <p>
+            Teraz możemy go uruchomić w terminalu za pomocą polecenia npm start.
+          </p>
+          <div class="section1-img-container grow_up-img">
+            <img src="../images/main/npm-start.png" alt="" />
+          </div>
+          <p>
+            Jeśli utworzysz skrypt o nazwie innej niż start lub test, należy
+            uruchamiać go poprzez npm run nazwa-skryptu - nie zapomnij słowa
+            kluczowego run.
+          </p>
+          <p>
+            Zapoznaj się z dokumentacja<a
+              class="link"
+              href="https://docs.npmjs.com/cli/v10/using-npm/scripts"
+            >
+              How npm handles the "scripts" field</a
+            >.
+          </p>
+        </article>
+        <article id="article4">
+          <h2>Section2 Article4: Instalacja pakietów</h2>
+          <p>
+            Jedną z możliwości oferowanych przez npm jest instalacja pakietów,
+            które są odnajdywane w rejestrze i rozpakowywane do folderu
+            node_modules w katalogu głównym projektu. Po utworzeniu pliku
+            package.json możesz dodawać zależności do projektu.
+          </p>
+
+          <p>
+            Zależność to pakiet npm używany podczas programowania. Są to
+            wszelkiego rodzaju narzędzia i biblioteki. Zainstaluj bibliotekę
+            <a class="link" href="https://www.npmjs.com/package/validator"
+              >validator.js</a
+            >
+            która służy do walidacji stringów, na przykład wprowadzonych przez
+            użytkownika danych w polach formularzy.
+          </p>
+          <pre>
+                npm install validator
+            </pre
+          >
+          <p>
+            NPM pobrał validator i umieścił go w node_modules - folderze, który
+            będzie zawierał wszystkie zewnętrzne zależności.
+          </p>
+          <p>
+            Nie dodawaj folderu node_modules do systemu kontroli wersji, wszyscy
+            programiści będą mogli po prostu zainstalować pakiety na bazie pliku
+            package.json, nie ma więc potrzeby dodawania setek albo i tysięcy
+            plików z folderu node_modules.
+          </p>
+          <p>
+            Jeśli używasz Git, pamiętaj o dodaniu folderu node_modules do pliku
+            .gitignore.
+          </p>
+          <p>
+            Zwróć uwagę, że wygenerowany plik package-lock.json jest dziennikiem
+            wersji drzewa zależności projektu. Zapewnia, że zespół programistów
+            używa dokładnie tej samej wersji wszystkich zależności. NPM
+            automatycznie aktualizuje go podczas dodawania, usuwania i
+            aktualizowania pakietów.
+          </p>
+          <p>
+            Po instalacji w package.json, w obiekcie dependencies pojawiła się
+            nowa zależność. Oznacza to, że validator wersji 11.1.0 został
+            zainstalowany jako zależność i jest gotowy do użycia w naszym
+            projekcie. Pakiety są stale aktualizowane, więc Twoja wersja może
+            być wyższa.
+          </p>
+          <pre>
+                package.json
+                {
+                    "dependencies": {
+                        "validator": "^11.1.0"
+                    }
+                }
+            </pre
+          >
+          <p>
+            Aby uzyskać interfejs pakietu w kodzie Node.js, musisz wywołać
+            funkcję require("nazwa-modułu"), przekazując jej nazwę modułu (bez
+            ścieżki) jako argument - nazywamy to ścieżką bezwzględną. Ścieżka
+            nie jest potrzebna, ponieważ domyślnie moduł będzie wyszukiwany w
+            folderze node_modules. W wyniku wykonania funkcji require zwrócony
+            zostanie interfejs modułu - obiekt z metodami lub po prostu funkcja,
+            w zależności od pakietu.
+          </p>
+          <pre>
+                index.js
+                const validator = require("validator");
+
+                const validateEmail = email => {
+                    return validator.isEmail(email);
+                };
+
+                console.log(
+                "Is mango@mail.com a valid email?: ",
+                validateEmail("mango@mail.com")
+                );
+
+                console.log(
+                "Is Mangozedog.com a valid email?: ",
+                validateEmail("Mangozedog.com")
+                );
+            </pre
+          >
+          <p>Wykonując npm start w terminalu, otrzymujemy.</p>
+          <pre>
+                Is mango@mail.com a valid email?: true
+                Is Mangozedog.com a valid email?: false
+            </pre
+          >
+        </article>
+        <article id="article5">
+          <h2>Section2 Article5: Usuwanie pakietów</h2>
+          <p>
+            Załóżmy, że wersja validator zainstalowana w poprzednim przykładzie
+            powoduje problemy ze zgodnością. Możemy usunąć ten pakiet i
+            zainstalować starszą wersję.
+          </p>
+          <pre>
+                npm uninstall validator
+            </pre
+          >
+        </article>
+        <article id="article6">
+          <h2>Section2 Article6: Instalacja określonej wersji pakietu</h2>
+          <p>
+            Teraz zainstalujmy poprawną wersję validator. W poleceniu instalacji
+            numer wersji jest określony po symbolu @.
+          </p>
+          <pre>
+              npm install validator@1.0.0
+            </pre
+          >
+          <p>
+            Instalacja pakietu określonej wersji jest używana w projektach
+            komercyjnych, aby zapewnić prawidłowe działanie bazy kodu i
+            możliwość długoterminowego wsparcia. W projekcie prywatnym możesz
+            zainstalować najnowsze wersje.
+          </p>
+        </article>
+        <article id="article7">
+          <h2>Section2 Article7: Rodzaje zależności</h2>
+          <p>
+            Wyobraź sobie ciasto, do jego przygotowania szef kuchni potrzebuje
+            produktów, z przepisu. Poza nimi, do gotowania przydadzą się również
+            narzędzia takie jak miski, łyżki, łopatki itp. W samej kuchni muszą
+            stanąć stoły, piekarniki, lodówki itp. - to wszystko razem służy do
+            przygotowania każdej potrawy, wspólne narzędzia, które są w kuchni.
+          </p>
+          <p>
+            Podobnie jest z zależnościami projektowymi - niektóre zostaną
+            wykorzystane w powstałym produkcie, inne potrzebne są tylko na
+            etapie rozwoju projektu, a są też takie, które trzeba wykorzystać
+            niezależnie od projektu.
+          </p>
+          <p>Dlatego polecenia npm install i npm uninstall mają trzy flagi.</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              -save - wskazuje, że dodawana jest zależność, która zostanie
+              włączona do produktu końcowego. Pakiet zostanie zainstalowany
+              lokalnie w folderze node_modules, a wpis zostanie dodany do pola
+              dependencies w package.json
+            </li>
+            <li>
+              -save-dev - wskazuje, że dodano zależność programistyczną. Pakiet
+              zostanie zainstalowany lokalnie w folderze node_modules, a wpis
+              zostanie dodany do pola devDependencies w package.json. Oznacza
+              to, że w wersji produkcyjnej na serwerze ta zależność nie musi być
+              instalowana.
+            </li>
+            <li>
+              -global - wskazuje, że dodawana jest globalna zależność, czyli
+              narzędzie dostępne dla każdego projektu we wszystkich folderach.
+              Pakiet zostanie zainstalowany globalnie (w systemie).
+            </li>
+          </ul>
+          <ul class="unnumbered-list-container">
+            <li>Jeśli pominiesz flagę, domyślnie zostanie użyty -save.</li>
+            <li>
+              Podczas odinstalowywania pakietu należy podać poprawną flagę, tak
+              samo jak podczas instalacji.
+            </li>
+            <li>
+              Nie instaluj pakietów globalnie, jeśli pracujesz nad projektem z
+              innymi programistami.
+            </li>
+          </ul>
+        </article>
+        <article id="article8">
+          <h2>Section2 Article8: Zarządzanie wersjami pakietów</h2>
+          <p>
+            Z pakietami powiązany jest numer wersji. Numery wersji są zgodne ze
+            standardem <a href="https://semver.org/">SemVer</a>.
+          </p>
+          <p>Biorąc pod uwagę numer wersji MAJOR.MINOR.PATCH, zwiększ:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Wersja MAJOR w przypadku wprowadzenia niezgodnych zmian w
+              interfejsie API
+            </li>
+            <li>
+              Wersja MINOR, jeśli dodasz funkcjonalność w sposób kompatybilny
+              wstecz
+            </li>
+            <li>
+              Wersja PATCH, gdy wprowadzasz poprawki błędów zgodne z poprzednimi
+              wersjami
+            </li>
+          </ul>
+          <p>
+            Dodatkowe etykiety metadanych wersji wstępnej i kompilacji są
+            dostępne jako rozszerzenia formatu MAJOR.MINOR.PATCH.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>
+              npm outdated - używany do wyszukiwania aktualizacji, programowego
+              wykrywania kompatybilnych wersji.
+            </li>
+            <li>
+              npm update - zaktualizuje wszystkie pakiety do maksymalnej
+              dozwolonej wersji.
+            </li>
+            <li>npm update [nazwa-pakietu] - zaktualizuje określony pakiet</li>
+          </ul>
+          <p>
+            Jeśli nie ufasz maszynom lub chcesz instalować określone wersje
+            pakietów, możesz otworzyć package.json i ręcznie zmienić wersje
+            pakietów, a następnie uruchomić npm install.
+          </p>
+        </article>
+        <article id="article9">
+          <h2>Section2 Article9: Zarządzanie pamięcią podręczną</h2>
+          <p>
+            Po zainstalowaniu pakietu, npm zapisuje jego kopię w pamięci
+            podręcznej, więc przy następnej instalacji nie trzeba ponownie
+            pobierać go z Internetu. Pamięć podręczna jest przechowywana w
+            folderze .npm twojego katalogu domowego.
+          </p>
+          <p>
+            Z biegiem czasu folder ten zaśmieca się starymi pakietami i czasami
+            warto go wyczyścić, nie musimy tego robić zbyt często (kilka razy w
+            roku). Buforowanie jest przydatne, ponieważ skraca czas instalacji
+            już używanych pakietów.
+          </p>
+          <p>Aby wyczyścić ten folder uruchom w dowolnym miejscu polecenie:</p>
+          <pre>
+            npm cache clean
+          </pre>
+        </article>
+      </section>
+      <!-- section3 -->
+      <section id="section3" class="text">
+        <article id="article1">
+          <h2>Section3 Article1: Modułowość kodu</h2>
+          <p>
+            Koncepcja modułów jako sposobu organizowania kodu istnieje od dawna.
+            Wraz z rozwojem projektu i jego bazy kodu, programiści starają się
+            rozbić go na pliki, z których każdy opisuje odrębną funkcjonalność.
+          </p>
+          <p>
+            Kod modułowy pomaga w organizacji, utrzymaniu, testowaniu i, co
+            najważniejsze, zarządzaniu zależnościami. Najważniejszymi zaletami
+            modułów są:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>łatwość utrzymania,</li>
+            <li>odrębne przestrzenie nazw</li>
+            <li>
+              możliwość łatwego ponownego wykorzystania kodu (reusability).
+            </li>
+          </ul>
+          <p>
+            Łatwość utrzymania - dobrze zaprojektowany moduł ma na celu
+            zminimalizowanie zależności od innych części kodu. Pozwoli to na
+            rozszerzenie funkcjonalności aplikacji bez obaw o zakłócenie pracy
+            jako całości. Aktualizacja pojedynczego modułu jest znacznie
+            łatwiejsza, jeśli jest on samowystarczalny i niezależny od innych.
+          </p>
+          <p>
+            Przestrzeń nazw - zmienne, które nie znajdują się w zakresie funkcji
+            lub klasy, są globalne. Zwykle powoduje to zanieczyszczenie
+            przestrzeni nazw, gdzie całkowicie niepowiązany kod współdzieli
+            zmienne globalne. Moduły unikają zanieczyszczenia przestrzeni nazw,
+            tworząc osobny zakres dla zmiennych.
+          </p>
+          <p>
+            Ponowne wykorzystanie - gdyby wszyscy programiści kopiowali gotowy
+            kod do nowych projektów, zmieniając go tylko nieco tak, aby pasował
+            do specyfiki projektu, byłaby to oczywiście ogromna strata czasu.
+            Znacznie lepiej jest mieć moduł, który może być wielokrotnie używany
+            niezależnie od środowiska w którym jest on dołączony jako zależność.
+          </p>
+        </article>
+        <article id="article2">
+          <h2>Section3 Article2: Budowanie modułów</h2>
+          <p>
+            Budowanie modułów to proces łączenia grup modułów i ich zależności w
+            jeden lub grupę plików.
+          </p>
+          <p>
+            Zazwyczaj kod jest podzielony na foldery i pliki, dodatkowo często
+            potrzebujemy podłączyć zewnętrzne biblioteki. W rezultacie każdy z
+            tych plików musi być zawarty w głównym pliku HTML w znaczniku
+            "script", który jest następnie ładowany przez przeglądarkę.
+          </p>
+          <p>
+            Posiadanie oddzielnych tagów "script" dla każdego pliku oznacza, że
+            przeglądarka będzie pobierać każdy plik osobno, co negatywnie wpływa
+            na szybkość ładowania strony. Aby obejść ten problem, pliki są
+            łączone w jeden lub parę plików w celu zmniejszenia liczby żądań.
+            Powstaje jednak problem zarządzania zależnościami między modułami.
+          </p>
+          <p>
+            Jeśli używasz systemów modułowych, takich jak CommonJS czy ESM,
+            musisz użyć narzędzia do przekształcenia ich w uporządkowany,
+            zrozumiały dla przeglądarki kod. W tym miejscu do gry wchodzi
+            Webpack i inne narzędzia typu bundles.
+          </p>
+        </article>
+        <article id="article3">
+          <h2>Section3 Article3: ECMAScript Modules (ESM)</h2>
+          <p>
+            Do niedawna język JavaScript nie miał wbudowanego systemu
+            modułowego. ESM mają zwartą deklaratywną składnię i możliwość
+            asynchronicznego ładowania. Moduł ES to fragment kodu JS
+            wielokrotnego użytku, który eksportuje określone obiekty,
+            udostępniając je innym modułom.
+          </p>
+          <p>Zobaczmy na przykład:</p>
+          <pre>
+            greeter.js
+            const helloMessage = "hello!";
+            const goodbyeMessage = "goodbye!";
+
+            export const hello = () => helloMessage;
+            export const goodbye = () => goodbyeMessage;
+            
+
+            index.js
+            import { hello, goodbye } from "./greeter";
+
+            console.log(hello()); // "hello!"
+            console.log(goodbye()); // "goodbye!"
+          </pre>
+          <p>
+            Każdy plik JS przechowuje kod w unikalnym kontekście modułu i
+            importuje potrzebne mu zależności oraz eksportuje to, co ma być
+            zaimportowane przez inne moduły które będą go wykorzystywać.
+            Operacje eksportu/importu są realizowane przez konstrukcje import i
+            export. Takie podejście ma dwie oczywiste zalety — unikanie
+            zanieczyszczenia globalnej przestrzeni nazw i jawne określanie
+            zależności.
+          </p>
+          <p>
+            Nowy system modułów różni się od istniejącego CommonJS i innych,
+            przede wszystkim tym, że jest standardem. Oznacza to, że z czasem
+            będzie w pełni obsługiwany przez przeglądarki natywnie, bez
+            dodatkowych konieczności dodatkowych narzędzi. Niestety obsługa w
+            przeglądarkach nie jest obecnie kompletna, więc ESM są używane w
+            połączeniu z narzędziami do tworzenia modułów, takimi jak
+            <a class="link" href="https://webpack.js.org/">Webpack</a>,
+            <a class="link" href="https://parceljs.org/">Parcel</a> i inne.
+          </p>
+          <p>
+            ESM zostały zaprojektowane uwzględniając analizę statyczną. Oznacza
+            to, że podczas importowania modułów import jest przetwarzany w
+            czasie kompilacji, czyli przed uruchomieniem skryptu. Pozwala to na
+            usunięcie eksportów, które nie są używane przez inne moduły przed
+            uruchomieniem skryptu, co może prowadzić do znacznych oszczędności
+            na wadze pliku JS, zmniejszając obciążenie przeglądarki. Nazywa się
+            to tree shaking i jest wykonywane przez bundlery automatycznie
+            podczas budowania kodu JS.
+          </p>
+        </article>
+        <article id="article4">
+          <h2>Section3 Article4: Named export</h2>
+          <p>
+            Moduł może eksportować kilka encji, które różnią się nazwami i są
+            nazywane nazwanymi eksportami. Aby zaimportować je do innego modułu,
+            musimy znać nazwy eksportowanych encji, które chcemy zaimportować.
+          </p>
+          <p>
+            Pierwszym sposobem jest użycie słowa kluczowego export przed
+            wszystkimi encjami, które mają zostać wyeksportowane. Zostaną one
+            dodane jako właściwości do eksportowanego obiektu. Podczas importu
+            destrukturyzujemy właściwości z importowanego obiektu.
+          </p>
+          <pre>
+            my-module.js
+            const sqrt = Math.sqrt;
+            export const square = x => x * x;
+            export const diag = (x, y) => sqrt(square(x) + square(y));
+
+
+            main.js
+            import { square, diag } from "./path/to/my-module";
+
+            console.log(square(11)); // 121
+            console.log(diag(4, 3)); // 5
+          </pre>
+          <p>
+            Drugim sposobem jest jawne określenie obiektu z właściwościami do
+            eksportu.
+          </p>
+          <pre>
+            my-module.js
+            const sqrt = Math.sqrt;
+            const square = x => x * x;
+            const diag = (x, y) => sqrt(square(x) + square(y));
+            export { square, diag };
+
+
+            main.js
+            import { square, diag } from "./path/to/myModule";
+
+            console.log(square(11)); // 121
+            console.log(diag(4, 3)); // 5
+          </pre>
+          <p>
+            Poniższa składnia importuje wszystkie eksporty modułu jako obiekt o
+            określonej nazwie. Nazywamy to namespace import.
+          </p>
+          <pre>
+            main.js
+            import * as myModule from "./path/to/my-module";
+
+            console.log(myModule.square(11)); // 121
+            console.log(myModule.diag(4, 3)); // 5
+          </pre>
+        </article>
+        <article id="article5">
+          <h2>Section3 Article5: Default export</h2>
+          <p>
+            Często moduł eksportuje tylko jedną encję, taki eksport jest wygodny
+            do importu. Domyślny eksport to najważniejsza wartość eksportowana,
+            która może być dowolnego typu, może to być: zmienna, funkcja, klasa
+            itp.
+          </p>
+          <pre>
+            my-func.js
+            export default function myFunc() {
+              // ...
+            }
+
+
+            my-class.js
+            export default class MyClass {
+              // ...
+            }
+
+
+            main.js
+            import myFunc from "./path/to/my-func";
+            import MyClass from "./path/to/my-class";
+
+            myFunc();
+            const inst = new MyClass();
+          </pre>
+          <p>
+            Użyj nazwanych eksportów, gdy musisz wyeksportować wiele encji, a
+            eksport domyślny, gdy musisz wyeksportować tylko jedną. Chociaż
+            możliwe jest użycie domyślnych i nazwanych eksportów w tym samym
+            pliku, dobrą praktyką jest wybranie tylko jednego stylu eksportu dla
+            każdego modułu.
+          </p>
+        </article>
+      </section>
+      <!-- section4 -->
+      <section id="section4" class="text">
+        <article id="article1">
+          <h2>Section4 Article1: Wprowadzenie do Webpack</h2>
+          <p>
+            <a href="https://webpack.js.org/">Webpack</a> to konstruktor modułów
+            JS, manager zależności modułów, który analizuje drzewo zależności i
+            tworzy jeden lub więcej plików wynikowych zawierających całą bazę
+            kodu projektu. Ustawia kolejność łączenia modułów, łączy,
+            minifikuje, pakuje i wiele więcej.
+          </p>
+          <div class="section4-img-container grow_up-img">
+            <img src="../images/main/dependency-graph.png" alt="" />
+          </div>
+          <p>
+            Webpack stał się jednym z najważniejszych narzędzi do tworzenia
+            stron internetowych. Przede wszystkim jest managerem zależności
+            modułów aplikacji i bundlerem plików JS, ale może przekształcać
+            wszystkie zasoby (HTML i CSS, SASS itp.), optymalizować obrazy,
+            kompilować szablony, uruchamiać lokalny serwer WWW do programowania
+            i wiele więcej.
+          </p>
+        </article>
+        <article id="article2">
+          <h2>Section4 Article2: Zasada działania</h2>
+          <p>
+            Załóżmy, że mamy aplikację, która potrafi wykonać dwa proste zadania
+            matematyczne: sumować i mnożyć. Zdecydowaliśmy podzielić te funkcje
+            na osobne pliki (moduły), aby uprościć obsługę bazy kodu. Następnie
+            skrypty w index.html będą podłączone w poniższej kolejności.
+          </p>
+          <pre>
+            index.html
+            script src="sum.js">/script>
+            script src="multiply.js">/script>
+            script src="index.js">/script>
+          </pre>
+          <p>
+            Załóżmy, że kod z sum.js jest używany w multiply.js i index.js, a
+            kod z multiply.js jest używany tylko w index.js. Pokażmy hierarchię
+            zależności na prostym diagramie.
+          </p>
+          <div class="section4-img-container grow_up-img">
+            <img src="../images/main/dependencies.png" alt="" />
+          </div>
+          <p>
+            Jeśli popełnisz błąd w kolejności łączenia skryptów w index.html, to
+            znaczy, jeśli index.js jest dołączony przed innymi zależnościami lub
+            jeśli sum.js jest dodawany po multiply.js - wystąpią błędy. Teraz
+            wyobraź sobie, że skalujemy to do prawdziwej, w pełni działającej
+            aplikacji - mogą istnieć setki zależności. Utrzymanie porządku
+            podłączeń byłoby koszmarem.
+          </p>
+          <p>
+            Webpack konwertuje zależności na moduły i łączy je w jeden lub
+            więcej plików. Każdy moduł będzie miał prywatną przestrzeń nazw i
+            podłączy się we właściwym czasie, we właściwej kolejności.
+          </p>
+          <div class="section4-img-container grow_up-img">
+            <img src="../images/main/bundle.png" alt="" />
+          </div>
+          <p>
+            Starszą alternatywą dla Webpack jest Gulp który nadal zajmuje
+            należne mu miejsce w zestawie narzędzi dla programistów, a w
+            niektórych projektach funkcjonalność Webpack nie jest potrzebna,
+            chociaż może działać w połączeniu z Gulp. Pomimo tego, że krzywa
+            uczenia się może być wyższa (zwłaszcza przy bardziej złożonych
+            ustawieniach), Webpack jest niezbędny, jeśli używasz nowoczesnych
+            bibliotek i frameworków do programowania, takich jak React, Vue,
+            Angular itd.
+          </p>
+        </article>
+        <article id="article3">
+          <h2>Section4 Article3: Ustawienie</h2>
+          <p>
+            Skorzystaj z poniższych linków, aby uzyskać wyczerpujące tutoriale z
+            objaśnieniami krok po kroku, jak skonfigurować Webpack.
+          </p>
+          <ul>
+            <li>
+              <a href="https://www.taniarascia.com/how-to-use-webpack/"
+                >How to set up webpack 5 from scratch</a
+              >
+            </li>
+            <li>
+              <a href="https://webpack.js.org/concepts/"
+                >Dokumentacja Webpack</a
+              >
+            </li>
+          </ul>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-logo">
+        <img
+          src="../images/footer/konikMaly24x24Squoosh.png"
+          alt="logoImage"
+          width="24"
+        />
+        <img src="../images/footer/3KLogo.png" alt="logoText" />
+      </div>
+      <div id="footer-title">
+        <p></p>
+      </div>
+      <div class="footer-date">
+        <p>04.05.2024r.</p>
+      </div>
+    </footer>
+    <!-- SKRYPTY JS -->
+    <script defer src="../scripts/menu.mjs"></script>
+    <script defer src="../scripts/15.mjs" type="module"></script>
+  </body>
+</html>
