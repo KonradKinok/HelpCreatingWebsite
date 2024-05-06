@@ -47,8 +47,11 @@ phrase.classList.add(className);
 const temp = example_practice.innerHTML;
 const splitTemp = temp.split('  ');
 const joinTemp = splitTemp.join('');
+const splitTemp2 = joinTemp.split('\n');
+const joinTemp2 = splitTemp2.join('\n\r');
 // const newTemp = temp.replace(/ {2,}/g, '\n\r');
-phrase.textContent = `'HTML: ${joinTemp}`;
+phrase.textContent = `'HTML: ${joinTemp2}`;
 example_theory.prepend(phrase);
 
+console.log('zmiana1');
 console.log(joinTemp);
