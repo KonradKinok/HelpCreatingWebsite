@@ -50,3 +50,5 @@ const joinTemp = splitTemp.join('');
 // const newTemp = temp.replace(/ {2,}/g, '\n\r');
 phrase.textContent = `'HTML: ${joinTemp}`;
 example_theory.prepend(phrase);
+
+console.log(joinTemp);
