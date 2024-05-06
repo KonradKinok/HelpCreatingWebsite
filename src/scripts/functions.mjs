@@ -14,11 +14,11 @@ export function htmlTagViewExample(
 
   const phrase = document.createElement('pre');
   phrase.classList.add(className);
-  // phrase.textContent = 'HTML:' + example_practice.innerHTML;
-  const temp = example_practice.innerHTML;
+  const examplePracticeInnerHtml = example_practice.innerHTML
+    .split('  ')
+    .join('');
 
-  const newTemp = temp.replace(/ {2,}/g, '\n\r');
-  phrase.textContent = `'HTML: ${newTemp}`;
+  phrase.textContent = `HTML: ${examplePracticeInnerHtml}`;
   example_theory.prepend(phrase);
 }
 
