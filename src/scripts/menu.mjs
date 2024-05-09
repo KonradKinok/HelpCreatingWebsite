@@ -95,6 +95,10 @@ const menuItem = [
     name: '22. Składnia async/await',
     link: '../html/22-skladniaAsyncAwait.html',
   },
+  {
+    name: '23. Projekt grupowy',
+    link: '../html/23-projectGrupowy.html',
+  },
 ];
 
 menuItem.forEach(element => {
@@ -107,9 +111,13 @@ menuItem.forEach(element => {
   if (title.textContent === element.name.slice(4)) {
     linkItem.classList.add('current-page');
     const footerTitle = document.querySelector('div#footer-title');
-    footerTitle.textContent = element.name;
+    if (footerTitle) {
+      footerTitle.textContent = element.name;
+    }
   }
 
   listItem.appendChild(linkItem);
-  list.appendChild(listItem);
+  if (list) {
+    list.appendChild(listItem);
+  }
 });
