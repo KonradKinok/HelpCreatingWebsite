@@ -118,7 +118,7 @@ function renderMovies(dataMovies) {
                     ${urlW780.url} 780w
                      ${urlOriginal.url} 2000w
                   "
-                  sizes="(min-width: 900px) 600px, (min-width: 600px) 300px, 100vw"
+                  sizes="(min-width: 1157px) 780px, (min-width: 768px) 500px, (max-width: 767px) 342px, 100vw"
                 />
               </div>
               <div class="card-text">
