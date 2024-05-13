@@ -33,7 +33,19 @@
         <ul id="cards-list" class="cards-list">
           <li>
             <div class="card">
-              <div class="card-img"></div>
+              <div class="card-img">
+                <img
+                  alt="Opis obrazu dla wszystkich wersji"
+                  src="../images/groupProject/film500.jpg"
+                  srcset="
+                    ../images/groupProject/film500.jpg  300w,
+                    ../images/groupProject/film500.jpg  600w,
+                    ../images/groupProject/film500.jpg 1200w,
+                    ../images/groupProject/film500.jpg 2000w
+                  "
+                  sizes="(min-width: 900px) 600px, (min-width: 600px) 300px, 100vw"
+                />
+              </div>
               <div class="card-text">
                 <p class="card-text-title">Ghostbusters</p>
                 <p class="card-text-genre">Drama, Action | 2024</p>

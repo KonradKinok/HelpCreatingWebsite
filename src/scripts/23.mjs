@@ -44,73 +44,91 @@ function getTmdbConfiguration() {
 }
 const temp = tmdb.getUrlSizePoster('poster_path');
 // temp.
+// function renderMovies(dataMovies) {
+//   gallery.innerHTML = null;
+//   const filmsList = dataMovies.results
+//     .map(({ id, original_title, poster_path, release_date, genre_ids }) => {
+//       const urlSizePoster = tmdb.getUrlSizePoster(poster_path);
+//       const url = urlSizePoster.find(obj => obj.name === 'w500');
+//       const year = release_date.split('-')[0];
+//       const genres = tmdb.getGenres(genre_ids);
+
+//       const listItem = document.createElement('li');
+//       const divCard = document.createElement('div');
+//       divCard.classList.add('card');
+//       divCard.setAttribute('data-id', id);
+
+//       const divCardImg = document.createElement('div');
+//       divCardImg.classList.add('card-img');
+
+//       divCardImg.style.backgroundImage = `url("${url.url}")`;
+
+//       const divCardText = document.createElement('div');
+//       divCardText.classList.add('card-text');
+
+//       const pCardTextTitle = document.createElement('p');
+//       pCardTextTitle.classList.add('card-text-title');
+//       pCardTextTitle.textContent = original_title;
+
+//       const pCardTextGenre = document.createElement('p');
+//       pCardTextGenre.classList.add('card-text-genre');
+//       pCardTextGenre.textContent = genres + ' | ' + year;
+
+//       divCardText.appendChild(pCardTextTitle);
+//       divCardText.appendChild(pCardTextGenre);
+
+//       divCard.appendChild(divCardImg);
+//       divCard.appendChild(divCardText);
+
+//       listItem.appendChild(divCard);
+//       gallery.appendChild(listItem);
+//     })
+//     .join('');
+
+//   gallery.insertAdjacentHTML('beforeend', filmsList);
+// }
+
 function renderMovies(dataMovies) {
   gallery.innerHTML = null;
   const filmsList = dataMovies.results
-    .map(({ id, original_title, poster_path, release_date, genre_ids }) => {
+    .map(({ id, title, poster_path, release_date, genre_ids }) => {
+      //Img
       const urlSizePoster = tmdb.getUrlSizePoster(poster_path);
-      const url = urlSizePoster.find(obj => obj.name === 'w500');
-      const year = release_date.split('-')[0];
+      const urlW92 = urlSizePoster.find(obj => obj.name === 'w92');
+      const urlW154 = urlSizePoster.find(obj => obj.name === 'w154');
+      const urlW185 = urlSizePoster.find(obj => obj.name === 'w185');
+      const urlW342 = urlSizePoster.find(obj => obj.name === 'w342');
+      const urlW500 = urlSizePoster.find(obj => obj.name === 'w500');
+      const urlW780 = urlSizePoster.find(obj => obj.name === 'w780');
+      const urlOriginal = urlSizePoster.find(obj => obj.name === 'original');
+
       const genres = tmdb.getGenres(genre_ids);
+      const year = release_date.split('-')[0];
 
-      const listItem = document.createElement('li');
-      const divCard = document.createElement('div');
-      divCard.classList.add('card');
-      divCard.setAttribute('data-id', id);
-
-      const divCardImg = document.createElement('div');
-      divCardImg.classList.add('card-img');
-
-      divCardImg.style.backgroundImage = `url("${url.url}")`;
-
-      const divCardText = document.createElement('div');
-      divCardText.classList.add('card-text');
-
-      const pCardTextTitle = document.createElement('p');
-      pCardTextTitle.classList.add('card-text-title');
-      pCardTextTitle.textContent = original_title;
-
-      const pCardTextGenre = document.createElement('p');
-      pCardTextGenre.classList.add('card-text-genre');
-      pCardTextGenre.textContent = genres + ' | ' + year;
-
-      divCardText.appendChild(pCardTextTitle);
-      divCardText.appendChild(pCardTextGenre);
-
-      divCard.appendChild(divCardImg);
-      divCard.appendChild(divCardText);
-
-      listItem.appendChild(divCard);
-      gallery.appendChild(listItem);
+      return `<li>
+            <div class="card" data-set="${id}">
+              <div class="card-img">
+                <img
+                  alt="${title}"
+                  src="${urlW154.url}"
+                  srcset="
+                    ${urlW185.url}  185w,
+                    ${urlW342.url}  342w,
+                    ${urlW500.url} 500w,
+                    ${urlW780.url} 780w
+                     ${urlOriginal.url} 2000w
+                  "
+                  sizes="(min-width: 900px) 600px, (min-width: 600px) 300px, 100vw"
+                />
+              </div>
+              <div class="card-text">
+                <p class="card-text-title">${title}</p>
+                <p class="card-text-genre">${genres} | ${year}</p>
+              </div>
+            </div>
+          </li>`;
     })
     .join('');
 
   gallery.insertAdjacentHTML('beforeend', filmsList);
 }
-
-// function render() {
-//   const listItem = document.createElement('li');
-//   const divCard = document.createElement('div');
-//   divCard.classList.add('card');
-
-//   const divCardImg = document.createElement('div');
-//   divCardImg.classList.add('card-img');
-// sectionOneBackground.style.backgroundImage = "url('images/original.jpg')";
-//   const divCardText = document.createElement('div');
-//   divCardText.classList.add('card-text');
-
-//   const pCardTextTitle = document.createElement('p');
-//   pCardTextTitle.classList.add('card-text-title');
-
-//   const pCardTextGenre = document.createElement('p');
-//   pCardTextGenre.classList.add('card-text-genre');
-
-//   divCardText.appendChild(pCardTextTitle);
-//   divCardText.appendChild(pCardTextGenre);
-
-//   divCard.appendChild(divCardImg);
-//   divCard.appendChild(divCardText);
-
-//   listItem.appendChild(divCard);
-//   gallery.appendChild(listItem);
-// }
