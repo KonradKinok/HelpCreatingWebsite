@@ -13,15 +13,23 @@ axios.defaults.headers.common['Authorization'] = AXIOS_AUTHORIZATION;
 //DOM
 const searchButton = document.querySelector('button#search-button');
 const gallery = document.querySelector('ul#cards-list');
-
+const inputNumberPage = document.querySelector('input#input-page');
+const inputTotalPage = document.querySelector('label#label-pages');
+inputNumberPage.value = 1;
+inputNumberPage.addEventListener('change', event => {
+  let pageNumber = inputNumberPage.value;
+  getMostPopularMovies(pageNumber);
+});
 searchButton.addEventListener('click', ev => {
-  getMostPopularMovies();
+  inputNumberPage.value = 1;
+  pageNumber = inputNumberPage.value;
+  getMostPopularMovies(pageNumber);
 });
 
 //Functions
-function getMostPopularMovies() {
+function getMostPopularMovies(pageNumber) {
   tmdb
-    .getMostPopularMovies(1)
+    .getMostPopularMovies(pageNumber)
     .then(dataMovies => {
       getTmdbConfiguration();
       renderMovies(dataMovies);
@@ -90,6 +98,8 @@ const temp = tmdb.getUrlSizePoster('poster_path');
 
 function renderMovies(dataMovies) {
   gallery.innerHTML = null;
+  const totalPages = dataMovies.total_pages;
+
   const filmsList = dataMovies.results
     .map(({ id, title, poster_path, release_date, genre_ids }) => {
       //Img
@@ -107,13 +117,13 @@ function renderMovies(dataMovies) {
 
       return `<li>
             <div class="card" data-id="${id}">
-              <div class="card-img">
-                <img
+              <div >
+                <img class="card-img"
                   alt="${title}"
                   src="${urlW154.url}"
                   srcset="
-                    ${urlW185.url}  185w,
-                    ${urlW342.url}  342w,
+                    ${urlW185.url} 185w,
+                    ${urlW342.url} 342w,
                     ${urlW500.url} 500w,
                     ${urlW780.url} 780w
                      ${urlOriginal.url} 2000w
@@ -129,6 +139,6 @@ function renderMovies(dataMovies) {
           </li>`;
     })
     .join('');
-
+  inputTotalPage.textContent = totalPages;
   gallery.insertAdjacentHTML('beforeend', filmsList);
 }

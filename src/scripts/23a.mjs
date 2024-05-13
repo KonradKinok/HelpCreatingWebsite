@@ -16,6 +16,7 @@ export async function getMostPopularMovies(currentPage) {
   });
   const url = `https://api.themoviedb.org/3/trending/movie/day?${searchParams}`;
   const response = await axios.get(url);
+  console.log(url);
   return response.data;
 }
 
