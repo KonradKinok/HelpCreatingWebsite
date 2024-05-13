@@ -106,7 +106,7 @@ function renderMovies(dataMovies) {
       const year = release_date.split('-')[0];
 
       return `<li>
-            <div class="card" data-set="${id}">
+            <div class="card" data-id="${id}">
               <div class="card-img">
                 <img
                   alt="${title}"
