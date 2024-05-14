@@ -9,7 +9,7 @@ const AXIOS_AUTHORIZATION =
 axios.defaults.headers.common['Authorization'] = AXIOS_AUTHORIZATION;
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
-export async function getMostPopularMovies(currentPage) {
+export async function getMostPopularMoviesTmdbApi(currentPage) {
   const searchParams = new URLSearchParams({
     language: 'en-US',
     page: currentPage,

@@ -29,7 +29,7 @@ searchButton.addEventListener('click', ev => {
 //Functions
 function getMostPopularMovies(pageNumber) {
   tmdb
-    .getMostPopularMovies(pageNumber)
+    .getMostPopularMoviesTmdbApi(pageNumber)
     .then(dataMovies => {
       getTmdbConfiguration();
       renderMovies(dataMovies);
