@@ -1,6 +1,7 @@
 'use strict';
 //Import
 import axios from 'axios';
+
 //ApiKey
 const apiKey = '6bb894494c1a707618648b9164f393c2';
 const AXIOS_AUTHORIZATION =
