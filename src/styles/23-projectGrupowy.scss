@@ -187,15 +187,11 @@
 
 // Pagination Control
 .control-pagination{
+    display: flex;
+    justify-content: center;
     margin: 60px, auto;
 }
-.control-pagination{
-    display: flex;
-    background-color: blue;
-    width: 400px;
-    height: 400px;
-    font-size: 170px;
-}
+
 .control-pagination ul {
     // width: 100%;
     display: flex;
