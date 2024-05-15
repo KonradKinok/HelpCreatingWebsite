@@ -11,8 +11,7 @@ const AXIOS_AUTHORIZATION =
   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2YmI4OTQ0OTRjMWE3MDc2MTg2NDhiOTE2NGYzOTNjMiIsInN1YiI6IjVlZDdiZmY3ZTRiNTc2MDAyMDM3NjYzZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kRGs0WRoomKwYXT7Mt8PNU2Zk6kAVasud5CyVVdf2mA';
 //Axios header - api key
 axios.defaults.headers.common['Authorization'] = AXIOS_AUTHORIZATION;
-let pageNumber = 1;
-let totalPages = 1;
+
 //DOM
 const homeButton = document.querySelector('span#logo');
 
@@ -115,15 +114,17 @@ function renderMovies(dataMovies) {
           </li>`;
     })
     .join('');
-  if (controlPagination) {
-    controlPagination.innerHTML = createPagination(totalPages, currentPage);
-    console.log('controlPagination', totalPages, currentPage);
-  }
+  // if (controlPagination) {
+  //   controlPagination.innerHTML = createPagination(totalPages, currentPage);
+  //   console.log('controlPagination', totalPages, currentPage);
+  // }
 
   gallery.insertAdjacentHTML('beforeend', filmsList);
 }
-// let totalPages = 1000;
 
+let pageNumber = 1;
+let totalPages = 100;
+controlPagination.innerHTML = createPagination(totalPages, pageNumber);
 function createPagination(totalPages, page) {
   let liTag = '';
   let currentPage;
