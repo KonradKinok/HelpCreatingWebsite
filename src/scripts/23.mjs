@@ -123,7 +123,7 @@ function renderMovies(dataMovies) {
   gallery.insertAdjacentHTML('beforeend', filmsList);
 }
 // let totalPages = 1000;
-let page = 10;
+
 function createPagination(totalPages, page) {
   let liTag = '';
   let currentPage;
