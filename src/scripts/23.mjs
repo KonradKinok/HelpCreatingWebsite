@@ -12,11 +12,12 @@ const AXIOS_AUTHORIZATION =
 //Axios header - api key
 axios.defaults.headers.common['Authorization'] = AXIOS_AUTHORIZATION;
 let pageNumber = 1;
-
+let totalPages = 1;
 //DOM
 const homeButton = document.querySelector('span#logo');
-const gallery = document.querySelector('ul#cards-list');
 
+const gallery = document.querySelector('ul#cards-list');
+const controlPagination = document.querySelector('ul#control-pagination-list');
 //Listeners
 homeButton.addEventListener('click', ev => {
   ev.preventDefault();
@@ -25,6 +26,7 @@ homeButton.addEventListener('click', ev => {
 });
 
 //Functions
+
 /**
  *getMostPopularMoviesTmdbApi
  ** Pobiera dane o najpopularniejszych filmach z API TMDb.
@@ -73,7 +75,7 @@ function getMostPopularMovies(pageNumber) {
 function renderMovies(dataMovies) {
   gallery.innerHTML = null;
   const totalPages = dataMovies.total_pages;
-
+  const currentPage = dataMovies.page;
   const filmsList = dataMovies.results
     .map(({ id, title, poster_path, release_date, genre_ids }) => {
       //Img
@@ -113,12 +115,83 @@ function renderMovies(dataMovies) {
           </li>`;
     })
     .join('');
+  if (controlPagination) {
+    controlPagination.innerHTML = createPagination(totalPages, currentPage);
+    console.log('controlPagination', totalPages, currentPage);
+  }
 
-  let kontrolkaDoPaginacji = 0; //nazwaKontrolkiDoPaginacji
-  kontrolkaDoPaginacji = totalPages;
   gallery.insertAdjacentHTML('beforeend', filmsList);
 }
+// let totalPages = 1000;
+let page = 10;
+function createPagination(totalPages, page) {
+  let liTag = '';
+  let currentPage;
+  let active;
+  let beforePage = page - 2;
+  let afterPage = page + 2;
 
+  if (page > 1) {
+    liTag += `<li class="btn prev" onclick="createPagination(${totalPages}, ${
+      page - 1
+    })"><svg width="16" height="16">
+                  <use href="../images/icons.svg#icon-arrow-right"></use>
+                </svg></li>`;
+  }
+
+  if (page > 3) {
+    liTag += `<li class="first numb" onclick="createPagination(${totalPages}, 1)"><span>1</span></li>`;
+    if (page > 4) {
+      liTag += `<li class="dots"><span>...</span></li>`;
+    }
+  }
+
+  if (page == totalPages) {
+    beforePage = beforePage - 1;
+  } else if (page == totalPages - 1) {
+    beforePage = beforePage;
+  }
+  if (page == 1) {
+    afterPage = afterPage + 1;
+  } else if (page == 2) {
+    afterPage = afterPage;
+  }
+
+  for (var plength = beforePage; plength <= afterPage; plength++) {
+    if (plength > totalPages) {
+      continue;
+    }
+    if (plength <= 0) {
+      continue;
+    }
+    if (page == plength) {
+      active = 'active';
+      currentPage = "id = 'pagination-current-page'";
+    } else {
+      active = '';
+      currentPage = '';
+    }
+    liTag += `<li class="numb ${active}" ${currentPage} onclick="createPagination(${totalPages}, ${plength})"><span>${plength}</span></li>`;
+  }
+
+  if (page < totalPages - 2) {
+    if (page < totalPages - 3) {
+      liTag += `<li class="dots"><span>...</span></li>`;
+    }
+    liTag += `<li class="last numb" onclick="createPagination(${totalPages}, ${totalPages})"><span>${totalPages}</span></li>`;
+  }
+
+  if (page < totalPages) {
+    liTag += `<li class="btn next" onclick="createPagination(${totalPages}, ${
+      page + 1
+    })"><svg width="16" height="16">
+          <use href="./images/icons.svg#icon-arrow-right"></use>
+        </svg></li>`;
+  }
+
+  controlPagination.innerHTML = liTag;
+  return liTag;
+}
 /**
  *getUrlSizePoster
  ** Generuje listę obiektów zawierających URL różnych rozmiarów obrazka.
@@ -237,6 +310,7 @@ function getGenres(genre_ids) {
   const genreNames = matchingGenres.join(', ');
   return genreNames;
 }
+
 // -------------KonradKonik End
 
 // MartaMajnusz - wyszukiwarka (F10)

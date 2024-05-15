@@ -1,66 +1,66 @@
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+// *,
+// *::before,
+// *::after {
+//     box-sizing: border-box;
+//     margin: 0;
+//     padding: 0;
+// }
 
-:root {
-    --font-family: "Roboto", sans-serif;
-}
+// :root {
+//     --font-family: "Roboto", sans-serif;
+// }
 
-/* Globalne resetowanie stylow */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-ul {
-    margin: 0;
-    padding: 0;
-}
+// /* Globalne resetowanie stylow */
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6,
+// p,
+// ul {
+//     margin: 0;
+//     padding: 0;
+// }
 
-img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
+// img {
+//     display: block;
+//     max-width: 100%;
+//     height: auto;
+// }
 
-.button {
-    display: flex;
-    padding: 12px 32px;
-    border: none;
-    border-radius: 4px;
-    background-color: #2196f3;
-    color: #fff;
-    font-size: inherit;
-    cursor: pointer;
-    margin: 0 auto;
-}
+// .button {
+//     display: flex;
+//     padding: 12px 32px;
+//     border: none;
+//     border-radius: 4px;
+//     background-color: #2196f3;
+//     color: #fff;
+//     font-size: inherit;
+//     cursor: pointer;
+//     margin: 0 auto;
+// }
 
-.button:hover,
-.button:focus {
-    background-color: #1976d2;
-}
+// .button:hover,
+// .button:focus {
+//     background-color: #1976d2;
+// }
 
-ul,
-ol {
-    list-style: none;
-    margin: 0;
-    padding-left: 0;
-}
+// ul,
+// ol {
+//     list-style: none;
+//     margin: 0;
+//     padding-left: 0;
+// }
 
-span {
-    font-weight: 600;
-    color: #fff;
-}
+// // span {
+// //     font-weight: 600;
+// //     color: #fff;
+// // }
 
-a {
-    text-decoration: none;
-}
+// a {
+//     text-decoration: none;
+// }
 
 
 .body-container {
@@ -184,6 +184,104 @@ a {
 
     }
 }
+
+// Pagination Control
+.control-pagination{
+    margin: 60px, auto;
+}
+.control-pagination{
+    display: flex;
+    background-color: blue;
+    width: 400px;
+    height: 400px;
+    font-size: 170px;
+}
+.control-pagination ul {
+    // width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 3px;
+    // padding: 8px;
+    // border-radius: 50px;
+    // box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    width: 374px;
+
+    height: 40px;
+}
+
+.control-pagination ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33333;
+    color: #000;
+    width: 40px;
+    height: 40px;
+
+    list-style: none;
+
+
+    cursor: pointer;
+    user-select: none;
+
+
+
+}
+
+.control-pagination ul li.numb {
+    // list-style: none;
+    // height: 45px;
+    // width: 45px;
+    // margin: 0 3px;
+    // line-height: 45px;
+    border-radius: 5px;
+
+}
+
+.control-pagination ul li.numb.first {
+    align-items: center;
+}
+
+.control-pagination ul li.numb.last {
+    align-items: center;
+}
+
+.control-pagination ul li.dots {
+    padding-bottom: 8px;
+    cursor: default;
+    width: auto;
+}
+
+.control-pagination ul li.btn {
+    border-radius: 5px;
+    background: rgba(247, 247, 247, 1);
+
+
+}
+
+.control-pagination ul li.next {}
+
+.control-pagination ul li.prev {
+
+    transform: rotate(-180deg);
+}
+
+.control-pagination li.active,
+.control-pagination ul li.numb:hover {
+    background: rgba(255, 107, 8, 0.5);
+    color: #fff;
+
+}
+
+.control-pagination ul li:first-child:hover,
+.control-pagination ul li:last-child:hover {
+    background: rgba(247, 247, 247, 0.8);
+}
+
+// ------------ End Pagination Control 
 
 .footer-container {
     background: rgb(224, 206, 206);
