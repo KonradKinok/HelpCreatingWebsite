@@ -22,7 +22,6 @@ const controlPagination = document.querySelector('ul#control-pagination-list');
 homeButton.addEventListener('click', ev => {
   ev.preventDefault();
   const pageNumber = 1;
-
   getMostPopularMovies(pageNumber);
 });
 
