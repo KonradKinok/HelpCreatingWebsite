@@ -3,7 +3,6 @@
 
 //Import
 import axios from 'axios';
-import * as mainMethods from './23a.mjs';
 import { createPagination } from './23.mjs';
 window.createPagination = createPagination;
 // -------------KonradKonik
@@ -123,13 +122,22 @@ function renderMovies(dataMovies) {
           </li>`;
     })
     .join('');
-  if (controlPagination) {
-    createPagination(totalPages, currentPage, getMostPopularMovies);
-    console.log('controlPagination', totalPages, currentPage);
-  }
 
   gallery.insertAdjacentHTML('beforeend', filmsList);
+  if (controlPagination) {
+    createPagination(totalPages, currentPage, getMostPopularMovies);
+  }
 }
+
+/**
+ *createPagination
+ ** Tworzy elementy paginacji i dodaje nasłuchiwacze zdarzeń dla kliknięć na te elementy.
+ *
+ * @param {number} totalPages - Całkowita liczba stron.
+ * @param {number} page - Numer bieżącej strony.
+ * @param {function(number): void} callback - Funkcja wywoływana po kliknięciu elementu paginacji, przyjmująca numer nowej strony.
+ * @returns {string} HTML string z wygenerowanymi elementami paginacji.
+ */
 export function createPagination(totalPages, page, callback) {
   let liTag = '';
   let currentPage;
@@ -201,7 +209,6 @@ export function createPagination(totalPages, page, callback) {
   const paginationItems = controlPagination.querySelectorAll('li[data-page]');
   paginationItems.forEach(item => {
     item.addEventListener('click', event => {
-      console.log('funkcja która nie powinna się uruchomić');
       const newPage = Number(event.currentTarget.getAttribute('data-page'));
       callback(newPage);
     });
@@ -210,87 +217,6 @@ export function createPagination(totalPages, page, callback) {
   return liTag;
 }
 
-// controlPagination.innerHTML = createPagination(totalPages, pageNumber);
-// export function createPagination(totalPages, page) {
-//   let liTag = '';
-//   let currentPage;
-//   let currentPageAtrribute;
-//   let active;
-//   let beforePage = page - 2;
-//   let afterPage = page + 2;
-
-//   if (page > 1) {
-//     liTag += `<li class="btn prev" onclick="createPagination(${totalPages}, ${
-//       page - 1
-//     })"><svg width="16" height="16">
-//                   <use href="../images/icons.svg#icon-arrow-right"></use>
-//                 </svg></li>`;
-//   }
-//   if (page > 3) {
-//     liTag += `<li class="first numb" onclick="createPagination(${totalPages}, 1)"><span>1</span></li>`;
-//     if (page > 4) {
-//       liTag += `<li class="dots"><span>...</span></li>`;
-//     }
-//   }
-
-//   if (page == totalPages) {
-//     beforePage = beforePage - 1;
-//   } else if (page == totalPages - 1) {
-//     beforePage = beforePage;
-//   }
-//   if (page == 1) {
-//     afterPage = afterPage + 1;
-//   } else if (page == 2) {
-//     afterPage = afterPage;
-//   }
-
-//   for (var plength = beforePage; plength <= afterPage; plength++) {
-//     if (plength > totalPages) {
-//       continue;
-//     }
-//     if (plength <= 0) {
-//       continue;
-//     }
-//     if (page == plength) {
-//       active = 'active';
-//       currentPage = page;
-//       currentPageAtrribute = `data-current-page="${plength}"`;
-//     } else {
-//       active = '';
-//       currentPage = '';
-//       currentPageAtrribute = '';
-//     }
-//     liTag += `<li class="numb ${active}" ${currentPageAtrribute} onclick="createPagination(${totalPages}, ${plength})"><span>${plength}</span></li>`;
-//   }
-
-//   if (page < totalPages - 2) {
-//     if (page < totalPages - 3) {
-//       liTag += `<li class="dots"><span>...</span></li>`;
-//     }
-//     liTag += `<li class="last numb" onclick="createPagination(${totalPages}, ${totalPages})"><span>${totalPages}</span></li>`;
-//   }
-
-//   if (page < totalPages) {
-//     liTag += `<li class="btn next" onclick="createPagination(${totalPages}, ${
-//       page + 1
-//     })"><svg width="16" height="16">
-//           <use href="./images/icons.svg#icon-arrow-right"></use>
-//         </svg></li>`;
-//   }
-//   controlPagination.innerHTML = liTag;
-//   const paginationItems = controlPagination.querySelectorAll(
-//     'li[data-current-page]'
-//   );
-//   paginationItems.forEach(item => {
-//     const newPage = Number(item.getAttribute('data-current-page'));
-//     console.log('data-current-page value:', newPage); // Wyświetlanie wartości w konsoli
-//     item.addEventListener('click', event => {
-//       callback(newPage);
-//     });
-//   });
-
-//   return liTag;
-// }
 /**
  *getUrlSizePoster
  ** Generuje listę obiektów zawierających URL różnych rozmiarów obrazka.
