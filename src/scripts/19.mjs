@@ -108,10 +108,10 @@ fetchUsersBtn_s3a8.addEventListener('click', () => {
     .catch(error => onError(error));
 });
 
-function onError(error) {
-  Notify.failure(`${error}`, optionsNotify);
-  console.log(error);
-}
+// function onError(error) {
+//   Notify.failure(`${error}`, optionsNotify);
+//   console.log(error);
+// }
 const searchParams_s3a8 = new URLSearchParams({
   _limit: 5,
   _sort: 'name',

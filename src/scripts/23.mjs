@@ -5,8 +5,8 @@
 import axios from 'axios';
 // -------------KonradKonik
 //CreatePagination import niezbędny dla <script type="module">
-import { createPagination } from '../scripts/23';
-window.createPagination = createPagination;
+// import { createPagination } from '../scripts/23';
+// window.createPagination = createPagination;
 //ApiKey
 const apiKey = '6bb894494c1a707618648b9164f393c2';
 const AXIOS_AUTHORIZATION =
@@ -30,15 +30,23 @@ function hideLoader() {
 //DOM
 const homeButton = document.querySelector('span#logo');
 const gallery = document.querySelector('ul#cards-list');
-const controlPagination = document.querySelector('ul#control-pagination-list');
-
+const paginationButtons = document.querySelector('div#pagination-new');
+const pagination = document.querySelector('ul#pagination-new-list');
+const paginationButtonLeft = paginationButtons.querySelector(
+  'button#pagination-btn-left'
+);
+const paginationButtonRight = paginationButtons.querySelector(
+  'button#pagination-btn-right'
+);
+//Global variables
+let noEventListener = true;
 //Listeners
 homeButton.addEventListener('click', ev => {
   ev.preventDefault();
   const pageNumber = 1;
   getMostPopularMovies(pageNumber);
 });
-
+getMostPopularMovies(1);
 //Functions
 /**
  *getMostPopularMoviesTmdbApi
@@ -135,13 +143,13 @@ function renderMovies(dataMovies) {
     .join('');
 
   gallery.insertAdjacentHTML('beforeend', filmsList);
-  if (controlPagination) {
-    createPagination(totalPages, currentPage, getMostPopularMovies);
+  if (createPaginationNew) {
+    createPaginationNew(totalPages, currentPage, getMostPopularMovies);
   }
 }
 
 /**
- *createPagination
+ *createPaginationNew
  ** Tworzy elementy paginacji i dodaje nasłuchiwacze zdarzeń dla kliknięć na te elementy.
  *
  * @param {number} totalPages - Całkowita liczba stron.
@@ -149,83 +157,104 @@ function renderMovies(dataMovies) {
  * @param {function(number): void} callback - Funkcja wywoływana po kliknięciu elementu paginacji, przyjmująca numer nowej strony.
  * @returns {string} HTML string z wygenerowanymi elementami paginacji.
  */
-export function createPagination(totalPages, page, callback) {
+function createPaginationNew(totalPages, page, callback) {
   let liTag = '';
   let currentPage;
   let active;
   let beforePage = page - 2;
   let afterPage = page + 2;
 
-  if (page > 1) {
-    liTag += `<li class="btn prev" data-page="${
-      page - 1
-    }"><svg width="16" height="16">
-                  <use href="../images/icons.svg#icon-arrow-right"></use>
-                </svg></li>`;
-  }
-
-  if (page > 3) {
-    liTag += `<li class="first numb" data-page="1"><span>1</span></li>`;
-    if (page > 4) {
-      liTag += `<li class="dots"><span>...</span></li>`;
-    }
-  }
-
-  if (page == totalPages) {
-    beforePage = beforePage - 1;
-  } else if (page == totalPages - 1) {
-    beforePage = beforePage;
-  }
-  if (page == 1) {
-    afterPage = afterPage + 1;
-  } else if (page == 2) {
-    afterPage = afterPage;
-  }
-
-  for (var plength = beforePage; plength <= afterPage; plength++) {
-    if (plength > totalPages) {
-      continue;
-    }
-    if (plength <= 0) {
-      continue;
-    }
-    if (page == plength) {
-      active = 'active';
-      currentPage = "id = 'pagination-current-page'";
+  if (page >= 1) {
+    paginationButtonLeft.dataset.page = `${page - 1}`;
+    if (page === 1) {
+      paginationButtonLeft.disabled = true;
     } else {
-      active = '';
-      currentPage = '';
+      paginationButtonLeft.disabled = false;
     }
-    liTag += `<li class="numb ${active}" ${currentPage} data-page="${plength}"><span>${plength}</span></li>`;
-  }
-
-  if (page < totalPages - 2) {
-    if (page < totalPages - 3) {
-      liTag += `<li class="dots"><span>...</span></li>`;
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      if (page > 3) {
+        liTag += `<li class="pagination-new-numb" data-page="1"><span>1</span></li>`;
+        if (page > 4) {
+          liTag += `<li class="pagination-new-dots">...</li>`;
+        }
+      }
     }
-    liTag += `<li class="last numb" data-page="${totalPages}"><span>${totalPages}</span></li>`;
-  }
 
-  if (page < totalPages) {
-    liTag += `<li class="btn next" data-page="${
-      page + 1
-    }"><svg width="16" height="16">
-          <use href="./images/icons.svg#icon-arrow-right"></use>
-        </svg></li>`;
-  }
+    if (page == totalPages) {
+      beforePage = beforePage - 1;
+    } else if (page == totalPages - 1) {
+      beforePage = beforePage;
+    }
+    if (page == 1) {
+      afterPage = afterPage + 1;
+    } else if (page == 2) {
+      afterPage = afterPage;
+    }
 
-  controlPagination.innerHTML = liTag;
+    for (var plength = beforePage; plength <= afterPage; plength++) {
+      if (plength > totalPages) {
+        continue;
+      }
+      if (plength <= 0) {
+        continue;
+      }
+      if (page == plength) {
+        active = 'active';
+        currentPage = "id = 'pagination-current-page'";
+      } else {
+        active = '';
+        currentPage = '';
+      }
+      liTag += `<li class="pagination-new-numb ${active}" ${currentPage} data-page="${plength}"><span>${plength}</span></li>`;
+    }
 
-  // Add event listeners
-  const paginationItems = controlPagination.querySelectorAll('li[data-page]');
-  paginationItems.forEach(item => {
-    item.addEventListener('click', event => {
-      const newPage = Number(event.currentTarget.getAttribute('data-page'));
-      callback(newPage);
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      if (page < totalPages - 2) {
+        if (page < totalPages - 3) {
+          liTag += `<li class="pagination-new-dots">...</li>`;
+        }
+        liTag += `<li class="pagination-new-last pagination-new-numb" data-page="${totalPages}"><span>${totalPages}</span></li>`;
+      }
+    }
+    if (page < totalPages) {
+      paginationButtonRight.dataset.page = `${page + 1}`;
+      paginationButtonRight.disabled = false;
+    } else if (page === totalPages) {
+      paginationButtonRight.disabled = true;
+    }
+    pagination.innerHTML = liTag;
+
+    // Add event listeners
+    const paginationItems = pagination.querySelectorAll('li[data-page]');
+    paginationItems.forEach(item => {
+      item.addEventListener('click', event => {
+        const newPage = Number(event.currentTarget.getAttribute('data-page'));
+        callback(newPage);
+      });
     });
-  });
 
-  return liTag;
+    if (noEventListener) {
+      paginationButtonLeft.addEventListener('click', event => {
+        const newPage = Number(event.currentTarget.getAttribute('data-page'));
+        if (newPage >= 1) {
+          callback(newPage);
+        }
+      });
+
+      paginationButtonRight.addEventListener('click', event => {
+        const newPage = Number(event.currentTarget.getAttribute('data-page'));
+        if (newPage <= totalPages) {
+          callback(newPage);
+        }
+      });
+      noEventListener = false;
+    }
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    return liTag;
+  }
 }
 
 /**
@@ -254,6 +283,28 @@ function getUrlSizePoster(posterPath) {
   return postersUrlsObject;
 }
 
+let tabGenres = null;
+getGenresTemp();
+console.log('Pierwsze wywołanie', tabGenres);
+async function getGenresTemp() {
+  try {
+    tabGenres = await getConfigurationTmdbApi();
+    await tabGenres;
+    // console.log(dataGenres.genres);
+    // tabGenres = dataGenres.genres;
+    // console.log(tabGenres); // Log tabGenres here to see the updated value
+  } catch (error) {
+    console.error(error);
+  }
+}
+async function getConfigurationTmdbApi() {
+  const searchParams = new URLSearchParams({
+    language: 'en-US',
+  });
+  const url = `https://api.themoviedb.org/3/genre/movie/list?${searchParams}`;
+  const response = await axios.get(url);
+  return response.data;
+}
 /**
  *getGenres
  ** Zwraca nazwy gatunków filmowych na podstawie ich identyfikatorów.
@@ -339,6 +390,7 @@ function getGenres(genre_ids) {
       name: 'Western',
     },
   ];
+
   const matchingGenres = genres
     .filter(genre => genre_ids.includes(genre.id))
     .map(genre => genre.name);
@@ -355,30 +407,33 @@ const search = document.querySelector('.search-form');
 const cardsList = document.querySelector('ul#cards-list');
 let lastSearchTerm;
 
-search.addEventListener('submit', async ev => {
-  ev.preventDefault();
-  cardsList.innerHTML = ` `;
-  const warning = document.querySelector(`p.warning`);
-  const searchTerm = ev.currentTarget.elements.searchQuery.value;
-  lastSearchTerm = searchTerm;
+if (search) {
+  search.addEventListener('submit', async ev => {
+    ev.preventDefault();
+    cardsList.innerHTML = ` `;
+    const warning = document.querySelector(`p.warning`);
+    const searchTerm = ev.currentTarget.elements.searchQuery.value;
+    lastSearchTerm = searchTerm;
 
-  try {
-    const data = await searchMovies(lastSearchTerm);
-    const dataMovies = data.results;
-    const genresList = await fetchGenresList();
+    try {
+      const data = await searchMovies(lastSearchTerm);
+      const dataMovies = data.results;
+      const genresList = await fetchGenresList();
 
-    if (searchTerm === lastSearchTerm) {
-      if (data.results.length === 0) {
-        console.log(`Nie znaleziono filmów`);
-        warning.innerText = `Search result not successful. Enter the correct movie name and`;
-      } else {
-        createCards(dataMovies, genresList);
+      if (searchTerm === lastSearchTerm) {
+        if (data.results.length === 0) {
+          console.log(`Nie znaleziono filmów`);
+          warning.innerText = `Search result not successful. Enter the correct movie name and`;
+        } else {
+          createCards(dataMovies, genresList);
+        }
       }
+    } catch (error) {
+      console.error('Wystąpił błąd:', error);
     }
-  } catch (error) {
-    console.error('Wystąpił błąd:', error);
-  }
-});
+  });
+}
+
 async function fetchGenresList() {
   const url = `https://api.themoviedb.org/3/genre/movie/list?language=en&api_key=6bb894494c1a707618648b9164f393c2`;
   try {
