@@ -90,6 +90,7 @@ function getMostPopularMovies(pageNumber) {
  * @param {Array} dataMovies.results - Tablica obiektów zawierających dane o pojedynczych filmach.
  * @param {number} dataMovies.results[].id - Identyfikator filmu.
  * @param {string} dataMovies.results[].title - Tytuł filmu.
+ * @param {string} dataMovies.results[].vote_average - Średnia ocen.
  * @param {string} dataMovies.results[].poster_path - Ścieżka do pliku z obrazem plakatu filmowego.
  * @param {string} dataMovies.results[].release_date - Data premiery filmu.
  * @param {Array} dataMovies.results[].genre_ids - Tablica identyfikatorów gatunków filmowych.
@@ -103,21 +104,23 @@ function renderMovies(dataMovies) {
   }
   const currentPage = dataMovies.page;
   const filmsList = dataMovies.results
-    .map(({ id, title, poster_path, release_date, genre_ids }) => {
-      //Img
-      const urlSizePoster = getUrlSizePoster(poster_path);
-      const urlW92 = urlSizePoster.find(obj => obj.name === 'w92');
-      const urlW154 = urlSizePoster.find(obj => obj.name === 'w154');
-      const urlW185 = urlSizePoster.find(obj => obj.name === 'w185');
-      const urlW342 = urlSizePoster.find(obj => obj.name === 'w342');
-      const urlW500 = urlSizePoster.find(obj => obj.name === 'w500');
-      const urlW780 = urlSizePoster.find(obj => obj.name === 'w780');
-      const urlOriginal = urlSizePoster.find(obj => obj.name === 'original');
+    .map(
+      ({ id, title, poster_path, release_date, genre_ids, vote_average }) => {
+        //Img
+        const urlSizePoster = getUrlSizePoster(poster_path);
+        const urlW92 = urlSizePoster.find(obj => obj.name === 'w92');
+        const urlW154 = urlSizePoster.find(obj => obj.name === 'w154');
+        const urlW185 = urlSizePoster.find(obj => obj.name === 'w185');
+        const urlW342 = urlSizePoster.find(obj => obj.name === 'w342');
+        const urlW500 = urlSizePoster.find(obj => obj.name === 'w500');
+        const urlW780 = urlSizePoster.find(obj => obj.name === 'w780');
+        const urlOriginal = urlSizePoster.find(obj => obj.name === 'original');
 
-      const genres = getGenres(genre_ids);
-      const year = release_date.split('-')[0];
+        const genres = getGenres(genre_ids);
+        const year = release_date.split('-')[0];
+        const voteAverage = vote_average.toFixed(1);
 
-      return `<li>
+        return `<li>
             <div class="card" data-id="${id}">
               <div >
                 <img class="card-img"
@@ -136,10 +139,12 @@ function renderMovies(dataMovies) {
               <div class="card-text">
                 <p class="card-text-title">${title}</p>
                 <p class="card-text-genre">${genres} | ${year}</p>
+                <p class="card-text-genre">${voteAverage}</p>
               </div>
             </div>
           </li>`;
-    })
+      }
+    )
     .join('');
 
   gallery.insertAdjacentHTML('beforeend', filmsList);
