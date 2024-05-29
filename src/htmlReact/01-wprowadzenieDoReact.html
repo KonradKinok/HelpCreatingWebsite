@@ -17,7 +17,7 @@
     />
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
-    <link rel="stylesheet" href="../styles/22-skladniaAsyncAwait.scss" />
+    <link rel="stylesheet" href="../styles/reactStyles.scss" />
     <title>Wprowadzenie do React</title>
   </head>
   <body class="body-container">
@@ -30,7 +30,342 @@
     <main class="main-container">
       <!-- section1 -->
       <section id="section1" class="text">
-        <article id="article1"></article>
+        <article id="article1">
+          <h1>Moduł 1 - Zajęcia 1 - Wprowadzenie do React</h1>
+          <h2>Section1 Article1: Aplikacje webowe</h2>
+          <p>
+            We współczesnym tworzeniu stron internetowych zmieniły się nie tylko
+            techniki pozwalające stronom wyglądać lepiej, szybciej się ładować i
+            być bardziej przyjazne użytkownikom. Uległy zmianie również podstawy
+            procesu projektowania i tworzenia aplikacji webowych.
+          </p>
+          <p>
+            Weźmy dowolną stronę www, na przykład taką ze zbiorem przepisów
+            kulinarnych albo rozkładem treningów. Na każdej z nich będziemy
+            mogli wyróżnić podobne elementy tj. strona domowa, profil
+            użytkownika, wyszukiwarka.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/web-app.png" alt="" />
+          </div>
+        </article>
+        <article id="article2">
+          <h3>Section1 Article2: Multiple-page Application</h3>
+          <p>
+            Kilka lat temu wykorzystywane było podejście, w którym budowało się
+            kilka oddzielnych stron HTML, mało powiązanych ze sobą.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/mpa.jpg" alt="" />
+          </div>
+          <p>
+            Taka technika, nazywana multi-page application (MPA) wyróżniała się
+            przede wszystkim:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>Zastosowaniem architektury klient-serwer</li>
+            <li>Logiką w całości znajdującą się na serwerze</li>
+            <li>
+              Serwerem, który wysyła użytkownikowi gotowy dokument HTML w
+              odpowiedzi na każde zapytanie (np. kliknięcie w link)
+            </li>
+            <li>Przeładowywaniem się stron po każdym zapytaniu</li>
+            <li>Niską interaktywnością</li>
+            <li>
+              Ogólnie dobrym SEO ("search engine optimization" - optymalizacja
+              wyników wyszukiwarki)
+            </li>
+          </ul>
+        </article>
+        <article id="article3">
+          <h3>Section1 Article3: Single-Page Application</h3>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/spa.png" alt="" />
+          </div>
+          <p>Single-page application (SPA) wyróżnia:</p>
+          <ul class="unnumbered-list-container">
+            <li>Architektura klient-serwer</li>
+            <li>
+              Podczas pierwszego ładowania strony serwer zawsze zwraca stronę
+              startową - dokument index.html
+            </li>
+            <li>
+              Każde kolejne zapytanie do serwera wykonuje się jedynie celem
+              wymiany danych w formacie JSON
+            </li>
+            <li>
+              Aktualizacja interfejsu odbywa się dynamicznie w kliencie (w
+              przeglądarce)
+            </li>
+            <li>
+              Pierwsze załadowanie strony może być dość wolne (dlatego, że
+              zawiera ona cały interfejs)
+            </li>
+            <li>
+              Logika niezwiązana z bezpieczeństwem znajduje się w kliencie
+            </li>
+            <li>Gorsze SEO, w porównaniu do MPA (można to jednak naprawić)</li>
+            <li>Lepsza skalowalność i utrzymywalność kodu</li>
+          </ul>
+          <p>
+            <a
+              class="link"
+              href="https://medium.com/@NeotericEU/single-page-application-vs-multiple-page-application-2591588efe58"
+              >Single-page application vs. Multi-page application</a
+            >
+          </p>
+        </article>
+      </section>
+      <!-- section2 -->
+      <section id="section2" class="text">
+        <article id="article1">
+          <h2>Section2 Article1: Biblioteka React</h2>
+          <p>
+            React to biblioteka do tworzenia elementów interfejsu użytkownika.
+            Nie ma ona wbudowanego routera, modułu do komunikacji przez HTTP
+            itp. Niemniej jednak istnieje bogaty ekosystem bibliotek, który
+            pozwola wykonać dowolne zadanie.
+          </p>
+          <p>
+            Tworząc aplikacje z wykorzystaniem React, programista nie pracuje
+            bezpośrednio z drzewem DOM. Jego zadanie polega na opisaniu
+            interfejsu przy pomocy komponentów (szablonów) oraz zarządzanie
+            zmianami danych (modelu). Po wykryciu zmiany, React sam zaktualizuje
+            interfejs zgodnie z szablonem.
+          </p>
+          <p>
+            React jest wieloplatformowy - komponenty można renderować również:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>
+              po stronie serwera (<a href="https://nextjs.org/">Next.js</a>),
+            </li>
+            <li>
+              natywnie w aplikacjach moblinych (<a
+                href="https://reactnative.dev/"
+                >React Native</a
+              >),
+            </li>
+            <li>
+              w aplikacjach desktopowych (<a href="https://www.electronjs.org/"
+                >Electron</a
+              >).
+            </li>
+          </ul>
+        </article>
+        <article id="article2">
+          <h3>Section2 Article2: Browser DOM i Virtual DOM</h3>
+          <p>
+            Browser DOM - pozwala na przedstawienie dokumentu HTML w postaci
+            struktury drzewa, w którym węzły odpowiadają poszczególnym
+            elementom. Przechowywany jest on w przeglądarce i ma bezpośredni
+            związek z tym, co widzimy na stronie.
+          </p>
+          <p>
+            o każdej zmianie w DOM przeglądarka wykonuje kilka skomplikowanych
+            operacji. Dlatego częste aktualizacjie drzewa wpływają negatywnie na
+            wydajność i responsywność (czas odpowiedzi) interfejsu.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/browser-rendering-flow.png" alt="" />
+          </div>
+          <p>
+            Inżynierowie stojący za Reactem byli świadomi tego problemu -
+            doznania użytkownika strony będą lepsze tylko, jeżeli
+            zoptymalizowany zostanie proces aktualizacji drzewa. W odpowiedzi
+            opracowany został algorytm Virtual DOM.
+          </p>
+          <p>
+            Virtual DOM - abstrakcja, będąca niedokładnym odwzorowaniem
+            rzeczywistego drzewa DOM w postaci dokumentu JSON.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>Istnieje tylko w pamięci i nie renderuje się w przeglądarce</li>
+            <li>Nie zależy od wewnętrznej implementacji przeglądarki</li>
+            <li>
+              Wykorzystuje dobre praktyki aktualizacji rzeczywistego DOM
+              (optymalizacja poprzez grupowanie aktualizacji tzw. batching)
+            </li>
+          </ul>
+        </article>
+        <article id="article3">
+          <h3>Section2 Article3: Algorytm aktualizacji DOM (Reconciliation)</h3>
+          <p>
+            W React każdy element interfejsu to komponent (niestandardowy lub
+            wbudowany), którego stan zależy od właściwości (props) lub
+            wewnętrznego stanu (state). Komponent to węzeł wirtualnego drzewa
+            DOM. Interakcja użytkownika z interfejsem zmienia stan aplikacji.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/vdom-and-dom.png" alt="" />
+          </div>
+          <p>
+            Aktualizacja stanu komponentu (props lub state) powoduje utworzenie
+            nowego wirtualnego drzewa DOM. Następnie, wykorzystując algorytm
+            breadth-first, zachodzi porównanie (diffing) dwóch wirtualnych drzew
+            - przed i po aktualizacji.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/breadth-first-algorithm.jpeg" alt="" />
+          </div>
+          <p>
+            Czerwone węzły przedstawiają elementy, które się zmieniły. Obliczana
+            jest różnica między poprzednią i nową wersją wirtualnego drzewa DOM.
+            Następnie aktualizowane jest rzeczywiste drzewo DOM, ale tylko w
+            zakresie tych węzłów, które rzeczywiście się zmieniły. Gwarantuje to
+            minimalną liczbę aktualizacji, zwiększając tym samym wydajność
+            interfejsu.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/dom-update-chain.png" alt="" />
+          </div>
+          <p>
+            <a
+              class="link"
+              href="https://legacy.reactjs.org/docs/reconciliation.html"
+              >Więcej o algorytmie reconciliation</a
+            >
+          </p>
+        </article>
+      </section>
+      <!-- section3 -->
+      <section id="section3" class="text">
+        <article id="article1">
+          <h2>Section3 Article1: Narzędzia</h2>
+          <p>
+            W celu skonfigurowania projektu opartego o React'a wykorzystuje się
+            najczęściej wiele narzędzi t.j. Node.js, Webpack, Babel. Każde z
+            nich wymaga odrębnych ustawień, które trzeba poznać i umieć
+            zastosować. Z czasem konieczne staje się również aktualizowanie tych
+            bibliotek, co wymaga od programisty śledzenia ich zmian. Z tego
+            względu powstały narzędzia, które mają wbudowaną całą potrzebną
+            konfigurację i to ich autorzy muszą się martwić o aktualizację
+            ustawień. Jednym z takich narzędzi jest Create React App.
+          </p>
+        </article>
+        <article id="article2">
+          <h3>Section3 Article2: Create React App</h3>
+          <p>
+            Na potrzeby szkolenia oraz do tworzenia małych/średnich projektów
+            rekomenduje się wykorzystywanie dedykowanego narzędzia od autorów
+            React.
+          </p>
+          <p>Create React App:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Abstrahuje całą konfigurację, pozwalając skupić się na pisaniu
+              właściwego kodu aplikacji.
+            </li>
+            <li>Włącza niezbędne narzędzia: Webpack, Babel, ESLint itp.</li>
+            <li>Umożliwia dodawanie kolejnych paczek ekosystemu React.</li>
+            <li>
+              Ma funkcję wydobywania, która usuwa abstrakcję i odsłania
+              konfigurację.
+            </li>
+          </ul>
+          <pre>
+            npx create-react-app nazwa_folderu_projektu
+          </pre>
+          <p>
+            W celu utworzenia aplikacji w obecnym folderze, zamiast nazwy
+            projektu wstawia się kropkę. Na przykład npx create-react-app .
+          </p>
+          <p>
+            npx — narzędzie pozwalające uprościć wykorzystywanie pakietów npm.
+            Dostarczane jest przez wersję 5.2.0 i wyższe. npm upraszcza
+            instalację i zarządzanie zależnościami umiejscowionymi w rejestrze.
+            npx natomiast upraszcza wykorzystywanie narzędzi CLI i innych plików
+            wykonywalnych, bez potrzeby ich konfiguracji w systemie lub
+            projekcie.
+          </p>
+          <p>
+            <a class="link" href="https://create-react-app.dev/"
+              >Dokumentacja Create React App</a
+            >
+          </p>
+        </article>
+        <article id="article3">
+          <h3>Section3 Article3: React DevTools</h3>
+          <p>
+            Narzędzie pozwalające podglądnąć drzewo komponentów React, ich stan
+            i właściwości. Profiler jest użyteczny podczas optymalizacji
+            aplikacji.
+          </p>
+          <p>
+            <a
+              class="link"
+              href="https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en"
+              >Devtools w Chrome Web Store</a
+            >
+          </p>
+        </article>
+      </section>
+      <!-- section4 -->
+      <section id="section4" class="text">
+        <article id="article1">
+          <h3>Section4 Article1: JSX</h3>
+          <pre>
+            const link = &lta href="https://reactjs.org/">React website&lt/a>;
+          </pre>
+          <p>
+            Nie jest to ani wiersz, ani HTML. Ta obrazowa składnia XML nazywana
+            jest JSX (JavaScript Syntax Extension) - rozszerzenie składni
+            JavaScript, przy pomocy którego opisuje się układ elementów, jakie
+            chcemy zobaczyć na ekranie.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Pozwala wykorzystywać obrazową składnię XML bezpośrednio w
+              JavaScript
+            </li>
+            <li>Upraszcza kod, sprawiając, że jest deklaratywny i czytelny</li>
+            <li>Opisuje obiekty - elementy Virtual DOM</li>
+            <li>To nie HTML, Babel przekształca JSX w funkcje bazowe</li>
+            <li>W JSX można wykorzystywać wszystkie możliwości JavaScript</li>
+          </ul>
+          <p>
+            Elementy React: JSX tworzy elementy - najmniejsze bloki budowlane
+            React. Elementy Virtual DOM to zwykłe obiekty JavaScript, dlatego
+            łatwo można je tworzyć.
+          </p>
+          <p>
+            Przy wykorzystaniu JSX układ staje się podobny do zwykłego szablonu
+            HTML.
+          </p>
+          <pre>
+            const imageUrl =
+            "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?dpr=2&h=480&w=640";
+            const productPrice = 10.99;
+
+            const product = (
+            &ltdiv>
+            &ltimg src={imageUrl} alt="Tacos With Lime" width="640" />
+            &lth2>Tacos With Lime&lt/h2>
+            &ltp>Price: {productPrice}$&lt/p>
+            &ltbutton type="button">Add to cart&lt/button>
+            &lt/div>
+            );
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              Wewnątrz JSX można wykorzystywać dowolne ważne wyrażenie,
+              wkładając je w nawias klamrowy.
+            </li>
+            <li>
+              Wartość atrybutów wskazuje się w dowolnym cudzysłowie, jeśli jest
+              to zwykły wiersz i w nawiasie klamrowym, jeśli wartość jest
+              obliczana lub jej rodzaj różni się od wiersza.
+            </li>
+            <li>
+              Wszystkie atrybuty elementów React są nazywane w notacji
+              camelCase.
+            </li>
+            <li>
+              Tagi JSX mogą być rodzicami innych tagów JSX. Jeżeli tag jest
+              pusty lub samozamykalny, należy go zamknąć, wykorzystując />.
+            </li>
+          </ul>
+        </article>
       </section>
     </main>
     <!-- <include src="../partials/footer.html"></include> -->

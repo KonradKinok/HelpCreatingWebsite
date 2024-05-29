@@ -12,8 +12,16 @@ const menuItem = [
     link: '../htmlReact/01-wprowadzenieDoReact.html',
   },
   {
-    name: '02. Rozgałęzienia i cykle',
-    link: '../html/02-rozgalezieniaCykle.html',
+    name: '02. Stylizacja',
+    link: '../htmlReact/02-stylizacja.html',
+  },
+  {
+    name: '03. Zdarzenia i stany',
+    link: '../htmlReact/03-zdarzeniaStany.html',
+  },
+  {
+    name: '04. Formularze',
+    link: '../htmlReact/04-formularze.html',
   },
 ];
 

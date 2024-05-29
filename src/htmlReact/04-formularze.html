@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
+    />
+    <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
+    <link rel="stylesheet" href="../styles/stylStartowy.scss" />
+    <link rel="stylesheet" href="../styles/reactStyles.scss" />
+    <title>Formularze</title>
+  </head>
+  <body class="body-container">
+    <header class="menu-sticky">
+      <nav class="nav-container">
+        <!-- Nawigacja do innych stron -->
+        <ul id="main-menu" class="nav-list-container"></ul>
+      </nav>
+    </header>
+    <main class="main-container">
+      <!-- section1 -->
+      <section id="section1" class="text">
+        <article id="article1">
+          <h1>Moduł 2 - Zajęcia 4 - Formularze</h1>
+          <h2>Formularze</h2>
+          <h3>Article 1: Niekontrolowane elementy</h3>
+          <p>
+            Podstawowym celem każdego formularza jest zebranie danych od
+            użytkownika. Do tego celu możemy wykorzystać właściwość elements
+            elementu formualrza (form) dostępną podczas obsługi jego wysyłania.
+            Alternatywnie możemy wykorzystać interfejs FormData.
+          </p>
+          <pre>
+            class LoginForm extends Component {
+                handleSubmit = evt => {  
+                    evt.preventDefault();
+
+                    const form = evt.currentTarget;
+                    const login = form.elements.login.value;  
+                    const password = form.elements.password.value;
+  
+                    console.log(login, password);
+    
+                    this.props.onSubmit({ login, password });
+
+                    form.reset();  
+                };
+
+                render() {
+                    return (
+                    &ltform onSubmit={this.handleSubmit}>
+                    &ltinput type="text" name="login" />
+                    &ltinput type="password" name="password" />
+                    &ltbutton type="submit">Login&ltp/button>
+                    &lt/form>
+                    );
+                }
+            }
+
+            ReactDOM.render(
+            &ltLoginForm onSubmit={values => console.log(values)} />,
+            document.getElementById("root")
+            );
+          </pre>
+          <p>
+            Dostęp do danych w takiej formie jest właściwy, gdy dane pól
+            formularza potrzebne są nam tylko w czasie jego wysyłania
+            ('submit').
+          </p>
+        </article>
+        <article id="article2">
+          <h3>Article 2: Kontrolowane elementy</h3>
+          <p>
+            Dane pól formularza mogą nam być również potrzebne w innych
+            komponentach albo w momencie zmiany pola. W takiej sytuacji elementy
+            formularza powinny być kontrolowane. Najprościej mówiąć, oznacza to,
+            że wartości wszystkich pól powinny znajdować się w stanie.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/controlled_input.jpg" alt="" />
+          </div>
+          <ul class="unnumbered-list-container">
+            <li>
+              Pole w state określa wartość atrybutu value danego elementu
+              formularza.
+            </li>
+            <li>
+              Zdarzenie onChange przekazuje się metodę zmieniającą wartość pola
+              w stanie.
+            </li>
+          </ul>
+          <p>Otrzymujemy obwód zamknięty:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Po zdarzeniu onChange, metoda klasy aktualizuje pole w stanie.
+            </li>
+            <li>Po zmianie stanu zachodzi re-render.</li>
+            <li>Input otrzymuje zaktualizowaną wartość.</li>
+          </ul>
+          <p>
+            Wadą takiego rozwiązania jest to, że cały formularz zostanie
+            przerenderowany po każdej zmianie któregokolwiek z pól. Dla małych
+            formularzy nie stanowi to jednak problemu.
+          </p>
+          <pre>
+            class App extends Component {
+                state = {
+                    inputValue: "",
+                };
+
+                handleChange = evt => {
+                    this.setState({ inputValue: evt.target.value });
+                };
+
+                render() {
+                    const { inputValue } = this.state;
+                    return (
+                    &ltinput type="text" value={inputValue} onChange={this.handleChange} />
+                    );
+                }
+            }
+          </pre>
+          <p>
+            Zachodzi tutaj taka prawidłowość, że to nie interfejs określa, jakie
+            mamy dane. Przeciwnie, to dane określają to, co widzi użytkownik,
+            aktualizując DOM po zmianie stanu komponentu.
+          </p>
+        </article>
+        <article id="article3">
+          <h3>Article 3: Skomplikowane formularze</h3>
+          <p>Utworzymy teraz formularz rejestracji.</p>
+          <pre>
+            class SignUpForm extends Component {
+                state = {
+                    login: "",
+                };
+
+                // Odpowiada za aktualizację stanu
+                handleChange = e => {
+                    this.setState({ login: e.target.value });
+                };
+
+                // Wywoływany jest podczas wysyłania formularza
+                handleSubmit = evt => {
+                    evt.preventDefault();
+                    console.log(`Signed up as: ${this.state.login}`);
+
+                    // Props, który przekazywany jest do formularza do wywołania podczas jego wysyłania
+                    this.props.onSubmit({ ...this.state });
+                };
+
+                render() {
+                    const { login } = this.state;
+
+                    return (
+                    &ltform onSubmit={this.handleSubmit}>
+                    &ltlabel>
+                    Name
+                    &ltinput
+                    type="text"
+                    placeholder="Enter login"
+                    value={login}
+                    onChange={this.handleChange}
+                    />
+                    &lt/label>
+                    &ltbutton type="submit">Sign up as {login}&lt/button>
+                    &lt/form>
+                    );
+                }
+            }
+
+            ReactDOM.render(
+            &ltSignUpForm onSubmit={values => console.log(values)} />,
+            document.getElementById("root")
+            );
+          </pre>
+          <p>
+            Dodajemy jeszcze pola dla email oraz password. W tym celu
+            wykorzystamy bardzo przydatny wzorzec aktualizacji stanu wielu pól z
+            użyciem jednej metody.
+          </p>
+          <pre>
+            // Dla poprawy czytelności kodu można przenieść stan początkowy formularza poza ciało klasy.
+            // Możemy tak zrobić, jeżeli wartości nie są obliczane dynamicznie.
+            const INITIAL_STATE = {
+                login: "",
+                email: "",
+                password: "",
+            };
+
+            class SignUpForm extends React.Component {
+                state = { ...INITIAL_STATE };
+
+                // Dla wszystkich elementów wykorzystamy jedną funkcję obsługującą zmianę stanu     ('handler').
+
+                // Inputy będziemy rozróżniać za pomocą atrybutu `name`
+                handleChange = evt => {
+                    const { name, value } = evt.target;
+                    this.setState({ [name]: value });
+                };
+
+                handleSubmit = evt => {
+                    evt.preventDefault();
+                    const { login, email, password } = this.state;
+
+                    console.log(`Login: ${login}, Email: ${email}, Password: ${password}`);
+
+                    this.props.onSubmit({ ...this.state });
+                    this.reset();  
+                };
+
+                reset = () => {
+                    this.setState({ ...INITIAL_STATE });  
+                };
+
+                render() {
+                    const { login, email, password } = this.state;
+
+                    return (
+                    &ltform onSubmit={this.handleSubmit}>
+                    &ltlabel>
+                    Name
+                    &ltinput
+                    type="text"
+                    placeholder="Enter login"
+                    name="login"
+                    value={login}
+                    onChange={this.handleChange}
+                    />
+                      &lt/label>
+                      &ltlabel>
+                      Email
+                      &ltinput
+                      type="email"
+                      placeholder="Enter email"
+                      name="email"
+                      value={email}
+                      onChange={this.handleChange}
+                      />
+                      &lt/label>
+                      &ltlabel>
+                      Password
+                      &ltinput
+                      type="password"
+                      placeholder="Enter password"
+                      name="password"
+                      value={password}
+                      onChange={this.handleChange}
+                    />
+                    &lt/label>
+                    &ltbutton type="submit">Sign up as {login}&lt/button>
+                      &lt/form>
+                   );
+                  }
+            }
+          </pre>
+        </article>
+      </section>
+    </main>
+    <!-- <include src="../partials/footer.html"></include> -->
+    <footer class="footer">
+      <div class="footer-logo">
+        <img
+          src="../images/footer/konikMaly24x24Squoosh.png"
+          alt="logoImage"
+          width="24"
+        />
+        <img src="../images/footer/3KLogo.png" alt="logoText" />
+      </div>
+      <div id="footer-title">
+        <p></p>
+      </div>
+      <div class="footer-date">
+        <p>28.05.2024r.</p>
+      </div>
+    </footer>
+    <!-- SKRYPTY JS -->
+    <script defer src="../scripts/menuReact.mjs"></script>
+    <!-- <script defer src="../scripts/22.mjs" type="module"></script> -->
+  </body>
+</html>
