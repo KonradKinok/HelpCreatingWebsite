@@ -3,6 +3,7 @@
           </pre> <p> W celu utworzenia aplikacji w obecnym folderze, zamiast nazwy projektu wstawia się kropkę. Na przykład npx create-react-app . </p> <p> npx — narzędzie pozwalające uprościć wykorzystywanie pakietów npm. Dostarczane jest przez wersję 5.2.0 i wyższe. npm upraszcza instalację i zarządzanie zależnościami umiejscowionymi w rejestrze. npx natomiast upraszcza wykorzystywanie narzędzi CLI i innych plików wykonywalnych, bez potrzeby ich konfiguracji w systemie lub projekcie. </p> <p> <a class="link" href="https://create-react-app.dev/">Dokumentacja Create React App</a> </p> </article> <article id="article3"> <h3>Section3 Article3: React DevTools</h3> <p> Narzędzie pozwalające podglądnąć drzewo komponentów React, ich stan i właściwości. Profiler jest użyteczny podczas optymalizacji aplikacji. </p> <p> <a class="link" href="https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en">Devtools w Chrome Web Store</a> </p> </article> </section>  <section id="section4" class="text"> <article id="article1"> <h3>Section4 Article1: JSX</h3> <pre>
             const link = &lta href="https://reactjs.org/">React website&lt/a>;
           </pre> <p> Nie jest to ani wiersz, ani HTML. Ta obrazowa składnia XML nazywana jest JSX (JavaScript Syntax Extension) - rozszerzenie składni JavaScript, przy pomocy którego opisuje się układ elementów, jakie chcemy zobaczyć na ekranie. </p> <ul class="unnumbered-list-container"> <li> Pozwala wykorzystywać obrazową składnię XML bezpośrednio w JavaScript </li> <li>Upraszcza kod, sprawiając, że jest deklaratywny i czytelny</li> <li>Opisuje obiekty - elementy Virtual DOM</li> <li>To nie HTML, Babel przekształca JSX w funkcje bazowe</li> <li>W JSX można wykorzystywać wszystkie możliwości JavaScript</li> </ul> <p> Elementy React: JSX tworzy elementy - najmniejsze bloki budowlane React. Elementy Virtual DOM to zwykłe obiekty JavaScript, dlatego łatwo można je tworzyć. </p> <p> Przy wykorzystaniu JSX układ staje się podobny do zwykłego szablonu HTML. </p> <pre>
+            src/index.js
             const imageUrl =
             "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?dpr=2&h=480&w=640";
             const productPrice = 10.99;
@@ -15,4 +16,281 @@
             &ltbutton type="button">Add to cart&lt/button>
             &lt/div>
             );
-          </pre> <ul class="unnumbered-list-container"> <li> Wewnątrz JSX można wykorzystywać dowolne ważne wyrażenie, wkładając je w nawias klamrowy. </li> <li> Wartość atrybutów wskazuje się w dowolnym cudzysłowie, jeśli jest to zwykły wiersz i w nawiasie klamrowym, jeśli wartość jest obliczana lub jej rodzaj różni się od wiersza. </li> <li> Wszystkie atrybuty elementów React są nazywane w notacji camelCase. </li> <li> Tagi JSX mogą być rodzicami innych tagów JSX. Jeżeli tag jest pusty lub samozamykalny, należy go zamknąć, wykorzystując />. </li> </ul> </article> </section> </main>  <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>28.05.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.7be5c89e.js"></script>  </body></html>
+          </pre> <ul class="unnumbered-list-container"> <li> Wewnątrz JSX można wykorzystywać dowolne ważne wyrażenie, wkładając je w nawias klamrowy. </li> <li> Wartość atrybutów wskazuje się w dowolnym cudzysłowie, jeśli jest to zwykły wiersz i w nawiasie klamrowym, jeśli wartość jest obliczana lub jej rodzaj różni się od wiersza. </li> <li> Wszystkie atrybuty elementów React są nazywane w notacji camelCase. </li> <li> Tagi JSX mogą być rodzicami innych tagów JSX. Jeżeli tag jest pusty lub samozamykalny, należy go zamknąć, wykorzystując />. </li> </ul> </article> <article id="article2"> <h3>Section4 Article2: Renderowanie elementów do drzewa DOM</h3> <p> Aby zrenderować element do drzewa DOM, są w pakiecie react-dom metody createRoot(container) i render(element), które pracują razem. </p> <ul class="unnumbered-list-container"> <li> Pierwsza przyjmuje odnośnik do istniejącego elementu DOM, np. div#root z index.html i tworzy korzeń, w którym będzie renderowała się cała aplikacja. </li> <li> Druga wymaga odnośnika do elementu React lub komponentu (co renderować). </li> </ul> <pre>
+            import ReactDOM from "react-dom/client";
+
+            const imageUrl =
+            "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?dpr=2&h=480&w=640";
+            const productPrice = 10.99;
+
+            const product = (
+            &ltdiv>
+            &ltimg src={imageUrl} alt="Tacos With Lime" width="640" />
+            &lth2>Tacos With Lime&lt/h2>
+            &ltp>Price: {productPrice}$&lt/p>
+            &ltbutton type="button">Add to cart&lt/button>
+            &lt/div>
+            );
+
+            ReactDOM.createRoot(document.getElementById("root")).render(product);
+          </pre> <p> Jeden render() na aplikację! React wykorzystuje model relacji przodek - potomek, dlatego wystarczy tylko jedno wywołanie render() w aplikacji. Renderowanie górnego elementu w hierarchii pociągnie za sobą renderowanie całego poddrzewa. </p> </article> <article id="article3"> <h3>Section4 Article3: Zasada wspólnego rodzica</h3> <p> Prawa część wyrażenia przypisywania powinna zwracać jedną wartość. Przeanalizujmy następujący kod z nieważnym układem JSX. </p> <pre>
+            const post = (
+            &lth2>Post Header&lt/h2>
+            &ltp>Post text&lt/p>
+            );
+          </pre> <p> Wyrażenie to jedna wartość, wynik jakichś obliczeń, stąd bierze się zasada wspólnego rodzica. </p> <pre>
+            const post = (
+            &ltdiv>
+            &lth2>Post Header&lt/h2>
+            &ltp>Post text&lt/p>
+            &lt/div>
+            );
+          </pre> <p> Jeżeli w układzie zbędne opakowanie-tag nie jest potrzebne, wykorzystywane są fragmenty podobne do DocumentFragment. Ten wbudowany komponent znika w trakcie renderowania, podstawiając swoją zawartość. </p> <pre>
+           import { Fragment } from "react";
+
+           const post = (
+           &ltFragment>
+           &lth2>Post Header&lt/h2>
+           &ltp>Post text&lt/p>
+           &lt/Fragment>
+           );
+         </pre> <p> Składnię fragmentów można skrócić i nie dodawać importu Fragment. Babel zrobi wszystko, co jest niezbędne do przekształcenia, zamieniając puste tagi JSX na React.Fragment </p> <pre>
+            const post = (
+            &lt>
+            &lth2>Post Header&lt/h2>
+            &ltp>Post text&lt/p>
+            &lt/>
+            );
+          </pre> </article> <article id="article4"> <h3>Section4 Article4: Materiały dodatkowe</h3> <ul class="link unnumbered-list-container"> <li> <a href="https://react.dev/learn/writing-markup-with-jsx">Zapoznanie z JSX</a> </li> <li> <a href="https://react.dev/learn/javascript-in-jsx-with-curly-braces">JavaScript z JSX</a> </li> <li> <a href="https://legacy.reactjs.org/docs/dom-elements.html#differences-in-attributes">Realizacja w atrybutach</a> </li> <li> <a href="https://react.dev/learn/add-react-to-an-existing-project#step-2-render-react-components-anywhere-on-the-page">React w obecnej aplikacji</a> </li> </ul> </article> </section>  <section id="section5" class="text"> <article id="article1"> <h2>Section5 Article1: Komponenty</h2> <p> Komponenty - główne elementy architektoniczne aplikacji React, z pomocą których interfejs można podzielić na niezależne części. </p> <p> Programista tworzy osobne komponenty, które można łączyć, aby formować większe lub wykorzystywać je jako samodzielne elementy interfejsu. Najważniejsze w tej koncepcji jest to, że zarówno duże, jak i małe komponenty można wykorzystać ponownie, tak w obecnym, jak i nowym projekcie. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/components.18c4074c.png" alt=""> </div> <p> Aplikację React można przedstawić jako drzewo komponentów. Na jego szczycie znajduje się komponent root, a w nim dowolna ilość innych komponentów. Każdy komponent powinien zwrócić elementy JSX, wskazując tym samym jaki HTML ma zostać wyrenderowany w DOM. </p> </article> <article id="article2"> <h3>Section5 Article2: Komponenty funkcyjne</h3> <p> Komponent definiuje się jako funkcję JavaScript z bardzo prostym kontraktem: funkcja otrzymuje obiekt właściwości, który nazywa się props i zwraca drzewo elementów React. </p> <pre>
+            const MyFunctionalComponent = props => &ltdiv>Functional Component&lt/div>;
+          </pre> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/func-comp.59d2221a.jpg" alt=""> </div> <p> info! Nazwa komponentu musi zaczynać się wielką literą. Nazwy elementów zaczynające się małą literą zarezerwowane są dla elementów HTML. Jeśli spróbujesz nazwać komponent card, a nie Card, to w trakcie renderowania React zignoruje go i wyrenderuje tag &ltcard>&lt/card>. </p> <pre>
+            const Product = props => (
+            &ltdiv>
+            &ltimg
+            src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?dpr=2&h=480&w=640"
+            alt="Tacos With Lime"
+            width="640"
+            />
+            &lth2>Tacos With Lime&lt/h2>
+            &ltp>Price: 10.99$&lt/p>
+            &ltbutton type="button">Add to cart&lt/button>
+            &lt/div>
+            );
+            // Chcąc wykorzystać nasz komponent zapisujemy go jako tag JSX
+            ReactDOM.createRoot(document.getElementById("root")).render(&ltProduct />);
+          </pre> </article> <article id="article3"> <h3>Section5 Article3: Właściwości komponentu (props)</h3> <p> Właściwości (propsy) to jedna z podstawowych koncepcji React. Komponenty przyjmują dowolne właściwości i zwracają elementy React, opisujące co powinno zostać wyrenderowane się w DOM. </p> <ul class="unnumbered-list-container"> <li> Propsy wykorzystuje się do przekazywania danych od rodzica do dziecka. </li> <li> Propsy przekazywane się tylko "w dół" drzewa (tylko od komponentu rodzica). </li> <li> Zmiana propsów spowoduje aktualizacje komponentu (tzw. re-render). W rezultacie może również zostać zaktualizowany DOM (jeżeli zwracany JSX zmienił się w wyniku aktualizacji props). </li> <li> Propsy są dostępne tylko do odczytu, nie można ich zmienić w komponencie dziecku. </li> </ul> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/props.a029c87a.png" alt=""> </div> <p> Propsem może być tekst przycisku, obraz, url lub dowolne dane dla komponentu. Propsy mogą być łańcuchami lub rezultatami wyrażenia JavaScript. Jeżeli props jest typu boolean to możemy pominąć przekazywanie jego wartości true - zostanie ona przekazana automatycznie. </p> <pre>
+            const App = () => (
+            &lt>
+            &lth1>Best selling products&lt/h1>
+            &ltProduct name="Tacos With Lime" />
+            &lt/>
+            );
+          </pre> <p> Komponent &ltProduct> deklaruje parametr props, który zawsze będzie obiektem zawierającym wszystkie przekazane propsy. </p> <pre>
+            const Product = props => (
+            &ltdiv>
+            &lth2>{props.name}&lt/h2>
+            &lt/div>
+            );
+          </pre> <p>Dodamy do komponentu &ltProducts> kilka nowych właściwości.</p> <pre>
+            const Product = props => (
+            &ltdiv>
+            &ltimg src={props.imgUrl} alt={props.name} width="640" />
+            &lth2>{props.name}&lt/h2>
+            &ltp>Price: {props.price}$&lt/p>
+            &ltbutton type="button">Add to cart&lt/button>
+            &lt/div>
+            );
+          </pre> <p> Ponieważ props to obiekt, możemy zdestrukturyzować go w podpisie funkcji. Taki zabieg upraszcza kod i czyni go bardziej czytelnym. </p> <pre>
+            const Product = ({ imgUrl, name, price }) => (
+            &ltdiv>
+              &ltimg src={imgUrl} alt={name} width="640" />
+              &lth2>{name}&lt/h2>
+              &ltp>Price: {price}$&lt/p>
+              &ltbutton type="button">Add to cart&lt/button>
+            &lt/div>
+            );
+
+            const App = () => (
+            &ltdiv>
+              &lth1>Best selling products&lt/h1>
+              &ltProduct
+                imgUrl="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?dpr=2&h=480&w=640"
+                name="Tacos With Lime"
+                price={10.99}
+              />
+              &ltProduct
+                imgUrl="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?dpr=2&h=480&w=640"
+                name="Fries and Burger"
+                price={14.29}
+              />
+            &lt/div>
+            );
+          </pre> <p> W rezultacie utworzyliśmy konfigurowalny komponent, który można wykorzystać do odwzorowania produktu. Przekazujemy mu dane (props), a w odpowiedzi otrzymujemy drzewo elementów React z podstawionymi wartościami. </p> <ul> <li> <a href="https://react.dev/learn/your-first-component">Pierwszy komponent</a> </li> <li><a href="">Przekazywanie propsów</a></li> <li><a href="">JSX w detalach</a></li> <li><a href="">Spread Attributes</a></li> </ul> </article> <article id="article4"> <h3>Section5 Article4: Domyślna wartość propsów</h3> <p> Co zrobić, jeśli komponent wymaga jakiejś wartości, a nie została ona przekazana (odwołanie się do właściwości obiektu props zwróci nam undefined). </p> <p> W celu przypisania domyślnych wartości wykorzystuje się składnię domyślnych wartości podczas destrukturyzacji obiektu props. </p> <pre>
+            const Product = ({
+              imgUrl = "https://dummyimage.com/640x480/2a2a2a/ffffff&text=Product+image+placeholder",
+              name,
+              price,
+            }) => (
+              &ltdiv>
+                &ltimg src={imgUrl} alt={name} width="640" />
+                &lth2>{name}&lt/h2>
+                &ltp>Price: {price}$&lt/p>
+                &ltbutton type="button">Add to cart&lt/button>
+              &lt/div>
+            );
+
+            /*
+            * Określenie domyślnych wartości gwarantuje, że props.imgUrl będzie miał wartość,
+            * nawet jeśli nie była ona przekazana w komponencie rodzicu.
+            */
+            ReactDOM.createRoot(document.getElementById("root")).render(
+              &ltProduct name="Tacos With Lime" price={10.99} />
+            );
+          </pre> </article> <article id="article5"> <h3>Section5 Article5: Właściwość props.children</h3> <p> Koncepcja elementów dzieci pozwala na łatwą kompozycję komponentów. Jako "dzieci" można przekazywać dowolne elementy, w tym również komponenty wbudowane. </p> <ul class="unnumbered-list-container"> <li> Właściwość children jest zawsze dostępna w każdym komponencie. Przyjmuje ona jako wartość elementy, które znajdą się pomiędzy otwierającym i zamykającym tagiem JSX. </li> <li> W komponentach funkcyjnych dostęp do właściwości udostępniony jest poprzez props.children. </li> <li>Wartością props.children może być praktycznie cokolwiek.</li> </ul> <p> Poniżej przykład komponentu profilu użytkownika (&ltProfile>) oraz komponentu opakowującego &ltPanel>, w którym możemy umieścić dowolny element. </p> <pre>
+            const Profile = ({ name, email }) => (
+              &ltdiv>
+                &ltp>Name: {name}&lt/p>
+                &ltp>Email: {email}&lt/p>
+              &lt/div>
+            );
+
+            const Panel = ({ title, children }) => (
+              &ltsection>
+                &lth2>{title}&lt/h2>
+                {children}
+              &lt/section>
+            );
+
+            const App = () => (
+              &ltdiv>
+                &ltPanel title="User profile">
+                  &ltProfile name="Mango" email="mango@mail.com" />
+                &lt/Panel>
+              &lt/div>
+            );
+          </pre> </article> <article id="article6"> <h3>Section5 Article6: Właściwość propTypes</h3> <p> Sprawdzanie typów otrzymywanych propsów pozwala wyłapać wiele błędów na wczesnym etapie pisania kodu. Oszczędza to czas debugowania, pomaga w przypadku nieuwagi programisty, a także ratuje nas w rozrastających się aplikacjach. W przyszłości niezbędne będzie znalezienie czasu na zapoznanie się z Flow lub TypeScript, ale na początek wystarczy nieduża biblioteka. </p> <p> Pakiet prop-types zawiera szereg walidatorów. Służą one do sprawdzania poprawności otrzymanych typów danych w czasie wykonywania kodu, powiadamiając o nieprawidłowościach w konsoli. Jedyne, co należy zrobić, to opisać typy propsów otrzymywanych przez komponent w specjalnej statycznej właściwości propTypes. Sprawdzenie propsów przy pomocy prop-types zachodzi tylko w procesie wytwarzania oprogramowania (process.env.NODE_ENV=development), w kodzie produkcyjnym (process.env.NODE_ENV=production) nie ma takiej potrzeby. </p> <pre>
+            npm install --save-dev prop-types
+          </pre> <p> Wykorzystamy teraz prop-types i opiszemy propsy komponentu Product. </p> <pre>
+            import PropTypes from "prop-types";
+
+            const Product = ({
+              imgUrl = "https://dummyimage.com/640x480/2a2a2a/ffffff&text=Product+image+placeholder",
+              name,
+              price,
+            }) => (
+              &ltdiv>
+                &ltimg src={imgUrl} alt={name} width="640" />
+                &lth2>{name}&lt/h2>
+                &ltp>Price: {price}$&lt/p>
+                &ltbutton type="button">Add to cart&lt/button>
+              &lt/div>
+            );
+
+            Product.propTypes = {
+              imgUrl: PropTypes.string,
+              name: PropTypes.string.isRequired,
+              price: PropTypes.number.isRequired,
+            };
+          </pre> <p> Sprawdzenie typów przy pomocy propTypes jest uruchamiane już po przypisaniu się domyślnych wartości, wprowadzonych w defaultProps. Dzięki temu sprawdzenie typów obejmuje także wartości domyślne. </p> <p> <a class="link" href="https://legacy.reactjs.org/docs/typechecking-with-proptypes.html">Sprawdzenie typów przy pomocy PropTypes</a> </p> <p> <a class="link" href="https://www.npmjs.com/package/prop-types">Biblioteka prop-types</a> </p> </article> </section>  <section id="section6" class="text"> <article id="article1"> <h2>Section6 Article1: Renderowanie zgodnie z warunkami</h2> <p> Do renderowania elementów pod pewnym warunkiem wykorzystuje się operatory warunkowe (if, else), logiczne (&& i ||) oraz ternary (? : ). Warunki można sprawdzać przed instrukcją return lub bezpośrednio w JSX. </p> <p> Jeśli zgodnie z warunkiem nic nie powinno zostać wyrenderowane, możemy zwrócić null, undefined lub false. Wartości te nie zostaną wyrenderowane. Pamiętaj, że wartość 0 nie jest interpretowana jako wartość fałszywa (false) i zostanie wyrenderowana normalnie. </p> </article> <article id="article2"> <h3>Renderowanie warunkowe przy pomocy operatora logicznego &&</h3> <p> Czyta się jako: jeśli warunek sprowadza się do true, wyrenderuj wszystko na prawo od operatora. </p> <pre>
+            const Mailbox = ({ unreadMessages }) => {
+              return (
+                &ltdiv>
+                  &lth1>Hello!&lt/h1>
+                  {unreadMessages.length > 0 && (
+                    &ltp>You have {unreadMessages.length} unread messages.&lt/p>
+                  )}
+                &lt/div>
+              );
+            };
+          </pre> </article> <article id="article2"> <h3> Section6 Article2: Renderowanie warunkowe przy pomocy conditional ternary operator (? : ) </h3> <p> Czyta się jako: jeśli warunek sprowadza sie do true, wyrenderuj wszystko po ?, w przeciwnym razie wyrenderuj przekazaną wartość po :. </p> <pre>
+            const Mailbox = ({ username, unreadMessages }) => {
+              return (
+                &ltdiv>
+                  &lth1>Hello {username}&lt/h1>
+                  {unreadMessages.length > 0 ? (
+                    &ltp>You have {unreadMessages.length} unread messages.&lt/p>
+                  ) : (
+                    &ltp>No unread messages.&lt/p>
+                  )}
+                &lt/div>
+              );
+            };
+          </pre> <p> Ostatni przykład można zapisać inaczej, rezultat będzie taki sam. </p> <pre>
+            const Mailbox = ({ name, unreadMessages }) => {
+              return (
+                &ltdiv>
+                  &lth1>Hello {name}&lt/h1>
+                  &ltp>
+                    {unreadMessages.length > 0
+                      ? `You have ${unreadMessages.length} unread messages.`
+                      : "No unread messages."}
+                  &lt/p>
+                &lt/div>
+              );
+            };
+          </pre> <p> Niech w komponencie produktu będzie jeszcze dostępna ilość sztuk. </p> <pre>
+            const Product = ({ imgUrl, name, price, quantity }) => (
+              &ltdiv>
+                &ltimg src={imgUrl} alt={name} width="640" />
+                &lth2>{name}&lt/h2>
+                &ltp>Price: {price}$&lt/p>
+                &lth1>Quantity: {quantity &lt 20 ? "Few left" : "In stock"}&lt/h1>
+                &ltbutton type="button">Add to cart&lt/button>
+              &lt/div>
+            );
+          </pre> </article> <article id="article3"> <h3>Materiały dodatkowe</h3> <ul class="unnumbered-list-container"> <li> <a href="https://react.dev/learn/conditional-rendering">Renderowanie warunkowe</a> </li> <li> <a href="https://www.robinwieruch.de/conditional-rendering-react/">All the Conditional Renderings in React</a> </li> </ul> </article> </section>  <section id="section7" class="text"> <article id="article1"> <h2>Section7 Article1: Zbiory</h2> <p> W celu wyrenderowania listy jednakowych elementów wykorzystuje się metodę Array.prototype.map(). Jako argument tej funkcji przekazujemy callback, który dla każdego elementu tablicy zwróci element JSX. W ten sposób otrzymamy tablicę elementów React do wyrenderowania. </p> <pre>
+            const favouriteBooks = [
+              { id: "id-1", name: "JS for beginners" },
+              { id: "id-2", name: "React basics" },
+              { id: "id-3", name: "React Router overview" },
+              { id: "id-4", name: "Redux in depth" },
+            ];
+
+            const BookList = ({ books }) => {
+              return (
+                &ltul>
+                  {books.map(book => (
+                    &ltli>{book.name}&lt/li>
+                  ))}
+                &lt/ul>
+              );
+            };
+
+            const App = () => {
+              return (
+                &ltdiv>
+                  &ltBookList books={favouriteBooks} />
+                &lt/div>
+              );
+            };
+          </pre> </article> <article id="article2"> <h3>Section7 Article2: Klucze</h3> <p> W trakcie wykonywania kodu z przykładu powyżej pojawi się ostrzeżenie w konsoli. Będzie ono informowało, że do poprawnego wyrenderowania listy elementów potrzebny jest klucz dla każdego z nich. React nie jest w stanie odróżnić elementów listy wykonując algorytm aktualizacji DOM (Reconciliation). Dlatego cała lista będzie ponownie renderowana podczas każdej aktualizacji komponentu (niezależnie, czy nie zmienił się żaden element listy czy zmienił tylko jeden). </p> <p> Klucz (key) — to specjalny props, który należy przekazać w trakcie tworzenia elementów listy. </p> <p> Elementy wewnątrz listy powinny być zabezpieczone kluczami, aby zachować stabilność. React wykorzystuje klucze, aby określić, które elementy listy należy utworzyć lub wyrenderować ponownie. W ten sposób unikamy ponownego tworzenia wszystkich elementów listy za każdym razem, gdy coś się zmienia. </p> <p>Klucze powinny być:</p> <ul class="unnumbered-list-container"> <li> Unikalne - klucz elementu musi być unikalny, ale jedynie wśród swoich sąsiadów. Nie ma sensu tworzyć globalnie unikalnych kluczy. </li> <li> Stabilne - klucz elementu nie powinien zmieniać się wraz z upływem czasu, przestawieniem porządku elementów lub po odświeżeniu strony. </li> </ul> <p> Indeksy tablicy są unikalne, ale jednocześnie nie są stabilne - zmiana listy spowoduje zmianę wartości kluczy. Data i czas są unikalne, ale nie stabilne, ponieważ cały czas się zwiększają. Wykorzystanie liczby losowej jest równoznaczne z sytuacją braku klucza, ponieważ liczby te nie są ani unikalne, ani stabilne. </p> <p> Najlepszym sposobem na utworzenie klucza jest wykorzystanie statycznego ciągu znaków, który jednoznacznie identyfikuje element listy pośród pozostałych. Najczęściej w formie klucza używa się identyfikatorów obiektów utworzonych przez bazę danych - jest to stała, niezmienna wartość. Będzie pasowała również dowolna unikalna wartość jakiejś właściwości obiektu. </p> <pre>
+            const favouriteBooks = [
+              { id: "id-1", name: "JS for beginners" },
+              { id: "id-2", name: "React basics" },
+              { id: "id-3", name: "React Router overview" },
+              { id: "id-4", name: "Redux in depth" },
+            ];
+
+            const BookList = ({ books }) => (
+              &ltul>
+                {books.map(book => (
+                  &ltli key={book.id}>{book.name}&lt/li>
+                ))}
+              &lt/ul>
+            );
+          </pre> <p> Jeżeli obiekty tablicowe nie posiadają unikalnych wartości właściwości, a kolekcja nie jest edytowalna (użytkownik nie ma możliwości usuwania lub innej zmiany kolejności elementów, poza dodawaniem nowych), można skorzystać z indeksów tablicy. </p> <pre>
+            const favouriteBooks = [
+              { name: "JS for beginners" },
+              { name: "React basics" },
+              { name: "React Router overview" },
+              { name: "Redux in depth" },
+            ];
+
+            const BookList = ({ books }) => (
+              &ltul>
+                {books.map((book, index) => (
+                  &ltli key={index}>{book.name}&lt/li>
+                ))}
+              &lt/ul>
+            );
+          </pre> </article> <article id="article3"> <h3>Section7 Article3: Materiały dodatkowe</h3> <p> <a class="link" href="https://react.dev/learn/rendering-lists">Listy i klucze</a> </p> </article> </section> </main>  <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>28.05.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.7be5c89e.js"></script>  </body></html>
