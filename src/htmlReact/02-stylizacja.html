@@ -18,7 +18,7 @@
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
     <link rel="stylesheet" href="../styles/22-skladniaAsyncAwait.scss" />
-    <title>Wprowadzenie do React</title>
+    <title>Stylizacja</title>
   </head>
   <body class="body-container">
     <header class="menu-sticky">
@@ -30,7 +30,33 @@
     <main class="main-container">
       <!-- section1 -->
       <section id="section1" class="text">
-        <article id="article1"></article>
+        <article id="article1">
+          <h1>Moduł 1 - Zajęcia 2 - Style wbudowane</h1>
+          <p>
+            Istnieje kilka sposobów stylowania komponentów, z których
+            najprostszym (ale jednocześnie najbardziej ograniczonym) są style
+            wbudowane. W tym celu używany jest atrybut HTML style, który w
+            składni JSX React przyjmuje obiekt styli (w przeciwieństwie do
+            oryginalnej składni HTML, która oczekuje łańcucha znaków).
+          </p>
+          <pre>
+            const App = () => {
+              return (
+                &ltp
+                  style={{
+                    margin: 8,
+                    padding: "12px 16px",
+                    borderRadius: 4,
+                    backgroundColor: "gray",
+                    color: "white",
+                  }}
+                >
+                  Please update your email!
+                &lt/p>
+              );
+            };
+          </pre>
+        </article>
       </section>
     </main>
     <!-- <include src="../partials/footer.html"></include> -->
