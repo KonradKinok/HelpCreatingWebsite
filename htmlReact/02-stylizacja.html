@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.69d69ee1.css"><link rel="stylesheet" href="/HelpCreatingWebsite/html/22-skladniaAsyncAwait.8f6f29e5.css"><title>Stylizacja</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> </nav> </header> <main class="main-container">  <section id="section1" class="text"> <article id="article1"> <h1>Moduł 1 - Zajęcia 2 - Style wbudowane</h1> <p> Istnieje kilka sposobów stylowania komponentów, z których najprostszym (ale jednocześnie najbardziej ograniczonym) są style wbudowane. W tym celu używany jest atrybut HTML style, który w składni JSX React przyjmuje obiekt styli (w przeciwieństwie do oryginalnej składni HTML, która oczekuje łańcucha znaków). </p> <pre>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.69d69ee1.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.890d3e07.css"><title>Stylizacja</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> </nav> </header> <main class="main-container">  <section id="section1" class="text"> <article id="article1"> <h1>Moduł 1 - Zajęcia 2 - Style wbudowane</h1> <p> Istnieje kilka sposobów stylowania komponentów, z których najprostszym (ale jednocześnie najbardziej ograniczonym) są style wbudowane. W tym celu używany jest atrybut HTML style, który w składni JSX React przyjmuje obiekt styli (w przeciwieństwie do oryginalnej składni HTML, która oczekuje łańcucha znaków). </p> <pre>
+            src/components/App.js
+
             const App = () => {
               return (
                 &ltp
@@ -14,4 +16,481 @@
                 &lt/p>
               );
             };
+          </pre> <p> Na podstawie powyższego przykładu możemy wyróżnić kilka reguł dla obiektu style: </p> <ul class="unnumbered-list-container"> <li> Na podstawie powyższego przykładu możemy wyróżnić kilka reguł dla obiektu style: </li> <li> Na podstawie powyższego przykładu możemy wyróżnić kilka reguł dla obiektu style: </li> </ul> <p> Przenieśmy obiekt style do zmiennej, aby poprawić czytelność znaczników JSX. </p> <pre>
+            src/components/Alert.js
+
+            const alertStyles = {
+              margin: 8,
+              padding: "12px 16px",
+              borderRadius: 4,
+              backgroundColor: "gray",
+              color: "white",
+            };
+
+            const App = () => {
+              return (
+                &lt>
+                  &ltp style={alertStyles}>Please update your email!&lt/p>
+                  &ltp style={alertStyles}>There was an error during transaction!&lt/p>
+                  &ltp style={alertStyles}>Payment received, thank you for your purchase!&lt/p>
+                &lt/>
+              );
+            };
+          </pre> <p> Utwórzmy komponent Alert, który wyrenderuje akapit tekstu i pozwoli nam następnie na dodanie logiki wyboru koloru tła. </p> <pre>
+            src/components/Alert.js
+
+            const alertStyles = {
+              margin: 8,
+              padding: "12px 16px",
+              borderRadius: 4,
+              backgroundColor: "gray",
+              color: "white",
+            };
+
+            export const Alert = ({ children }) => {
+              return &ltp style={alertStyles}>{children}&lt/p>;
+            };
+          </pre> <p>Użyjmy komponentu Alert do wyrenderowania kilku alertów.</p> <pre>
+            src/components/App.js
+
+            import { Alert } from "./Alert";
+
+            const App = () => {
+              return (
+                &lt>
+                  &ltAlert>Please update your email!&lt/Alert>
+                  &ltAlert>There was an error during transaction!&lt/Alert>
+                  &ltAlert>Payment received, thank you for your purchase!&lt/Alert>
+                &lt/>
+              );
+            };
+          </pre> <p> Teraz, że w zależności od typu alertu chcielibyśmy zmienić kolor tła w komponencie Alert. Aby to zrobić, rozszerzmy interfejs komponentu Alert o nową właściwość (props) variant, która będzie akceptować kilka wartości. </p> <pre>
+            src/components/App.js
+
+            import { Alert } from "./Alert";
+
+            const App = () => {
+              return (
+                &lt>
+                  &ltAlert variant="info">
+                    Would you like to browse our recommended products?
+                  &lt/Alert>
+                  &ltAlert variant="error">
+                    There was an error during your last transaction
+                  &lt/Alert>
+                  &ltAlert variant="success">
+                    Payment received, thank you for your purchase
+                  &lt/Alert>
+                  &ltAlert variant="warning">
+                    Please update your profile contact information
+                  &lt/Alert>
+                &lt/>
+              );
+            };
+          </pre> <p> Dodatkowo przenieśmy logikę wyboru koloru do funkcji getBgColor(variant), która zwróci łańcuch z nazwą koloru w zależności od wartości parametru variant. </p> <pre>
+            src/components/Alert.js
+
+            const alertStyles = {
+              margin: 8,
+              padding: "12px 16px",
+              borderRadius: 4,
+              color: "white",
+            };
+
+            const getBgColor = variant => {
+              switch (variant) {
+                case "info":
+                  return "blue";
+                case "success":
+                  return "green";
+                case "error":
+                  return "red";
+                case "warning":
+                  return "orange";
+                default:
+                  throw new Error(`Unsupported variant prop value - ${variant}`);
+              }
+            };
+
+            export const Alert = ({ variant, children }) => {
+              return (
+                &ltp style={{ ...alertStyles, backgroundColor: getBgColor(variant) }}>
+                  {children}
+                &lt/p>
+              );
+            };
+          </pre> <p> W 25. wierszu przykładu tworzona jest ostateczna wartość atrybutu style. Składa się on ze styli bazowych alertStyles oraz dynamicznej wartości backgroundColor, ustalanej w zależności od właściwości variant. To podejście jest stosowane, gdy wartość stylu CSS zależy od właściwości (props). Na przykład kiedy odwołanie do obrazu dla background-image jest przekazywane jako rekwizyt. </p> <p> Style inline mogą wydawać się wygodne ze względu na łatwość ich użycia, ale mają wiele istotnych wad. </p> <ul class="unnumbered-list-container"> <li> Bardzo słaba skalowalność i ponowne wykorzystanie styli w innych miejscach aplikacji </li> <li> Ograniczone funkcje (pseudoklasy, pseudoelementy, właściwości adaptacyjne) </li> <li> Kiepska wydajność podczas renderowania dużej liczby elementów </li> <li> Brak wygodnych narzędzi programistycznych ułatwiających pracę ze stylami </li> <li>Brak wsparcia popularnych narzędzi, takich jak autoprefixer</li> </ul> <p> W praktyce style wbudowane są używane tylko dla wartości właściwości CSS obliczanych dynamicznie, w połączeniu z zewnętrznymi arkuszami stylów. Nie są one jednak zalecane i dlatego nie powinny być używane w projektach. </p> </article> </section>  <section id="section2" class="text"> <article id="article1"> <h2>Section2 Article1: Vanilla CSS</h2> <p> Style komponentu można również umieścić w arkuszu stylów. W tym przypadku style każdego komponentu są deklarowane w osobnym pliku CSS z rozszerzeniem .css. Nazwa pliku powinna się składać z nazwy komponentu i rozszerzenia. Na przykład dla komponentu Alert arkusz stylów miałby nazwę Alert.css. </p> <pre>
+            src/components/Alert.css
+
+            .alert {
+              margin: 8px;
+              padding: 12px 16px;
+              border-radius: 4px;
+              background-color: gray;
+              color: white;
+            }
+          </pre> <p> W omówionym pliku możesz napisać dowolny, poprawny kod CSS. Dobrą praktyką jest pisanie CSS tylko dla znaczników HTML komponentu, z którym związany jest dany plik ze stylami. </p> <p> Style komponentu powinny zostać zaimportowane do jego pliku deklaracji. Wtedy klasy CSS opisane w arkuszu stylów będą dostępne do użycia. W React, atrybut HTML class odpowiada atrybutowi JSX className, do którego można przekazać łańcuch zawierający wszystkie klasy elementu. </p> <pre>
+            src/components/Alert.js
+
+            import "./Alert.css";
+
+            const Alert = ({ children }) => {
+              return &ltp className="alert">{children}&lt/p>;
+            };
+          </pre> <p> Na etapie budowania projektu, Create React App minimalizuje CSS i automatycznie dodaje prefiksy przeglądarek do właściwości CSS za pomocą narzędzia Autoprefixer. Dzięki temu nowoczesna składnia i funkcje CSS stają się dostępne, umożliwiając wsparcie starszych przeglądarek. Deweloper już nie musi się tym martwić. </p> </article> <article id="article2"> <h2>Section2 Article2: Tworzenie klas CSS</h2> <p> Dodajmy klasy CSS dla każdego typu alertu, aby kontrolować kolor tła na podstawie właściwości variant. Dla wygody nazwijmy poszczególne klasy analogicznie jak nasze zdefiniowane stany właściwości variant. </p> <pre>
+            src/components/Alert.css
+
+            .alert {
+              margin: 8px;
+              padding: 12px 16px;
+              border-radius: 4px;
+              color: white;
+            }
+
+            .alert.info {
+              background-color: blue;
+            }
+
+            .alert.success {
+              background-color: green;
+            }
+
+            .alert.error {
+              background-color: red;
+            }
+
+            .alert.warning {
+              background-color: orange;
+            }
+          </pre> <p> Dodajmy jeszcze dwie opcjonalne właściwości (props) outlined i elevated do komponentu Alert. Wartości jakie będą one przyjmować to true, false lub undefined. Jeśli wartość właściwości będzie równa true dodamy odpowiednie klasy is-outlined i is-elevated do elementu &ltp>. </p> <pre>
+            src/components/Alert.css
+
+            /* Cały poprzedni kod CSS */
+          .alert.is-outlined {
+            outline: 1px solid black;
+          }
+
+          .alert.is-elevated {
+            box-shadow: rgb(0 0 0 / 20%) 0px 3px 3px -2px, rgb(0 0 0 / 14%) 0px 3px 4px 0px,
+              rgb(0 0 0 / 12%) 0px 1px 8px 0px;
+          }
+          </pre> <p> Proces obliczania końcowej wartości atrybutu className zależy od dewelopera i bieżącego zadania. W poniższym przykładzie używamy tablicy łańcuchów i bloku if. Klasa alert w połaczeniu z wariantem jest zawsze dodana do tablicy. Natomiast klasy dla właściwości elevated i outlined zostaną dodane tylko wtedy, gdy spełniony zostanie odpowiedni warunek. </p> <pre>
+            src/components/Alert.js
+
+            import "./Alert.css";
+
+            const Alert = ({ variant, outlined, elevated, children }) => {
+              const classNames = ["alert", variant];
+
+              if (outlined) classNames.push("is-outlined");
+              if (elevated) classNames.push("is-elevated");
+
+              return &ltp className={classNames.join(" ")}>{children}&lt/p>;
+            };
+          </pre> <p>Ostatecznie nasz kod prezentuje się następująco:</p> <pre>
+            App.js
+            
+            import { Alert } from "./Alert";
+
+            export const App = () => {
+              return (
+                &lt>
+                  &ltAlert variant="info">
+                    Would you like to browse our recommended products?
+                  &lt/Alert>
+                  &ltAlert variant="error" outlined>
+                    There was an error during your last transaction
+                  &lt/Alert>
+                  &ltAlert variant="success" elevated>
+                    Payment received, thank you for your purchase
+                  &lt/Alert>
+                  &ltAlert variant="warning" outlined elevated>
+                    Please update your profile contact information
+                  &lt/Alert>
+                &lt/>
+              );
+            };
+          </pre> <p> Aby obliczyć ostateczną wartość atrybutu className, moglibyśmy użyć bloku if...else, instrukcji switch, operatora warunkowego lub innej składni JavaScript dającej analogiczny wynik. Najważniejsze jest to, aby ostateczna wartość atrybutu była poprawnie skomponowana i nie zawierała dodatkowych, lub nieprawidłowych wartości. </p> </article> <article id="article3"> <h2>Section2 Article3: Biblioteka clsx</h2> <p> Biblioteka <a class="link" href="https://www.npmjs.com/package/clsx">clsx</a> rozwiązuje większość problemów związanych z wieloma klasami. Standaryzuje ona proces tworzenia klas i czyni go wygodniejszym dzięki przemyślanej składni. </p> <pre>
+            npm install clsx
+          </pre> <p> Do funkcji clsx można przekazać dowolną liczbę argumentów. Wyrażenia, które nie są fałszywe (false) zostaną automatycznie dodane do wynikowego łańcucha znaków klasy. </p> <pre>
+            import clsx from "clsx";
+
+            const className = clsx(
+              "first",
+              10,
+              undefined && "second",
+              true && "third",
+              false ? "fourth" : "fifth"
+            );
+
+            console.log(className); // "first 10 third fifth"
+          </pre> <p> Oto jak wyglądałby kod komponentu Alert przy użyciu biblioteki clsx. Nawet w tak stosunkowo prostym przykładzie kod jest łatwiejszy w zrozumieniu i bardziej czytelny. </p> <pre>
+            src/components/Alert.js
+
+            import clsx from "clsx";
+            import "./Alert.css";
+
+            const Alert = ({ variant, outlined, elevated, children }) => {
+              return (
+                &ltp
+                  className={clsx(
+                    "alert",
+                    variant,
+                    outlined && "is-outlined",
+                    elevated && "is-elevated"
+                  )}
+                >
+                  {children}
+                &lt/p>
+              );
+            };
+          </pre> <p> Jest również dostępna alternatywna składnia funkcji clsx, w której dynamiczne nazwy klas przekazujemy w postacji obiektu z wartościami true lub false. </p> <pre>
+            src/components/Alert.js
+
+            import clsx from "clsx";
+            import "./Alert.css";
+
+            const Alert = ({ variant, outlined, elevated, children }) => {
+              return (
+                &ltp
+                  className={clsx("alert", variant, {
+                    "is-outlined": outlined,
+                    "is-elevated": elevated,
+                  })}
+                >
+                  {children}
+                &lt/p>
+              );
+            };
+          </pre> <p>Oto jak wygląda kod, który omówiliśmy do tej pory.</p> <pre>
+            App.js
+
+            import { Alert } from "./Alert";
+
+            export const App = () => {
+              return (
+                &lt>
+                  &ltAlert variant="info">
+                    Would you like to browse our recommended products?
+                  &lt/Alert>
+                  &ltAlert variant="error" outlined>
+                    There was an error during your last transaction
+                  &lt/Alert>
+                  &ltAlert variant="success" elevated>
+                    Payment received, thank you for your purchase
+                  &lt/Alert>
+                  &ltAlert variant="warning" outlined elevated>
+                    Please update your profile contact information
+                  &lt/Alert>
+                &lt/>
+              );
+            };
+          </pre> </article> <article id="article4"> <h2>Section2 Article4: Globalna przestrzeń nazw</h2> <p> Importowanie stylów związanych z danym komponentem do pliku, w którym jest on zadeklarowany jest tylko dobrą praktyką, a nie wymogiem. Na przykład, jeśli zaimportujesz style z pliku Alert.css do pliku komponentu App.js, nic się nie zepsuje. W wyniku importu cały zadeklarowany kod CSS z danego pliku zostanie po prostu dodany do jednego wspólnego arkusza stylów, wraz z całą resztą kodu CSS z innych komponentów. </p> <p> Poniżej został jednak zaprezentowany potencjalny problem, który wynika z wykorzystywania klasycznych ("waniliowych") plików CSS. Dotyczy on sytuacji, kiedy w dwóch plikach CSS, importowanych do tej samej aplikacji, pojawią się dwie klasy o tej samej nazwie (konflikt nazw). W zależności od kolejności, w jakiej te dwa pliki CSS są importowane do aplikacji, ostateczne style klasy .text mogą być inne niż byśmy się tego spodziewali. </p> <pre>
+            /* FirstComponent.css */
+            .text {
+              color: red;
+              font-size: 24px;
+            }
+
+            /* SecondComponent.css */
+            .text {
+              color: blue;
+            }
+          </pre> <p> Nazwy selektorów klas muszą być unikalne w skali całej aplikacji, aby nie dochodziło do wzajemnego nadpisywania się reguł CSS zdefiniowanych w różnych komponentach. </p> <p> W aplikacjach React bardzo ważna jest kompozycja, z tego względu nie zaleca się używania tych samych klas CSS w różnych komponentach. Na przykład, zamiast używać bazowej klasy CSS .button w komponentach &ltLoginButton> i &ltFollowButton>, lepiej jest utworzyć komponent &ltButton> z dynamicznymi stylami. Wtedy komponenty &ltLoginButton>i &ltFollowButton> mogą wykorzystać style komponentu &ltButton>, a nie tylko klasy CSS. </p> <pre>
+            // Button.js
+            const Button = ({ variant, children }) => {
+              // Podstawowe style przycisków z wieloma opcjami wyświetlania
+              return &ltbutton className={clsx("button", variant)}>{children}&lt/button>;
+            };
+
+            // LoginButton.js
+            const LoginButton = () => {
+              // Unikalna logika przycisku logowania
+              return &ltButton variant="primary">Login&lt/Button>;
+            };
+
+            // FollowButton.js
+            const FollowButton = () => {
+              // Unikalna logika przycisku logowania
+              return &ltButton variant="secondary">Follow&lt/Button>;
+            };
+          </pre> </article> <article id="article5"> <h2>Section2 Article5: Globalna przestrzeń nazw</h2> <p> Możesz również używać preprocesorów, ale możliwość komponowania komponentów sprawia, że są one mniej użyteczne. </p> <p> Zasady nazewnictwa plików są takie same jak dla Vanilla CSS, inne jest tylko rozszerzenie, np. .scss dla SASS. Poza tym preprocesory mają takie same funkcje, koncepcje i wady, jak waniliowy CSS. Aby dodać możliwość korzystania z SASS zainstaluj w projekcie jego kompilator. </p> <pre>
+            npm install sass
+          </pre> </article> <article id="article6"> <h2>Section2 Article6: Wnioski</h2> <p> Używanie Vanilla CSS w projektach również nie jest najlepszym z możliwych wyborów i ma szereg wad: </p> <ul class="unnumbered-list-container"> <li>Mała skalowalność</li> <li>Ograniczone ponowne wykorzystanie styli</li> <li> Konieczność obsługi dynamicznych klas (wykorzystanie zewnętrznej biblioteki jak clsx) </li> <li>Problem z globalną przestrzenią nazw</li> <li> Konieczność stosowania konwencji nazewnictwa dla selektorów klas </li> </ul> </article> </section>  <section id="section3" class="text"> <article id="article1"> <h2>Section3 Article1: CSS-moduły</h2> <p> Moduły CSS nie należą do żadnej oficjalnej specyfikacji - nie są zaimplementowane w przeglądarkach. Jest to proces, który jest uruchamiany na etapie budowania projektu (na przykład przy użyciu Webpacka). W rezultacie do nazwy klas dodawane są unikalne identyfikatory. Dzięki temu możesz używać tej samej nazwy klasy w różnych plikach CSS, nie martwiąc się o konflikty w przestrzeni nazw. </p> <p> Create React App domyślnie obsługuje moduły CSS. Aby zacząć je wykorzystywać wystarczy utworzyć plik styli z rozszerzeniem .module.css, np. Alert.module.css. W takim pliku możemy pisać dowolny, poprawny kod CSS. </p> <pre>
+            src/components/Alert.module.css
+
+            .alert {
+              margin: 8px;
+              padding: 12px 16px;
+              border-radius: 4px;
+              background-color: gray;
+              color: white;
+            }
+          </pre> <p> Chociaż moduł CSS wygląda jak zwykły CSS, w rzeczywistości jest kompilowany do formatu o nazwie ICSS (Interoperable CSS). ICSS jest przeznaczony dla programistów narzędzi takich jak Webpack, a nie dla użytkowników końcowych. </p> <p> Składnia importowania modułu CSS jest analogiczna jak importowania modułu JavaScript. Moduł CSS posiada domyślny eksport - obiekt pasujący do oryginalnych i wygenerowanych nazw klas. Ostateczny plik styli będzie miał unikalną nazwę klasy w formacie [filename]_[classname]__[hash]. </p> <pre>
+            src/components/Alert.js
+
+            // Składnia importu modułu CSS
+            import css from "./Alert.module.css";
+
+            // Pobieramy nazwę klasy pasującego obiektu
+            console.log(css); // { alert: "Alert_alert_ax7yz" }
+
+            const Alert = ({ children }) => {
+              // Odwołujemy się do właściwości obiektu przez nazwę klasy z pliku modułu
+              return &ltp className={css.alert}>{children}&lt/p>;
+            };
+          </pre> <p>Poniżej prezentacja dotychczasowego kodu.</p> <pre>
+            App.js
+
+            import { Alert } from "./Alert";
+
+            export const App = () => {
+              return (
+                &lt>
+                  &ltAlert variant="info">
+                    Would you like to browse our recommended products?
+                  &lt/Alert>
+                  &ltAlert variant="error">
+                    There was an error during your last transaction
+                  &lt/Alert>
+                  &ltAlert variant="success">
+                    Payment received, thank you for your purchase
+                  &lt/Alert>
+                  &ltAlert variant="warning">
+                    Please update your profile contact information
+                  &lt/Alert>
+                &lt/>
+              );
+            };
+          </pre> <p> Selektory tagów HTML (np. h1 {}) będą domyślnie znajdywać się w zasięgu globalnym. Moduły CSS generują unikalne nazwy jedynie dla selektorów klas. </p> </article> <article id="article2"> <h2>Section3 Article2: Właściwość composes</h2> <p> Kompozycja selektorów to jedna z kluczowych cech modułów CSS, która pozwala na stworzenie klasy dziedziczącej style innej klasy, bez ich duplikowania. Użyjemy teraz kompozycji klas i zrefaktoryzujmy style komponentu Alert z poprzedniego rozdziału. Klasy wariantów odziedziczą style klasy bazowej .alert. Właściwość composes musi poprzedzać inne reguły, aby w razie potrzeby można było nadpisać odziedziczone style. </p> <pre>
+            src/components/Alert.module.css
+
+            .alert {
+              margin: 8px;
+              padding: 12px 16px;
+              border-radius: 4px;
+              background-color: gray;
+              color: white;
+            }
+
+            .info {
+              composes: alert;
+              background-color: blue;
+            }
+
+            .success {
+              composes: alert;
+              background-color: green;
+            }
+
+            .error {
+              composes: alert;
+              background-color: red;
+            }
+
+            .warning {
+              composes: alert;
+              background-color: orange;
+            }
+          </pre> <p> Kiedy korzystasz z kompozycji możesz uniknąć konieczności wykorzystania biblioteki clsx. Nie musimy już dodawać klasy bazowej .alert, ponieważ dzięki kompozycji jest ona zawarta w klasach poszczególnych wariantów. W rezultacie element &ltp> będzie miał dwie klasy: odziedziczoną .alert oraz klasę wariantu, która nadpisuje wartość koloru tła. </p> <pre>
+            src/components/Alert.js
+
+            import css from "./Alert.module.css";
+
+            const Alert = ({ variant, children }) => {
+              return &ltp className={css[variant]}>{children}&lt/p>;
+            };
+          </pre> <p> Dostęp do właściwości obiektu jest zwykle dostępny jako css.alert, ale można również użyć nawiasów kwadratowych: css["alert"]. Okazuje się to przydatne, gdy nazwa właściwości jest przechowywana w zmiennej, tak jak wyżej w przypadku właściwości variant. </p> </article> <article id="article3"> <h2>Section3 Article3: Biblioteka clsx</h2> <p> Dodajmy jeszcze klasy CSS dla znanych nam już właściwości outlined i elevated. Nazwy klas składające się z kilku słów powinny być pisane w notacji camelCase. W przeciwnym razie dostęp do nich będzie możliwy tylko za pomocą nawiasów kwadratowych, np. css["is-outlined"], co jest mniej wygodne. </p> <pre>
+            src/components/Alert.module.css
+
+            /* Cały poprzedni kod CSS*/
+
+            .alert.isOutlined {
+              outline: 1px solid black;
+            }
+
+            .alert.isElevated {
+              box-shadow: rgb(0 0 0 / 20%) 0px 3px 3px -2px, rgb(0 0 0 / 14%) 0px 3px 4px 0px,
+                rgb(0 0 0 / 12%) 0px 1px 8px 0px;
+            }
+          </pre> <p> Teraz ponownie użyjmy biblioteki clsx do skomponowania końcowej wartości atrybutu className. </p> <pre>
+            src/components/Alert.js
+
+            import clsx from "clsx";
+            import css from "./Alert.module.css";
+
+            const Alert = ({ variant, outlined, elevated, children }) => {
+              return (
+                &ltp
+                  className={clsx(css[variant], {
+                    [css.isOutlined]: outlined,
+                    [css.isElevated]: elevated,
+                  })}
+                >
+                  {children}
+                &lt/p>
+              );
+            };
+          </pre> <p>Nasz kod po refaktoryzacji prezentuje się następująco:</p> <pre>
+            App.js
+
+            import { Alert } from "./Alert";
+
+            export const App = () => {
+              return (
+                &lt>
+                  &ltAlert variant="info">
+                    Would you like to browse our recommended products?
+                  &lt/Alert>
+                  &ltAlert variant="error" outlined>
+                    There was an error during your last transaction
+                  &lt/Alert>
+                  &ltAlert variant="success" elevated>
+                    Payment received, thank you for your purchase
+                  &lt/Alert>
+                  &ltAlert variant="warning" outlined elevated>
+                    Please update your profile contact information
+                  &lt/Alert>
+                &lt/>
+              );
+            };
+          </pre> </article> </section>  <section id="section4" class="text"> <article id="article1"> <h2>Section4 Article1: Normalizacja stylu</h2> <p> Style elementów mogą się różnić w zależności od przeglądarki. Aby nadać im jednakowy wygląd, konieczne może być dodanie zestawu reguł, które w jak największym stopniu korygują te różnice. </p> <p> W aplikację Create React App wbudowane jest narzędzie <a href="https://github.com/csstools/postcss-normalize">PostCSS Normalize</a>, będące mieszanką najlepszych praktyk normalizacji (<a href="https://github.com/csstools/normalize.css">normalize.css</a> oraz <a href="https://github.com/csstools/sanitize.css">sanitize.css</a>). Wszystko co musisz zrobić to dodać dyrektywę @import-normalize; w dowolnym miejscu arkusza styli lub module CSS. Zduplikowane importy zostaną automatycznie usunięte, więc dyrektywę wystarczy dodać raz, np. do index.css. </p> <pre>
+            src/index.css
+
+            @import-normalize;
+            /* Pozostały kod CSS */
+          </pre> <p> Jeśli zobaczysz ostrzeżenie «Unknown at rule @import-normalize css(unknownAtRules)» w VSCode, to zmień wartość parametru 'css.lint.unknownAtRules' w ustawieniach na 'ignore'. </p> <p> Pozostaje teraz tylko zaimportować plik styli index.css (z włączoną normalizacją) w dowolnym miejscu naszej aplikacji. </p> <pre>
+            import "./index.css";
+            /* Reszta kodu z pliku */
+          </pre> <p> Oprócz standaryzacji wyglądu elementów, przydatne może być również zresetowanie lub dodanie globalnych styli elementów. Na przykład wcięcia list i nagłówków, style obrazów, style elementów &lbody> i tym podobne. Logiczne będzie zrobienie tego w tym samym pliku, w którym dodano normalizację. </p> <pre>
+            src/index.css
+            
+            @import-normalize;
+
+            body {
+              font-family: sans-serif;
+              line-height: 1.5;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            p {
+              margin: 0;
+            }
+
+            ul,
+            ol {
+              margin: 0;
+              padding: 0;
+            }
+
+            img {
+              display: block;
+              max-width: 100%;
+              height: auto;
+            }
           </pre> </article> </section> </main>  <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>28.05.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.7be5c89e.js"></script>  </body></html>
