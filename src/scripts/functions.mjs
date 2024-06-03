@@ -61,3 +61,17 @@ export function getRandomElement(array) {
   // Zwróć wybrany element
   return array[randomIndex];
 }
+
+function getRandomHexColor() {
+  return `#${Math.floor(Math.random() * 16777215)
+    .toString(16)
+    .padStart(6, 0)}`;
+}
+
+function getRandomColorRgba() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  const a = 0.2 + Math.random() * 0.3;
+  return `rgba(${r}, ${g}, ${b}, ${a.toFixed(2)})`;
+}
