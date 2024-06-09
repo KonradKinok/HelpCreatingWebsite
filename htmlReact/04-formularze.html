@@ -94,74 +94,254 @@
             // Dla poprawy czytelności kodu można przenieść stan początkowy formularza poza ciało klasy.
             // Możemy tak zrobić, jeżeli wartości nie są obliczane dynamicznie.
             const INITIAL_STATE = {
-                login: "",
-                email: "",
-                password: "",
+              login: "",
+              email: "",
+              password: "",
             };
 
             class SignUpForm extends React.Component {
-                state = { ...INITIAL_STATE };
+              state = { ...INITIAL_STATE };
 
-                // Dla wszystkich elementów wykorzystamy jedną funkcję obsługującą zmianę stanu     ('handler').
+            // Dla wszystkich elementów wykorzystamy jedną funkcję obsługującą zmianę stanu ('handler').
+            // Inputy będziemy rozróżniać za pomocą atrybutu `name`
+              handleChange = evt => {
+                const { name, value } = evt.target;
+                this.setState({ [name]: value });
+              };
 
-                // Inputy będziemy rozróżniać za pomocą atrybutu `name`
-                handleChange = evt => {
-                    const { name, value } = evt.target;
-                    this.setState({ [name]: value });
-                };
+              handleSubmit = evt => {
+                evt.preventDefault();
+                const { login, email, password } = this.state;
 
-                handleSubmit = evt => {
-                    evt.preventDefault();
-                    const { login, email, password } = this.state;
+                console.log(`Login: ${login}, Email: ${email}, Password: ${password}`);
 
-                    console.log(`Login: ${login}, Email: ${email}, Password: ${password}`);
+                this.props.onSubmit({ ...this.state });
+                this.reset();
+              };
 
-                    this.props.onSubmit({ ...this.state });
-                    this.reset();  
-                };
+              reset = () => {
+                this.setState({ ...INITIAL_STATE });
+              };
 
-                reset = () => {
-                    this.setState({ ...INITIAL_STATE });  
-                };
+              render() {
+                const { login, email, password } = this.state;
 
-                render() {
-                    const { login, email, password } = this.state;
-
-                    return (
-                    &ltform onSubmit={this.handleSubmit}>
+                return (
+                  &ltform onSubmit={this.handleSubmit}>
                     &ltlabel>
-                    Name
-                    &ltinput
-                    type="text"
-                    placeholder="Enter login"
-                    name="login"
-                    value={login}
-                    onChange={this.handleChange}
-                    />
-                      &lt/label>
-                      &ltlabel>
+                      Name
+                      &ltinput
+                        type="text"
+                        placeholder="Enter login"
+                        name="login"
+                        value={login}
+                        onChange={this.handleChange}
+                      />
+                    &lt/label>
+                    &ltlabel>
                       Email
                       &ltinput
-                      type="email"
-                      placeholder="Enter email"
-                      name="email"
-                      value={email}
-                      onChange={this.handleChange}
+                        type="email"
+                        placeholder="Enter email"
+                        name="email"
+                        value={email}
+                        onChange={this.handleChange}
                       />
-                      &lt/label>
-                      &ltlabel>
+                    &lt/label>
+                    &ltlabel>
                       Password
                       &ltinput
-                      type="password"
-                      placeholder="Enter password"
-                      name="password"
-                      value={password}
-                      onChange={this.handleChange}
-                    />
+                        type="password"
+                        placeholder="Enter password"
+                        name="password"
+                        value={password}
+                        onChange={this.handleChange}
+                      />
                     &lt/label>
+
                     &ltbutton type="submit">Sign up as {login}&lt/button>
-                      &lt/form>
-                   );
-                  }
+                  &lt/form>
+                );
+              }
             }
-          </pre> </article> </section> </main>  <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>28.05.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.7be5c89e.js"></script>  </body></html>
+          </pre> </article> <article id="article4"> <h3> Article 4: Generowanie identyfikatorów dla elementów formularza </h3> <p> Dostępność (accessibility, a11y) to obecnie bardzo ważny temat w sieci. Atrybut HTML for dla tagu label pomaga technologiom wspomagającym użytkowników lepiej zrozumieć i odczytać interfejs formularza. Jako, że for to słowo kluczowe w JavaScript, w React JSX atrybut nosi nazwę htmlFor. </p> <p> Do generowania interaktywnych elementów formularzy wykorzystywane jest następujące podejście: dla każdego egzemplarza komponentu, przy jego inicjalizacji, tworzony jest zestaw unikalnych identyfikatorów przechowywanych na egzemplarzu. W ten sposób między różnymi formularzami uzyskamy unikalne id. </p> <pre>
+            // Możemy wykorzystać dowolną bibliotekę do generowania unikalnych łańcuchów
+            import { nanoid } from "nanoid";
+
+            class Form extends React.Component {
+              loginInputId = nanoid();
+
+              render() {
+                return (
+                  &ltform>
+                    &ltlabel htmlFor={this.loginInputId}>Login&lt/label>
+                    &ltinput type="text" name="login" id={this.loginInputId} />
+                  &lt/form>
+                );
+              }
+            }
+          </pre> <p> Wykorzystując bibliotekę nanoid tworzymy unikalny identyfikator pola i zapisujemy go w polu klasy. Wartość zostanie wygenerowana podczas inicjalizacji klasy, i dzięki wykorzystaniu pola klasy, nie ulegnie zmianie podczas re-renderów komponentu. Biblioteka zagwarantuje nam unikalność identyfikatorów dla wszystkich elementów, również pomiędzy wieloma formularzami. </p> </article> <article id="article5"> <h3>Article 5: Pola wyboru typu tak/nie (checkbox)</h3> <p>Cechy charakterystyczne pól wyboru:</p> <ul class="unnumbered-list-container"> <li>Może mieć tylko dwa stany: true lub false</li> <li>Aktualną wartość ze stanu przekazujemy do pola checked.</li> <li> Podczas obsługi zdarzenia onChange dostęp do wartości pola udostępniony jest poprzez event.target.checked. </li> <li> Jeżeli chcemy, aby przycisk wyboru przechowywał inną wartość niż logiczną, możemy również wykorzystać atrybut value. </li> </ul> <p> Dodajmy do naszego formularza rejestracji pole wyboru do potwierdzenia zgody użytkownika. Przycisk wysyłania furmularza ('submit') dezaktywujemy, dopóki pole wyboru nie zostanie kliknięte. </p> <pre>
+            const INITIAL_STATE = {
+              login: "",
+              email: "",
+              password: "",
+              agreed: false,
+            };
+
+            class SignUpForm extends React.Component {
+              state = {
+                ...INITIAL_STATE,
+              };
+
+              handleChange = evt => {
+                const { name, value, type, checked } = evt.target;
+            // Jeżeli typ elementu to checkbox, bierzemy wartość checked,
+            // w przeciwnym razie value
+                this.setState({ [name]: type === "checkbox" ? checked : value });
+              };
+
+              handleSubmit = e => {
+                e.preventDefault();
+                const { login, email, password, agreed } = this.state;
+                console.log(
+                  `Login: ${login}, Email: ${email}, Password: ${password}, Agreed: ${agreed}`
+                );
+
+            /* ... */
+              };
+
+              render() {
+                const { login, email, password, agreed } = this.state;
+
+                return (
+                  &ltform onSubmit={this.handleSubmit}>
+                    {/* ... */}
+                    &ltlabel>
+                      Agree to terms
+                      &ltinput
+                        type="checkbox"
+                        name="agreed"
+                        checked={agreed}
+                        onChange={this.handleChange}
+                      />
+                    &lt/label>
+
+                    &ltbutton type="submit" disabled={!agreed}>
+                      Sign up as {login}
+                    &lt/button>
+                  &lt/form>
+                );
+              }
+            }
+          </pre> </article> <article id="article6"> <h3>Article 6: Pole wielu opcji (radio)</h3> <p> Pole typu radio posiada zarówno atrybut name (określający przypisaną wartość pola), jak również checked (określający, czy dana wartość została wybrana). </p> <pre>
+            &ltinput
+              type="radio"
+              checked={this.state.gender === "male"}
+              value="male"
+              onChage={this.handleGenderChange}
+            />
+          </pre> <p>Dodajmy grupę przycisków opcji do naszego formularza.</p> <pre>
+            // Wykorzystujemy obiekt konfiguracyjny (enum) do zdefiniowania dostępnych wartości pola wyboru.
+            // Jest to postrzegane jako dobry wzorzec, w porównaniu z tzw. "magicznymi łańcuchami" wartości, które biorą się znikąd.
+            const Gender = {
+              MALE: "male",
+              FEMALE: "female",
+            };
+
+            const INITIAL_STATE = {
+              login: "",
+              email: "",
+              password: "",
+              agreed: false,
+              gender: null,
+            };
+
+            class SignUpForm extends React.Component {
+              state = {
+                ...INITIAL_STATE,
+              };
+
+            /*... */
+
+              render() {
+                const { login, email, password, agreed, gender } = this.state;
+
+                return (
+                  &ltform onSubmit={this.handleSubmit}>
+                    {/* ... */}
+
+                    &ltsection>
+                      &lth2>Choose your gender&lt/h2>
+                      &ltlabel>
+                        Male
+                        &ltinput
+                          type="radio"
+                          checked={gender === Gender.MALE}
+                          name="gender"
+                          value={Gender.MALE}
+                          onChange={this.handleChange}
+                        />
+                      &lt/label>
+                      &ltlabel>
+                        Female
+                        &ltinput
+                          type="radio"
+                          checked={gender === Gender.FEMALE}
+                          name="gender"
+                          value={Gender.FEMALE}
+                          onChange={this.handleChange}
+                        />
+                      &lt/label>
+                    &lt/section>
+
+                    &ltbutton type="submit" disabled={!agreed}>
+                      Sign up as {login}
+                    &lt/button>
+                  &lt/form>
+                );
+              }
+            }
+          </pre> </article> <article id="article6"> <h3>Article 6: Pola wyboru (Select)</h3> <p> Obsługa pola wyboru typu select jest analogiczna. Wykorzystujemy atrybut value oraz zdarzenie onChange. </p> <pre>
+            const INITIAL_STATE = {
+              login: "",
+              email: "",
+              password: "",
+              agreed: false,
+              gender: null,
+              age: "",
+            };
+
+            class SignUpForm extends React.Component {
+              state = {
+                ...INITIAL_STATE,
+              };
+
+            /* ... */
+
+              render() {
+                const { login, email, password, agreed, gender, age } = this.state;
+
+                return (
+                  &ltform onSubmit={this.handleSubmit}>
+                    {/* ... */}
+
+                    &ltlabel>
+                      Choose your age
+                      &ltselect name="age" value={age} onChange={this.handleChange}>
+                        &ltoption value="" disabled>
+                          ...
+                        &lt/option>
+                        &ltoption value="18-25">18-25&lt/option>
+                        &ltoption value="26-35">26-35&lt/option>
+                        &ltoption value="36+">36+&lt/option>
+                      &lt/select>
+                    &lt/label>
+
+                    &ltbutton type="submit" disabled={!agreed}>
+                      Sign up as {login}
+                    &lt/button>
+                  &lt/form>
+                );
+              }
+            }
+          </pre> </article> <article id="article7"> <h3>Article 7: Materiały dodatkowe</h3> <ul class="unnumbered-list-container"> <li> <a href="https://legacy.reactjs.org/docs/forms.html">Dokumentacja - formularze</a> </li> <li> <a href="https://react.dev/reference/react-dom/components/input">Input</a> </li> <li> <a href="https://react.dev/reference/react-dom/components/select">Select</a> </li> <li> <a href="https://react.dev/reference/react-dom/components/textarea">Textarea</a> </li> <li><a href="https://formik.org/">Formik</a></li> <li><a href="https://react-hook-form.com/">React Hook Form</a></li> </ul> </article> </section> </main>  <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>28.05.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.7be5c89e.js"></script>  </body></html>
