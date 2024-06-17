@@ -251,3 +251,65 @@ h3 {
     color: var(--black);
     text-shadow: none;
 }
+
+.footer-hidden{
+    display: none;
+}
+.footer-animation {
+    display: flex;
+    animation-name: footer-animation;
+    animation-duration: 20000ms;
+    animation-delay: 7000ms;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+    opacity: 1;
+    
+}
+
+@keyframes footer-animation {
+    0% {
+        opacity: 0.40;
+        transform: translatex(500px);
+
+    }
+
+    20% {
+        opacity: 0.80;
+
+    }
+
+    30% {
+        opacity: 0.80;
+        transform: translatex(-150px);
+    }
+
+    40% {
+        opacity: 1;
+
+        transform: perspective(400px) rotateY(60deg);
+    }
+
+    60% {
+        transform: translatex(0);
+        transform: rotate(145deg);
+    }
+
+    70% {
+
+        transform: rotate(125deg);
+        transform: perspective(400px) rotateX(60deg);
+
+    }
+
+    80% {
+        transform: scale(2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotate(0deg);
+        transform: scale(1);
+    }
+}
