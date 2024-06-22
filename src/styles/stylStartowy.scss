@@ -259,19 +259,19 @@ h3 {
     display: flex;
     animation-name: footer-animation;
     animation-duration: 20000ms;
-    animation-delay: 7000ms;
+    // animation-delay: 7000ms;
     animation-timing-function: linear;
     animation-iteration-count: 1;
     animation-direction: alternate;
     animation-fill-mode: forwards;
-    opacity: 1;
+    opacity: 0;
     
 }
 
 @keyframes footer-animation {
     0% {
         opacity: 0.40;
-        transform: translatex(500px);
+        transform: translatex(-1500px);
 
     }
 
