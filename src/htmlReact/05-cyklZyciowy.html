@@ -46,6 +46,341 @@
             wykorzystywane są trzy: componentDidMount, componentDidUpdate i
             componentWillUnmount.
           </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/reactLifecycleDiagram.jpg" alt="" />
+          </div>
+          <p>
+            <a
+              href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/"
+              >Link do oryginalnej strony_diagramu</a
+            >
+          </p>
+        </article>
+        <article id="article2">
+          <h2>Etap montowania</h2>
+          <p>
+            Następujące metody wywoływane są po kolei, gdy komponent jest
+            tworzony i dodawany do drzewa DOM.
+          </p>
+          <h3>constructor</h3>
+          <pre>
+            class Alert extends Component {
+                constructor() {
+                    super()
+                    console.log('Alert constructor!')
+                }
+            }
+          </pre>
+          <p>
+            Wywoływany jest w momencie utworzenia egzemplarza komponentu, zanim
+            zostanie on umieszczony w DOM.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>Inicjalizuje stan początkowy komponentu.</li>
+            <li>Przywiązuje kontekst (this) w metodach.</li>
+            <li>Nie można w nim wywoływać setState().</li>
+            <li>
+              W większości przypadków jawne zadeklarowanie konstruktora nie jest
+              potrzebne.
+            </li>
+            <li>
+              Należy pamiętać o dodaniu super() ****przed**** wywołaniem
+              jakiekolwiek kodu w konstruktorze - w przeciwnym wypadku otrzymany
+              błąd: Uncaught ReferenceError: Must call super constructor in
+              derived class before accessing 'this' or returning from derived
+              constructor
+            </li>
+          </ul>
+          <h3>getDerivedStateFromProps</h3>
+          <pre>
+            static getDerivedStateFromProps(nextProps, prevState) {
+                return {
+                    favoriteColor: nextProps.colorList[0] 
+                }
+            }
+
+            //props: { colorList: [ 'red', 'blue', 'green' ] }
+            //state: { favoriteColor: 'red' }
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>W praktyce metoda ta jest wykorzystywana bardzo rzadko.</li>
+            <li>
+              Wywoływana jest przed render(), zarówno podczas montowania jak i
+              aktualizacji.
+            </li>
+            <li>
+              Możemy ją wykorzystać do ustawienia stanu w zależności od props
+              podczas każdej ich zmiany.
+            </li>
+            <li>
+              Powinna zwrócić obiekt, którym zostanie zaktualizowany stan lub
+              null.
+            </li>
+            <li>Brak dostępu do this.</li>
+            <li>
+              W większości przypadków da się ją zastąpić używając memoizacji lub
+              pisząc logikę w componentDidUpdate lub render
+            </li>
+          </ul>
+          <h3>render</h3>
+          <pre>
+            // state: { isOpen: false }
+
+              render() {
+                  const { isOpen } = this.state
+                  const { children} = this.props
+
+                  return (
+                      &ltdiv>
+                          &ltbutton onClick={this.show}>Show&lt/button>
+                          &ltbutton onClick={this.hide}>Hide&lt/button>
+                          &ltbutton onClick={this.toggle}>{isOpen ? "Hide" : "Show"}&lt/button>
+
+                                      &ltdiv>Children list&lt/div>
+                                      {isOpen && children}
+                      &lt/div>
+                  )
+              }
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>Pozwala deklaratywnie opisać interfejs.</li>
+            <li>Zwraca rezultat wyrażeń JSX, poddrzewo Virtual DOM.</li>
+            <li>Nie można w nim wywoływać setState().</li>
+          </ul>
+          <h3>componentDidMount</h3>
+          <pre>
+            async componentDidMount() {
+                const response = await axios.get('/some-url')
+                this.setState({ data: response.data })
+            }
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              Wywoływana jest po render() , po zamontowaniu komponentu w drzewie
+              DOM.
+            </li>
+            <li>
+              W metodzie tworzymy zapytania HTTP, subskrybujemy się na zdarzenia
+              i wykonujemy operacje na drzewie DOM.
+            </li>
+            <li>
+              Wywołanie setState() w tej metodzie spowoduje re-render - to
+              normalne.
+            </li>
+            <li>Może być definiowana z przedrostkiem async lub bez niego.</li>
+          </ul>
+        </article>
+        <article id="article3">
+          <h2>Etap aktualizacji</h2>
+          <p>
+            Aktualizacja może być wywołana zmianą state samego komponentu lub
+            przekazywanych do niego props. Każda aktualizacja prowadzi to
+            re-renderu komponentu i wywołania poniższych metod cyklu życia.
+          </p>
+          <pre>
+            shouldComponentUpdate(nextProps, nextState) {
+                const oldProps = this.props
+
+                if (nextProps.someProp === oldProps.someProp) {
+                    return false;
+                }
+                return true;
+            }
+            // Re-render komponentu tylko, gdy zostały przekazane nowe propsy
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>Nie wywołuje się podczas montowania komponentu.</li>
+            <li>
+              Wywołuje się tuż przed ponownym renderowaniem już zamontowanego
+              komponentu.
+            </li>
+            <li>Wymagana wyłącznie do optymalizacji procesu renderowania.</li>
+            <li>
+              Domyślnie render zachodzi za każdym razem przy nowych props lub
+              state. React nie sprawdza dokładnie nowych propsów, to jest czy są
+              różne od poprzednich.
+            </li>
+            <li>Pozwala porównać obecny i poprzedni state oraz props.</li>
+            <li>
+              Zwrócenie wartości true lub false decyduje o ponownym renderze
+              komponentu lub jego zatrzymaniu.
+            </li>
+            <li>
+              Jeśli zwróci false to nie zostanie wywołany render() i
+              componentDidUpdate().
+            </li>
+            <li>Domyślnie zwraca true</li>
+            <li>Nie można wywoływać setState().</li>
+            <li>
+              Należy używać z rozwagą, dopiero po pomiarach wydajności, w
+              przeciwnym razie może spowodować odwrotny efekt.
+            </li>
+            <li>
+              Przed użyciem należy wcześniej rozważyć zmianę dziedziczenia na
+              React.PureComponent, który będzie powierzchownie porównywał props.
+            </li>
+          </ul>
+          <pre>
+            getSnapshotBeforeUpdate(prevProps, prevState) {
+              if (prevProps.list.length < this.props.list.length) {
+                const list = this.listRef.current;
+                return list.scrollHeight - list.scrollTop;
+              }
+              return null;
+            }
+
+            // Przechowujemy pozycję scrolla
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>W praktyce metoda ta jest wykorzystywana bardzo rzadko.</li>
+            <li>
+              Wywoływana jest wtedy, gdy wszystkie zmiany są gotowe do dodania w
+              DOM.
+            </li>
+            <li>
+              Można wykorzystywać do otrzymania wartości DOM przed aktualizacją,
+              na przykład obecna pozycja suwaka lub rozmiar elementu przed
+              aktualizacją.
+            </li>
+            <li>
+              To, co zwróci ta metoda, będzie przekazane jako trzeci parametr
+              snapshot w componentDidUpdate().
+            </li>
+          </ul>
+          <pre>
+            componentDidUpdate(prevProps, prevState, snapshot) {
+                if (this.props.getMoreItems) {
+                this.getMoreData().then(response => {
+                  this.setState({
+                    data: response.data,
+                            scrollPosition: snapshot
+                  })
+                });
+              }
+            }
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>Wywołuje się zaraz po aktualizacji komponentu w DOM.</li>
+            <li>Nie wywołuje się podczas montowania komponentu.</li>
+            <li>
+              Można wywoływać setState(), obowiązkowo opakowując go w warunek
+              sprawdzający poprzednie i następne props lub state, aby nie
+              powstał niekończący się cykl ponownego renderowania.
+            </li>
+            <li>Można robić zapytania HTTP.</li>
+          </ul>
+        </article>
+        <article id="article4">
+          <h2>Etap odmontowywania</h2>
+          <p>
+            W pewnym momencie komponent zostanie usunięty z DOM. Wywoływana jest
+            wtedy następująca metoda:
+          </p>
+          <pre>
+            // this.timerID = setInterval(() => { console.log('interval!') }, 1000);
+            componentWillUnmount() {
+              console.log("Clock", "componentWillUnmount");
+              clearInterval(this.timerID);
+            }
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              Wywołuje się tuż przed odmontowaniem komponentu i usunięciem
+              elementu z DOM.
+            </li>
+            <li>
+              Świetnie nadaje się do sprzątania po sobie: subskrypcji zdarzeń,
+              liczników czasu, zapytań HTTP. W przeciwnym razie pojawią się
+              wycieki pamięci.
+            </li>
+            <li>
+              Nie ma sensu wywoływać setState(), komponent nie będzie już miał
+              okazji do przerenderowania.
+            </li>
+          </ul>
+        </article>
+        <article id="article4">
+          <h2>Obsługa błędów renderowania</h2>
+          <p>
+            React bardzo lubi zawieszać aplikacje, jeżeli wystąpił jakiś błąd.
+            componentDidCatch działa w przypadku wystąpienia błędu w
+            komponencie-dziecku i pozwala komponentom-rodzicom wyłapywać te
+            błędy. To z kolei umożliwia ich obsługę np. wyświetlenie zapasowego
+            interfejsu. Dzięki temu, w przypadku wystąpienia błędu, interfejs
+            się nie zawiesi.
+          </p>
+          <pre>
+            componentDidCatch(error, info) {
+              this.setState({
+                  hasError: true,
+                    errorMessage: error
+              })
+            }
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>Wykorzystuje się do kontroli błędów.</li>
+            <li>Wyłapuje błędy w dzieciach, ale nie w samym rodzicu.</li>
+            <li>error - rezultat toString() obiektu błędu</li>
+            <li>info - obiekt opisujący stack trace</li>
+          </ul>
+          <pre>
+            class ErrorBoundary extends React.Component {
+              state = { hasError: false };
+
+              componentDidCatch(error, info) {
+            // Jeśli ta metoda została wywołana to gdzieś niżej w drzewie musiał wystąpić błąd
+            // Ustanawiamy stan
+                this.setState({ hasError: true });
+            // Można także wysłać raport o błędzie do serwisu analitycznego
+            // logErrorToMyService(error, info);
+              }
+
+              render() {
+            // Jeżeli wystąpił błąd...
+                if (this.state.hasError) {
+            // Renderujemy fallback UI
+                  return &lth1>Something went wrong, please try again later :(&lt/h1>;
+                }
+
+            // Jeśli wszystko OK, renderujemy dzieci
+                return this.props.children;
+              }
+            }
+          </pre>
+        </article>
+        <article id="article5">
+          <h2>Materiały dodatkowe</h2>
+          <ul class="unnumbered-list-container">
+            <li>
+              <a
+                href="https://legacy.reactjs.org/docs/react-component.html#the-component-lifecycle"
+                >Dokumentacja - Cykl życia komponentu</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://legacy.reactjs.org/blog/2017/07/26/error-handling-in-react-16.html"
+                >Error Handling in React 16+</a
+              >
+            </li>
+            <li>
+              <a href="https://www.nafrontendzie.pl/cykl-zycia-komponentu-react"
+                >Cykl życia komponentu React</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://blog.logrocket.com/react-error-handling-with-react-error-boundary/"
+                >React Error Handling</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://retool.com/blog/the-react-lifecycle-methods-and-hooks-explained"
+                >Cykl życia - komponenty</a
+              >
+            </li>
+          </ul>
         </article>
       </section>
     </main>
