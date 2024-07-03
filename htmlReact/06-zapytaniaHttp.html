@@ -1,1 +1,162 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.13df2ce6.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.890d3e07.css"><title>Zapytania HTTP</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> </nav> </header> <main class="main-container">  <section id="section1" class="text"> <article id="article1"> <h1>Moduł 2 - Zajęcia 4 - Formularze</h1> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>17.06.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.ab3a5978.js"></script> </body></html>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.13df2ce6.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.a7417870.css"><title>Zapytania HTTP</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> </nav> </header> <main class="main-container">  <section id="section1" class="text"> <article id="article1"> <h1>Moduł 3 - Zajęcia 6 - zapytania HTTP</h1> <p> W tym celu zastosujemy wiedzę, którą przyswoiliśmy w tym module. </p> <p> Zaczniemy od rozbudowania stanu naszej aplikacji, oprócz dotychczasowych danych dodamy jeszcze informacje o obecnej stronie: </p> <pre>
+            state = {
+              articles: [],
+              isLoading: false,
+              error: '',
+              currentPage: 1
+            }
+          </pre> <p> Następnie przeniesiemy naszą funkcjonalność odpowiadającą za pobieranie nowych paczek z componentDidMount do osobnej funkcji - pozwoli nam to na reużycie jej także w componentDidUpdate </p> <pre>
+            async componentDidMount() {
+              await this.getInitialData()
+            }
+
+            async componentDidUpdate() {
+              await this.getInitialData()
+            }
+
+            getInitialData = async () => {
+                const query = `react&page=${this.state.currentPage}`;
+              try {
+                const articles = await api.fetchArticlesWithQuery(query)
+                    this.setState({ articles })
+              } catch (error) {
+                this.setState({ error })
+              } finally {
+                this.setState({ isLoading: false })
+              }
+            }
+          </pre> <p> Jak widać poza stworzeniem funkcji getInitialData została ona delikatnie rozbudowana - oprócz informacji o wyszukiwaniu (react) podajemy także informację o konkretnej stronie (currentPage). Zgodnie z dokumentacją dostępną pod linkiem wyżej możemy dodać do zapytania dodatkowe informacje. Użycie currentPage pozwoli nam na pobranie kolejnych paczek danych. </p> <p> Chcielibyśmy się także zabezpieczyć przed ciągłym re-renderem - ma to związek z tym, że nadpisujemy pole articles . Chcielibyśmy przerenderować komponent tylko w dwóch przypadkach: </p> <ol class="numbered-list-container"> <li> Zostaje zmieniony currentPage na kolejny, przez co wiemy, że mamy wykonać zapytanie do API </li> <li>Otrzymujemy odpowiedź z API z nową listą artykułów.</li> </ol> <p>W związku z tym możemy wykorzystać shouldComponentUpdate</p> <pre>
+            shouldComponentUpdate(nextProps, nextState) {
+              const oldState = this.state;
+
+              if (nextState.articles[0]?.title === oldState.articles[0]?.title && 
+                    nextState.currentPage === oldState.currentPage) {
+                return false
+              }
+
+              return true
+            }
+          </pre> <p>Sprawdzamy tutaj dwie rzeczy:</p> <ol class="numbered-list-container"> <li> Czy pierwszy artykuł ma inny tytuł? - jeśli tak, oznacza to, że mamy nową listę artykułów </li> <li> Czy wartość currentPage uległa zmianie? - jeśli tak, oznacza to, że musimy przerenderować komponent by pobrać nowe dane </li> </ol> <p>Dodajemy także przycisk pozwalający zmienić stronę</p> <pre>
+            &ltbutton onClick={this.handleClick}>
+              Next page
+            &lt/button>
+          </pre> <p>A także funkcję pozwalającą obsłużyć kliknięcie</p> <pre>
+            handleCurrentPageUpdate = () => {
+              this.setState((state) => {
+                return {
+                  currentPage: state.currentPage + 1
+                }
+              })
+            }
+
+            handleClick = () => {
+              this.handleCurrentPageUpdate()
+            }
+          </pre> <p> Aktualizację stanu naszego komponentu wynosimy do osobnej funkcji, przyda nam się to na kolejnym etapie. </p> <p> Pozostał nam tylko jeden warunek do spełnienia: Co 10 sekund aplikacja samoczynnie poprosi o nową paczkę danych. Możemy to osiągnąć w następujący sposób. </p> <p>Dodajemy zmienną timer:</p> <pre>
+            timer = null;
+          </pre> <p>Modyfikujemy funkcję componentDidMount</p> <pre>
+            async componentDidMount() {
+              this.timer = setInterval(() => {
+                this.handleCurrentPageUpdate()
+              }, 10000)
+              await this.getInitialData()
+            }
+          </pre> <p> Oraz korzystamy z funkcji componentWillUnmount w celu zaprzestania działania setInterval po odmontowaniu komponentu </p> <pre>
+            componentWillUnmount() {
+              clearInterval(this.timer);
+            }
+          </pre> <p> Jeżeli na środowisku deweloperskim wywoływana jest funkcja componentWillUnmount, a ten komponent jest nadal żywy i widoczny możemy zrobić drobną zmianę w pliku index.js i zakomentować &ltReact.StrictMode>&lt/React.StrictMode> </p> <pre>
+            root.render(
+              // &ltReact.StrictMode>
+                &ltApp />
+              // &lt/React.StrictMode>
+            );
+          </pre> <p>Cały kod App.js</p> <pre>
+            import { Component } from 'react';
+            import axios from "axios";
+            import ContentLoader from 'react-content-loader';
+
+            import './App.css';
+            import ArticleList from './components/ArticleList';
+            import api from './utils/getArticles';
+
+            axios.defaults.baseURL = "https://hn.algolia.com/api/v1";
+            class App extends Component {
+              state = {
+                articles: [],
+                isLoading: false,
+                error: '',
+                currentPage: 1
+              }
+
+              timer = null;
+
+              async componentDidMount() {
+                this.timer = setInterval(() => {
+                  this.handleCurrentPageUpdate()
+                }, 10000)
+                await this.getInitialData()
+              }
+
+              async componentDidUpdate() {
+                await this.getInitialData()
+              }
+
+              getInitialData = async () => {
+                const query = `react&page=${this.state.currentPage}`;
+                try {
+                  const articles = await api.fetchArticlesWithQuery(query)
+                  this.setState({ articles })
+                } catch (error) {
+                  this.setState({ error })
+                } finally {
+                  this.setState({ isLoading: false })
+                }
+              }
+
+              shouldComponentUpdate(nextProps, nextState) {
+                const oldState = this.state;
+
+                if (nextState.articles[0]?.title === oldState.articles[0]?.title 
+                        && nextState.currentPage === oldState.currentPage) {
+                  return false
+                }
+
+                return true
+              }
+
+              handleCurrentPageUpdate = () => {
+                this.setState((state) => {
+                  return {
+                    currentPage: state.currentPage + 1
+                  }
+                })
+              }
+
+              handleClick = () => {
+                this.handleCurrentPageUpdate()
+              }
+
+              componentWillUnmount() {
+                clearInterval(this.timer);
+              }
+
+              render() {
+                const { articles, isLoading, error } = this.state;
+
+                return (
+                  &lt>
+                    {error && &ltp>Something went wrong: {error.message}&lt/p>}
+                    {isLoading && &ltContentLoader />}
+                    {articles.length > 0 && &ltArticleList articles={articles} />}
+                    &ltbutton onClick={this.handleClick}>
+                      Next page
+                    &lt/button>
+                  &lt/>
+                );
+              }
+
+            }
+
+            export default App;
+          </pre> <p> Jak widać metody HTTP oraz cyklu życia komponentu współgrają ze sobą na każdym kroku. Należy o tym pamiętać i używać ich razem, by osiągnąć możliwie najlepszy efekt. </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>17.06.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.ab3a5978.js"></script> </body></html>

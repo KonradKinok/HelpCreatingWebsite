@@ -1,1 +1,62 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.13df2ce6.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.890d3e07.css"><title>React hooks</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> </nav> </header> <main class="main-container">  <section id="section1" class="text"> <article id="article1"> <h1>Moduł 2 - Zajęcia 4 - Formularze</h1> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>17.06.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.ab3a5978.js"></script> </body></html>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.13df2ce6.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.a7417870.css"><title>React hooks</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> </nav> </header> <main class="main-container">  <section id="section1" class="text"> <article id="article1"> <h1>Moduł 4 - Zajęcia 7 - React hooks</h1> <h2>Wprowadzenie</h2> <p> Dotychczas komponenty funkcyjne wykorzystywaliśmy tylko do renderowania HTML w zależności od otrzymanych props. Nie było w nich ani stanu, ani metod cyklu życiowego. Były bardzo proste. Jeżeli w trakcie implementacji pojawiała się potrzeba posiadania stanu w komponencie funkcyjnym, to należało wówczas przepisać go na komponent klasowy. Zajomowało to niestety sporo czasu. </p> <p> Chęć ustandaryzowania oraz ujednolicenia sposobu pisania komponentów skłoniła deweloperów React do stworzenia hooków. Rozszerzyło to możliwości komponentów funkcyjnych. Hooki okazały się na tyle wygodne, że stały się podstawą programowania w React. </p> <p> Hooki rozwiązują w React wiele problemów, z którymi deweloperzy borykali się od początku istnienia biblioteki. </p> <ul class="unnumbered-list-container"> <li> Trudność powtórnego wykorzystania logiki ze stanem między komponentami. W tym celu można tworzyć oddzielne hooki. </li> <li> Mało intuicyjne wzorce "render-props" oraz "higher order component", które znacząco zmieniają strukturę komponentów i sprawiają, że kod jest trudniejszy do zrozumienia. </li> <li> Trudność powtórnego wykorzystania logiki w kilku metodach cyklu życiowego (np. subskrypcja w componentDidMount i wypisanie się w componentWillUnmount). </li> <li> Brak możliwości rozbicia dużego komponentu na mniejsze części, ze względu na logikę związaną ze składnią klasy. </li> <li> Osobliwości związane z this oraz przywiązywaniem kontekstu do funkcji (bind). </li> </ul> </article> </section> <section id="section2" class="text"> <article id="article1"> <h2>Hook useState</h2> <pre>
+            import { useState } from "react";
+
+            const App = () => {
+              const [value, setValue] = useState(0);
+              return (
+                &ltdiv>
+                  {value}
+                  &ltbutton type="button" onClick={() => setValue(value + 1)}>
+                    Increment value by 1
+                  &lt/button>
+                &lt/div>
+              );
+            };
+          </pre> <p> Wywołanie hooka useState tworzy stan i metodę, która pozwala na zmianę jego wartości. Hook przyjmuje wartość początkową jako argument, w naszym przypadku liczbę 0. W stanie może być przechowywany dowolny rodzaj danych. </p> <ol class="numbered-list-container"> <li>bieżąca wartość stanu</li> <li> funkcja, która pozwala na aktualizację stanu. Można ją wykorzystać w dowolnym miejscu. Wykorzystując destrukturyzację można nadać dowolne nazwy zmiennym. </li> </ol> <p> Hooki - to po prostu funkcje, z pomocą których można "doczepić się" do stanu i metod cyklu życiowego w komponentach funkcyjnych. </p> </article> <article id="article2"> <h3>Różnice względem setState</h3> <p> Funkcja aktualizacji stanu jest podobna do this.setState w klasach. Nie łączy ona jednak nowego i starego stanu razem, w przypadku gdy w stanie przechowywany jest obiekt. Ponad to, w klasowym komponencie możemy utworzyć tylko jeden wspólny stan, a w funkcyjnym dowolną ilość niezależnych od siebie fragmentów stanu. </p> <pre>
+            // ❌ Dozwolone, ale nie zalecane
+            const App = () => {
+              const [state, setState] = useState({
+                username: "",
+                todos: [{ text: "Learn hooks" }],
+                isModalOpen: false,
+              });
+            };
+
+            // ✅ Dobrze
+            const App = () => {
+              const [username, setUsername] = useState("");
+              const [todos, setTodos] = useState([{ text: "Learn hooks" }]);
+              const [isModalOpen, setIsModalOpen] = useState(false);
+            };
+          </pre> <p> Nie zapisuj w stanie obiektu z kilkoma niepowiązanymi ze sobą właściwościami. Lepiej jest utworzyć kilka niezależnych stanów i aktualizować je atomowo, jak w przykładzie powyżej. Nie wpływa to na wydajność. </p> </article> <article id="article3"> <h3>Ograniczenia hooków</h3> <p> Każdy hook można wywołać tylko w ciele komponentu funkcyjnego. Nie mogą one wykonywać się warunkowo tzn. wewnątrz cykli, warunków, zagnieżdżonych funkcji itp. </p> <pre>
+            // ❌ Zwróci błąd
+            const App = () => {
+              if (isLoggedIn) {
+                const [username, setUsername] = useState("");
+              }
+
+              // ...
+            };
+
+            // ✅ Tak należy wykorzystywać hooki
+            const App = () => {
+              const [username, setUsername] = useState("");
+            };
+          </pre> </article> </section> <section id="section3" class="text"> <article id="article1"> <h2>Hook useEffect</h2> <p> Metody cyklu życiowego pozwalają nam wykonywać operacje w różnych stadiach życia komponentu. Na przykład kierować zapytania o dane z backendu, dodawać subskrypcje wydarzeń itd. Wszystko to nazywane jest "efektami ubocznymi" ("side effects"). Hook useEffect zawiera w sobie wywołania trzech metod cyklu życiowego - componentDidMount,componentDidUpdate, componentWillUnmount, dzięki czemu możemy wykonywać te "efekty" w komponentach funkcyjnych. </p> <pre>
+            import { useState, useEffect } from "react";
+
+            const App = () => {
+              const [value, setValue] = useState(0);
+
+              useEffect(() => {
+                document.title = `You clicked ${value} times`;
+              });
+
+              return (
+                &ltdiv>
+                  &ltp>You clicked {value} times&lt/p>
+                  &ltbutton onClick={() => setValue(value + 1)}>Click me&lt/button>
+                &lt/div>
+              );
+            };
+          </pre> <p>useEffect(callback, deps) przyjmuje dwa argumenty:</p> <ul class="unnumbered-list-container"> <li> callback - funkcja, wewnątrz której wykonuje się cała logika efektu. Na przykład zapytania do serwera, subskrypcja zdarzeń itp. </li> <li> zależności - tablica zmiennych. Zmiana dowolnej z nich spowoduje wykonanie się efektu, czyli wywołanie callback'a. Może to być zmienna pochodząca ze stanu, propsów lub innna lokalna wartość komponentu. </li> </ul> <p> Jeżeli nie przekazujemy tablicy zależności, efekt będzie wykonywać się przy każdym renderowaniu komponentu. Właśnie dzięki tablicy zależności możemy imitować metody cyklu życiowego. </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>17.06.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.ab3a5978.js"></script> </body></html>
