@@ -84,6 +84,11 @@ a{
     text-decoration: none;
 }
 
+pre code {
+    border: 1px solid #999;
+    display: block;
+    padding: 20px;
+}
 
 .main-container a:hover {
     color: var(--main-link-hover-forecolor);

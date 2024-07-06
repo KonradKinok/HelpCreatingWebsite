@@ -31,7 +31,441 @@
       <!-- section1 -->
       <section id="section1" class="text">
         <article id="article1">
-          <h1>Moduł 2 - Zajęcia 4 - Formularze</h1>
+          <h1>Moduł 5 - Zajęcia 8 - Kontekst i referencje</h1>
+          <p>
+            W React, dane zawsze przekazywane są z góry na dół przez propsy, a
+            to czasami może być niewygodne. Przykładowo, dane globalne, które
+            potrzebne są w wielu komponentach na różnych poziomach aplikacji
+            (lokalizacja, dark/white theme (zmienna decydująca czy strona ma się
+            wyświetlać w kolorystyce czarnej czy białej), stan autoryzacji i
+            inne).
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/props-context.png" alt="" />
+          </div>
+          <p>
+            Kontekst pozwala na przekazywanie danych głęboko w drzewie
+            komponentów bez jawnego przekazywania propsów do elementów
+            pośrednich na każdym poziomie.
+          </p>
+          <p>
+            Nie wykorzystuj kontekstu, aby uniknąć przekazywania propsów kilka
+            poziomów w dół. Ten mechanizm przeznaczony jest dla wąskiego
+            spektrum zadań.
+          </p>
+
+          <p>
+            <a href="https://react.dev/learn/passing-data-deeply-with-context"
+              >Przekazywanie danych w Context</a
+            >
+          </p>
+          <p>
+            <a href="https://react.dev/reference/react/useContext"
+              >Dokumentacja useContext</a
+            >
+          </p>
+        </article>
+        <article id="article2">
+          <h2>Funkcja createContext()</h2>
+          <pre>
+              import { createContext } from "react";
+              const MyContext = createContext(defaultValue);
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              Tworzy obiekt kontekstu zawierający parę komponentów
+              &ltContext.Provider> (dostawca) i &ltContext.Consumer>
+              (użytkownik).
+            </li>
+            <li>
+              Pozwala komponentom subskrybować zmiany kontekstu niezależnie od
+              głębokości zagnieżdżenia.
+            </li>
+            <li>Jeden provider może być związany z wieloma konsumentami.</li>
+            <li>
+              Providery mogą być zagnieżdżane - umieszczone jeden w drugim.
+            </li>
+          </ul>
+        </article>
+        <article id="article3">
+          <h2>Hook useContext()</h2>
+          <p>
+            Zwraca bieżącą wartość kontekstu z najbliższego skorelowanego
+            komponentu &ltProvider>.
+          </p>
+          <pre>
+            import { createContext, useContext } from "react";
+
+            const MyContext = createContext();
+            const contextValue = useContext(MyContext);
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              Wymaga jednego argumentu - referencji do utworzonego kontekstu.
+            </li>
+            <li>Zwróci wartość kontekstu najbliższego providera.</li>
+            <li>
+              Za każdym razem, kiedy wykryta zostanie nowa wartość kontekstu,
+              useContext wymusi re-render komponentu.
+            </li>
+          </ul>
+        </article>
+        <article id="article4">
+          <h3>Funkcja createContext()</h3>
+          <p>
+            Niewygodnie jest za każdym razem importować odnośnik do obiektu
+            kontekstu, dlatego dobrą praktyką jest utworzenie custom hook.
+          </p>
+          <pre>
+            import { createContext, useContext } from "react";
+
+            const MyContext = createContext();
+
+            // Importujemy i wykorzystujemy ten hook w komponentach
+            export const useMyContext = () => useContext(MyContext);
+          </pre>
+        </article>
+        <article id="article4">
+          <h2>Kontekst użytkownika</h2>
+          <p>
+            Napiszmy kontekst do przechowywania informacji o bieżącym
+            użytkowniku.
+          </p>
+          <pre>
+            userContext.js
+
+            import { createContext, useContext } from "react";
+
+            export const UserContext = createContext();
+
+            export const useUser = () => useContext(UserContext);
+          </pre>
+          <p>
+            Obejmujemy w Provider całe drzewo komponentów. Można to zrobić w
+            komponencie App lub bezpośrednio w głównym pliku index.js.
+          </p>
+          <pre>
+            index.js
+            import { UserContext } from "path/to/userContext.js";
+
+            ReactDOM.createRoot(document.getElementById("root")).render(
+              &ltUserContext.Provider value={{ username: "Mango" }}>
+                &ltApp />
+              &lt/UserContext.Provider>
+            );
+          </pre>
+          <p>
+            Dodajemy w &ltApp> komponent menu użytkownika, w którym wydobędziemy
+            wartość kontekstu i wyświetlimy nazwę użytkownika.
+          </p>
+          <pre>
+            App.jsx
+            import { UserMenu } from "path/to/UserMenu";
+
+            const App = () => {
+              return (
+                &ltdiv>
+                  &ltUserMenu />
+                &lt/div>
+              );
+            };
+          </pre>
+          <p>
+            Wykorzystujemy nasz custom hook useUser, aby wydobyć wartość
+            kontekstu.
+          </p>
+          <pre>
+            UserMenu.jsx
+
+            import { useUser } from "path/to/userContext.js";
+
+            export const UserMenu = () => {
+              const { username } = useUser();
+
+              return (
+                &ltdiv>
+                  &ltp>{username}&lt/p>
+                &lt/div>
+              );
+            };
+          </pre>
+        </article>
+        <article id="article5">
+          <h2>Customowy komponent providera</h2>
+          <p>
+            W powyższym przykładzie wartość kontekstu była statyczna. Możemy
+            jednak równie dobrze przekazywać tam dynamiczne wartości, a nawet
+            stan. Stwórzmy teraz customowy komponent providera &ltUserProvider>,
+            w którym zawrzemy logikę dotyczącą uwierzytelniania użytkownika
+            (stan oraz metodę do jego zmiany).
+          </p>
+          <pre>
+            userContext.jsx
+
+            import { createContext, useContext, useState } from "react";
+
+            const UserContext = createContext();
+
+            export const useUser = () => useContext(UserContext);
+
+            export const UserProvider = ({ children }) => {
+              const [isLoggedIn, setIsLoggedIn] = useState(false);
+              const [username, setUsername] = useState(null);
+
+              const logIn = () => {
+                setIsLoggedIn(true);
+                setUsername("Mango");
+              };
+
+              const logOut = () => {
+                setIsLoggedIn(false);
+                setUsername(null);
+              };
+
+              return (
+                &ltUserContext.Provider value={{ isLoggedIn, username, logIn, logOut }}>
+                  {children}
+                &lt/UserContext.Provider>
+              );
+            };
+          </pre>
+          <p>
+            Owijamy całe drzewo komponentów customowym providerem. Można to
+            zrobić w komponencie App lub bezpośrednio w głównym pliku index.js.
+          </p>
+          <pre>
+            import { UserProvider } from "path/to/userContext";
+
+            ReactDOM.createRoot(document.getElementById("root")).render(
+              &ltUserProvider>
+                &ltApp />
+              &lt/UserProvider>
+            );
+          </pre>
+          <p>
+            W komponencie &ltApp>, tak jak poprzednio, renderujemy komponent
+            menu użytkownika.
+          </p>
+          <pre>
+            App.jsx
+
+            import { UserMenu } from "path/to/UserMenu";
+
+            const App = () => {
+              return (
+                &ltdiv>
+                  &ltUserMenu />
+                &lt/div>
+              );
+            };
+          </pre>
+          <p>Wykorzystujemy useUser</p>
+          <pre>
+            UserMenu.jsx
+            import { useUser } from "path/to/userContext";
+
+            export const UserMenu = () => {
+              const { isLoggedIn, username, logIn, logOut } = useUser();
+
+              return (
+                &ltdiv>
+                  {isLoggedIn && &ltp>{username}&lt/p>}
+                  {isLoggedIn ? (
+                    &ltbutton onClick={logOut}>Log out&lt/button>
+                  ) : (
+                    &ltbutton onClick={logIn}>Log in&lt/button>
+                  )}
+                &lt/div>
+              );
+            };
+          </pre>
+        </article>
+      </section>
+      <!-- section2 -->
+      <section id="section2" class="text">
+        <article id="article1">
+          <h2>Hook useRef</h2>
+          <p>
+            Ref pozwala otrzymać bezpośredni dostęp do wyrenderowanego węzła DOM
+            oraz przypisanych do niego metod. Jest również wykorzystywany jako
+            odpowiednik pól publicznych, które definiowaliśmy na klasowych
+            komponentach React. Przypisanie wartości do zmiennej (const lub let)
+            w ramach komponentu funkcyjnego nigdy nie będzie stabilne podczas
+            re-renderów. Z ratunkiem przychodzi useRef, który pozwala na
+            przetrzymywanie przypisanej wartości pomimo re-renderów komponentu.
+          </p>
+        </article>
+        <article id="article2">
+          <h3>Tworzenie</h3>
+          <p>
+            Obiekt 'ref' tworzy się hookiem useRef(). Obiekt ten ma w momencie
+            utworzenia jedną właściwość: 'current'. React zadba, aby każda
+            wartość przypisana do ref.current była stabilna i nie zmieniała się
+            podczas re-renderów.
+          </p>
+          <p>
+            Przypisanie referencji elementu DOM do refa wykonuje się z użyciem
+            atrybutu ref (skrót od reference), dostępnego na każdym elemencie
+            DOM.
+          </p>
+          <pre>
+            import { useRef } from "react";
+
+            const App = () => {
+              const btnRef = useRef();
+
+              return &ltbutton ref={btnRef}>Button with ref&lt/button>;
+            };
+          </pre>
+        </article>
+        <article id="article3">
+          <h3>Cykl życiowy refa</h3>
+          <p>
+            React przypisze właściwości current referencję do elementu DOM, po
+            tym jak komponent zostaje zamontowany i null po odmontowaniu.
+            Dlatego wartość refa dostępna jest dopiero po zamontowaniu.
+          </p>
+          <pre>
+            import { useState, useRef } from "react";
+
+            const App = () => {
+              const [value, setValue] = useState(0);
+              const btnRef = useRef();
+
+              // null przy pierwszym renderowaniu
+              // referencja do elementu DOM przy wszystkich kolejnych
+              console.log(btnRef.current);
+
+              useEffect(() => {
+                // Efekt wykonuje się zawsze po zamontowaniu komponentu,
+                // dlatego ref wewnątrz będzie posiadał referencję do elementu DOM
+                console.log(btnRef.current);
+              });
+
+              const handleClick = () => {
+                // Obsługa kliknięć również odbywa się po zamontowaniu,
+                // dlatego ref wewnątrz będzie posiadał referencję do elementu DOM
+                console.log(btnRef.current);
+              };
+
+              return (
+                &lt>
+                  &ltbutton onClick={() => setValue(value + 1)}>
+                    Update value to trigger re-render
+                  &lt/button>
+                  &ltbutton ref={btnRef} onClick={handleClick}>
+                    Button with ref
+                  &lt/button>
+                &lt/>
+              );
+            };
+          </pre>
+        </article>
+        <article id="article3">
+          <h3>Brak reaktywności</h3>
+          <p>
+            Refy to nie stan, nie są reaktywne, dlatego zmiana wartości refa nie
+            wpływa na aktualizację komponentu i nie wywołuje ponownego
+            renderowania.
+          </p>
+          <pre>
+            import { useEffect, useRef } from "react";
+
+            const App = () => {
+              const valueRef = useRef(0);
+
+              useEffect(() => {
+                // Wykona się tylko jeden raz po zamontowaniu.
+                // Późniejsza aktualizacja wartości refa nie wywoła aktualizacji komponentu
+                console.log(valueRef.current);
+              });
+
+              const handleClick = () => {
+                valueRef.current += 1;
+              };
+
+              return &ltbutton onClick={handleClick}>Click to update ref value&lt/button>;
+            };
+          </pre>
+          <p>
+            Refy można wykorzystywać także jako magazyn arbitralnych wartości,
+            niezmieniających się między renderami komponentu. W przykładzie
+            poniżej, do hooka useRef przekazano wartość początkową właściwości
+            current - liczbę 0.
+          </p>
+          <pre>
+            const valueRef = useRef(0);
+          </pre>
+        </article>
+        <article id="article3">
+          <h3>Brak reaktywności</h3>
+          <p>
+            Utwórzmy komponent Player do odtwarzania wideo, wykorzystując
+            natywny tag &ltvideo>. Aby włączyć i zatrzymać odtwarzanie należy
+            wywołać metody HTMLMediaElement.play() i HTMLMediaElement.pause(),
+            gdzie HTMLMediaElement to element &ltvideo>. Wykorzystujemy ref w
+            celu otrzymania dostępu do elementu DOM i jego metod.
+          </p>
+          <pre>
+            import { useRef } from "react";
+
+            const Player = ({ source }) => {
+              const playerRef = useRef();
+              const play = () => playerRef.current.play();
+              const pause = () => playerRef.current.pause();
+
+              return (
+                &ltdiv>
+                  &ltvideo ref={playerRef} src={source}>
+                    Sorry, your browser does not support embedded videos.
+                  &lt/video>
+                  &ltdiv>
+                    &ltbutton onClick={play}>Play&lt/button>
+                    &ltbutton onClick={pause}>Pause&lt/button>
+                  &lt/div>
+                &lt/div>
+              );
+            };
+
+            const App = () => {
+              return &ltPlayer source="http://media.w3.org/2010/05/sintel/trailer.mp4" />;
+            };
+          </pre>
+        </article>
+        <article id="article4">
+          <h3>Przekierowanie refów</h3>
+          <p>
+            Dotychczas przkazywaliśmy refy to parametru ref na elementach DOM, a
+            co gdybyśmy chcieli przekazać go do komponentu React? W przypadku
+            komponentu klasowego nie będzie z tym problemu, natomiast komponenty
+            funkcyjne nie mają w React takiej możliwości, przynajmniej
+            domyślnie. Z pomocą przychodzi funkcja forwardRef, która
+            automatycznie przekazuje propsy otrzymane od komponentu rodzica do
+            jego elementów dzieci. Dzięki temu możemy przypisać ref -
+            zadeklarowany w rodzicu - do elementu znajdującego się w komponencie
+            dziecku, uzyskując w ten sposób referencję do elementu dziecka,
+            dostępną w rodzicu.
+          </p>
+          <pre>
+            import { forwardRef, useRef, useEffect } from "react";
+
+            const CustomButton = forwardRef((props, ref) => (
+              &ltbutton ref={ref}>{props.children}&lt/button>
+            ));
+
+            const App = () => {
+              const btnRef = useRef();
+
+              useEffect(() => btnRef.current.focus(), []);
+
+              return &ltCustomButton ref={btnRef}>Button with forwarded ref&lt/CustomButton>;
+            };
+          </pre>
+          <p>
+            <a href="https://react.dev/reference/react/useRef"
+              >Dokumentacja useRef z dwoma przykładami</a
+            >
+          </p>
         </article>
       </section>
     </main>
