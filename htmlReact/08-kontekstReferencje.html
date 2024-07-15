@@ -222,4 +222,75 @@
 
               return &ltCustomButton ref={btnRef}>Button with forwarded ref&lt/CustomButton>;
             };
-          </pre> <p> <a href="https://react.dev/reference/react/useRef">Dokumentacja useRef z dwoma przykładami</a> </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>17.06.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.ab3a5978.js"></script> </body></html>
+          </pre> <p> <a href="https://react.dev/reference/react/useRef">Dokumentacja useRef z dwoma przykładami</a> </p> </article> </section>  <section id="section2" class="text"> <article id="article1"> <h2>Hook useMemo</h2> <p> Czasami komponenty muszą wykonywać kosztowne obliczenia. Na przykład w trakcie pracy z dużą listą pracowników firmy. W takim przypadku można spróbować zwiększyć wydajność komponentu przy pomocy memoizacji. </p> <p> Metoda optymalizacji wykorzystywana do przyspieszenia pracy programów komputerowych. Rezultat wywołania funkcji z danymi argumentami jest zapisywany (cache). Kolejne wywołania funkcji z takimi samymi wartościami argumentów zwracają zapamiętany wynik i nie obliczają go ponownie. </p> <p> Hook useMemo() wykorzystuje koncepcję memoizacji, to znaczy zwraca zapamiętany (zkeszowany) wynik obliczeń. Może to zwiększyć wydajność aplikacji, jeśli jest stosowne do zapobiegania kosztownym obliczeniom podczas renderowania. </p> <pre>
+            const memoizedValue = React.useMemo(
+            // compute
+              () => computeExpensiveValue(a, b),
+            // deps
+              [a, b]
+            );
+          </pre> <p> Hook przyjmuje dwa argumenty - anonimową funkcję, która powinna zwracać wartość (to właśnie ona będzie memoizowna) i tablicę zależności (deps). Jeżeli tablica zależności nie została zdefiniowana, wartość będzie obliczać się przy każdym renderowaniu, co w rezultacie czyni wykorzystanie useMemo() bezsensownym. </p> <p> Funkcja przekazana do useMemo zostanie wywołana podczas pierwszego renderowania komponentu, a jej wynik zapamiętany i zwrócony z hooka. Jeżeli podczas następnych renderowań zależności nie zmienią się, hook nie wywoła ponownie funkcji, tylko zwróci zapisany wcześniej wynik. Jeżeli któraś z zależności się zmieniła, hook wywołuje funkcję ponownie, a następnie zapamiętuje i zwraca nową wartość. </p> <p>PODSUMUJMY</p> <ul class="unnumbered-list-container"> <li> Memoizacja to zapamiętywanie wartości, aby nie trzeba było jej ciągle obliczać. </li> <li> Memoizację opłaca się stosować tylko dla kosztownych obliczeń. </li> <li> useMemo() wykonuje obliczenie wartości przynajmniej jeden raz. </li> <li>useMemo() zwraca zapamiętaną wartość.</li> <li> useMemo() uruchamia ponowne obliczenia tylko w przypadku aktualizacji którejś z zależności. </li> <li> Obowiązkowo należy przekazać zależności, w innym wypadku stosowanie useMemo() nie ma sensu. </li> </ul> <p> Przeanalizuj kod w następującym przykładzie. W stanie przechowywana jest tablica łańcuchów i wartość szukanego zapytania. [Opuszczamy kod dodania elementów do tablicy i zmiany wartości zapytania]. </p> <pre>
+            const App = () => {
+            const [planets, setPlanets] = useState(["Earth", "Mars", "Jupiter", "Venus"]);
+            const [query, setQuery] = useState("");
+
+            const filteredPlanets = planets.filter(planet => planet.includes(query));
+
+            return (
+              &ltdiv>
+                {filteredPlanets.map(planet => (
+                  &ltdiv key={planet}>{planet}&lt/div>
+                ))}
+              &lt/div>
+            );
+          };
+          </pre> <p> Za każdym razem, gdy zmieni się wartość planets lub query, komponent będzie renderowany ponownie. W rezultacie wartość filteredPlanets zostanie obliczona ponownie. To zupełnie normalne! W takim przypadku niepotrzebna jest żadna memoizacja. </p> <p> Teraz wyobraź sobie, że komponent &ltApp> zawiera dodatkowy stan lub otrzymuje jakiś props, nie wpływający na planety. </p> <pre>
+            const App = ({ someProp }) => {
+              const [planets, setPlanets] = useState(["Earth", "Mars", "Jupiter", "Venus"]);
+              const [query, setQuery] = useState("");
+              const [clicks, setClicks] = useState(0);
+
+              const filteredPlanets = planets.filter(planet => planet.includes(query));
+
+              return (
+                &ltdiv>
+                  &ltdiv>Some prop: {someProp}&lt/div>
+                  &ltbutton onClick={() => setClicks(clicks + 1)}>
+                    Number of clicks: {clicks}
+                  &lt/button>
+                  &ltdiv>
+                    {filteredPlanets.map(planet => (
+                      &ltdiv key={planet}>{planet}&lt/div>
+                    ))}
+                  &lt/div>
+                &lt/div>
+              );
+            };
+          </pre> <p> Za każdym razem, gdy zmienia się stan clicks lub props someProp, komponent będzie renderowany ponownie. Doprowadzi to do ponownego obliczenia filteredPlanets i przerenderowania drzewa komponentów, mimo iż wartości planets i query nie zmieniły się! W takim wypadku może być warto memoizować obliczanie filteredPlanets. </p> <pre>
+            import { useMemo } from "react";
+
+            const App = ({ someProp }) => {
+              const [planets, setPlanets] = useState(["Earth", "Mars", "Jupiter", "Venus"]);
+              const [query, setQuery] = useState("");
+              const [clicks, setClicks] = useState(0);
+
+              const filteredPlanets = useMemo(
+                () => planets.filter(planet => planet.includes(query)),
+                [planets, query]
+              );
+
+              return (
+                &ltdiv>
+                  &ltdiv>Some prop: {someProp}&lt/div>
+                  &ltbutton onClick={() => setClicks(clicks + 1)}>
+                    Number of clicks: {clicks}
+                  &lt/button>
+                  &ltdiv>
+                    {filteredPlanets.map(planet => (
+                      &ltdiv key={planet}>{planet}&lt/div>
+                    ))}
+                  &lt/div>
+                &lt/div>
+              );
+            };
+          </pre> <p> To samo dotyczy kosztownych operacji, na przykład wykorzystanie długiego cyklu for. Kosztowne obliczenia mogą być stratą czasu, co z pewnością doprowadzi do pogorszenia responsywności interfejsu. </p> <p> WIĘCEJ NIE ZNACZY LEPIEJ: Nie trzeba memoizować wszystkiego, gdyż - paradoksalnie - może to doprowadzić do utraty wydajności. Memoizacja również zajmuje pamięć obliczeniową. Ciągłe wykonywanie prostych obliczeń jest wciąż "tańsze" niż ich memoizacja. Używaj więc useMemo() z rozwagą, a doświadczenie przyjdzie z czasem. </p> <p> <a href="https://react.dev/reference/react/useMemo">Dokumentacja useMemo z dwoma przykładami</a> </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>17.06.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.ab3a5978.js"></script> </body></html>
