@@ -20,4 +20,293 @@
                 &lt/div>
               );
             };
-          </pre> <p> Zwróć uwagę na drugi, nieobowiązkowy argument funkcji navigate - to obiekt parametrów. Właściwość replace, domyślnie false, kontroluje, w jaki sposób zostanie dodany nowy zapis do stosu historii. Wróćmy do analogii ze stertą dokumentów. Domyślnie nowa kartka zostanie dodana na górze sterty, co w żaden sposób nie wpłynie na pozostałe karty. Jeżeli wskazać wartość true, to nowa karta podmieni tę, która jest na samym wierzchu. Wykorzystuje się to dość rzadko, na przykład przy logowaniu, aby użytkownik nie mógł powrócić przyciskiem "wróć" na stronę logowania po wejściu, ponieważ jest już w systemie i nie ma tam nic więcej do zrobienia. </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>17.06.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.ab3a5978.js"></script> </body></html>
+          </pre> <p> Zwróć uwagę na drugi, nieobowiązkowy argument funkcji navigate - to obiekt parametrów. Właściwość replace, domyślnie false, kontroluje, w jaki sposób zostanie dodany nowy zapis do stosu historii. Wróćmy do analogii ze stertą dokumentów. Domyślnie nowa kartka zostanie dodana na górze sterty, co w żaden sposób nie wpłynie na pozostałe karty. Jeżeli wskazać wartość true, to nowa karta podmieni tę, która jest na samym wierzchu. Wykorzystuje się to dość rzadko, na przykład przy logowaniu, aby użytkownik nie mógł powrócić przyciskiem "wróć" na stronę logowania po wejściu, ponieważ jest już w systemie i nie ma tam nic więcej do zrobienia. </p> <p> Drugi sposób to komponent Navigate - owinięcie hooka useNavigate. Wykonuje nawigację w momencie renderowania. Ścieżka dla nawigacji i nieobowiązkowe parametry przekazywane są oddzielnymi propsami. Taki sposób jest bardziej deklaratywny, ale mniej elastyczny i wymaga więcej kodu. </p> <pre>
+            src/pages/Login.jsx
+
+            import { Navigate, useState } from "react-router-dom";
+
+            export const Login = () => {
+              const [isLoginSuccess, setIsLoginSuccess] = useState(false);
+
+              const handleSubmit = async values => {
+                const response = await FakeAPI.login(values);
+                setIsLoginSuccess(response.success);
+              };
+
+              if (isLoginSuccess) {
+                return &ltNavigate to="/profile" replace />;
+              }
+
+              return (
+                &ltdiv>
+                  &lth1>Login page&lt/h1>
+                  &ltLoginForm onSubmit={handleSubmit} />
+                &lt/div>
+              );
+            };
+          </pre> <p> Trzecim sposobem jest wykorzystanie funkcji redirect. Jest ona istotnie rzadziej stosowana, ale w konkretnych przypadkach jest najlepszym wyborem. </p> <pre>
+            import { redirect } from "react-router-dom";
+
+            const loader = async () => {
+              const user = await getUser();
+              if (!user) {
+                return redirect("/login");
+              }
+              return null;
+            };
+          </pre> <p> CO JEST LEPSZE? To, jaki sposób wykorzystać, zależy tylko od twoich preferencji i wymagań zadania. W jednym przypadku będzie ci wygodnie wykorzystać deklaratywny Navigate, w drugim - imperatywny useNavigate. Funkcji redirect używamy za to, gdy chcemy zrobić przekierowanie bez interakcji użytkownika. Dobrym przykładem jest sprawdzenie czy użytkownik jest zalogowany - jeśli nie jest to używamy funkcji redirect i przenosimy go na stronę logowania </p> </article> </section> <section id="section2" class="text"> <article id="article1"> <h2>Łańcuch zapytania</h2> <p> Łańcuch zapytania i jego parametry to fundamentalny aspekt webu, ponieważ pozwala przekazywać stan aplikacji przez adres URL. Łańcuch zapytania dodaje się do podstawowego URL, zaczyna się od symbolu ? i zawiera jeden lub więcej parametrów w formacie "klucz-wartość" rozdzielone symbolem &. </p> <pre>
+            https://gomerch.it/products?name=hoodie&color=orange&maxPrice=500
+          </pre> <p> Taki łańcuch zapytania zawiera trzy parametry i ich wartości: nazwa produktu, kolor i maksymalna cena. Przy przechodzeniu po tym URL, użytkownik zobaczy pasującą, przefiltrowaną listę produktów. </p> <p> Przeanalizujmy pracę z łańcuchem zapytania i jego parametrami na przykładzie katalogu produktów, w którym użytkownik może wykonać wyszukiwanie po nazwie i zobaczyć przefiltrowaną listę. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/query-string.8dd2a3e7.png" alt=""> </div> <p> Wykorzystanie lokalnego stanu przez hook useState jest dobre dla jednego użytkownika, ale złe dla wspólnej pracy z innymi użytkownikami. Na przykład kiedy użytkownik szuka produktów, wartość wyszukiwania dodawana jest do URL jako parametr łańcucha zapytania (/products?name=hoodie). Inny użytkownik, otrzymawszy ten odnośnik, zobaczy tę samą przefiltrowaną listę produktów na swojej stronie, dlatego że wszystkie dane niezbędne aplikacji do prawidłowego wyświetlenia interfejsu znajdują się bezpośrednio w URL. </p> </article> <article id="article2"> <h3>Pobieranie parametrów</h3> <p> Dla odczytania i wprowadzania zmian w łańcuchach zapytania w React Router istnieje hook useSearchParams, który reprezentuje nieduże owinięcie wbudowanej w przeglądarkę klasy [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/URLSearchParams). </p> <pre>
+            const [searchParams, setSearchParams] = useSearchParams();
+          </pre> <p> Zwraca tablicę składającą się z dwóch wartości: obiekt parametrów łańcucha zapytania (egzemplarz URLSearchParams) dla bieżącego URL i funkcję aktualizacji łańcucha zapytania. Dla otrzymania wartości parametrów istnieje metoda URLSearchParams.get(key), która oczekuje nazwy parametru i zwraca jego wartość lub null, jeśli w łańcuchu zapytania nie ma takiego parametru. </p> <pre>
+           src/pages/Products.jsx
+
+            import { useSearchParams } from "react-router-dom";
+
+            const Products = () => {
+              const [searchParams] = useSearchParams();
+              const name = searchParams.get("name");
+              const color = searchParams.get("color");
+              const maxPrice = searchParams.get("maxPrice");
+
+              return (
+                &ltdiv>
+                  &ltp>Name: {name}&lt/p>
+                  &ltp>Color: {color}&lt/p>
+                  &ltp>Maximum price: {maxPrice}&lt/p>
+                &lt/div>
+              );
+            };
+          </pre> </article> <article id="article3"> <h3>Typ wartości</h3> <p> Metoda get() zawsze zwróci łańcuch niezależnie od wartości parametru, który został wskazany w łańcuchu zapytania. Na przykład dla takiego łańcucha zapytania ?name=hoodie&maxPrice=500&inStock=true otrzymamy następujące wartości parametrów. </p> <pre>
+            const [searchParams] = useSearchParams();
+
+            const name = searchParams.get("name");
+            console.log(name, typeof name);// "hoodie", string
+
+            const maxPrice = searchParams.get("maxPrice");
+            console.log(maxPrice, typeof maxPrice);// "500", string
+
+            const inStock = searchParams.get("inStock");
+            console.log(inStock, typeof inStock);// "true", string
+          </pre> <p> Jeśli parametry to liczby lub wartości boolowskie, to dla otrzymania wartości prawidłowego typu należy wykonać przytoczenie typów. Można to zrobić wbudowaną klasą Number(value) i Boolean(value). </p> </article> <article id="article4"> <h3>Parametry jako obiekt</h3> <p> Jeżeli łańcuch zapytania zawiera kilka parametrów, to ciągłe wykorzystywanie metody get() może być niewygodne. Oto prosty sposób przekształcenia egzemplarza klasy URLSearchParams w zwykły obiekt z właściwościami. </p> <pre>
+            const [searchParams] = useSearchParams();
+            const params = useMemo(
+              () => Object.fromEntries([...searchParams]),
+              [searchParams]
+            );
+            const { name, maxPrice, inStock } = params;
+          </pre> <p> info MEMOIZACJA: Memoizujemy operację przekształcenia obiektu parametrów, aby otrzymać odnośnik do nowego obiektu, tylko jeśli zmienią się parametry łańcucha zapytania, a nie przy każdym renderowaniu komponentu. </p> </article> <article id="article5"> <h3>Zmiana łańcucha zapytania</h3> <p> Dla zmiany parametrów wykorzystujemy funkcję, którą useSearchParams zwraca jago drugi element tablicy. Należy jej przekazać obiekt nowych parametrów, który w pełni zamieni bieżący łańcuch zapytania. </p> <pre>
+            import { useSearchParams } from "react-router-dom";
+
+            export const Products = () => {
+              const [searchParams, setSearchParams] = useSearchParams();
+              const name = searchParams.get("name");
+
+              return (
+                &ltdiv>
+                  &lth1>Products&lt/h1>
+                  &ltinput
+                    type="text"
+                    value={name}
+                    onChange={e => setSearchParams({ name: e.target.value })}
+                  />
+                &lt/div>
+              );
+            };
+          </pre> <p> Przeanalizuj pełny kod przykładu strony wszystkich produktów ([Products](https://codesandbox.io/s/goit-textbook-lesson-10-query-string-3msb5f?from-embed=&file=/src/pages/Products.jsx)), w którym realizowano zmianę łańcucha zapytania i filtrowanie listy. Zwróć uwagę na to, jak zrobiono usunięcie parametru name, jeśli wartość pola wprowadzenia to pusty łańcuch. </p> </article> <article id="article6"> <h3>Śledzenie zmian</h3> <p> Jeśli zmienia się łańcuch zapytania, hook useSearchParams zwraca nową wartość parametrów i komponent aktualizuje się, dlatego można zareagować na to i uruchomić efekt. </p> <pre>
+            const App = () => {
+              const [user, setUser] = useState(null);
+              const [searchParams, setSearchParams] = useSearchParams();
+              const username = searchParams.get("username");
+
+              useEffect(() => {
+                // Tu wykonujemy asynchroniczną operację
+                // na przykład zapytanie HTTP za informacją o użytkowniku
+                if (username === "") return;
+
+                async function fetchUser() {
+                  const user = await FakeAPI.getUser(username);
+                  setUser(user);
+                }
+
+                fetchUser();
+              }, [username]);
+
+              const handleSubmit = e => {
+                e.preventDefault();
+                const form = e.currentTarget;
+                setSearchParams({ username: form.elements.username.value });
+                form.reset();
+              };
+
+              return (
+                &lt>
+                  &ltform onSubmit={handleSubmit}>
+                    &ltinput type="text" name="username" />
+                    &ltbutton type="submit">Search&lt/button>
+                  &lt/form>
+                  {user && &ltUserInfo user={user} />}
+                &lt/>
+              );
+            };
+          </pre> </article> </section> <section id="section3" class="text"> <article id="article1"> <h2>Obiekt lokalizacji</h2> <p> Każdy zapis w stosie historii nawigacji jest opisany obiektem lokalizacji (location) ze standardowym zestawem właściwości, które przechowują pełną informację o URL. Gdy użytkownik klika na odnośnik i przemieszcza się w aplikacji, bieżąca lokalizacja zmienia się i dodawany jest nowy zapis do historii. </p> <pre>
+            {
+              pathname: string;
+              search: string;
+              hash: string;
+              state: any;
+              key: string;
+            }
+          </pre> <ul class="unnumbered-list-container"> <li> pathname - łańcuch zawierający część URL od początkowego / do symbolu ?. </li> <li> search - zawiera cały łańcuch zapytania. Jeśli parametrów brak, wartością będzie pusty łańcuch. </li> <li> hash - łańcuch zawierający część URL od końca łańcucha zapytania i symbolu #, za którym następuje identyfikator fragmentu adresu URL. Jeżeli brak identyfikatora fragmentu, wartością będzie pusty łańcuch. </li> <li> state - dowolna wartość, która zawiera dodatkową informację związaną z lokalizacją, ale nie wyświetla się w adresie URL. Określana jest przez programistę. Wykorzystywana jest dla przekazywania danych między ścieżkami. </li> <li> key - unikalny łańcuch identyfikator związany z tą lokalizacją. Właściwość pomocnicza, której wartość określana jest automatycznie dla każdego nowego zapisu w historii nawigacji. </li> </ul> <p> Na przykład dla takiego URL obiekt lokalizacji będzie wyglądał następująco. </p> <pre>
+            // https://gomerch.it/products?name=hoodie&color=orange&maxPrice=500#agreement
+
+              {
+                "pathname": "/products",
+                "search": "?name=hoodie&color=orange&maxPrice=500",
+                "hash": "#agreement",
+                "state": null,
+                "key": "random-browser-generated-id"
+              }
+          </pre> </article> <article id="article2"> <h3>Hook useLocation</h3> <p> Zwraca obiekt lokalizacji przedstawiający bieżący URL za każdym razem, gdy przechodzimy po nowej ścieżce w Routingu lub aktualizujemy część bieżącego URL. Jednym z zastosowań może być zadanie, gdzie należy wykonać jakiś efekt przy zmianie bieżącej lokalizacji. Na przykład wysłanie danych na serwer analityki. </p> <pre>
+            src/component/App.jsx
+
+            import { useEffect } from "react";
+            import { useLocation } from "react-router-dom";
+            import Analytics from "path/to/analytics-service";
+
+            const App = () => {
+              const location = useLocation();
+
+              useEffect(() => {
+                Analytics.send(location);
+              }, [location]);
+
+              return &ltdiv>...&lt/div>;
+            };
+          </pre> </article> <article id="article2"> <h3>Właściwość location.state</h3> <p> Wyobraź sobie następujący scenariusz w naszej aplikacji sklepu. Użytkownik znajduje się na stronie listy produktów i wykonał wyszukiwanie po nazwie, niech bieżącym URL będzie /products?name=hoodie. Następnie klika w obrazek produktu i przechodzi na stronę rozszerzonej informacji o produkcie, niech bieżącym URL będzie /products/h-1. </p> <p> Mamy za zadanie dodanie na stronie produktu przycisku "Cofnij", po kliknięciu na który wykonuje się nawigacja na stronie wszystkich produktów, przy tym powinien zapisać się stan łańcucha zapytania. To oznacza, że po kliknięciu należy skierować użytkownika nie na /products, a w naszym przypadku na /products?name=hoodie - ten URL, z którego była wykonana nawigacja na stronie produktu, </p> <pre>
+            {
+              pathname: string;
+              search: string;
+              hash: string;
+              state: any;
+              key: string;
+            }
+          </pre> <p> Właściwość state obiektu lokalizacji pozwala przekazywać dowolne dane przy nawigacji od jednej ścieżki do drugiej. W tym celu wykorzystujemy props state komponentu Link i przekazujemy obiekt z właściwością from - skąd przyszedł użytkownik. Wartość propsu state nie ma wcześniej zdefiniowanej struktury i może być dowolna, wedle uznania dewelopera. </p> <pre>
+            src/pages/Products.jsx
+
+            const Products = () => {
+              return (
+                &ltLink to="/products/h-1" state={{ from: "/dashboard?name=hoodie" }}>
+                  Navigate to product h-1
+                &lt/Link>
+              );
+            };
+          </pre> <p> Wartość propsu state będzie dostępna na obiekcie lokalizacji ścieżki, dokąd była wykonana nawigacja. Wszystko, co należy zrobić, to wykorzystać hook useLocation, otrzymać obiekt location i zwrócić się do jego właściwości state. </p> <pre>
+            src/pages/ProductDetails.jsx
+
+            const ProductDetails = () => {
+              const location = useLocation();
+              console.log(location.state);// { from: "/dashboard?name=hoodie" }
+
+              return &ltLink to={location.state.from}>Back to products&lt/Link>;
+            };
+          </pre> <p> W zasadzie nie trzeba obliczać bieżącego URL dla formowania wartości właściwości from. Obiekt location opisuje wszystkie części URL bieżącej Routy, dlatego można przekazać go w props state. </p> <pre>
+            src/pages/Products.jsx
+
+            const Products = () => {
+              const location = useLocation();
+
+              return (
+                &ltLink to="/product/h-1" state={{ from: location }}>
+                  Navigate to product h-1
+                &lt/Link>
+              );
+            };
+          </pre> <p> We właściwości location.state będzie odnośnik do obiektu location ścieżki, z której zaszła nawigacja. Propsowi to komponentu Link można przekazać nie tylko łańcuch opisujący href przyszłego odnośnika, ale i cały obiekt location. </p> <pre>
+            src/pages/ProductDetails.jsx
+
+            const ProductDetails = () => {
+              const location = useLocation();
+              console.log(location.state);
+
+            // /products -> products/h-1
+            // { from: { pathname: "/products", search: "" } }
+
+            // /products?name=hoodie -> products/h-1
+            // { from: { pathname: "/products", search: "?name=hoodie" } }
+
+              return &ltLink to={location.state.from}>Back to products&lt/Link>;
+            };
+          </pre> <p> Ostatnie, co należy wziąć pod uwagę, to sytuacja, w której użytkownik przeszedł po zapisanym wcześniej odnośniku jednego produktu w nowej zakładce przeglądarki, a nie ze strony wszystkich produktów. W takim wypadku wartość location.state będzie null i przy zwróceniu się do właściwości location.state.from aplikacja pokaże błąd. Z tego względu należy zadbać o wartość domyślną dla propsu to. </p> <pre>
+            src/pages/ProductDetails.jsx
+
+            const ProductDetails = () => {
+              const location = useLocation();
+              const backLinkHref = location.state?.from ?? "/products";
+
+              return &ltLink to={backLinkHref}>Back to products&lt/Link>;
+            };
+          </pre> </article> </section> <section id="section4" class="text"> <article id="article1"> <h2>Dzielenie kodu</h2> <p> Domyślnie wszystkie zależności projektu łączą się w jednym pliku. Im więcej kodu, tym wolniej będzie się ładował, parsował i wykonywał w przeglądarce. Na słabszych komputerach lub telefonach, z kiepskim łączem internetowym mogą to być dziesiątki sekund. </p> <p> Przy programowaniu na lokalnym serwerze (localhost) wszystkie pliki są dystrybuowane z naszego komputera. W tym przypadku prędkość podłączenia do internetu nie ma znaczenia i dlatego pliki projektu ładują się bardzo szybko. Jednak na produkcji ładowanie dużych plików może okazać się problematyczne, ponieważ nie wszędzie dostępny jest szybki internet i dobre komputery. </p> <p> Rozwiązanie problemu jest proste - należy rozbić go na mniejsze pliki i ładować je tylko, jeśli są potrzebne. Na tym polega koncepcja dzielenia kodu. Jeżeli użytkownik wchodzi na stronę logowania, nie trzeba ładować całego kodu aplikacji. Wystarczy część odpowiadająca za renderowanie komponentów tylko tej strony. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/code-splitting.a7e49f61.jpeg" alt=""> </div> <p> CREATE REACT APP Podział kodu na kilka plików to zadanie modułu budującego projekt, na przykład Webpack, a nie frameworku frontend. Create React App wewnętrznie wykorzystuje Webpack jak moduł budujący i wspiera dzielenie kodu bez dodatkowej konfiguracji. </p> <p> Kod aplikacji należy podzielić wedle Routingu aplikacji i ładować jeśli jest taka potrzeba. To wystarczy dla większości aplikacji. Przechodzimy na nową stronę - ładuje się niezbędny kod dla wyświetlenia jej komponentów. Takie podejście nazywa się dzieleniem kodu na podstawie ścieżek (route-centric). </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/route-centric.a6dc3100.png" alt=""> </div> <p> Interfejsy mogą być bardzo obszerne. Idąc dalej, można optymalizować ładowanie oddzielnych, bardzo dużych komponentów strony, które niepotrzebne są do określonego działania użytkownika. Na przykład komponent okna modalnego, w którym wykorzystywana jest duża bibliotek edytora tekstowego. Takie podejście nazywane jest dzieleniem kodu na podstawie komponentów (component-based / component-centric). </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/component-centric.4ed91406.png" alt=""> </div> <p> CO WYKORZYSTAĆ? Programista podejmuje decyzję jak, co i gdzie podzielić. Poniżej przedstawiliśmy kilka dobrych praktyk: </p> <ul class="unnumbered-list-container"> <li> Dzielenie kodu na podstawie ścieżek jest obowiązkowe w dowolnej aplikacji. </li> <li> Dzielenie kodu na podstawie komponentów warto robić tylko w dużych, skomplikowanych interfejsach z setkami komponentów i dużymi bibliotekami. </li> <li> Zbyt duży podział kodu również nie jest najlepszym pomysłem. Zapytanie HTTP o plik może trwać dłużej niż dodanie całego do pierwszego ładowania. </li> </ul> <a href="https://www.xenonstack.com/insights/code-splitting-in-react">Dzielenie codu w React</a> </article> <article id="article2"> <h3>React.lazy() i React.Suspense</h3> <p> Wiesz już, że moduły ES są statyczne, to znaczy import i eksport wykonuje się w czasie kompilacji, a nie w czasie wykonania kodu. Import powinien być zadeklarowany w górnej części pliku, w przeciwnym razie wystąpi błąd kompilacji. Oznacza to, że nie będziesz mógł importować zależności dynamicznie na podstawie jakiegoś warunku. </p> <p>Bez dzielenia kodu</p> <pre>
+            import MyComponent from "path/to/MyComponent";
+
+            const App = () => {
+              return (
+                &ltRoutes>
+                  &ltRoute path="/some-path" element={&ltMyComponent />} />
+                  {/* Reszta routingu */}
+                &lt/Routes>
+              );
+            };
+          </pre> <p> W specyfikacji ES2020 pojawiła się możliwość dynamicznego importowania modułu. Różnica polega na tym, że zamiast zwyczajnego, statycznego import wykorzystywana jest funkcja import() zwracająca promise, którego wartością będzie plik modułu. </p> <pre>
+            import("path/to/MyComponent").then(module => console.log(module));
+          </pre> <p> React dostarcza API do tego, aby wskazać, jaki kod należy wydzielić do oddzielnego pliku, a później ładować i renderować tylko w wypadku takiej potrzeby. Funkcja React.lazy() odpowiada za asynchroniczne ładowanie komponentu, a Suspense zatrzymuje jego wyświetlanie do zakończenia ładowania. </p> <p>Z dzieleniem kodu</p> <pre>
+            import { lazy, Suspense } from "react";
+
+            const MyComponent = lazy(() => import("path/to/MyComponent"));
+
+            const App = () => {
+              return (
+                &ltSuspense fallback={&ltdiv>Loading...&lt/div>}>
+                  &ltRoutes>
+                    &ltRoute path="/some-path" element={&ltMyComponent />} />
+                    {/* Reszta routingu */}
+                  &lt/Routes>
+                &lt/Suspense>
+              );
+            };
+          </pre> <p> Metoda lazy() oczekuje funkcji-ładowarki, która zwraca wynik dynamicznego importu - promise, którego wartością będzie defaultowy eksport modułu (komponent). Jeżeli w czasie renderowania komponent MyComponent jeszcze nie jest załadowany, należy pokazać zaślepkę. W tym celu wykorzystuje się komponent Suspense. Props fallback przyjmuje dowolny element React lub komponent. Suspense można umieścić w dowolnym miejscu nad asynchronicznym komponentem lub grupą komponentów. </p> <p> DYNAMICZNY IMPORT Zwróć uwagę na brak statycznego importu MyComponent w ostatnim przykładzie. Zamiast tego wykorzystywana jest funkcja import(). Jeżeli zostawimy statyczny import, to Webpack nie wykona dzielenia kodu i doda cały kod MyComponent w podstawowy plik JavaScript projektu. </p> </article> <article id="article3"> <h3>Suspense i podejście «shared layout»</h3> <p> Jeśli wykorzystujesz przyjęcie «shared layout», to należy umieścić Suspense bezpośrednio w środku komponentu SharedLayout. W przeciwnym razie przy ładowaniu każdej strony będą gubić się i ponownie renderować komponenty wspólnej części strony, na przykład header i nawigacja. </p> <pre>
+            // src/components/App.jsx
+            import { lazy } from "react";
+
+            const MyComponent = lazy(() => import("path/to/MyComponent"));
+
+            const App = () => {
+              return (
+                &ltRoutes>
+                  &ltRoute path="/" element={&ltSharedLayout />}>
+                    &ltRoute path="some-path" element={&ltMyComponent />} />
+                    {/* Reszta routingu */}
+                  &lt/Route>
+                &lt/Routes>
+              );
+            };
+
+            // src/components/SharedLayout.jsx
+            import { Suspense } from "react";
+            import { Outlet } from "react-router-dom";
+
+            const SharedLayout = () => {
+              return (
+                &ltContainer>
+                  &ltAppBar>
+                    &ltNavigation />
+                    &ltUserMenu />
+                  &lt/AppBar>
+
+                  &ltSuspense fallback={&ltdiv>Loading...&lt/div>}>
+                    &ltOutlet />
+                  &lt/Suspense>
+                &lt/Container>
+              );
+            };
+          </pre> <p> Przeanalizuj kod aplikacji sklepu z dzieleniem kodu na podstawie ścieżek. Zmienił się kod komponentów [App](https://codesandbox.io/s/goit-textbook-lesson-10-code-splitting-7wjxvr?file=/src/components/App.jsx), [SharedLayout](https://codesandbox.io/s/goit-textbook-lesson-10-code-splitting-7wjxvr?file=/src/components/SharedLayout.jsx) i [About](https://codesandbox.io/s/goit-textbook-lesson-10-code-splitting-7wjxvr?file=/src/pages/About.jsx), a wszystkie komponenty stron zmieniły się w defaultowe eksporty. </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>17.06.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.ab3a5978.js"></script> </body></html>
