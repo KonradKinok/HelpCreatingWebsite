@@ -768,6 +768,26 @@
             [About](https://codesandbox.io/s/goit-textbook-lesson-10-code-splitting-7wjxvr?file=/src/pages/About.jsx),
             a wszystkie komponenty stron zmieniły się w defaultowe eksporty.
           </p>
+          <p>
+            Zwróć uwagę na wykorzystanie komponentu Suspense w kodzie komponentu
+            strony About. W ten sposób przy ładowaniu podstron, nie będzie
+            ponownie renderowała się cała strona, a tylko jej dolna część z
+            układem podstron. Komponenty Suspense w SharedLayout i About nie
+            przeszkadzają sobie nawzajem, zamiast tego React wykorzystuje
+            najlepiej pasujący, ten, który jest najbliżej ładowanego komponentu.
+          </p>
+          <p>
+            <a href="https://react.dev/reference/react/Suspense"
+              >React.Suspense</a
+            >
+          </p>
+          <p><a href="https://react.dev/reference/react/lazy">React.Lazy</a></p>
+          <p>
+            <a
+              href="https://www.pluralsight.com/blog/software-development/suspense-react-18-explained"
+              >Przykład "z" oraz "bez" Suspense</a
+            >
+          </p>
         </article>
       </section>
     </main>
