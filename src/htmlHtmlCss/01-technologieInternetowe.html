@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
+    />
+    <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
+    <link rel="stylesheet" href="../styles/stylStartowy.scss" />
+    <link rel="stylesheet" href="../styles/reactStyles.scss" />
+    <title>Technologie internetowe</title>
+  </head>
+  <body class="body-container">
+    <header class="menu-sticky">
+      <nav class="nav-container">
+        <!-- Nawigacja do innych stron -->
+        <ul id="main-menu" class="nav-list-container"></ul>
+      </nav>
+    </header>
+    <main class="main-container">
+      <!-- section1 -->
+      <section id="section1" class="text">
+        <article id="article1">
+          <h1>Moduł 1 - Zajęcia 1 - Technologie internetowe</h1>
+          <h2>Technologie internetowe</h2>
+          <p>
+            Strony internetowe to podstawa internetu, a wszystkie one są
+            zbudowane z trzech podstawowych technologii.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>
+              HTML - odpowiada za wypełnienie strony internetowej treścią, za
+              strukturę i zawartość.
+            </li>
+            <li>
+              CSS - jest odpowiedzialny za warstwę wizualną, za jego pomocą
+              nadajemy warstwie html wygląd.
+            </li>
+            <li>
+              JavaScript - pozwala na dodanie interaktywności dla naszej strony
+              i daje nam możliwość reagowania na akcje które wykonuje
+              użytkownik.
+            </li>
+          </ul>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/html-css-js.png" alt="" />
+          </div>
+          <p>
+            Te podstawowe technologie nie wystarczą do stworzenia strony
+            internetowej. Podczas programowania używane są edytory kodu, systemy
+            kontroli wersji, buildery, frameworki, biblioteki, hostingi i inne
+            koncepcje, z którymi koniecznie trzeba się zapoznać.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/webdev.png" alt="" />
+          </div>
+        </article>
+        <article id="article2">
+          <h3>HTML</h3>
+          <p>
+            HyperText Markup Language (hipertekstowy język znaczników) - język
+            znaczników dokumentów internetowych. Zestaw reguł do
+            strukturyzowania (znaczników) informacji tekstowej, dodawania zdjęć,
+            tworzenia tabel, formularzy, list itp.
+          </p>
+          <p>
+            Dokument HTML - plik tekstowy z rozszerzeniem .html. Dokument
+            oznaczony za pomocą HTML, interpretowany przez przeglądarkę, dzięki
+            czemu użytkownicy widzą nie kod źródłowy z elementami znaczników,
+            ale ostateczny wynik przetwarzania - stronę internetową.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/html-markup.png" alt="" />
+          </div>
+          <p>
+            Popularność HTML i jego wykorzystanie jako podstawy kodowania stron
+            internetowych doprowadziły do potrzeby tworzenia, utrzymywania i
+            rozwijania standardów, za które odpowiedzialna jest grupa:
+            <a href="https://whatwg.org/"
+              >Web Hypertext Application Technology Working Group (WHATWG)</a
+            >, która pracuje nad specyfikacją
+            <a href="https://html.spec.whatwg.org/multipage/"
+              >HTML Living Standard</a
+            >.
+          </p>
+          <p>
+            W tej chwili czytają Państwo dokument HTML. Konspekt to strona
+            oznaczona za pomocą HTML.
+          </p>
+        </article>
+      </section>
+      <section id="section2" class="text">
+        <article id="article1">
+          <h2>Znaczniki i atrybuty</h2>
+          <p>
+            Znacznik (tag) — element hipertekstowego języka znaczników. Jest to
+            najmniejszy element składowy każdej strony internetowej. Każdy tag
+            oznacza jakąś jednostkę: nagłówek, listę, akapit tekstu, obraz.
+          </p>
+          <p>
+            Aby zaznaczyć znaczniki w tekście dokumentu, stosowane są nawiasy
+            ostre, w których jest określona nazwa znacznika i jego atrybuty.
+          </p>
+          <pre>
+            &ltnazwa_znacznika>...&lt/nazwa_znacznika>
+          </pre>
+          <p>
+            Znacznik otwierający wskazuje, gdzie zaczyna się element, a znacznik
+            zamykający gdzie kończy się. Znacznik zamykający jest tworzony przez
+            dodanie ukośnika (/) przed nazwą znacznika. Zawartość znacznika -
+            treść - znajduje się między otwierającym a zamykającym znacznikiem.
+          </p>
+          <p>Przykłady znaczników.</p>
+          <pre>
+            &ltsection>Sekcja&lt/section>
+            &ltp>Akapit&lt/p>
+            &lta>Link&lt/a>
+            &ltbutton>Przycisk&lt/button>
+          </pre>
+        </article>
+        <article id="article2">
+          <h3>Komentarze</h3>
+          <p>
+            Komentarze służą do tego, żeby pozostawiać objaśnienia, uwagi w
+            kodzie źródłowym, tymczasowo skomentować fragment kodu itp.
+          </p>
+          <pre>
+            &lt!-- To jest komentarz, jego treść nie będzie wyświetlana na stronie -->
+
+            &ltp>To jest akapit tekstu, on będzie wyświetlany na stronie.&lt/p>
+
+            &lt!--
+            Komentarz może być wielowierszowy. 
+            Jest to wygodne w przypadku bardziej obszernych opisów.
+            -->
+          </pre>
+        </article>
+        <article id="article3">
+          <h3>Atrybuty</h3>
+          <p>
+            Atrybuty to dodatkowe ustawienia znaczników, za pomocą których można
+            zmieniać właściwości i zachowanie elementu. Każdy znacznik ma
+            obowiązkowe i nieobowiązkowe atrybuty, są opcjonalne i może ich być
+            kilka w jednym tagu.
+          </p>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-logo">
+        <img
+          src="../images/footer/konikMaly24x24Squoosh.png"
+          alt="logoImage"
+          width="24"
+        />
+        <img src="../images/footer/3KLogo.png" alt="logoText" />
+      </div>
+      <div id="footer-title">
+        <p></p>
+      </div>
+      <div class="footer-date">
+        <p>31.07.2024r.</p>
+      </div>
+    </footer>
+    <!-- SKRYPTY JS -->
+    <script defer src="../scripts/menuHtmlCss.mjs"></script>
+  </body>
+</html>
