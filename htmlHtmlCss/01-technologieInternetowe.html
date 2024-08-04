@@ -14,4 +14,151 @@
             Komentarz może być wielowierszowy. 
             Jest to wygodne w przypadku bardziej obszernych opisów.
             -->
-          </pre> </article> <article id="article3"> <h3>Atrybuty</h3> <p> Atrybuty to dodatkowe ustawienia znaczników, za pomocą których można zmieniać właściwości i zachowanie elementu. Każdy znacznik ma obowiązkowe i nieobowiązkowe atrybuty, są opcjonalne i może ich być kilka w jednym tagu. </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>31.07.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlHtmlCss/01-technologieInternetowe.25b5de9a.js"></script> </body></html>
+          </pre> </article> <article id="article3"> <h3>Atrybuty</h3> <p> Atrybuty to dodatkowe ustawienia znaczników, za pomocą których można zmieniać właściwości i zachowanie elementu. Każdy znacznik ma obowiązkowe i nieobowiązkowe atrybuty, są opcjonalne i może ich być kilka w jednym tagu. </p> <p> Atrybuty są zapisywane wewnątrz znacznika otwierającego, a ich wartości znajdują się w podwójnych cudzysłowach. Kilka atrybutów oddzielamy spacją. </p> <pre>
+            &lta href="https://google.com" class="link">...&lt/a>
+
+            &ltimg src="cat.jpg" alt="cute cat" />
+
+            &ltinput type="text" name="user_name" />
+
+            &ltbutton type="submit">...&lt/button>
+
+            &ltp class="text">...&lt/p>
+          </pre> <p>Przyjrzyjmy się niektórym atrybutom znaczników &lta>.</p> <pre>
+            &lta
+              href="http://google.com"
+              target="_blank"
+              title="Wyszukiwarka internetowa Google"
+            >
+          </pre> <a href="http://google.com" target="_blank" title="Wyszukiwarka internetowa Google"> Google</a> <ul class="unnumbered-list-container"> <li> href - adres strony, na którą przejdzie użytkownik po kliknięciu w tekst linku. </li> <li> target - wskazuje, w której zakładce strona zostanie otwarta po kliknięciu w w link. </li> <li>title - dodaje podpowiedź do tekstu linku.</li> </ul> <p>Przyjrzyjmy się niektórym atrybutom znaczników &ltimg>.</p> <pre>
+            &ltimg src="https://picsum.photos/640/480" 
+            alt="Dowolny obraz z generatora" 
+            />
+          </pre> <div class="grow_up-img img-container"> <img src="https://picsum.photos/640/480" alt="Dowolny obraz z generatora"> </div> <p> Przejdź na poniższą stronę aby poznać dostępne atrybuty znaczników oraz ich przeznaczenie <a href="https://htmlreference.io/">htmlreference.io</a>. </p> </article> <article id="article4"> <h3>Znaczniki sparowane</h3> <p> Składają się z otwierających i zamykających znaczników, które zawijają treść, umożliwiając zmianę jego właściwości lub sposobu wyświetlania, grupowanie według znaczenia. Wewnątrz sparowanych znaczników można zagnieżdżać inne znaczniki, podobnie do matrioszki. </p> <pre>
+            &lt!-- Artykuł z tytułem oraz akapitem -->
+            &ltarticle>
+              &lth1>Krótko o znacznikach sparowanych&lt/h1>
+              &ltp>
+                Większość znaczników jest sparowana. Ich zawartość znajduje się między 
+            znacznikiem otwierającym a zamykającym.
+              &lt/p>
+            &lt/article>
+          </pre> </article> <article id="article5"> <h3>Znaczniki pojedyncze</h3> <p> Składają się tylko z znacznika otwierającego, nie zawierają treści tekstowej i otrzymują treść lub zachowanie na podstawie atrybutów. Służą do zmiany właściwości dokumentu, połączenia plików itp. </p> <pre>
+            &lt!-- Kodowanie metainformacji -->
+            &ltmeta charset="utf-8" />
+
+            &lt!-- Pole tekstowe -->
+            &ltinput type="text" />
+
+            &lt!-- Obrazek -->
+            &ltimg src="cat.jpg" alt="cool cat" />
+          </pre> <p> W poprzednich standardach HTML pojedyncze znaczniki były koniecznie zapisywane z odwrotnym ukośnikiem / przed nawiasem zamykającym. Na przykład &ltimg /> albo &ltinput />. W nowoczesnym standardzie jest to opcjonalne i na nic nie wpływa. </p> </article> <article id="article6"> <h3>Zagnieżdżanie znaczników</h3> <p> Zgodnie z pewnymi zasadami znaczniki można zagnieżdżać w sobie. Podczas zagnieżdżania kolejność ich zamykania należy zachować zgodnie z zasadą matrioszki. </p> <pre>
+            &ltznacznik1>
+              &ltznacznik2>
+                &ltznacznik4>...&lt/znacznik4>
+                &ltznacznik5>...&lt/znacznik5>
+              &lt/znacznik2>
+              &ltznacznik3>
+                &ltznacznik6>...&lt/znacznik6>
+              &lt/znacznik3>
+            &lt/znacznik1>
+          </pre> <p> Oto są ważne znaczniki akapitu z linkiem i zaznaczonym tekstem, a także lista zalet wraz z opisem. </p> <pre>
+            &ltp>
+              &lta href="squoosh.app">Squoosh&lt/a> - serwis &ltem>optymalizacja&lt/em> obrazków.
+            &lt/p>
+
+            &ltp>Zalety&lt/p>
+            &ltul>
+              &ltli>Działa w przeglądarce&lt/li>
+              &ltli>Nie ładuje systemu&lt/li>
+              &ltli>Wygodny interfejs&lt/li>
+            &lt/ul>
+          </pre> <p> Ale te fragmenty mają błędy w zapisie (wiersze są podświetlone). </p> <pre>
+            &lt!-- Kolejność zamykania znaczników nie jest przestrzegana -->
+            &ltp>&lta href="squoosh.app">Squoosh&lt/a> - serwis &ltem>&lt/a>optymalizacja&lt/p> obrazków.&lt/em>
+
+            &lt!-- Nie są przestrzegane szczegółowe zasady dotyczące zagnieżdżania znaczników -->
+            &ltul>
+              &ltp>Zalety&lt/p>
+              &ltli>Działa w przeglądarce&lt/li>
+              &ltli>Nie ładuje systemu&lt/li>
+              &ltli>Wygodny interfejs&lt/li>
+            &lt/ul>
+          </pre> </article> <article id="article7"> <h3>Specyfikacja HTML</h3> <p> Specyfikacja <a href="https://html.spec.whatwg.org/multipage/">HTML Living Standard</a> - główny dokument opisujący standardy, możliwości i przyszły rozwój języka HTML. </p> <p> Aby przestudiować layout, przede wszystkim są ważne sekcje opisujące <a href="https://html.spec.whatwg.org/multipage/dom.html#kinds-of-content">jakie są rodzaje elementów</a>, <a href="https://html.spec.whatwg.org/multipage/#toc-semantics">co oznacza każdy z nich</a>, oraz rozumienie tego, jak można je zagnieżdżać w sobie. </p> <p> Element HTML - jest to termin opisujący pewną semantyczną całość w standardzie HTML. Na przykład akapit, nagłówek, listę lub link. W dokumencie HTML element jest reprezentowany przez znacznik (sparowany lub pojedynczy) - składnię języka HTML. </p> </article> <article id="article8"> <h3>Zagnieżdżanie znaczników</h3> <p> Algorytm określania czy znacznik można zagnieżdżać jest dość prosty. </p> <ul class="unnumbered-list-container"> <li> Sięgamy po <a href="https://html.spec.whatwg.org/multipage/#toc-semantics">specyfikację</a> i znajdujemy potrzebny element. </li> <li> Sprawdzamy model treści elementu(Content model), do którego zagnieżdżamy. </li> <li> Sprawdzamy kategorie elementu (Categories), który zagnieżdżamy. </li> <li> Jeśli kategoria jest odpowiednia, a ograniczenia nie zabraniają, można zagnieżdżać, inaczej jest niemożliwe. </li> </ul> <p> Po kilku dniach używania HTML przyzwyczaicie się do prawidłowego zagnieżdżania elementów w sobie, ponieważ zasady zagnieżdżania będą intuicyjnie zrozumiałe po zapoznaniu się z głównymi znacznikami. </p> </article> <article id="article9"> <h3>Przewodniki</h3> <p> Oprócz specyfikacji warto mieć pod ręką przewodniki i ściągawki. Zapamiętywać wszystko na pamięć nie jest konieczne, rzeczy bardziej specyficzne lub rzadko używane zawsze można podpatrzeć. </p> <ul class="unnumbered-list-container"> <li> <a href="https://htmlreference.io/">Przewodnik znaczników HTML</a> </li> <li> <a href="https://cssreference.io/">Przewodnik właściwości CSS</a> </li> </ul> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/dom-tree.faa7d956.png" alt=""> </div> </article> </section> <section id="section3" class="text"> <article id="article1"> <h2>Szkielet dokumentu HTML</h2> <p> Dokument HTML składa się z "drzewa" znaczników. Poniżej przedstawiony jest wymagany minimalny zestaw znaczników, który służy jako podstawa dla dowolnego dokumentu HTML, podobnie do fundamentu dla domu. </p> <pre>
+            &lt!DOCTYPE html>
+            &lthtml lang="pl">
+              &lthead>
+                &lt!-- Informacje serwisowe -->
+              &lt/head>
+              &ltbody>
+                &lt!-- Zawartość -->
+              &lt/body>
+            &lt/html>
+          </pre> </article> <article id="article2"> <h3>Deklaracja typu dokumentu</h3> <p> &lt!DOCTYPE > - to nie jest znacznik, ale obowiązkowa deklaracja typu dokumentu. Jest potrzebna, aby poinformować przeglądarkę, w której wersji HTML jest napisany dokument. </p> <p> Na podstawie DOCTYPE przeglądarka określa wersję HTML i poprawnie wyświetla stronę. Deklaracja typu dokumentu powinna być pierwszą rzeczą, którą przeglądarka widzi podczas przetwarzania dokumentu HTML. </p> <p> &lt!-- Wskazuje na to, że dokument jest napisany zgodnie ze specyfikacją HTML Living Standard --> &lt!DOCTYPE html> </p> <p> Wcześniej HTML miał wersje, najnowsza to HTML5. Teraz <a href="https://html.spec.whatwg.org/multipage/">HTML Living Standard</a> jest to jedyna specyfikacja HTML, w której wersje zostały porzucone, ona po prostu aktualizuje się. Jeśli mówią o HTML5, oznacza to to samo, co „nowoczesny HTML" lub HTML Living Standard, tylko krócej. </p> </article> <article id="article3"> <h3>Elementy najwyższego poziomu</h3> <p> Mają one na celu stworzenie podstawowej struktury strony internetowej oraz określenie sekcji nagłówka i ciała dokumentu. </p> <h4>Znacznik &lthtml></h4> <p> Główny element dokumentu jest jako kontener, który zawiera całą zawartość strony. Nic poza nim nie jest postrzegane przez przeglądarkę jako kod HTML i nie jest przetwarzane. </p> <pre>
+            &lt!DOCTYPE html>
+            &lthtml lang="pl">&lt/html>
+          </pre> <p> Atrybut lang wskazuje na to, w jakim języku napisany jest tekst strony. Jest to wymagane w przypadku technologii asystujących, takich jak czytniki ekranu itp. </p> <h4>Znacznik &ltbody></h4> <p> Zawiera treść przyszłej strony internetowej. Treść, która ma być wyświetlana na stronie, powinna znajdować się wewnątrz tego znacznika. </p> <pre>
+            &lt!DOCTYPE html>
+            &lthtml lang="pl">
+              &lthead>
+                &lt!-- Informacje serwisowe -->
+              &lt/head>
+              &ltbody>
+                &lt!-- Zawartość -->
+              &lt/body>
+            &lt/html>
+          </pre> </article> <article id="article4"> <h3>Znaczniki nagłówków dokumentów</h3> <p> Grupa znaczników serwisowych, które znajdują się w nagłówku dokumentu. Większość z nich nie jest wyświetlana bezpośrednio w oknie przeglądarki. </p> <h4>Nagłówek strony</h4> <p> Tekst umieszczony wewnątrz znacznika &lttitle> jest wyświetlany w zakładce przeglądarki. Długość nagłówka nie powinna przekraczać 60 znaków, aby całkowicie zmieścić się w nagłówku. Tekst nagłówka powinien zawierać krótki opis treści strony internetowej. </p> <pre>
+            &lt!DOCTYPE html>
+            &lthtml lang="pl">
+              &lthead>
+                &lttitle>HTML5 to proste!&lt/title>
+              &lt/head>
+              &ltbody>
+                &lt!-- Zawartość -->
+              &lt/body>
+            &lt/html>
+          </pre> <h4>Metadane</h4> <p> Znacznik &ltmeta> służy do przechowywania informacji przeznaczonych dla przeglądarki i wyszukiwarek: ustawienia kodowania dokumentu, przesyłania informacji do wyszukiwarek i wiele innych. Może istnieć kilka meta znaczników, ponieważ w zależności od użytych atrybutów niosą one różne informacje </p> <p> Aby przeglądarka poprawnie wyświetlała tekst, należy wskazać kodowanie strony. Jeśli nie zostanie to zrobione lub podać nieprawidłowe kodowanie, zamiast znaków przeglądarka może wyświetlać hieroglify. </p> <pre>
+            &lt!DOCTYPE html>
+            &lthtml lang="pl">
+              &lthead>
+                &lt!-- utf-8 - najbardziej rozpowszechnione kodowanie -->
+                &ltmeta charset="utf-8" />
+                &lttitle>HTML5 to proste!&lt/title>
+              &lt/head>
+              &ltbody>
+                &lt!-- Zawartość -->
+              &lt/body>
+            &lt/html>
+          </pre> <p> Krótki opis zawartości pomaga wyszukiwarkom lepiej indeksować stronę. </p> <pre>
+            &lt!DOCTYPE html>
+            &lthtml lang="pl">
+              &lthead>
+                &ltmeta charset="utf-8" />
+                &ltmeta name="description" content="Nauka podstaw HTML5 dla początkujących" />
+                &lttitle>HTML5 to proste!&lt/title>
+              &lt/head>
+              &ltbody>
+                &lt!-- Zawartość -->
+              &lt/body>
+            &lt/html>
+          </pre> <p> <a href="https://developers.google.com/search/docs/crawling-indexing/special-tags?visit_id=638583071236599253-3470288698&rd=1&hl=pl">Meta znaczniki, które rozumie Google</a> </p> </article> <article id="article5"> <h3>Układ dokumentów</h3> <p> Układ to pionowa i pozioma kolejność wyświetlania elementów na stronie. Układ przebiega pionowo od góry do dołu i domyślnie elementy są wyświetlane na stronie w takiej kolejności, w jakiej są one wskazane w dokumencie HTML. Poziomo układ przebiega od strony lewej do prawej (lub od prawej do lewej dla krajów wschodnich). </p> <p> Wszystkie elementy bez wyjątku to prostokątne obszary, które zajmują określone miejsce w tak zwanych „liniach", jak słowa zdania na kartce w linie. Są dwa główne typy elementów - blokowe i liniowe. </p> <pre>
+            &lt!-- Akapit jest elementem blokowym -->
+            &ltp>Element blokowy 1&lt/p>
+            &ltp>Element blokowy 2&lt/p>
+            &ltp>Element blokowy 3&lt/p>
+
+            &lt!-- Link to element liniowy -->
+            &lta href="">Element liniowy 1&lt/a>
+            &lta href="">Element liniowy 2&lt/a>
+            &lta href="">Element liniowy 3&lt/a>
+          </pre> <p> Element blokowy (block-level element) - zajmuje całą linię, niezależnie od rozmiaru jej zawartości, dlatego kilka elementów blokowych układa się zawsze jeden pod drugim. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/block-elements.340f7920.png" alt=""> </div> <p> Element liniowy (inline element) - zajmuje miejsce zgodnie z zawartością, dlatego kilka elementów liniowych może znajdować się w tej samej linii. Jeśli w linii nie ma wystarczającej ilości miejsca, aby zmieścić element liniowy, jest on przenoszony do nowej. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/inline-elements.c6c99be6.png" alt=""> </div> </article> </section> <section id="section4" class="text"> <article id="article1"> <h2>Semantyka</h2> <p> Znaczniki przyszłej strony internetowej powinny mieć sens, jak strona gazety lub magazynu. Strona zawiera sekcje, nagłówki, listy, obrazki, akapity tekstu itd. Aby opisać całe bogactwo gatunkowe treści, są odpowiednie znaczniki. Oznacza to, że semantyka jest pierwotnie częścią kodu HTML, ale ona jest bezużyteczna, jeśli jest nieprawidłowo zrealizowana. </p> <p> Znaczniki semantyczne - podejście do tworzenia znaczników HTML na podstawie używania znaczników zgodnie z ich przeznaczeniem w oparciu o specyfikację oraz odpowiednie typy oznaczanych treści. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/semantics.f7835c5a.jpg" alt=""> </div> <p> W większości przypadków znaczniki semantyczne to po prostu użycie zdrowego rozsądku. Zaznaczając akapit tekstu, używamy znacznika &ltp>, żeby oznaczyć link jest znacznik &lta>, obraz z treścią jest reprezentowany przez tag &ltimg> itp. </p> <p> Czyli znaczniki semantyczne oznaczają, że znaczniki nie są wybierane na podstawie tego, w jaki sposób one są wyświetlane w przeglądarce, one są dobierane na podstawie rodzaju i struktury zaznaczanych treści. </p> </article> </section> <section id="section4" class="text"> <article id="article1"> <h2>Znaczniki tekstowe</h2> <h3>Akapit</h3> <p> Znacznik &ltp> - uniwersalny tag do grupowania małych elementów frazowych, oddzielania ich od siebie i dalszej stylizacji. Domyślnie akapit jest elementem blokowym, to znaczy, że zaczyna się w nowej linii, domyślne zachowanie można zmienić za pomocą CSS. </p> <pre>
+            &ltp>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque eligendi, a
+              eaque, esse itaque porro non exercitationem odio earum quos perferendis!
+            &lt/p>
+
+            &ltp>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo, totam velit
+              asperiores non temporibus ut nisi minima?
+            &lt/p>
+          </pre> <p> Często konieczne jest wypełnienie znacznika pustym tekstem, w przypadku, gdy sam tekst, który zostanie umieszczony w serwisie, nie będzie jeszcze dostępny. Aby to zrobić, używa się specjalnego symbolu zastępczego. </p> <p> W edytorze VSCode, w dokumencie HTML można wpisać kod lorem10, następnie nacisnąć klawisz Tab. Stworzy to tablicę tekstową składającą się z 10 słów. Zamiast 10 można wpisać dowolną liczbę. </p> </article> <article id="article2"> <h3>Nagłówki</h3> <p> Grupa znaczników&lth1>...&lth6> - definiuje nagłówki tekstowe sekcji semantycznych różnych poziomów, które wskazują znaczenie sekcji treści znajdującej się po nich. Jest to narzędzie do strukturyzacji treści tekstowych. </p> <hr> <h1>Przykład H1</h1> <h2>Przykład H2</h2> <h3>Przykład H3</h3> <h4>Przykład H4</h4> <h5>Przykład H5</h5> <h6>Przykład H6</h6> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>31.07.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlHtmlCss/01-technologieInternetowe.25b5de9a.js"></script> </body></html>
