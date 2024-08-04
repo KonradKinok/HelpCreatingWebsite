@@ -182,7 +182,7 @@ h3 {
     margin: auto auto;
 }
 .nav-container{
-    position: relative;
+    
 }
 .nav-list-container {
     display: flex;
@@ -268,7 +268,7 @@ h3 {
 
 // Footer
 .footer {
-    width: 1280px;
+    width: var(--max-width-page);
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -279,7 +279,8 @@ h3 {
     color: var(--white);
     text-shadow: 2px 2px 8px var(--white);
     box-shadow: inset 0px 2px 1px -1px rgba(255, 255, 255, 0.2),
-            0px 1px 1px 0px rgba(255, 255, 255, 0.14), 0px 1px 3px 0px rgba(255, 253, 253, 0.12);        
+            0px 1px 1px 0px rgba(255, 255, 255, 0.14), 0px 1px 3px 0px rgba(255, 253, 253, 0.12); 
+            margin: auto auto       
 }
 
 .footer-logo {
