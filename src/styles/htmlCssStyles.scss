@@ -8,17 +8,25 @@
 
 hr {
     border: none;
-    border-top: 3px double #333;
-    color: #333;
+    border-top: 3px double #ffffff;
+    color: yellow;
     overflow: visible;
     text-align: center;
     height: 5px;
+    margin: 5px auto;
 }
 
 hr::after {
-    background: #fff;
-    content: 'Przykład';
+    background: var(--main-container-bottom-backcolor);
     padding: 0 4px;
     position: relative;
     top: -13px;
+}
+
+.hr-start::after{
+    content: 'Przykład - początek';
+}
+
+.hr-end::after {
+    content: 'Przykład - koniec';
 }

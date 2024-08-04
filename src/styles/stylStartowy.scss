@@ -30,6 +30,8 @@
     --blue: rgb(0, 0, 255);
     --red: rgb(255, 0, 0);
     --yellow: rgb(255, 255, 0);
+
+    --max-width-page: 1280px;
 }
 
 /* Globalne resetowanie stylow */
@@ -103,8 +105,9 @@ body {
     font-size: 16px;
     font-weight: 400;
     font-style: normal;
-    width: 1280px;
-    margin: 0 auto;
+    
+    margin: auto auto;
+    
 }
 
 .text {
@@ -167,7 +170,8 @@ h3 {
  
 // Menu    
 .menu-sticky {
-    width: 100%;
+    // width: 100%;
+    width: var(--max-width-page);
     position: sticky;
     top: -1px;
     margin: 0;
@@ -175,8 +179,11 @@ h3 {
     text-transform: uppercase;
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
     z-index: 9000;
+    margin: auto auto;
 }
-
+.nav-container{
+    position: relative;
+}
 .nav-list-container {
     display: flex;
     justify-content: start;
@@ -204,7 +211,6 @@ h3 {
 
 .nav-list-container a:hover {
     color: var(--navigation-item-forecolor-hover);
-   
     background-color: var(--navigation-item-backcolor-hover);
 }
 
@@ -218,10 +224,41 @@ h3 {
     bottom: -4px;
     left: 0;
 }
+//thisPageMenu
+.this-page-menu{
+    position: absolute;
+    left: 1300px;
+    font-size: 12px;
+    text-align: left;
+    text-transform: none;
+    width: max-content;
+    
+}
+.this-page-menu a {
+    color:rgb(0, 0, 0);
+}
+.this-page-menu a:visited {
+    color: rgb(0, 0, 0);
+}
+.this-page-menu a:active {
+    color: var(--navigation-item-backcolor-hover);
+}
+
+.this-page-menu li {
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.this-page-menu li:hover  {
+    transform: scale(1.1);
+    // transition: transform 0.3s ease-in-out;
+}
 
 // Main
 .main-container {
+    width: var(--max-width-page);
     background-image: linear-gradient(to bottom, var(--main-container-top-backcolor), var(--main-container-bottom-backcolor));
+    margin: auto auto;
 }
 
 .main-container a {
@@ -231,6 +268,7 @@ h3 {
 
 // Footer
 .footer {
+    width: 1280px;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;

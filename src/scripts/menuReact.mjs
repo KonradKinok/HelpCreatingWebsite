@@ -1,5 +1,6 @@
 'use strict';
 const list = document.querySelector('ul#main-menu');
+
 const title = document.querySelector('title');
 
 const menuItem = [
