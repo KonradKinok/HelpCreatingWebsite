@@ -127,6 +127,10 @@ h3 {
 
 .unnumbered-list-container {
     list-style: square inside none;
+
+    ul{
+        list-style: square inside none;
+    }
 }
 
 .numbered-list-container {

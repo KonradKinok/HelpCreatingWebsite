@@ -48,6 +48,30 @@ const menuItem = [
     name: '10. Nawigacja2',
     link: '../htmlReact/10-nawigacja2.html',
   },
+  {
+    name: '11. Podstawy Redux',
+    link: '../htmlReact/11-podstawyRedux.html',
+  },
+  {
+    name: '12. Redux Toolkit',
+    link: '../htmlReact/12-reduxToolkit.html',
+  },
+  {
+    name: '13. Asynchroniczny Redux',
+    link: '../htmlReact/13-asynchronicznyRedux.html',
+  },
+  {
+    name: '14. Optymalizacja selektorów',
+    link: '../htmlReact/14-optymalizacjaSelektorow.html',
+  },
+  {
+    name: '15. Użytkownicy',
+    link: '../htmlReact/15-uzytkownicy.html',
+  },
+  {
+    name: '16. Portale',
+    link: '../htmlReact/16-portale.html',
+  },
 ];
 
 menuItem.forEach(element => {
@@ -71,6 +95,44 @@ menuItem.forEach(element => {
   }
 });
 
+//thisPageMenu
+const thisPageMenu = document.querySelector('ul#this-page-menu');
+const sections = document.querySelectorAll('section');
+
+sections.forEach(section => {
+  console.log('Section', section.id);
+  const articles = section.querySelectorAll('article');
+  articles.forEach(article => {
+    console.log('Article', article.firstElementChild.textContent);
+    const listItem = document.createElement('li');
+    const linkItem = document.createElement('a');
+    linkItem.href = `#${article.id}`;
+    linkItem.textContent = `${article.firstElementChild.textContent}`;
+    linkItem.classList.add('link');
+    listItem.appendChild(linkItem);
+    if (thisPageMenu) {
+      thisPageMenu.appendChild(listItem);
+    }
+  });
+});
+
+const menuLinks = document.querySelectorAll('.this-page-menu a');
+menuLinks.forEach(link => {
+  link.addEventListener('click', function (event) {
+    event.preventDefault();
+    const targetId = this.getAttribute('href').substring(1);
+    const targetElement = document.getElementById(targetId);
+    console.log('Target element:', targetElement);
+    if (targetElement) {
+      const offsetTop = targetElement.offsetTop - 20; // 20px niżej
+
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  });
+});
 //Footer
 const footerLogo = document.querySelector('div.footer-logo');
 const animationIcon = document.querySelector('div#footerAnimationIcon');
