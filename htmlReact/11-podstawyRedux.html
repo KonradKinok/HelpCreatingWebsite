@@ -1,11 +1,11 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.149c5b39.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.a7417870.css"><title>Podstawy Redux</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 6 - Zajęcia 11 - Podstawy Redux</h1> <article id="1.1"> <h2>1.1 Zarządzanie statusem</h2> <p> Wymagania do funkcjonalności aplikacji ciągle rosną, a w rezultacie zwiększa się ilość statusów interfejsu: asynchroniczne ładowanie danych, wskaźniki ładowania danych, wartości filtrów w trakcie sortowania, status formularzy itp. Biblioteki zarządzania statusem standaryzują przechowywanie statusu aplikacji i pracę z nim, upraszczając w ten sposób proces programowania. </p> <p> Redux to jedna z najpopularniejszych bibliotek zarządzania statusem aplikacji. </p> <ul class="unnumbered-list-container"> <li> Przewidywalność wyników - zawsze istnieje jedno źródło prawdy, store (magazyn) kryjący w sobie status aplikacji i metody do pracy z nim. </li> <li> Wspieranie - istnieje zbiór zasad i dobrych praktyk na temat tego, jak kod powinien być ustrukturyzowany, co czyni go bardziej jednorodnym i zrozumiałym. </li> <li> Narzędzia programisty - wygodne rozszerzenie przeglądarki, w którym dostarczane jest maksimum informacji o statusie aplikacji w trybie czasu rzeczywistego. </li> </ul> </article> <article id="1.2"> <h3>1.2 Flux</h3> <p> Redux opiera się na architekturze Flux. Flux to zaproponowany przez Facebooka wzór architektoniczny do budowy SPA (Single Page Application). Sugeruje podzielenie aplikacji na następujące części: </p> <ul class="unnumbered-list-container"> <li>Stores</li> <li>Dispatcher</li> <li>Views</li> <li>Actions</li> </ul> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/flux.daad2e17.png" alt=""> </div> <p> Źródło: <a href="https://stackoverflow.com/questions/29370988/improving-flux-architecture-by-reducing-unnecessary-code">link</a> </p> <p> <a href="https://pl.typeofweb.com/flux-i-redux-globalny-store-jednokierunkowy-przeplyw-danych">Redux, Flux, CQRS</a> </p> </article> <article id="1.3"> <h3>1.3 Przepływ danych</h3> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/no-redux-vs-redux.d5199013.png" alt=""> </div> <p> Bez wykorzystania biblioteki zarządzania statusem, proces aktualizacji danych wygląda następująco: </p> <ul class="unnumbered-list-container"> <li> Status przechowywany jest w najbliższym wspólnym komponencie przodku </li> <li> Zmienny status przerzucany jest przez propsy w dół drzewa komponentów. </li> </ul> <p> Spójrz na animowaną ilustrację tego procesu, na której pokazany jest przykład zmiany statusu w różnych częściach aplikacji. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/vanilla-flow.a0d62f4c.gif" alt=""> </div> <p> Dla niektórych komponenty występują jako przewodnicy, to znaczy otrzymują props tylko po to, aby przerzucić go głębiej, do komponentu, któremu jest naprawdę potrzebny. Na początku należy przerzucić przez całe drzewo komponentów metodę zmiany statusu, później sam status. To standardowy mechanizm przekazania propsów o kilka poziomów w głąb, nie można go zmienić. </p> <p> Redux rozwiązuje ten problem poprzez utworzenie store (magazynu), który odpowiada za scentralizowane przechowywanie całego statusu i dostarcza zbioru zasad i metod do jego zmiany. Komponentom pozostaje wywołanie metody do aktualizacji danych i subskrypcja aktualizacji. W ten sposób Redux rozwiązuje problemy przekazywania propsów przez całe drzewo komponentów. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/redux-flow.e42bd03c.gif" alt=""> </div> <p> Strumień danych w Redux jest zawsze jednokierunkowy, od komponentów do store i od store do komponentów bez pośredników. To sprawia, że logika aplikacji jest bardziej przewidywalna i łatwa do zrozumienia. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/redux-data-flow.4a392549.gif" alt=""> </div> <ul class="unnumbered-list-container"> <li> Użytkownik, pracując z interfejsem, inicjalizuje wysłanie actions (działań). </li> <li> Store wywołuje wszystkie zadeklarowane reducery, funkcje do zmiany statusu, przekazując im bieżący status (state) i action (działanie). </li> <li> Store przechowuje zaktualizowany status (state) zwracany z reducerów (reducers) </li> <li> Przy aktualizacji statusu (state) renderują się ponownie zależne od niego komponenty. </li> </ul> </article> <article id="1.4"> <h3>1.4 Plusy i minusy</h3> <p> Redux to tylko narzędzie do zarządzania statusem aplikacji, które przeznaczone jest do tego, aby pomóc odpowiedzieć na pytanie: "Kiedy i jak zmieniła się określona część statusu". Jeżeli nie masz problemu z zarządzaniem statusem, wykorzystując możliwości React, może być ci trudno zrozumieć plusy Redux. Być może status React to wszystko, co jest ci potrzebne do utworzenia aplikacji. </p> <p> Wykorzystanie biblioteki zarządzania statusem nie powinno być przyjmowane jako obowiązkowe. Jeżeli aplikacja staje się tak skomplikowana, że nie rozumiesz, gdzie przechowywany jest status i jak się zmienia oraz zdecydujesz, że przechowywanie danych w statusie komponentu React jest niewystarczające, wtedy czas na użycie Redux. </p> <p> Niemniej jednak wykorzystanie Redux wymaga kompromisów. Nie został on stworzony, aby być najkrótszym lub najszybszym sposobem pisania kodu. Redux stawia określone wymagania: przechowywać status aplikacji w postaci prostej struktury danych (store), opisywać zmiany obiektami (action) i opracowywać zmiany przy pomocy czystych funkcji (reducery). </p> <p> <a href="https://dev.to/ruppysuppy/redux-vs-context-api-when-to-use-them-4k3p">Redux vs Context</a> </p> </article> </section>  <section id="2" class="text"> <article id="2.1"> <h2>2.1 Menadżer zadań</h2> <p> Będziemy analizować Redux na przykładzie aplikacji menadżera zadań, w którym można utworzyć, usunąć, anulować zadanie jako wykonane i filtrować zadania po statusie. Pozwoli to na analizę standardowych przypadków w trakcie pracy ze zbiorem danych. </p> <p> W pierwszej kolejności opiszemy bazowe wymagania do interfejsu i logiki pracy aplikacji: </p> <p>Interfejs powinien się składać z kilku części:</p> <ul class="unnumbered-list-container"> <li>Nagłówek z informacjami o zadaniach i filtrami</li> <li>Formularz z polem do wpisywania dla tworzenia nowych zadań</li> <li>Lista zadań</li> <li> W nagłówku należy wyświetlać: <ul> <li>Ilość wykonanych i niewykonanych zadań</li> <li> Filtry listy zadań z wartościami «All», «Active» i «Completed» </li> </ul> </li> <li> W każdym elemencie listy zadań powinien być: <ul> <li> Akapit z tekstem, który do formularza wprowadzał użytkownik w trakcie tworzenia zadania </li> <li>Checkbox przełączenia statusu "wykonano"</li> <li>Przycisk usunięcia zadania</li> </ul> </li> </ul> <p> Ostateczny cel - aplikacja, której interfejs będzie wyglądał następująco: </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/app-preview.40fbe0ba.png" alt=""> </div> </article> <article id="2.2"> <h3>2.2 Projektowanie statusu</h3> <p> Interfejs aplikacji powinien opierać się na jego statusie. Z tego względu w pierwszej kolejności należy zaprojektować status aplikacji, który będzie zawierał najmniejszą ilość wartości, wystarczającą do opisania całej niezbędnej funkcjonalności. Zmniejszy to ilość danych, które trzeba będzie śledzić i aktualizować. </p> <p> W twojej aplikacji są dwie podstawowe części: lista zadań, z której można otrzymać wszystkie niezbędne dane o ilości i statusie zadań i wartości filtrów listy zadań. To będzie właśnie minimalny niezbędny status. </p> <pre>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.e50b48c6.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.a7417870.css"><title>Podstawy Redux</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 6 - Zajęcia 11 - Podstawy Redux</h1> <article id="1.1"> <h2>1.1 Zarządzanie statusem</h2> <p> Wymagania do funkcjonalności aplikacji ciągle rosną, a w rezultacie zwiększa się ilość statusów interfejsu: asynchroniczne ładowanie danych, wskaźniki ładowania danych, wartości filtrów w trakcie sortowania, status formularzy itp. Biblioteki zarządzania statusem standaryzują przechowywanie statusu aplikacji i pracę z nim, upraszczając w ten sposób proces programowania. </p> <p>Redux to jedna z najpopularniejszych bibliotek zarządzania statusem aplikacji.</p> <ul class="unnumbered-list-container"> <li> Przewidywalność wyników - zawsze istnieje jedno źródło prawdy, store (magazyn) kryjący w sobie status aplikacji i metody do pracy z nim. </li> <li> Wspieranie - istnieje zbiór zasad i dobrych praktyk na temat tego, jak kod powinien być ustrukturyzowany, co czyni go bardziej jednorodnym i zrozumiałym. </li> <li> Narzędzia programisty - wygodne rozszerzenie przeglądarki, w którym dostarczane jest maksimum informacji o statusie aplikacji w trybie czasu rzeczywistego. </li> </ul> </article> <article id="1.2"> <h3>1.2 Flux</h3> <p> Redux opiera się na architekturze Flux. Flux to zaproponowany przez Facebooka wzór architektoniczny do budowy SPA (Single Page Application). Sugeruje podzielenie aplikacji na następujące części: </p> <ul class="unnumbered-list-container"> <li>Stores</li> <li>Dispatcher</li> <li>Views</li> <li>Actions</li> </ul> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/flux.daad2e17.png" alt=""> </div> <p> Źródło: <a href="https://stackoverflow.com/questions/29370988/improving-flux-architecture-by-reducing-unnecessary-code">link</a> </p> <p> <a href="https://pl.typeofweb.com/flux-i-redux-globalny-store-jednokierunkowy-przeplyw-danych">Redux, Flux, CQRS</a> </p> </article> <article id="1.3"> <h3>1.3 Przepływ danych</h3> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/no-redux-vs-redux.d5199013.png" alt=""> </div> <p>Bez wykorzystania biblioteki zarządzania statusem, proces aktualizacji danych wygląda następująco:</p> <ul class="unnumbered-list-container"> <li>Status przechowywany jest w najbliższym wspólnym komponencie przodku</li> <li>Zmienny status przerzucany jest przez propsy w dół drzewa komponentów.</li> </ul> <p> Spójrz na animowaną ilustrację tego procesu, na której pokazany jest przykład zmiany statusu w różnych częściach aplikacji. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/vanilla-flow.a0d62f4c.gif" alt=""> </div> <p> Dla niektórych komponenty występują jako przewodnicy, to znaczy otrzymują props tylko po to, aby przerzucić go głębiej, do komponentu, któremu jest naprawdę potrzebny. Na początku należy przerzucić przez całe drzewo komponentów metodę zmiany statusu, później sam status. To standardowy mechanizm przekazania propsów o kilka poziomów w głąb, nie można go zmienić. </p> <p> Redux rozwiązuje ten problem poprzez utworzenie store (magazynu), który odpowiada za scentralizowane przechowywanie całego statusu i dostarcza zbioru zasad i metod do jego zmiany. Komponentom pozostaje wywołanie metody do aktualizacji danych i subskrypcja aktualizacji. W ten sposób Redux rozwiązuje problemy przekazywania propsów przez całe drzewo komponentów. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/redux-flow.e42bd03c.gif" alt=""> </div> <p> Strumień danych w Redux jest zawsze jednokierunkowy, od komponentów do store i od store do komponentów bez pośredników. To sprawia, że logika aplikacji jest bardziej przewidywalna i łatwa do zrozumienia. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/redux-data-flow.4a392549.gif" alt=""> </div> <ul class="unnumbered-list-container"> <li>Użytkownik, pracując z interfejsem, inicjalizuje wysłanie actions (działań).</li> <li> Store wywołuje wszystkie zadeklarowane reducery, funkcje do zmiany statusu, przekazując im bieżący status (state) i action (działanie). </li> <li>Store przechowuje zaktualizowany status (state) zwracany z reducerów (reducers)</li> <li>Przy aktualizacji statusu (state) renderują się ponownie zależne od niego komponenty.</li> </ul> </article> <article id="1.4"> <h3>1.4 Plusy i minusy</h3> <p> Redux to tylko narzędzie do zarządzania statusem aplikacji, które przeznaczone jest do tego, aby pomóc odpowiedzieć na pytanie: "Kiedy i jak zmieniła się określona część statusu". Jeżeli nie masz problemu z zarządzaniem statusem, wykorzystując możliwości React, może być ci trudno zrozumieć plusy Redux. Być może status React to wszystko, co jest ci potrzebne do utworzenia aplikacji. </p> <p> Wykorzystanie biblioteki zarządzania statusem nie powinno być przyjmowane jako obowiązkowe. Jeżeli aplikacja staje się tak skomplikowana, że nie rozumiesz, gdzie przechowywany jest status i jak się zmienia oraz zdecydujesz, że przechowywanie danych w statusie komponentu React jest niewystarczające, wtedy czas na użycie Redux. </p> <p> Niemniej jednak wykorzystanie Redux wymaga kompromisów. Nie został on stworzony, aby być najkrótszym lub najszybszym sposobem pisania kodu. Redux stawia określone wymagania: przechowywać status aplikacji w postaci prostej struktury danych (store), opisywać zmiany obiektami (action) i opracowywać zmiany przy pomocy czystych funkcji (reducery). </p> <p> <a href="https://dev.to/ruppysuppy/redux-vs-context-api-when-to-use-them-4k3p">Redux vs Context</a> </p> </article> </section>  <section id="2" class="text"> <article id="2.1"> <h2>2.1 Menadżer zadań</h2> <p> Będziemy analizować Redux na przykładzie aplikacji menadżera zadań, w którym można utworzyć, usunąć, anulować zadanie jako wykonane i filtrować zadania po statusie. Pozwoli to na analizę standardowych przypadków w trakcie pracy ze zbiorem danych. </p> <p>W pierwszej kolejności opiszemy bazowe wymagania do interfejsu i logiki pracy aplikacji:</p> <p>Interfejs powinien się składać z kilku części:</p> <ul class="unnumbered-list-container"> <li>Nagłówek z informacjami o zadaniach i filtrami</li> <li>Formularz z polem do wpisywania dla tworzenia nowych zadań</li> <li>Lista zadań</li> <li> W nagłówku należy wyświetlać: <ul> <li>Ilość wykonanych i niewykonanych zadań</li> <li>Filtry listy zadań z wartościami «All», «Active» i «Completed»</li> </ul> </li> <li> W każdym elemencie listy zadań powinien być: <ul> <li>Akapit z tekstem, który do formularza wprowadzał użytkownik w trakcie tworzenia zadania</li> <li>Checkbox przełączenia statusu "wykonano"</li> <li>Przycisk usunięcia zadania</li> </ul> </li> </ul> <p>Ostateczny cel - aplikacja, której interfejs będzie wyglądał następująco:</p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/app-preview.40fbe0ba.png" alt=""> </div> </article> <article id="2.2"> <h3>2.2 Projektowanie statusu</h3> <p> Interfejs aplikacji powinien opierać się na jego statusie. Z tego względu w pierwszej kolejności należy zaprojektować status aplikacji, który będzie zawierał najmniejszą ilość wartości, wystarczającą do opisania całej niezbędnej funkcjonalności. Zmniejszy to ilość danych, które trzeba będzie śledzić i aktualizować. </p> <p> W twojej aplikacji są dwie podstawowe części: lista zadań, z której można otrzymać wszystkie niezbędne dane o ilości i statusie zadań i wartości filtrów listy zadań. To będzie właśnie minimalny niezbędny status. </p> <pre>
             const appState = {
                 tasks: [],
                 filters: {
                     status: "all",
                 },
             };
-          </pre> <p> STRUKTURA STATUSU: Status Redux to zawsze obiekt, wewnątrz którego dodawane są właściwości dla statusu aplikacji. Dlatego zadeklarowaliśmy właściwość tasks dla tablicy wszystkich zadań i filters dla możliwych filtrów. Status Redux może być na tyle prosty lub skomplikowany, na ile wymaga tego funkcjonalność aplikacji. </p> <p> Każde zadanie będzie przedstawiane jako obiekt z następującymi właściwościami: </p> <ul class="unnumbered-list-container"> <li>id - unikalny identyfikator</li> <li>text - tekst, który wprowadził użytkownik przy utworzeniu</li> <li> completed - flaga wskazująca, czy zadanie zostało wykonane, czy nie </li> </ul> <p> A tak może wyglądać przykład statusu naszej aplikacji z kilkoma zadaniami: </p> <pre>
+          </pre> <p> STRUKTURA STATUSU: Status Redux to zawsze obiekt, wewnątrz którego dodawane są właściwości dla statusu aplikacji. Dlatego zadeklarowaliśmy właściwość tasks dla tablicy wszystkich zadań i filters dla możliwych filtrów. Status Redux może być na tyle prosty lub skomplikowany, na ile wymaga tego funkcjonalność aplikacji. </p> <p>Każde zadanie będzie przedstawiane jako obiekt z następującymi właściwościami:</p> <ul class="unnumbered-list-container"> <li>id - unikalny identyfikator</li> <li>text - tekst, który wprowadził użytkownik przy utworzeniu</li> <li>completed - flaga wskazująca, czy zadanie zostało wykonane, czy nie</li> </ul> <p>A tak może wyglądać przykład statusu naszej aplikacji z kilkoma zadaniami:</p> <pre>
             const appState = {
                 tasks: [
                     { id: 0, text: "Learn HTML and CSS", completed: true },
@@ -18,13 +18,13 @@
                     status: "all",
                 },
             };
-          </pre> </article> <article id="2.3"> <h3>2.3 Projektowanie akcji</h3> <p> Akcje to zdarzenia, które mogą zajść w aplikacji, w tym jako reakcja na działania użytkownika. Zrobimy listę zdarzeń, które mogą się znaleźć w naszej aplikacji: </p> <ul class="unnumbered-list-container"> <li>Dodać nowe zadanie z tekstem wprowadzonym przez użytkownika</li> <li>Usunąć zadanie</li> <li>Przełączyć status zadania</li> <li>Zmienić wartość filtru statusu</li> </ul> </article> <article id="2.4"> <h3>2.4 Struktura plików projektu</h3> <p> W Redux nie ma standardu struktury plików projektu, tylko ogólne rekomendacje i przykłady, dlatego każdy może wybrać coś dla siebie. Niemniej jednak ważne, aby przemyśleć szablon struktury plików projektu jeszcze przed napisaniem kodu. </p> <p> W celu oddzielenia logiki Redux od kodu komponentów wystarczy nam utworzyć folder z kilkoma plikami. W małej aplikacji, jak nasz menadżer zadań, to wystarczy. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/basic-structure.9fdeb592.png" alt=""> </div> <ul class="unnumbered-list-container"> <li>actions.js - plik deklarowania akcji w aplikacji</li> <li> reducer.js - plik deklarowania funkcji-reducerów do aktualizacji statusu </li> <li> constants.js - plik do przechowywania stałych (na przykład wartości filtru statusu) </li> <li>selectors.js - plik deklarowania funkcji-selektorów</li> <li>store.js - plik tworzenia store Redux</li> </ul> <p> Jeżeli w aplikacji jest dużo różnych danych, to odpowiednie będzie podejście "feature based", gdzie dla każdej jednostki tworzy się oddzielny folder wewnątrz folderu redux. Wewnątrz każdej jednostki jest standardowy zestaw plików. W rezultacie otrzymujemy więcej plików, jednak kod logiki Redux został podzielony na jednostki i jest lepiej ustrukturyzowany. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/feature-based-structure.dc604696.png" alt=""> </div> </article> <article id="2.5"> <h3>2.5 Kod początkowy</h3> <p> <a href="https://codesandbox.io/s/goit-react-textbook-lesson-11-example-app-tj4hc3?from-embed">codesandbox.io</a> </p> </article> </section>  <section id="3" class="text"> <article id="3.1"> <h2>3.1 Instalacja</h2> <p> Dodamy do projektu bibliotekę <a href="https://redux.js.org/">Redux</a> - zestaw funkcji dla utworzenia store (magazynu), pracy ze statusem aplikacji (state) i wysyłania akcji (zdarzeń, actions). </p> <pre>
+          </pre> </article> <article id="2.3"> <h3>2.3 Projektowanie akcji</h3> <p> Akcje to zdarzenia, które mogą zajść w aplikacji, w tym jako reakcja na działania użytkownika. Zrobimy listę zdarzeń, które mogą się znaleźć w naszej aplikacji: </p> <ul class="unnumbered-list-container"> <li>Dodać nowe zadanie z tekstem wprowadzonym przez użytkownika</li> <li>Usunąć zadanie</li> <li>Przełączyć status zadania</li> <li>Zmienić wartość filtru statusu</li> </ul> </article> <article id="2.4"> <h3>2.4 Struktura plików projektu</h3> <p> W Redux nie ma standardu struktury plików projektu, tylko ogólne rekomendacje i przykłady, dlatego każdy może wybrać coś dla siebie. Niemniej jednak ważne, aby przemyśleć szablon struktury plików projektu jeszcze przed napisaniem kodu. </p> <p> W celu oddzielenia logiki Redux od kodu komponentów wystarczy nam utworzyć folder z kilkoma plikami. W małej aplikacji, jak nasz menadżer zadań, to wystarczy. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/basic-structure.9fdeb592.png" alt=""> </div> <ul class="unnumbered-list-container"> <li>actions.js - plik deklarowania akcji w aplikacji</li> <li>reducer.js - plik deklarowania funkcji-reducerów do aktualizacji statusu</li> <li>constants.js - plik do przechowywania stałych (na przykład wartości filtru statusu)</li> <li>selectors.js - plik deklarowania funkcji-selektorów</li> <li>store.js - plik tworzenia store Redux</li> </ul> <p> Jeżeli w aplikacji jest dużo różnych danych, to odpowiednie będzie podejście "feature based", gdzie dla każdej jednostki tworzy się oddzielny folder wewnątrz folderu redux. Wewnątrz każdej jednostki jest standardowy zestaw plików. W rezultacie otrzymujemy więcej plików, jednak kod logiki Redux został podzielony na jednostki i jest lepiej ustrukturyzowany. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/feature-based-structure.dc604696.png" alt=""> </div> </article> <article id="2.5"> <h3>2.5 Kod początkowy</h3> <p> <a href="https://codesandbox.io/s/goit-react-textbook-lesson-11-example-app-tj4hc3?from-embed">codesandbox.io</a> </p> </article> </section>  <section id="3" class="text"> <article id="3.1"> <h2>3.1 Instalacja</h2> <p> Dodamy do projektu bibliotekę <a href="https://redux.js.org/">Redux</a> - zestaw funkcji dla utworzenia store (magazynu), pracy ze statusem aplikacji (state) i wysyłania akcji (zdarzeń, actions). </p> <pre>
             npm install redux
           </pre> <p> W celu wykorzystywania React i Redux razem, należy dodać do projektu bibliotekę <a href="https://react-redux.js.org/">React Redux</a>. To zbiór komponentów i hooków wiążących komponenty React i Redux store. </p> <pre>
             npm install react-redux
           </pre> <p> REDUX VS REDUX TOOLKIT: W materiałach z tych zajęć zapoznamy się z fundamentalnymi koncepcjami biblioteki Redux i obowiązkowo przeanalizujemy je na żywych przykładach. Dalej będziemy wykorzystywać Redux Toolkit - dodatek do bazowych koncepcji i konstrukcji Redux, która oparta jest na dobrych praktykach, upraszcza kod związany z Redux i zapobiega rozpowszechnionym błędom. To oficjalnie rekomendowane podejście do napisania logiki Redux. </p> </article> </section>  <section id="4" class="text"> <article id="4.1"> <h2>4.1 Store</h2> <p> Obiekt, który zawiera pełen status aplikacji, metody dostępu do statusu i wysyłania akcji. W aplikacji może być tylko jeden store. Do utworzenia store istnieje funkcja createStore(), która przyjmuje kilka parametrów i zwraca nowy obiekt store. </p> <pre>
             createStore(reducer, preloadedState, enhancer)
-          </pre> <ul class="unnumbered-list-container"> <li> reducer - funkcja z logiką zmiany statusu Redux. Parametr obowiązkowy. </li> <li> preloadedState - początkowy status aplikacji. Powinien to być obiekt takiego samego kształtu, co przynajmniej część statusu. </li> <li> enhancer - funkcja rozszerzenia możliwości store. Parametr nieobowiązkowy. </li> </ul> <pre>
+          </pre> <ul class="unnumbered-list-container"> <li>reducer - funkcja z logiką zmiany statusu Redux. Parametr obowiązkowy.</li> <li> preloadedState - początkowy status aplikacji. Powinien to być obiekt takiego samego kształtu, co przynajmniej część statusu. </li> <li>enhancer - funkcja rozszerzenia możliwości store. Parametr nieobowiązkowy.</li> </ul> <pre>
             src/redux/store.js
             import { createStore } from "redux";
 
@@ -61,7 +61,7 @@
                 &ltApp />
             &lt/Provider>
             );
-          </pre> </article> </section>  <section id="5" class="text"> <article id="5.1"> <h2>5.1 Redux DevTools</h2> <p> Narzędzia programisty to rozszerzenie przeglądarki, które dodaje wygodny wizualny interfejs do debugowania zmian statusu aplikacji i śledzenia przepływu danych w Redux, od wysyłania akcji, do zmiany statusu. </p> <p> Aby zacząć, należy dodać rozszerzenie narzędzi programisty do swojej przeglądarki: </p> <ul class="unnumbered-list-container"> <li> <a href="https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd">Chrome Web Store</a> </li> <li> <a href="https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/">Firefox Add-ons</a> </li> <li> <a href="https://microsoftedge.microsoft.com/addons/detail/redux-devtools/nnkgneoiohoecpdiaponcejilbhhikei">Edge Add-ons</a> </li> </ul> <p> Następnie instalujemy bibliotekę, która pozwala inicjalizować logikę Redux DevTools i związać ją z rozszerzeniem w narzędziach programisty. </p> <pre>
+          </pre> </article> </section>  <section id="5" class="text"> <article id="5.1"> <h2>5.1 Redux DevTools</h2> <p> Narzędzia programisty to rozszerzenie przeglądarki, które dodaje wygodny wizualny interfejs do debugowania zmian statusu aplikacji i śledzenia przepływu danych w Redux, od wysyłania akcji, do zmiany statusu. </p> <p>Aby zacząć, należy dodać rozszerzenie narzędzi programisty do swojej przeglądarki:</p> <ul class="unnumbered-list-container"> <li> <a href="https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd">Chrome Web Store</a> </li> <li> <a href="https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/">Firefox Add-ons</a> </li> <li> <a href="https://microsoftedge.microsoft.com/addons/detail/redux-devtools/nnkgneoiohoecpdiaponcejilbhhikei">Edge Add-ons</a> </li> </ul> <p> Następnie instalujemy bibliotekę, która pozwala inicjalizować logikę Redux DevTools i związać ją z rozszerzeniem w narzędziach programisty. </p> <pre>
             npm install @redux-devtools/extension
           </pre> <p> Na razie nie używamy żadnych dodatkowych zaawansowanych opcji Redux, dlatego importujemy funkcję devToolsEnhancer i wykorzystujemy ją przy tworzeniu store, przekazując jej rezultat jako trzeci argument, zamiast statusu początkowego. </p> <pre>
             src/redux/store.js
@@ -214,4 +214,394 @@
                 type: "filters/setStatusFilter",
                 payload: "Filter value",
             };
-          </pre> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>17.06.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.22ae8313.js"></script> </body></html>
+          </pre> <p> DOBRE PRAKTYKI - NAZEWNICTWO: Jedna z najpopularniejszych konwencji utworzenia rodzaju akcji proponuje wykorzystanie w wartości pola type dwóch części w formacie domain/eventName. Pierwsza to nazwa kategorii (jednostki), do której należy akcja (tasks i filters), zazwyczaj pokrywa się z nazwą właściwości części statusu Redux i druga - zdarzenie, które opisuje akcję (addTask, deleteTask, toggleCompleted, setStatusFilter). </p> <p> DOBRE PRAKTYKI - MINIMALIZM: Akcje powinny zawierać w sobie minimalny niezbędny zestaw informacji, wystarczający do zmiany statusu. Na przykład, przy usunięciu zadania wystarczy przekazać jego identyfikator, a nie ogólnie cały obiekt zadania. </p> </article> <article id="7.2"> <h3>7.2 Generatory akcji</h3> <p> Akcje to statyczne obiekty, wartość właściwości payload, których nie można wprowadzić dynamicznie. Generatory akcji (Action Creators) - funkcje, które mogą przyjmować argumenty, po czym tworzą i zwracają akcje z jednakowymi wartościami właściwości type, ale różnymi payload. Mogą mieć efekty uboczne, na przykład wypełniać właściwości domyślnie lub generować unikalny identyfikator dla obiektu zadania. Stworzymy generatory akcji dla naszej aplikacji. </p> <pre>
+            src/redux/actions.js
+            import { nanoid } from "nanoid";
+
+            export const addTask = text => {
+              return {
+                type: "tasks/addTask",
+                payload: {
+                  id: nanoid(),
+                  completed: false,
+                  text,
+                },
+              };
+            };
+
+            export const deleteTask = taskId => {
+              return {
+                type: "tasks/deleteTask",
+                payload: taskId,
+              };
+            };
+
+            export const toggleCompleted = taskId => {
+              return {
+                type: "tasks/toggleCompleted",
+                payload: taskId,
+              };
+            };
+
+            export const setStatusFilter = value => {
+              return {
+                type: "filters/setStatusFilter",
+                payload: value,
+              };
+            };
+          </pre> <p> UNIKALNY IDENTYFIKATOR ZADANIA: Zwróć uwagę na generator akcji utworzenia zadania addTask. W przyszłości przyswojeniem identyfikatora będzie zajmował się back-end, a tymczasem zrobimy to w naszym kodzie. W tym celu wykorzystamy bibliotekę nanoid. </p> </article> <article id="7.3"> <h3>7.3 Wysyłanie akcji</h3> <p> Aby poinformować store o tym, że w interfejsie zaszło jakieś zdarzenie, należy wysłać akcję. W tym celu w bibliotece React Redux znajduje się hook [useDispatch()](https://react-redux.js.org/api/hooks#usedispatch), który zwraca odnośnik do funkcji wysyłania akcji dispatch z obiektu utworzonego przez nas wcześniej store Redux. </p> <pre>
+            // Importujemy hook
+            import { useDispatch } from "react-redux";
+
+            const MyComponent = () => {
+              // Otrzymujemy odnośnik do funkcji wysyłania akcji
+              const dispatch = useDispatch();
+            };
+          </pre> <p> Dodajemy kod wysłania wcześniej zaprojektowanych akcji z komponentów naszej aplikacji. Aby skupić uwagę na wysyłaniu akcji, w przykładach pominiemy stylizację. Pełen kod aplikacji możesz przeanalizować na żywym przykładzie na końcu tej sekcji. </p> <h4>Utworzenie zadania</h4> <p> Przy submicie formularza w komponencie TaskForm należy wysłać akcję utworzenia nowego zadania, przekazując do niego wartość wprowadzoną przez użytkownika w pole tekstowe. </p> <pre>
+            src/components/TaskForm/TaskForm.js
+            // Importujemy hook
+            import { useDispatch } from "react-redux";
+            // Importujemy generator akcji 
+            import { addTask } from "../../redux/actions";
+
+            export const TaskForm = () => {
+              // Otrzymujemy odnośnik do funkcji wysyłania
+              const dispatch = useDispatch();
+
+              const handleSubmit = event => {
+                event.preventDefault();
+                const form = event.target;
+                // Wywołujemy generator akcji i przekazujemy tekst zadania dla payload
+                // Wysyłamy wynik - akcję utworzenia zadania
+                dispatch(addTask(form.elements.text.value));
+                form.reset();
+              };
+
+              return (
+                &ltform onSubmit={handleSubmit}>
+                  &ltinput type="text" name="text" placeholder="Enter task text..." />
+                  &ltbutton type="submit">Add task&lt/button>
+                &lt/form>
+              );
+            };
+          </pre> <p> Przy submicie formularza, na liście akcji po lewej stronie Redux DevTools, dodaje się wysłaną akcję utworzenia zadania. Po kliknięciu na nią i wybranie w prawej części zakładki Actions, można zobaczyć szczegółowe informacje. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/add-task-action.5d9f2041.png" alt=""> </div> <h4>Usuwanie zadania</h4> <p> Po kliknięciu na przycisk w komponencie Task, należy wysłać akcję usunięcia zadania, przekazując do niego identyfikator zadania. Te dane wystarczą do usunięcia zadania z tablicy obiektów. </p> <pre>
+            // Importujemy hook 
+            import { useDispatch } from "react-redux";
+            // Importujemy generator akcji
+            import { deleteTask } from "../../redux/actions";
+
+            export const Task = ({ task }) => {
+              // Otrzymujemy odnośnik do funkcji wysłania akcji
+              const dispatch = useDispatch();
+
+              // Wywołujemy generator akcji i przekazujemy identyfikator zadania
+              // Wysyłamy wynik - akcję usunięcia zadania
+              const handleDelete = () => dispatch(deleteTask(task.id));
+
+              return (
+                &ltdiv>
+                  &ltinput type="checkbox" />
+                  &ltp>{task.text}&lt/p>
+                  &ltbutton type="button" onClick={handleDelete}>
+                    Delete
+                  &lt/button>
+                &lt/div>
+              );
+            };
+          </pre> <p> Po kliknięciu na przycisk usunięcia, w Redux DevTools dodawana jest wysłana akcja usunięcia zadania. Po kliknięciu na nią można zobaczyć szczegółowe informacje. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/delete-task-action.5d7eafb2.png" alt=""> </div> <h4>Przełączenie statusu</h4> <p> Po kliknięciu na checkbox w komponencie Task, należy wysłać akcję przełączenia statusu zadania, przekazując do niej identyfikator zadania. Te dane wystarczą, aby znaleźć zadanie na tablicy obiektów i zmienić wartość właściwości na przeciwstawną. </p> <pre>
+           src/components/Task/Task.js 
+          // Importujemy hook
+          import { useDispatch } from "react-redux";
+          // Importujemy generator akcji
+          import { deleteTask, toggleCompleted } from "../../redux/actions";
+
+          export const Task = ({ task }) => {
+            // Otrzymujemy odnośnik do funkcji wysyłania akcji
+            const dispatch = useDispatch();
+
+            const handleDelete = () => dispatch(deleteTask(task.id));
+
+            // Wywołujemy generator akcji i przekazujemy identyfikator zadania
+            // Wysyłamy wynik - akcję przełączania statusu zadania
+            const handleToggle = () => dispatch(toggleCompleted(task.id));
+
+            return (
+              &ltdiv>
+                &ltinput type="checkbox" onChange={handleToggle} checked={task.completed} />
+                &ltp>{task.text}&lt/p>
+                &ltbutton onClick={handleDelete}>Delete&lt/button>
+              &lt/div>
+            );
+          };
+          </pre> <p> Po kliknięciu na checkbox w Redux DevTools dodawana jest wysłana akcja zmiany statusu zadania. Po kliknięciu na nią, można zobaczyć szczegółowe informacje. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/toggle-task-action.015bb1c5.png" alt=""> </div> <p> BEZ ZBĘDNYCH PROPSÓW: Zwróć uwagę na to, że w komponencie Task brak dodatkowych propsów, na przykład metod do usuwania i zmieniania statusu, jak przy wykorzystania statusu React. To także czyni komponent listy zadań prostszym, nie musi przyjmować niepotrzebnych propsów i przerzucać ich do komponentu zadania. Wykorzystując Redux, dowolny komponent może bezpośrednio otrzymać dostęp do funkcji wysyłania akcji. </p> <h4>Zmiana filtra</h4> <p> Po kliknięciu na przycisk w komponencie StatusFilter należy wysłać akcję zmiany filtra, przekazując mu nową wartość. Wykorzystujemy obiekt wartości filtra z pliku konstant. </p> <pre>
+            src/components/StatusFilter/StatusFilter.js
+            // Importujemy hook
+            import { useSelector, useDispatch } from "react-redux";
+            // Importujemy generator akcji
+            import { setStatusFilter } from "../../redux/actions";
+            // Importujemy obiekt wartości filtra
+            import { statusFilters } from "../../redux/constants";
+
+            export const StatusFilter = () => {
+              // Otrzymujemy odnośnik do funkcji wysyłania akcji
+              const dispatch = useDispatch();
+
+              const filter = useSelector(state => state.statusFilter);
+
+              // Wywołujemy generator akcji i przekazujemy wartość filtra
+              // Wysyłamy wynik - akcja zmiany filtra
+              const handleFilterChange = filter => dispatch(setStatusFilter(filter));
+
+              return (
+                &ltdiv>
+                  &ltButton
+                    selected={filter === statusFilters.all}
+                    onClick={() => handleFilterChange(statusFilters.all)}
+                  >
+                    All
+                  &lt/Button>
+                  &ltButton
+                    selected={filter === statusFilters.active}
+                    onClick={() => handleFilterChange(statusFilters.active)}
+                  >
+                    Active
+                  &lt/Button>
+                  &ltButton
+                    selected={filter === statusFilters.completed}
+                    onClick={() => handleFilterChange(statusFilters.completed)}
+                  >
+                    Completed
+                  &lt/Button>
+                &lt/div>
+              );
+            };
+          </pre> <p> Po kliknięciu na przycisk filtra, w Redux DevTools dodawana jest wysłana akcja zmiany filtra. Po kliknięciu na nią, można zobaczyć szczegółowe informacje. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/filter-task-action.ab36539e.png" alt=""> </div> </article> <article id="7.4"> <h3>7.4 Menadżer zadań</h3> <p> Przeanalizuj żywy przykład naszej aplikacji. W tym momencie w aplikacji realizowana jest inicjalizacja store z narzędziami programisty, subskrypcja komponentów do store i wysyłanie akcji. Następnym krokiem będzie dodanie logiki aktulizacji statusu Redux przy pomocy funkcji-reducerów. </p> <p> <a href="https://codesandbox.io/s/goit-react-textbook-lesson-11-redux-actions-ysg1xq?from-embed">codesandbox.io</a> </p> </article> </section>  <section id="8" class="text"> <article id="8.1"> <h2>8.1 Reducery (reducers)</h2> <p> Zaprojektowaliśmy status aplikacji, związaliśmy komponenty i store, dodaliśmy wysyłanie akcji. Przyszedł czas na napisanie logiki zmiany statusu Redux. </p> <p> Reducer - to funkcja, która przyjmuje bieżący status i akcje w postaci argumentów i zwraca nowy status. Reducer określa, jak zmienia się status aplikacji w odpowiedzi na akcje wysłane do store. Pamiętaj, że akcje opisują tylko to, co zaszło, a nie to, jak zmienia się status aplikacji. </p> <pre>
+            (state, action) => nextState
+          </pre> </article> <article id="8.2"> <h3>8.2 Root reducer</h3> <p> W aplikacji zawsze będzie tylko jeden root reducer, który należy przekazać w createStore przy tworzeniu store'a. Ten reducer odpowiada za opracowywanie wszystkich wysłanych akcji i obliczanie nowego statusu. </p> <pre>
+            src/redux/reducer.js
+            import { statusFilters } from "./constants";
+
+            const initialState = {
+              tasks: [
+                { id: 0, text: "Learn HTML and CSS", completed: true },
+                { id: 1, text: "Get good at JavaScript", completed: true },
+                { id: 2, text: "Master React", completed: false },
+                { id: 3, text: "Discover Redux", completed: false },
+                { id: 4, text: "Build amazing apps", completed: false },
+              ],
+              filters: {
+                status: statusFilters.all,
+              },
+            };
+
+            // Wykorzystujemy initialState jako domyślną wartość statusu
+            export const rootReducer = (state = initialState, action) => {
+              // Reducer rozróżnia akcje po wartości właściwości type
+              switch (action.type) {
+                // W zależności od typu akcji będzie się wykonywała inna logika default:
+                  // Każdy reducer otrzymuje wszystkie akcje wysłane w store.
+                  // Jeżeli reducer nie powinien opracowywać jakiegoś typu akcji,
+                  // należy zwrócić istniejący status bez zmian.
+                  return state;
+              }
+            };
+          </pre> <p> STATUS POCZĄTKOWY: W trakcie inicjalizowania store (akcja @@INIT w Redux DevTools) do wszystkich reducerów w postaci wartości statusu przekazuje się undefined. Dlatego dla każdego reducera należy wskazać wartość domyślną dla parametru state, która stanie się początkowym statusem aplikacji. </p> <p> Dodamy logikę opracowywania akcji zadania. Sprawdzamy, czy typ wysłanej akcji odpowiada łańcuchowi "tasks/addTask" i zwracamy nowy obiekt, zawierający cały status, nawet dla właściwości, które się nie zmieniły. </p> <pre>
+            src/redux/reducer.js
+            import { statusFilters } from "./constants";
+
+            const initialState = {
+              tasks: [
+                { id: 0, text: "Learn HTML and CSS", completed: true },
+                { id: 1, text: "Get good at JavaScript", completed: true },
+                { id: 2, text: "Master React", completed: false },
+                { id: 3, text: "Discover Redux", completed: false },
+                { id: 4, text: "Build amazing apps", completed: false },
+              ],
+              filters: {
+                status: statusFilters.all,
+              },
+            };
+
+            export const rootReducer = (state = initialState, action) => {
+              // Reducer realizuje akcje po wartości właściwości type
+              switch (action.type) {
+                // W zależności od rodzaju akcji będzie się wykonywała inna logika
+                case "tasks/addTask": {
+                  // Należy zwrócić nowy obiekt statusu
+                  return {
+                    // w którym są wszystkie dane istniejącego statusu
+                    ...state,
+                    // i nowa tablica zadań
+                    tasks: [
+                      // w której są wszystkie istniejące zadania
+                      ...state.tasks,
+                      // i obiekt nowego zadania
+                      action.payload,
+                    ],
+                  };
+                }
+                default:
+                  // Każdy reducer otrzymuje wszystkie akcje wysłane do store.
+                  // Jeśli reducer nie powinien opracowywać jakiegoś typu akcji,
+                  // należy zwrócić istniejący status bez zmian.
+                  return state;
+              }
+            };
+          </pre> <p> NIEZMIENNOŚĆ STATUSU: Pisanie logiki aktualizacji statusu ręcznie nie jest najłatwiejszą pracą, dlatego losowa zmiana statusu w reducerach to rozpowszechniony błąd. W praktyce nie będziesz pisał skomplikowanych, zagnieżdżonych, niezmiennych aktualizacji ręcznie. Na następnych zajęciach dowiesz się, jak wykorzystywać Redux Toolkit, aby ułatwić sobie napisanie logiki aktualizacji statusu. </p> <p>Kod pliku utworzenia store importuje i wykorzystuje root reducer.</p> <pre>
+            src/redux/store.js
+            import { createStore } from "redux";
+            import { devToolsEnhancer } from "@redux-devtools/extension";
+            import { rootReducer } from "./reducer";
+
+            const enhancer = devToolsEnhancer();
+            export const store = createStore(rootReducer, enhancer);
+          </pre> <p> AKTUALIZACJA INTERFEJSU: Jeżeli teraz spróbujemy dodać nowe zadanie w interfejsie naszej aplikacji, to na liście zadań wyświetli się nowy element. Rzecz w tym, że hook useSelector zmusza komponent do renderowania się powtórnie za każdym razem w przypadku zmiany tej części statusu, którą subskrybuje komponent. </p> </article> <article id="8.3"> <h3>8.3 Zasady reducerów</h3> <p>Reducery powinny być czystymi funkcjami i mają przestrzegać określonych zasad:</p> <ul class="unnumbered-list-container"> <li> Nie można zmieniać argumentów (state i action). Reducery powinny jedynie obliczać nową wartość statusu na podstawie tych argumentów. </li> <li> Nie można zmieniać istniejącego statusu (state). Zamiast tego reducery powinny robić aktualizacje, kopiując istniejący status i wnosząc zmiany do kopii. </li> <li> Reducery nie powinny powodować żadnych "efektów ubocznych". Na przykład, uruchomienie timera, wykonanie zapytania HTTP, zmiana wartości wewnątrz funkcji lub jej argumentów, generowanie losowych liczb lub łańcuchów itd. </li> </ul> <p> Jak realizować efekty uboczne przeanalizujemy dalej, na razie pamiętaj po prostu, że reducer powinien być czystą funkcją. Otrzymując argumenty, powinien obliczać następny status i zwracać go. Żadnych efektów ubocznych. Żadnych mutacji. Tylko obliczenie nowej wersji statusu. </p> </article> <article id="8.4"> <h3>8.4 Opracowywanie akcji</h3> <p>Dodajemy do root reducer kod opracowywania wszystkich pozostałych akcji naszej aplikacji.</p> <h4>Usunięcie zadania</h4> <p> W przypadku usuwania dostępny jest dla nas identyfikator zadania we właściwości payload, dlatego wykorzystujemy metodę Array.filter(), aby niezmiennie utworzyć nową tablicę bez tego zadania. Sprawdzamy, czy rodzaj wysłanej akcji odpowiada łańcuchowi "tasks/deleteTask" i zwracamy nowy obiekt statusu. </p> <pre>
+            src/redux/reducer.js
+            export const rootReducer = (state = initialState, action) => {
+              switch (action.type) {
+                case "tasks/addTask":
+                  return {
+                    ...state,
+                    tasks: [...state.tasks, action.payload],
+                  };
+                case "tasks/deleteTask":
+                  return {
+                    ...state,
+                    tasks: state.tasks.filter(task => task.id !== action.payload),
+                  };
+                default:
+                  return state;
+              }
+            };
+          </pre> <h4>Przełączenie statusu</h4> <p> W przypadku przełączenia statusu wystarczy identyfikator zadania we właściwości payload, dlatego wykorzystujemy metodę Array.map(), aby niezmiennie utworzyć nową tablicę ze zmiennymi wartościami właściwości completed w zadaniu z odpowiednimi identyfikatorami. Sprawdzamy, czy rodzaj wysłanej akcji odpowiada łańcuchowi "tasks/toggleCompleted" i zwracamy nowy obiekt statusu. </p> <pre>
+            src/redux/reducer.js
+            export const rootReducer = (state = initialState, action) => {
+              switch (action.type) {
+                case 'tasks/addTask':
+                  return { ...state, tasks: [...state.tasks, action.payload] };
+                case 'tasks/deleteTask':
+                  return { ...state, tasks: state.tasks.filter(task => task.id !== action.payload) };
+                case 'tasks/toggleCompleted':
+                  return {
+                    ...state,
+                    tasks: state.tasks.map(task => {
+                      if (task.id !== action.payload) {
+                        return task;
+                      }
+                      return { ...task, completed: !task.completed };
+                    }),
+                  };
+                default:
+                  return state;
+              }
+            };
+          </pre> <h4>Zmiana filtra</h4> <p> W przypadku zmiany filtra wystarczy nam nowa wartość filtra payload, dlatego sprawdzamy, czy typ wysłanej akcji odpowiada łańcuchowi "filters/setStatusFilter" i zwracamy obiekt statusu. </p> <pre>
+            src/redux/reducer.js
+            export const rootReducer = (state = initialState, action) => {
+              switch (action.type) {
+                case "tasks/addTask":
+                  return {
+                    ...state,
+                    tasks: [...state.tasks, action.payload],
+                  };
+                case "tasks/deleteTask":
+                  return {
+                    ...state,
+                    tasks: state.tasks.filter(task => task.id !== action.payload),
+                  };
+                case "tasks/toggleCompleted":
+                  return {
+                    ...state,
+                    tasks: state.tasks.map(task => {
+                      if (task.id === action.payload) {
+                        return {
+                          ...task,
+                          completed: !task.completed,
+                        };
+                      }
+                      return task;
+                    }),
+                  };
+                case "filters/setStatusFilter":
+                  return {
+                    ...state,
+                    filters: {
+                      ...state.filters,
+                      status: action.payload,
+                    },
+                  };
+                default:
+                  return state;
+              }
+            };
+          </pre> <p> Dodaliśmy kod opracowywania tylko czterech akcji, a kod root reducera już teraz bardzo się rozrósł. Jeżeli spróbujemy opracować wszystkie akcje aplikacji w jednej funkcji-reducerze, kod będzie dość trudny do zrozumienia. Dlatego reducery zazwyczaj dzielą się na kilka mniejszych, aby ułatwić rozumienie i wsparcie kodu. </p> </article> <article id="8.5"> <h3>8.5 Kompozycja reducerów</h3> <p> Reducery dzielą się zazwyczaj zależnie od części statusu Redux, które aktualizują. Podzielimy opracowywanie akcji zadań i zmiany filtra na dwa niezależne reducery. Każdy reducer będzie odpowiadał tylko za swoją część statusu Redux, dlatego kod aktualizacji statusu będzie znacznie prostszy. </p> <pre>
+            src/redux/reducer.js
+            const tasksInitialState = [
+              { id: 0, text: "Learn HTML and CSS", completed: true },
+              { id: 1, text: "Get good at JavaScript", completed: true },
+              { id: 2, text: "Master React", completed: false },
+              { id: 3, text: "Discover Redux", completed: false },
+              { id: 4, text: "Build amazing apps", completed: false },
+            ];
+
+            // Odpowiada za aktualizację właściwości tasks
+            // Teraz wartością parametru state będzie tablica zadań
+            const tasksReducer = (state = tasksInitialState, action) => {
+              switch (action.type) {
+                case "tasks/addTask":
+                  return [...state, action.payload];
+                case "tasks/deleteTask":
+                  return state.filter(task => task.id !== action.payload);
+                case "tasks/toggleCompleted":
+                  return state.map(task => {
+                    if (task.id !== action.payload) {
+                      return task;
+                    }
+                    return { ...task, completed: !task.completed };
+                  });
+                default:
+                  return state;
+              }
+            };
+
+            const filtersInitialState = {
+              status: statusFilters.all,
+            };
+
+            // Odpowiada jedynie za aktualizację właściwości filters
+            // Teraz wartością parametru state będzie obiekt filtrów
+            const filtersReducer = (state = filtersInitialState, action) => {
+              switch (action.type) {
+                case "filters/setStatusFilter":
+                  return {
+                    ...state,
+                    status: action.payload,
+                  };
+                default:
+                  return state;
+              }
+            };
+          </pre> <p> Teraz mamy dwa oddzielne reducery, ale przy tworzeniu store należy przekazać jeden root reducer odpowiadający za cały status Redux. Możemy napisać root reducer tak, aby po prostu wywoływał dwa inne reducery i przekazywał im niewielką część statusu i akcji. To jest właśnie kompozycja reducerów. </p> <pre>
+            src/redux/reducer.js
+            // Kod reducerów tasksReducer i filtersReducer
+
+            export const rootReducer = (state = {}, action) => {
+              // Zwracamy obiekt statusu
+              return {
+                // Obu reducerom przekazujemy tylko tę część statusu, za którą odpowiadają
+                tasks: tasksReducer(state.tasks, action),
+                filters: filtersReducer(state.filters, action),
+              };
+            };
+          </pre> <p> Aby uniknąć tworzenia root reducera ręcznie, w bibliotece Redux istnieje funkcja combineReducers, która robi to samo, ale krócej. </p> <pre>
+            src/redux/reducer.js
+            // Importujemy funkcję kompozycji reducerów
+            import { combineReducers } from "redux";
+
+            // Kod reducerów tasksReducer i filtersReducer
+
+            export const rootReducer = combineReducers({
+              tasks: tasksReducer,
+              filters: filtersReducer,
+            });
+          </pre> </article> <article id="8.6"> <h3>8.6 Menadżer zadań</h3> <p>Przeanalizuj cały żywy przykład naszej aplikacji.</p> <p> <a href="https://codesandbox.io/s/goit-react-textbook-lesson-11-redux-reducers-efuiqz?from-embed">codesandbox.io</a> </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>17.06.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.22ae8313.js"></script> </body></html>
