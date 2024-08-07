@@ -12,6 +12,10 @@ const menuItem = [
     name: '01. HTML część 1',
     link: '../htmlHtmlCss/01-html1.html',
   },
+  {
+    name: '02. HTML część 2',
+    link: '../htmlHtmlCss/02-html2.html',
+  },
 ];
 
 menuItem.forEach(element => {
@@ -47,7 +51,7 @@ sections.forEach(section => {
     const listItem = document.createElement('li');
     const linkItem = document.createElement('a');
     linkItem.href = `#${article.id}`;
-    linkItem.textContent = `${article.id} ${article.firstElementChild.textContent}`;
+    linkItem.textContent = `${article.firstElementChild.textContent}`;
     linkItem.classList.add('link');
     listItem.appendChild(linkItem);
     if (list) {

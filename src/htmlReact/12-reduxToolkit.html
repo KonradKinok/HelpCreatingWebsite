@@ -25,24 +25,803 @@
       <nav class="nav-container">
         <!-- Nawigacja do innych stron -->
         <ul id="main-menu" class="nav-list-container"></ul>
+        <ul id="this-page-menu" class="this-page-menu"></ul>
       </nav>
     </header>
     <main class="main-container">
       <!-- section1 -->
-      <section id="section1" class="text">
-        <article id="article1">
-          <h1>Moduł 5 - Zajęcia 10 - Redux Toolkit</h1>
-          <h2>Nawigacja po programie</h2>
+      <section id="1" class="text">
+        <h1>Moduł 6 - Zajęcia 12 - Redux Toolkit</h1>
+        <article id="1.1">
+          <h2>1.1 Redux Toolkit</h2>
+          <p>Przy wykorzystaniu biblioteki Redux pojawiają się trzy podstawowe problemy:</p>
+          <ul class="unnumbered-list-container">
+            <li>Zbyt skomplikowany proces konfiguracji store</li>
+            <li>
+              Niezbędne ustanowienie standardowego zestawu bibliotek uzupełniających w celu
+              rozszerzenia możliwości Redux
+            </li>
+            <li>Duża objętość szablonowego kodu tworzenia akcji, reducerów itp.</li>
+          </ul>
+          <p>
+            <a href="https://redux-toolkit.js.org/">Redux Toolkit</a> - to oficjalna biblioteka do
+            efektywnego programowania z wykorzystaniem Redux, która przeznaczona jest do
+            standaryzacji i upraszczania pisania logiki Redux.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Pozwala skupić się na pisaniu podstawowej logiki aplikacji, nie tracąc czasu na
+              konfigurację.
+            </li>
+            <li>
+              Zawiera w sobie utility ułatwiające podstawowe zadania. Takie jak ustawienia store,
+              tworzenie akcji reducerów, niezbędna aktualizacja danych i wiele innych.
+            </li>
+            <li>
+              Dostarcza standardowego zbioru ustawień store i zawiera najczęściej wykorzystywane
+              biblioteki z ekosystemu Redux.
+            </li>
+          </ul>
+          <p>
+            Biblioteka nie jest przeznaczona do rozwiązywania możliwych problemów i ma ograniczoną
+            objętość. Takie rozwiązania, jak zapytania HTTP, struktura folderów i plików,
+            zarządzanie relacjami podmiotów w store itd. spoczywają na barkach programisty. Niemniej
+            jednak, Redux Toolkit będzie korzystny dla wszystkich standardowych zadań, pomoże
+            uprościć i ulepszyć kod związany z Redux.
+          </p>
+        </article>
+      </section>
+      <!-- section2 -->
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Instalacja</h2>
+          <p>Redux Toolkit instaluje się jak standardowy pakiet NPM.</p>
+          <pre>
+            npm install @reduxjs/toolkit
+          </pre>
+          <p>
+            Wykorzystując Redux Toolkit nie ma obowiązku dodawania do projektu pakietu redux, oprócz
+            przypadków, w których niezbędna jest funkcja combineReducers(). Wystarczy zainstalować
+            @reduxjs/toolkit w celu napisania logiki Redux i react-redux do powiązania store z
+            komponentami.
+          </p>
+          <pre>
+            npm install @reduxjs/toolkit react-redux
+          </pre>
+          <p>
+            Jeśli zainicjalizujesz utworzenie plików startowych aplikacji, wykorzystując Create
+            React App, bez wcześniej przygotowanego szablonu projektu, jak na przykład do prac
+            domowych, w takim przypadku warto wykorzystać oficjalny szablon. W tym celu do polecenia
+            npx create-react-app trzeba przekazać flagę --template z wartością redux.
+          </p>
+          <pre>
+            npx create-react-app my-app --template redux
+          </pre>
+        </article>
+      </section>
+      <!-- section3 -->
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 configureStore</h2>
+          <p>
+            Redux Toolkit dostarcza funkcję
+            [configureStore(options)](https://redux-toolkit.js.org/api/configureStore), która owija
+            oryginalny createStore(), jako jedynego argumentu oczekuje obiektu parametrów i
+            przystosowuje niektóre użyteczne narzędzia programowania do części procesu tworzenia
+            store.
+          </p>
+          <p>Zrobimy refaktoryzację kodu aplikacji menadżera zadań z poprzednich zajęć.</p>
+          <pre>
+            src/redux/store.js
+            //=============== Before ========================
+            import { createStore } from "redux";
+            import { devToolsEnhancer } from "@redux-devtools/extension";
+            import { rootReducer } from "./reducer";
+
+            const enhancer = devToolsEnhancer();
+            export const store = createStore(rootReducer, enhancer);
+
+            //=============== After ========================
+            import { configureStore } from "@reduxjs/toolkit";
+            import { rootReducer } from "./reducer";
+
+            const store = configureStore({
+              reducer: rootReducer,
+            });
+          </pre>
+          <p>
+            Na pierwszy rzut oka to praktycznie to samo, niemniej jednak od razu skonfigurowane
+            zostały narzędzia programisty (Redux DevTools) i niektóre inne użyteczne funkcje, na
+            przykład sprawdzanie rozpowszechnionych błędów, takich jak mutacja statusu w reducerach
+            lub wykorzystanie nieważnych wartości w statusie.
+          </p>
+          <p>
+            Także funkcja configureStore() może automatycznie tworzyć root reducer. W tym celu
+            należy przekazać do właściwości reducer obiekt tego samego kształtu, co w
+            combineReducers. Na początek usuniemy tworzenie root reducera w kodzie naszej aplikacji
+            i dodamy importowanie reducerów zadań i filtrów z pliku src/redux/reducer.js. Opuścimy
+            niekrytyczny kod źródłowy, aby zmniejszyć objętość przykładów.
+          </p>
+          <pre>
+            src/redux/reducer.js
+            //=============== Before ========================
+            import { combineReducers } from "redux";
+            import { statusFilters } from "./constants";
+
+            const tasksInitialState = [];
+
+            const tasksReducer = (state = tasksInitialState, action) => {
+              // Reducer code
+            };
+
+            const filtersInitialState = {
+              status: statusFilters.all,
+            };
+
+            const filtersReducer = (state = filtersInitialState, action) => {
+              // Reducer code
+            };
+
+            export const rootReducer = combineReducers({
+              tasks: tasksReducer,
+              filters: filtersReducer,
+            });
+
+            //=============== After ========================
+            import { statusFilters } from "./constants";
+
+            const tasksInitialState = [];
+
+            export const tasksReducer = (state = tasksInitialState, action) => {
+              // Reducer code
+            };
+
+            const filtersInitialState = {
+              status: statusFilters.all,
+            };
+
+            export const filtersReducer = (state = filtersInitialState, action) => {
+              // Reducer code
+            };
+          </pre>
+          <p>Teraz w pliku tworzenia store importujemy i wykorzystujemy oddzielne reducery.</p>
+          <pre>
+            src/redux/store.js
+            import { configureStore } from "@reduxjs/toolkit";
+            import { tasksReducer, filtersReducer } from "./reducer";
+
+            export const store = configureStore({
+              reducer: {
+                tasks: tasksReducer,
+                filters: filtersReducer,
+              },
+            });
+          </pre>
+          <p>
+            Przeanalizuj prawdziwy przykład menadżera zadań ze zaktualizowanym kodem tworzenia
+            store.
+          </p>
+          <p>
+            <a
+              href="https://codesandbox.io/s/goit-react-textbook-lesson-12-redux-toolkit-store-t8pzzo?from-embed"
+              >codesandbox.io</a
+            >
+          </p>
+        </article>
+      </section>
+      <!-- section4 -->
+      <section id="4" class="text">
+        <article id="4.1">
+          <h2>4.1 createAction</h2>
+          <p>
+            Funkcja [createAction(type)](https://redux-toolkit.js.org/api/createAction) upraszcza
+            proces deklarowania akcji. Jako argument przyjmuje łańcuch opisujący typ działania i
+            zwraca generator akcji.
+          </p>
+          <pre>
+            src/redux/actions.js
+            //=============== Before ========================
+            const addTask = text => {
+              return { type: "tasks/AddTask", payload: text };
+            };
+
+            console.log(addTask("Learn Redux Toolkit"));
+            // {type: "tasks/addTask", payload: "Learn Redux Toolkit"}
+
+            //=============== After ========================
+            import { createAction } from "@reduxjs/toolkit";
+
+            const addTask = createAction("tasks/AddTask");
+
+            console.log(addTask("Learn Redux Toolkit"));
+            // {type: "tasks/addTask", payload: "Learn Redux Toolkit"}
+          </pre>
+          <p>
+            Dodajemy kod tworzenia pozostałych generatorów akcji dla naszej aplikacji. Wykorzystanie
+            createAction() pozbawia nas powtarzającego się szablonowego kodu deklarowania generatora
+            akcji.
+          </p>
+          <pre>
+            src/redux/actions.js
+            import { createAction } from "@reduxjs/toolkit";
+
+            export const addTask = createAction("tasks/addTask");
+
+            export const deleteTask = createAction("tasks/deleteTask");
+
+            export const toggleCompleted = createAction("tasks/toggleCompleted");
+
+            export const setStatusFilter = createAction("filters/setStatusFilter");
+          </pre>
+        </article>
+        <article id="4.2">
+          <h3>4.2 Typ akcji</h3>
+          <p>
+            Istnieją dwa sposoby na otrzymanie typu akcji, na przykład w celu wykorzystania w
+            reducerze.
+          </p>
+          <pre>
+            import { createAction } from "@reduxjs/toolkit";
+
+            const addTask = createAction("tasks/AddTask");
+
+            // W generatorze akcji jest właściwość type
+            console.log(addTask.type);// "tasks/AddTask"
+
+            // Metoda toString() funkcji addTask została przedefiniowana
+            console.log(addTask.toString());// "tasks/AddTask"
+          </pre>
+          <p>
+            W reducerze importujemy akcje i wykorzystujemy ich właściwość type dla zamiany łańcuchów
+            wewnątrz instrukcji switch.
+          </p>
+          <pre>
+            src/redux/reducer.js
+            import { addTask, deleteTask, toggleCompleted } from "./actions";
+
+            export const tasksReducer = (state = tasksInitialState, action) => {
+              switch (action.type) {
+                case addTask.type:
+                  return [...state, action.payload];
+
+                case deleteTask.type:
+                  return state.filter(task => task.id !== action.payload);
+
+                case toggleCompleted.type:
+                  return state.map(task => {
+                    if (task.id !== action.payload) {
+                      return task;
+                    }
+                    return { ...task, completed: !task.completed };
+                  });
+
+                default:
+                  return state;
+              }
+            };
+          </pre>
+        </article>
+        <article id="4.3">
+          <h3>4.3 Zawartość payload</h3>
+          <p>
+            Domyślnie generatory akcji przyjmują jeden argument, który staje się wartością
+            właściwości payload. Jeśli trzeba napisać dodatkową logikę tworzenia wartości payload,
+            na przykład dodać unikalny identyfikator, do createAction można przekazać drugi,
+            nieobowiązkowy argument - funkcję tworzenia akcji.
+          </p>
+          <pre>
+            createAction(type, prepareAction)
+          </pre>
+          <p>
+            Argumenty generatora akcji będą przekazane do funkcji prepareAction, która powinna
+            zwrócić obiekt z właściwością payload. Właściwość type zostanie dodana automatycznie.
+          </p>
+          <pre>
+            src/redux/actions.js
+            import { createAction, nanoid } from "@reduxjs/toolkit";
+
+            export const addTask = createAction("tasks/addTask", text => {
+              return {
+                payload: {
+                  text,
+                  id: nanoid(),
+                  completed: false,
+                },
+              };
+            });
+
+            console.log(addTask("Learn Redux Toolkit"));
+            /**
+            * {
+            *   type: 'tasks/addTask',
+            *   payload: {
+            *     text: 'Learn Redux Toolkit',
+            *     id: '4AJvwMSWEHCchcWYga3dj',
+            *     completed: false
+            *   }
+            * }
+            **/
+          </pre>
+          <p>
+            Przeanalizuj prawdziwy przykład menadżera zadań ze zaktualizowanym kodem tworzenia store
+            i generatorów akcji.
+          </p>
+          <p>
+            <a
+              href="https://codesandbox.io/s/goit-react-textbook-lesson-12-redux-toolkit-actions-48pfmc?from-embed"
+              >codesandbox.io</a
+            >
+          </p>
+        </article>
+      </section>
+      <!-- section5 -->
+      <section id="5" class="text">
+        <article id="5.1">
+          <h2>5.1 createReducer</h2>
+          <p>
+            Dowolny reducer otrzymuje statusy Redux i action, sprawdza typ akcji wewnątrz instrukcji
+            switch i wykonuje odpowiednią logikę statusu dla danej akcji. Do tego reducer określa
+            początkową wartość statusu i zwraca otrzymany status, jeśli nie powinien opracowywać
+            akcji. Ten sposób wymaga zbyt dużo szablonowego kodu i jest podatny na błędy. Funkcja
+            [createReducer()](https://redux-toolkit.js.org/api/createReducer) upraszcza proces
+            deklarowania reducerów.
+          </p>
+          <pre>
+            createReducer(initialState, actionsMap)
+          </pre>
+          <p>
+            Jako pierwszego argumentu oczekuje początkowego statusu reducera, jako drugiego -
+            obiektu właściwości specjalnego formatu, gdzie każdy klucz to typ akcji, a wartość to
+            funkcja-reducer dla tego typu. Znaczy to, że każdy case staje się kluczem obiektu, dla
+            którego pisze się własny mini reducer.
+          </p>
+          <p>
+            Zamienimy kod deklarowania reducera zadań w naszej aplikacji, wykorzystując
+            createReducer.
+          </p>
+          <pre>
+            src/redux/reducer.js
+            import { createReducer } from "@reduxjs/toolkit";
+            import { statusFilters } from "./constants";
+            import { addTask, deleteTask, toggleCompleted } from "./actions";
+
+            const tasksInitialState = [];
+
+            //=============== Before ========================
+            const tasksReducer = (state = tasksInitialState, action) => {
+              switch (action.type) {
+                case addTask.type:
+                // case logic
+                case deleteTask.type:
+                // case logic
+                case toggleCompleted.type:
+                // case logic
+                default:
+                  return state;
+              }
+            };
+
+            //=============== After ========================
+            export const tasksReducer = createReducer(tasksInitialState, {
+              [addTask]: (state, action) => {},
+              [deleteTask]: (state, action) => {},
+              [toggleCompleted]: (state, action) => {},
+            });
+          </pre>
+          <p>
+            Zwróć uwagę na to, że nie potrzeba kodu dla bloku default. Funkcja createReducer
+            automatycznie dodaje reducery opracowywania zachowania domyślnie.
+          </p>
+          <p>
+            DOPROWADZENIE DO ŁAŃCUCHA: Składnia wyliczanych właściwości obiektu doprowadza wartość
+            do łańcucha, dlatego można po prostu wykorzystywać nazwę funkcji bez wskazania
+            właściwości type, przecież metoda toString() generatora akcji została przedefiniowana
+            tak, aby zwracać typ akcji.
+          </p>
+          <p>
+            Wewnątrz każdego mini reducera dodajemy kod aktualizacji statusu dla akcji z
+            odpowiadającym typem.
+          </p>
+          <pre>
+            src/redux/reducer.js
+            export const tasksReducer = createReducer(tasksInitialState, {
+              [addTask]: (state, action) => {
+                return [...state, action.payload];
+              },
+              [deleteTask]: (state, action) => {
+                return state.filter(task => task.id !== action.payload);
+              },
+              [toggleCompleted]: (state, action) => {
+                return state.map(task => {
+                  if (task.id !== action.payload) {
+                    return task;
+                  }
+                  return {
+                    ...task,
+                    completed: !task.completed,
+                  };
+                });
+              },
+            });
+
+            export const filtersReducer = createReducer(filtersInitialState, {
+              [setStatusFilter]: (state, action) => {
+                return {
+                  ...state,
+                  status: action.payload,
+                };
+              },
+            });
+          </pre>
+          <p>
+            Jedna z fundamentalnych zasad Redux polega na tym, że reducery powinny być czystymi
+            funkcjami, które nie zmieniają bieżącego statusu, a zwracają nowy. Pozwala to na pisanie
+            przewidywalnego kodu, ale czasem bardzo go komplikuje, ponieważ kod niezmiennej
+            aktualizacji statusu może być dość skomplikowany.
+          </p>
+        </article>
+        <article id="5.2">
+          <h3>5.2 Biblioteka Immer</h3>
+          <p>
+            Redux Toolkit "pod maską" wykorzystuje bibliotekę
+            <a href="https://immerjs.github.io/immer/">Immer</a>, która znacznie upraszcza logikę
+            pracy ze statusem, pozwalając nam na pisanie kodu aktualizacji statusu w reducerze tak,
+            jakbyśmy bezpośrednio zmieniali status. W zasadzie reducery otrzymują kopię statusu, a
+            Immer przekształca wszystkie mutacje w ekwiwalentne operacje aktualizacji.
+          </p>
+          <pre>
+            src/redux/reducer.js
+            export const tasksReducer = createReducer(tasksInitialState, {
+              [addTask]: (state, action) => {
+                // ✅ Immer zamieni to na operację aktualizacji
+                state.push(action.payload);
+              },
+              [deleteTask]: (state, action) => {
+                // ✅ Immer zamieni to na operację aktualizacji
+                const index = state.findIndex(task => task.id === action.payload);
+                state.splice(index, 1);
+              },
+              [toggleCompleted]: (state, action) => {
+                // ✅ Immer zamieni to na operację aktualizacji
+                for (const task of state) {
+                  if (task.id === action.payload) {
+                    task.completed = !task.completed;
+                  }
+                }
+              },
+            });
+
+            export const filtersReducer = createReducer(filtersInitialState, {
+              [setStatusFilter]: (state, action) => {
+                // ✅ Immer zamieni to na operację aktualizacji
+                state.status = action.payload;
+              },
+            });
+          </pre>
+          <p>
+            Pisanie reducerów "zmieniających" status sprawia, że kod jest krótszy i eliminuje
+            rozpowszechnione błędy, dopuszczalne przy pracy z zagnieżdżonym statusem. Niemniej
+            jednak dodaje to "magii" i wizualnie narusza jedną z fundamentalnych zasad Redux.
+          </p>
+          <h4>Zmiana lub aktualizacja</h4>
+          <p>
+            Czasem kod niezmiennej aktualizacji statusu jest bardziej lakoniczny niż jego
+            "zmieniająca" alternatywa. Na przykład, w reducerze opracowywania akcji usunięcia
+            zadania. W takim przypadku należy obowiązkowo zwrócić nowy status.
+          </p>
+          <pre>
+            src/redux/reducer.js
+            export const tasksReducer = createReducer(tasksInitialState, {
+              [deleteTask]: (state, action) => {
+                // ❌ Nieprawidłowo
+                // state.filter(task => task.id !== action.payload)
+
+                // ✅ Prawidłowo
+                return state.filter(task => task.id !== action.payload);
+              },
+            });
+          </pre>
+          <h4>Zmiana lub zwrot</h4>
+          <p>
+            Jednym z problemów biblioteki Immer jest to, że w kodzie jednego reducera można tylko
+            albo mutować status, albo zwrócić aktualizację, ale nie jedno i drugie jednocześnie.
+          </p>
+          <pre>
+            const reducer = createReducer([], {
+              [doSomething]: (state, action) => {
+                // ❌ Nie można tak robić, wygenerowany zostanie wyjątek
+                state.push(action.payload);
+                return state.map(value => value * 2);
+              },
+            });
+          </pre>
+        </article>
+        <article id="5.3">
+          <h3>5.3 Menadżer zadań</h3>
+          <p>
+            Przeanalizuj prawdziwy przykład menadżera zadań ze zaktualizowanym kodem utworzenia
+            store i generatorów akcji.
+          </p>
+          <p>
+            <a
+              href="https://codesandbox.io/s/goit-react-textbook-lesson-12-redux-toolkit-reducers-obj0xb?from-embed"
+              >codesandbox.io</a
+            >
+          </p>
+        </article>
+      </section>
+      <!-- section6 -->
+      <section id="6" class="text">
+        <article id="6.1">
+          <h2>6.1 createSlice</h2>
+          <p>
+            Przy projektowaniu, struktura statusu Redux dzieli się na slice'y (części), a za każdy z
+            nich odpowiada oddzielny reducer. W naszej aplikacji menadżera zadań są dwa slice'y -
+            zadania (tasks) i filtry (filters).
+          </p>
+          <pre>
+            const appState = {
+              tasks: [],
+              filters: {},
+            };
+          </pre>
+          <p>
+            Dla każdego slice'u tworzony jest standardowy zbiór podmiotów: typy akcji, generatory
+            akcji i reducer. Reducery określają początkowy status slice'u, listę akcji wpływających
+            na niego i operacji aktualizacji statusu.
+          </p>
+          <p>
+            Funkcja [createSlice()](https://redux-toolkit.js.org/api/createSlice) to nadbudowa nad
+            createAction() i createReducer(), która standaryzuje i jeszcze bardziej upraszcza
+            deklarowanie slice'u. Przyjmuje parametr ustawień, tworzy i zwraca typy akcji,
+            generatory akcji i reducer. Przeanalizujemy tworzenie slice'u na przykładzie listy
+            zadań.
+          </p>
+          <pre>
+            import { createSlice } from "@reduxjs/toolkit";
+
+            const tasksSlice = createSlice({
+            // Nazwa slice'u
+              name: "tasks",
+            // Początkowy status reducera slice'u
+              initialState: tasksInitialState,
+            // Obiekt reducerów
+              reducers: {
+                addTask(state, action) {},
+                deleteTask(state, action) {},
+                toggleCompleted(state, action) {},
+              },
+            });
+
+            // Generatory akcji
+            const { addTask, deleteTask, toggleCompleted } = tasksSlice.actions;
+            // Reducer slice'u
+            const tasksReducer = tasksSlice.reducer;
+          </pre>
+          <p>
+            Właściwość name określa nazwę slice'u, która będzie dodawana w trakcie tworzenia akcji,
+            jako przedrostek do nazwy reducerów zadeklarowanych we właściwości reducers. W ten
+            sposób otrzymamy akcje z typami tasks/addTask, tasks/deleteTask i tasks/toggleCompleted.
+          </p>
+          <p>
+            Funkcja createSlice() w swojej realizacji wykorzystuje createReducer i bibliotekę Immer,
+            dlatego można pisać logikę aktualizacji statusu tak, jak gdybyśmy bezpośrednio go
+            zmieniali.
+          </p>
+          <pre>
+            import { createSlice } from "@reduxjs/toolkit";
+
+            const tasksInitialState = [];
+
+            const tasksSlice = createSlice({
+              name: "tasks",
+              initialState: tasksInitialState,
+              reducers: {
+                addTask(state, action) {
+                  state.push(action.payload);
+                },
+                deleteTask(state, action) {
+                  const index = state.findIndex(task => task.id === action.payload);
+                  state.splice(index, 1);
+                },
+                toggleCompleted(state, action) {
+                  for (const task of state) {
+                    if (task.id === action.payload) {
+                      task.completed = !task.completed;
+                      break;
+                    }
+                  }
+                },
+              },
+            });
+
+            const { addTask, deleteTask, toggleCompleted } = tasksSlice.actions;
+            const tasksReducer = tasksSlice.reducer;
+          </pre>
+        </article>
+        <article id="6.2">
+          <h3>6.2 Zawartość payload</h3>
+          <p>
+            Generator akcji addTask oczekuje tylko łańcucha z tekstem zadania, po czym zmienia
+            wartość payload, wykorzystując funkcję przygotowywania akcji. Teraz wygląda to w naszym
+            kodzie następująco:
+          </p>
+          <pre>
+            src/redux/actions.js
+            import { createAction, nanoid } from "@reduxjs/toolkit";
+
+            export const addTask = createAction("tasks/addTask", text => {
+              return {
+                payload: {
+                  text,
+                  id: nanoid(),
+                  completed: false,
+                },
+              };
+            });
+          </pre>
+          <p>
+            Aby zrobić to samo przy tworzeniu slice'u, do właściwości w obiekcie reducerów, w naszym
+            przypadku addTask, należy przekazać nie funkcję, a obiekt z dwiema właściwościami -
+            reducer i prepare.
+          </p>
+          <pre>
+            import { createSlice, nanoid } from "@reduxjs/toolkit";
+
+            const tasksSlice = createSlice({
+              name: "tasks",
+              initialState: tasksInitialState,
+              reducers: {
+                addTask: {
+                  reducer(state, action) {
+                    state.push(action.payload);
+                  },
+                  prepare(text) {
+                    return {
+                      payload: {
+                        text,
+                        id: nanoid(),
+                        completed: false,
+                      },
+                    };
+                  },
+                },
+            // Kod pozostałych reducerów
+              },
+            });
+          </pre>
+        </article>
+        <article id="6.3">
+          <h3>6.3 Pliki slice'ów</h3>
+          <p>
+            Nie potrzebujemy dłużej pliku reducer.js, ponieważ dla każdego slice'u utworzymy
+            oddzielny plik. Dla slice'u zadań będzie to plik tasksSlice.js
+          </p>
+          <pre>
+            src/redux/tasksSlice.js
+            import { createSlice } from "@reduxjs/toolkit";
+
+            const tasksInitialState = [];
+
+            const tasksSlice = createSlice({
+              name: "tasks",
+              initialState: tasksInitialState,
+              reducers: {
+                addTask: {
+                  reducer(state, action) {
+                    state.push(action.payload);
+                  },
+                  prepare(text) {
+                    return {
+                      payload: {
+                        text,
+                        id: nanoid(),
+                        completed: false,
+                      },
+                    };
+                  },
+                },
+                deleteTask(state, action) {
+                  const index = state.findIndex(task => task.id === action.payload);
+                  state.splice(index, 1);
+                },
+                toggleCompleted(state, action) {
+                  for (const task of state) {
+                    if (task.id === action.payload) {
+                      task.completed = !task.completed;
+                      break;
+                    }
+                  }
+                },
+              },
+            });
+
+            // Eksportujemy generatory akcji i reducer
+            export const { addTask, deleteTask, toggleCompleted } = tasksSlice.actions;
+            export const tasksReducer = tasksSlice.reducer;
+          </pre>
+          <p>I plik filtersSlice.js dla slice'u filtrów.</p>
+          <pre>
+            src/redux/filtersSlice.js
+            import { createSlice } from "@reduxjs/toolkit";
+            import { statusFilters } from "./constants";
+
+            const filtersInitialState = {
+              status: statusFilters.all,
+            };
+
+            const filtersSlice = createSlice({
+              name: "filters",
+              initialState: filtersInitialState,
+              reducers: {
+                setStatusFilter(state, action) {
+                  state.status = action.payload;
+                },
+              },
+            });
+
+            // Eksportujemy generatory akcji i reducer
+            export const { setStatusFilter } = filtersSlice.actions;
+            export const filtersReducer = filtersSlice.reducer;
+          </pre>
+        </article>
+        <article id="6.4">
+          <h3>6.4 Utworzenie store</h3>
+          <p>W pliku tworzenia store należy zmienić kod importu reducerów.</p>
+          <pre>
+            src/redux/store.js
+            import { configureStore } from "@reduxjs/toolkit";
+            //=============== Before ========================
+            // import { tasksReducer, filtersReducer } from "./reducer";
+            //=============== After ========================
+            import { tasksReducer } from "./tasksSlice";
+            import { filtersReducer } from "./filtersSlice";
+
+            export const store = configureStore({
+              reducer: {
+                tasks: tasksReducer,
+                filters: filtersReducer,
+              },
+            });
+          </pre>
+        </article>
+        <article id="6.5">
+          <h3>6.5 Generatory akcji</h3>
+          <p>
+            Generatory akcji tworzą się teraz automatycznie dla każdego slice'u. Znaczy to, że nie
+            musimy dłużej ręcznie deklarować ich w oddzielnym pliku, wykorzystując createAction().
+            Możemy usunąć plik actions.js i zaktualizować importy generatorów akcji w plikach
+            komponentów. Struktura plików projektu będzie teraz wyglądała następująco:
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/file-structure.png" alt="" />
+          </div>
+          <p>Import generatorów akcji wykonuje się z odpowiedniego pliku slice'u.</p>
+          <pre>
+            //=============== Before ========================
+            // import { deleteTask, toggleCompleted } from "redux/actions";
+            //=============== After ========================
+            import { deleteTask, toggleCompleted } from "redux/tasksSlice";
+          </pre>
+        </article>
+        <article id="6.6">
+          <h3>6.6 Menadżer zadań</h3>
+          <p>
+            Przeanalizuj prawdziwy przykład menadżera zadań z zadeklarowanym kodem zadania store i
+            generatorów akcji.
+          </p>
+          <p>
+            <a
+              href="https://codesandbox.io/s/goit-react-textbook-lesson-12-redux-toolkit-slices-ie3w35?from-embed"
+              >codesandbox.io</a
+            >
+          </p>
         </article>
       </section>
     </main>
     <footer class="footer">
       <div class="footer-logo">
-        <img
-          src="../images/footer/konikMaly24x24Squoosh.png"
-          alt="logoImage"
-          width="24"
-        />
+        <img src="../images/footer/konikMaly24x24Squoosh.png" alt="logoImage" width="24" />
         <img src="../images/footer/3KLogo.png" alt="logoText" />
       </div>
       <div id="footer-title">

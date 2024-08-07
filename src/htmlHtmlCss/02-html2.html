@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
+    />
+    <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
+    <link rel="stylesheet" href="../styles/stylStartowy.scss" />
+    <link rel="stylesheet" href="../styles/htmlCssStyles.scss" />
+    <link rel="stylesheet" href="../styles/htmlCssStyles/02-html2.scss" />
+
+    <title>HTML część 2</title>
+  </head>
+  <body class="body-container">
+    <header class="menu-sticky">
+      <nav class="nav-container">
+        <!-- Nawigacja do innych stron -->
+        <ul id="main-menu" class="nav-list-container"></ul>
+        <ul id="this-page-menu" class="this-page-menu"></ul>
+      </nav>
+    </header>
+    <main class="main-container">
+      <!-- section1 -->
+      <section id="1" class="text">
+        <h1>Moduł 1 - Zajęcia 2 - HTML część 2</h1>
+        <article id="1.1">
+          <h2>1.1 Tabele</h2>
+          <p>
+            <a href="https://html.spec.whatwg.org/multipage/tables.html#tables">Tabele</a> pozwalają
+            wyświetlać złożone relacje, umieszczając dowolną zawartość w komórkach. Należy ich
+            używać tylko do zaznaczania danych tabelarycznych: harmonogram transportu, kalendarz,
+            wyniki meczów, transakcje finansowe, menu w restauracji, cennik itp. To znaczy
+            informacje, które logicznie można przedstawić w formie tabelarycznej, na przykład za
+            pomocą Google Sheets.
+          </p>
+          <p>
+            Pomocne: Elementy tabeli semantycznie opisują dane tabelaryczne, a używanie ich do
+            innych celów stanowi naruszenie semantyki, np. nie powinniśmy używać tabel do tworzenie
+            sekcji która pokazuje członków naszego zespołu lub pokazuje czym zajmuje się nasza
+            firma.
+          </p>
+          <p>Poniżej będziemy wpisywać znaczniki dla tego rozkładu jazdy pociągów.</p>
+          <table class="table-train">
+            <tr>
+              <td>433</td>
+              <td>London - Paris</td>
+              <td>5 godzin</td>
+            </tr>
+            <tr>
+              <td>701</td>
+              <td>New York - Chicago</td>
+              <td>7 godzin</td>
+            </tr>
+            <tr>
+              <td>258</td>
+              <td>Oslo - Warsaw</td>
+              <td>4 godziny</td>
+            </tr>
+          </table>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-logo">
+        <img src="../images/footer/konikMaly24x24Squoosh.png" alt="logoImage" width="24" />
+        <img src="../images/footer/3KLogo.png" alt="logoText" />
+      </div>
+      <div id="footer-title">
+        <p></p>
+      </div>
+      <div class="footer-date">
+        <p>31.07.2024r.</p>
+      </div>
+    </footer>
+    <!-- SKRYPTY JS -->
+    <script defer pe="module" src="../scripts/menuHtmlCss.mjs"></script>
+  </body>
+</html>
