@@ -51,23 +51,40 @@
             firma.
           </p>
           <p>Poniżej będziemy wpisywać znaczniki dla tego rozkładu jazdy pociągów.</p>
-          <table class="table-train">
-            <tr>
-              <td>433</td>
-              <td>London - Paris</td>
-              <td>5 godzin</td>
-            </tr>
-            <tr>
-              <td>701</td>
-              <td>New York - Chicago</td>
-              <td>7 godzin</td>
-            </tr>
-            <tr>
-              <td>258</td>
-              <td>Oslo - Warsaw</td>
-              <td>4 godziny</td>
-            </tr>
-          </table>
+          <hr class="hr-start" />
+          <div id="example-theory-s1a1" class="example-theory">
+            <pre class="example-theory-pre">
+JavaScript:
+const output = document.querySelector(".output");
+let scrollEventCounter = 0;
+
+document.addEventListener("scroll", () => {
+  scrollEventCounter += 1;
+  output.textContent = scrollEventCounter;
+});
+            </pre>
+          </div>
+          <br />
+          <div id="example-practice-s1a1" class="example-practice-s1a1">
+            <table class="table-train">
+              <tr>
+                <td>433</td>
+                <td>London - Paris</td>
+                <td>5 godzin</td>
+              </tr>
+              <tr>
+                <td>701</td>
+                <td>New York - Chicago</td>
+                <td>7 godzin</td>
+              </tr>
+              <tr>
+                <td>258</td>
+                <td>Oslo - Warsaw</td>
+                <td>4 godziny</td>
+              </tr>
+            </table>
+          </div>
+          <hr class="hr-end" />
         </article>
       </section>
     </main>
@@ -84,6 +101,7 @@
       </div>
     </footer>
     <!-- SKRYPTY JS -->
-    <script defer pe="module" src="../scripts/menuHtmlCss.mjs"></script>
+    <script defer type="module" src="../scripts/menuHtmlCss.mjs"></script>
+    <script defer type="module" src="../scripts/htmlCssScripts/02-html.mjs"></script>
   </body>
 </html>
