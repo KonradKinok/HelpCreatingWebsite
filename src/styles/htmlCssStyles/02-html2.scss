@@ -20,6 +20,22 @@
     padding: 10px;
     overflow: auto;
     height: 300px;
-    width: 300px;
-    margin: 0 auto;
+        width: 300px;
+    margin: 0 auto 10px auto;
+}
+
+.inverted-ruby {
+    position: relative;
+    display: inline-block;
+}
+
+.inverted-ruby rt {
+    position: absolute;
+    top: 100%;
+    /* Przenosi anotację poniżej tekstu */
+    left: 0;
+    font-size: 0.7em;
+    /* Zmniejszenie wielkości anotacji (opcjonalne) */
+    transform: translateY(0.2em);
+    /* Dostosowanie odstępu (opcjonalne) */
 }

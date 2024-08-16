@@ -54,14 +54,23 @@
           <hr class="hr-start" />
           <div id="example-theory-s1a1" class="example-theory">
             <pre class="example-theory-pre">
-JavaScript:
-const output = document.querySelector(".output");
-let scrollEventCounter = 0;
+SCSS:
+.table-train{
+    border-collapse: collapse;
+    border: solid thick;
 
-document.addEventListener("scroll", () => {
-  scrollEventCounter += 1;
-  output.textContent = scrollEventCounter;
-});
+    tbody {
+            border: solid medium;
+    }
+    
+    td {
+        border: solid thin;
+        height: 1.4em;
+        width: 1.4em;
+        text-align: center;
+        padding: 0;
+    }
+}
             </pre>
           </div>
           <br />
@@ -85,6 +94,56 @@ document.addEventListener("scroll", () => {
             </table>
           </div>
           <hr class="hr-end" />
+          <p>Tabela to zbiór wierszy z komórkami. Przyjrzyjmy się podstawowym znacznikom.</p>
+          <ul class="unnumbered-list-container">
+            <li>&lttable> - określa całą tabelę, kontener dla zawartości.</li>
+            <li>
+              &lttr> - wiersz tabeli (table row). Nie może być pusty, musi zawierać co najmniej
+              jedną komórkę.
+            </li>
+            <li>
+              &lttd> - komórka tabeli (table data). Może być używana tylko wewnątrz wiersza. Każdy
+              wiersz tabeli musi mieć taką samą liczbę komórek.
+            </li>
+          </ul>
+          <p>Oznaczmy znacznikami rozkład jazdy pociągów tabelą z trzema wierszami.</p>
+          <pre>
+            &lttable>
+              &lttr>
+                &lttd>433&lt/td>
+                &lttd>London - Paris&lt/td>
+                &lttd>5 godzin&lt/td>
+              &lt/tr>
+              &lttr>
+                &lttd>701&lt/td>
+                &lttd>New York - Chicago&lt/td>
+                &lttd>7 godzin&lt/td>
+              &lt/tr>
+              &lttr>
+                &lttd>258&lt/td>
+                &lttd>Oslo - Warsaw&lt/td>
+                &lttd>4 godziny&lt/td>
+              &lt/tr>
+            &lt/table>
+          </pre>
+          <p>
+            Domyślnie tabela nie ma specjalnego formatowania, na przykład tak ciemnej ramki jak na
+            obrazku. W tym celu używany jest CSS, podobnie jak w przypadku każdego innego
+            formatowania treści.
+          </p>
+        </article>
+        <article id="1.2">
+          <h2>1.2 Komórki nagłówkowe</h2>
+          <p>
+            Aby utworzyć wiersz z nagłówkami kolumn, używamy standardowego znacznika &lttr> dla
+            wiersza i oznaczamy komórki specjalnym znacznikiem &ltth> (table header) - semantycznym
+            znacznikiem komórki nagłówkowej. Domyślnie tekst wewnątrz &lt/th> &ltth>jest zaznaczony
+            pogrubioną czcionką i jest wyśrodkowany.&lt/th>
+          </p>
+
+          <ruby>B<rt>annotation</rt>Brykiet<rt>annotation</rt></ruby>
+          <ruby class="inverted-ruby"> B<rt>annotation</rt>Brykiet<rt>annotation</rt> </ruby>
+          <ruby>漢<rp>（</rp><rt>かん</rt><rp>）</rp>字<rp>（</rp><rt>じ</rt><rp>）</rp></ruby>
         </article>
       </section>
     </main>
