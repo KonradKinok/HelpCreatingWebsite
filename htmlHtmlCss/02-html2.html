@@ -1,10 +1,37 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.e50b48c6.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/01-html1.2af9f3c6.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/02-html2.8a8fd81d.css"><title>HTML część 2</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 1 - Zajęcia 2 - HTML część 2</h1> <article id="1.1"> <h2>1.1 Tabele</h2> <p> <a href="https://html.spec.whatwg.org/multipage/tables.html#tables">Tabele</a> pozwalają wyświetlać złożone relacje, umieszczając dowolną zawartość w komórkach. Należy ich używać tylko do zaznaczania danych tabelarycznych: harmonogram transportu, kalendarz, wyniki meczów, transakcje finansowe, menu w restauracji, cennik itp. To znaczy informacje, które logicznie można przedstawić w formie tabelarycznej, na przykład za pomocą Google Sheets. </p> <p> Pomocne: Elementy tabeli semantycznie opisują dane tabelaryczne, a używanie ich do innych celów stanowi naruszenie semantyki, np. nie powinniśmy używać tabel do tworzenie sekcji która pokazuje członków naszego zespołu lub pokazuje czym zajmuje się nasza firma. </p> <p>Poniżej będziemy wpisywać znaczniki dla tego rozkładu jazdy pociągów.</p> <hr class="hr-start"> <div id="example-theory-s1a1" class="example-theory"> <pre class="example-theory-pre">
-JavaScript:
-const output = document.querySelector(".output");
-let scrollEventCounter = 0;
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.e50b48c6.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/01-html1.2af9f3c6.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/02-html2.626b1985.css"><title>HTML część 2</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 1 - Zajęcia 2 - HTML część 2</h1> <article id="1.1"> <h2>1.1 Tabele</h2> <p> <a href="https://html.spec.whatwg.org/multipage/tables.html#tables">Tabele</a> pozwalają wyświetlać złożone relacje, umieszczając dowolną zawartość w komórkach. Należy ich używać tylko do zaznaczania danych tabelarycznych: harmonogram transportu, kalendarz, wyniki meczów, transakcje finansowe, menu w restauracji, cennik itp. To znaczy informacje, które logicznie można przedstawić w formie tabelarycznej, na przykład za pomocą Google Sheets. </p> <p> Pomocne: Elementy tabeli semantycznie opisują dane tabelaryczne, a używanie ich do innych celów stanowi naruszenie semantyki, np. nie powinniśmy używać tabel do tworzenie sekcji która pokazuje członków naszego zespołu lub pokazuje czym zajmuje się nasza firma. </p> <p>Poniżej będziemy wpisywać znaczniki dla tego rozkładu jazdy pociągów.</p> <hr class="hr-start"> <div id="example-theory-s1a1" class="example-theory"> <pre class="example-theory-pre">
+SCSS:
+.table-train{
+    border-collapse: collapse;
+    border: solid thick;
 
-document.addEventListener("scroll", () => {
-  scrollEventCounter += 1;
-  output.textContent = scrollEventCounter;
-});
-            </pre> </div> <br> <div id="example-practice-s1a1" class="example-practice-s1a1"> <table class="table-train"> <tr> <td>433</td> <td>London - Paris</td> <td>5 godzin</td> </tr> <tr> <td>701</td> <td>New York - Chicago</td> <td>7 godzin</td> </tr> <tr> <td>258</td> <td>Oslo - Warsaw</td> <td>4 godziny</td> </tr> </table> </div> <hr class="hr-end"> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>31.07.2024r.</p> </div> </footer>  <script defer type="module" src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.6a97f056.js"></script><script defer src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.40c2ae08.js" nomodule=""></script> <script defer type="module" src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.92dc98f5.js"></script><script defer src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.38dab37c.js" nomodule=""></script> </body></html>
+    tbody {
+            border: solid medium;
+    }
+    
+    td {
+        border: solid thin;
+        height: 1.4em;
+        width: 1.4em;
+        text-align: center;
+        padding: 0;
+    }
+}
+            </pre> </div> <br> <div id="example-practice-s1a1" class="example-practice-s1a1"> <table class="table-train"> <tr> <td>433</td> <td>London - Paris</td> <td>5 godzin</td> </tr> <tr> <td>701</td> <td>New York - Chicago</td> <td>7 godzin</td> </tr> <tr> <td>258</td> <td>Oslo - Warsaw</td> <td>4 godziny</td> </tr> </table> </div> <hr class="hr-end"> <p>Tabela to zbiór wierszy z komórkami. Przyjrzyjmy się podstawowym znacznikom.</p> <ul class="unnumbered-list-container"> <li>&lttable> - określa całą tabelę, kontener dla zawartości.</li> <li> &lttr> - wiersz tabeli (table row). Nie może być pusty, musi zawierać co najmniej jedną komórkę. </li> <li> &lttd> - komórka tabeli (table data). Może być używana tylko wewnątrz wiersza. Każdy wiersz tabeli musi mieć taką samą liczbę komórek. </li> </ul> <p>Oznaczmy znacznikami rozkład jazdy pociągów tabelą z trzema wierszami.</p> <pre>
+            &lttable>
+              &lttr>
+                &lttd>433&lt/td>
+                &lttd>London - Paris&lt/td>
+                &lttd>5 godzin&lt/td>
+              &lt/tr>
+              &lttr>
+                &lttd>701&lt/td>
+                &lttd>New York - Chicago&lt/td>
+                &lttd>7 godzin&lt/td>
+              &lt/tr>
+              &lttr>
+                &lttd>258&lt/td>
+                &lttd>Oslo - Warsaw&lt/td>
+                &lttd>4 godziny&lt/td>
+              &lt/tr>
+            &lt/table>
+          </pre> <p> Domyślnie tabela nie ma specjalnego formatowania, na przykład tak ciemnej ramki jak na obrazku. W tym celu używany jest CSS, podobnie jak w przypadku każdego innego formatowania treści. </p> </article> <article id="1.2"> <h2>1.2 Komórki nagłówkowe</h2> <p> Aby utworzyć wiersz z nagłówkami kolumn, używamy standardowego znacznika &lttr> dla wiersza i oznaczamy komórki specjalnym znacznikiem &ltth> (table header) - semantycznym znacznikiem komórki nagłówkowej. Domyślnie tekst wewnątrz &lt/th> &ltth>jest zaznaczony pogrubioną czcionką i jest wyśrodkowany.&lt/th> </p> <ruby>B<rt>annotation</rt>Brykiet<rt>annotation</rt></ruby> <ruby class="inverted-ruby"> B<rt>annotation</rt>Brykiet<rt>annotation</rt> </ruby> <ruby>漢<rp>（</rp><rt>かん</rt><rp>）</rp>字<rp>（</rp><rt>じ</rt><rp>）</rp></ruby> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>31.07.2024r.</p> </div> </footer>  <script defer type="module" src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.6a97f056.js"></script><script defer src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.40c2ae08.js" nomodule=""></script> <script defer type="module" src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.92dc98f5.js"></script><script defer src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.38dab37c.js" nomodule=""></script> </body></html>
