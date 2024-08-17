@@ -1,2 +1,0 @@
-!function(){"use strict";!function(e,t){var n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:"example-theory-pre",r=document.querySelector(e),c=document.querySelector(t),o=document.createElement("pre");o.classList.add(n);var a=c.innerHTML.split("  ").join("");o.textContent="HTML: ".concat(a),r.prepend(o)}("div#example-theory-s1a1","div#example-practice-s1a1")}();
-//# sourceMappingURL=02-html2.38dab37c.js.map
