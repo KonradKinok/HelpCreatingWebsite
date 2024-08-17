@@ -30,20 +30,366 @@
     </header>
     <main class="main-container">
       <!-- section1 -->
-      <section id="section1" class="text">
-        <article id="article1">
-          <h1>Moduł 5 - Zajęcia 10 - Użytkownicy</h1>
-          <h2>Nawigacja po programie</h2>
+      <section id="1" class="text">
+        <h1>Moduł 8 - Zajęcia 15 - Użytkownicy</h1>
+        <article id="1.1">
+          <h2>1.1 Konta</h2>
+          <p>
+            Absolutna większość aplikacji pozwala użytkownikowi utworzyć konto. Daje to front-endowi
+            i back-endowi możliwość rozróżniania użytkowników. Dzięki temu zarejestrowany użytkownik
+            może pracować z danymi, które są dostępne tylko dla niego. Na przykład w aplikacji
+            planera zadań, każdy zarejestrowany użytkownik będzie miał swoją odrębną listę zadań.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/users.png" alt="" />
+          </div>
+          <p>
+            Oprócz tego aplikacja może posiadać zamknięte trasy, dostępne tylko dla zarejestrowanych
+            użytkowników. Jeśli użytkownik nie wszedł na swoje konto, przy próbie odwiedzenia
+            zamkniętej trasy zostanie przekierowany na stronę logowania albo rejestracji.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/redirects.png" alt="" />
+          </div>
+        </article>
+      </section>
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Uprawnienia dostępu</h2>
+          <p>
+            Proces weryfikacji uwierzytelnienia oraz sprawdzanie poziomu uprawnień dostępu do danych
+            wykonuje się na backendzie i jest opisywany dwoma terminami.
+          </p>
+          <p>
+            Uwierzytelnienie (authentication) - to proces sprawdzenia uprawnień dostępu użytkownika
+            (login/hasło). Sprawdzenie poprawności danych użytkownika drogą porównania wprowadzonego
+            przez niego loginu/hasła z danymi zapisanymi w bazie danych.
+          </p>
+          <p>
+            Autoryzacja (authorization) - to sprawdzenie uprawnień użytkownika dla konkretnych
+            zasobów. Uprawnieniami dostępu może być dowolna unikalna wartość, którą front-end
+            przekazuje z każdym zapytaniem HTTP do back-endu.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/auth.png" alt="" />
+          </div>
+          <p>
+            Na przykład, podczas każdego zapytania do zasobu my-api.com/tasks, system autoryzacji
+            sprawdzi, czy użytkownik ma prawo zwracać się do tego zasobu. W rezultacie zapytanie
+            zwróci status 200 lub 403. Uprawnienia dostępu do zasobu określa się na podstawie
+            obecności unikalnej wartości w zapytaniu (tokenie).
+          </p>
+        </article>
+      </section>
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 JSON Web Token</h2>
+          <p>
+            Jeden z mechanizmów autoryzacji to JWT (JSON Web Token). Tokeny reprezentują sobą środki
+            autoryzacji dla każdego zapytania od front-endu do back-endu. Tokeny tworzone są w
+            back-endzie w oparciu o sekretny klucz (który przechowywany jest na serwerze) i jakieś
+            unikalne dla użytkownika dane, np. email . Token w rezultacie jest przechowywany na
+            front-endzie i wykorzystywany do autoryzacji każdego zapytania.
+          </p>
+          <p>
+            Każdy token to unikalny zaszyfrowany wiersz, który zawiera trzy bloki: nagłówek
+            (header), zbiór pól (payload) i sygnaturę. Próba podmiany danych w headerze lub
+            payloadzie (przez kogoś ze złymi zamiarami 🙂) spowoduje unieważnienie tokenu, gdyż jego
+            sygnatura nie będzie odpowiadała początkowym wartościom. Możliwości wygenerowania nowej
+            sygnatury nie ma, ponieważ tajny klucz szyfrowania znajduje się tylko na serwerze.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/jwt.png" alt="" />
+          </div>
+        </article>
+      </section>
+      <section id="4" class="text">
+        <article id="4.1">
+          <h2>4.1 Menadżer zadań</h2>
+          <p>
+            Przeanalizuj kompletny przykład aplikacji menadżera zadań, w którym dodana jest
+            realizacja rejestracji, loginu, aktualizacji użytkownika, przekierowania i pracy ze
+            zbiorem chronionych danych. W przykładzie wykorzystuje się pełnowartościowy back-end,
+            który tworzy JWT dla każdego użytkownika. Za pracę z użytkownikiem i tokenem odpowiada
+            część statusu state.auth, przeanalizuj slice, operację i selektory.
+          </p>
+          <p>Zanim jednak to zrobimy musimy wprowadzić na koniec kilka pojęć i bibliotek.</p>
+        </article>
+        <article id="4.2">
+          <h3>4.2 React Helmet</h3>
+          <p>
+            <a href="https://www.npmjs.com/package/react-helmet">React Helmet</a> pozwala nam na
+            modyfikację wszystkich właściwości head dokumentu. Najprostszym przykładem wykorzystania
+            tej biblioteki jest zmiana tytułu strony jako pole title w zależności od Routingu.
+          </p>
+          <p>
+            Nasza strona logowania nazwana Login.js wykorzystująca formularz LoginForm.jsx oraz
+            React Helmet wygląda w następujący sposób:
+          </p>
+          <pre>
+            import { Helmet } from 'react-helmet';
+            import { LoginForm } from 'components/LoginForm/LoginForm';
+
+            export default function Login() {
+              return (
+                &ltdiv>
+                  &ltHelmet>
+                    &lttitle>Login&lt/title>
+                  &lt/Helmet>
+                  &ltLoginForm />
+                &lt/div>
+              );
+            }
+          </pre>
+        </article>
+        <article id="4.3">
+          <h3>4.3 Redux Persist</h3>
+          <p>
+            <a href="https://www.npmjs.com/package/redux-persist">Redux Persist</a> pozwala na
+            przechowywanie informacji w Store także po odświeżeniu strony. Najcześciej jest używany
+            do przechowywania informacji o tokenie użytkownika. Dzięki temu, po odświeżeniu strony
+            użytkownik nie musi się ponownie logować - Redux Persist po odświeżeniu/ponownym wejściu
+            na stronę odczyta zapisane wcześniej informacji w np localStorage. Używając tej
+            biblioteki musimy zrobić zmiany w dwóch naszych plikach:
+          </p>
+          <pre>
+            store.js
+            import { configureStore } from "@reduxjs/toolkit";
+            import {
+              persistStore,
+              persistReducer,
+              FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
+            } from "redux-persist";
+            **import storage from "redux-persist/lib/storage";**
+            import { tasksReducer } from "./tasks/slice";
+            import { authReducer } from "./auth/slice";
+
+            // Persisting token field from auth slice to localstorage
+            const authPersistConfig = {
+              key: "auth",
+              storage,
+              whitelist: ["token"],
+            };
+
+            export const store = configureStore({
+              reducer: {
+                auth: persistReducer(authPersistConfig, authReducer),
+                tasks: tasksReducer,
+              },
+              **middleware: (getDefaultMiddleware) =>
+                getDefaultMiddleware({
+                  serializableCheck: {
+                    ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                  },
+                }),
+              devTools: process.env.NODE_ENV === "development",
+            });
+
+            export const persistor = persistStore(store);
+          </pre>
+          <p>
+            Idąc od góry: importujemy persistStore, persistReducer oraz kilka dodatkowych akcji z
+            redux-persist. Importujemy także storage - domyślnie jest to localStorage. W celu użycia
+            innych miejsc do przechowywania informacji zapraszam do dokumentacji biblioteki.
+          </p>
+          <p>Następnie definujemy authPersistConfig, w którym definiujemy 3 istotne element:</p>
+          <ul class="unnumbered-list-container">
+            <li>key - klucz o odpowiadającej nazwie naszego reducera</li>
+            <li>
+              storage - miejsce, w którym biblioteka będzie przechowywała informacje pomiędzy
+              odświeżeniami strony
+            </li>
+            <li>
+              whitelist lub blacklist -
+              <a href="https://www.npmjs.com/package/redux-persist#blacklist--whitelist"
+                >szczegóły dostępne w dokumentacji</a
+              >
+            </li>
+          </ul>
+          <p>
+            Kolejne dwie zmiany dotyczą już samej konfiguracji naszego store. Przede wszystkim
+            używamy metody persistReducer do której przekazujemy config oraz oryginalny reducer.
+            Następnie definujemy middleware, w którym przekazujemy informację na temat akcji, które
+            redux-persist ma ignorować podczas procesu zapisywania informacji do storage. Middleware
+            to kawałek kodu, który jest wykonywany "pomiędzy" danymi akcjami użytkownika - w naszym
+            wypadku pomiędzy wykonanią dowolnej akcji. O middlewarach nauczycie się więcej podczas
+            kursu Node.js. Ignorujemy kilka akcji celowo, ponieważ zależy nam na tym, by nasz kod
+            został odświeżany podczas wykonywania akcji przez użytkownika, a nie podczas akcji,
+            które redux-persist wykonuje.
+          </p>
+          <pre>
+            index.js
+            import React from 'react';
+            import ReactDOM from 'react-dom/client';
+            import { App } from 'components/App';
+            import { BrowserRouter } from 'react-router-dom';
+            import { PersistGate } from 'redux-persist/integration/react';
+            import { Provider } from 'react-redux';
+            import { store, persistor } from './redux/store';
+            import 'modern-normalize';
+            import './styles.css';
+
+            ReactDOM.createRoot(document.getElementById('root')).render(
+              &ltReact.StrictMode>
+                &ltProvider store={store}>
+                  **&ltPersistGate loading={null} persistor={persistor}>**
+                    &ltBrowserRouter>
+                      &ltApp />
+                    &lt/BrowserRouter>
+                  &lt/PersistGate>
+                &lt/Provider>
+              &lt/React.StrictMode>
+            );
+          </pre>
+          <p>
+            Do index.js zostały dodane pogrubione fragmenty kodu. PersistGate dodajemy w takim sam
+            sposób jak dodajemy React.Context. Musimy zdefiniować dwa argumenty:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>
+              loading - komponent (lub null), który się wyświetli, podczas gdy biblioteka będzie
+              próbowała pobrać początkowe dane
+            </li>
+            <li>persistor - wynik funkcji persistStore z naszego store.js</li>
+          </ul>
+        </article>
+        <article id="4.4">
+          <h3>4.4 Auth</h3>
+          <p>
+            Poza akcjami Redux`owymi, które znajdują się w src/redux/auth potrzebujemy dodać jeszcze
+            kilka plików:
+          </p>
+          <h4>Hook useAuth</h4>
+          <pre>
+            import { useSelector } from 'react-redux';
+            import {
+              selectUser,
+              selectIsLoggedIn,
+              selectIsRefreshing,
+            } from 'redux/auth/selectors';
+
+            export const useAuth = () => {
+              const isLoggedIn = useSelector(selectIsLoggedIn);
+              const isRefreshing = useSelector(selectIsRefreshing);
+              const user = useSelector(selectUser);
+
+              return {
+                isLoggedIn,
+                isRefreshing,
+                user,
+              };
+            };
+          </pre>
+          <p>
+            Hook ten pozwala nam w łatwy sposób dostać się do wszystkich informacji o użytkowniku.
+            Będziemy go wykorzystywać w kilku miejscach aplikacji. Jego głównym zadaniem jest
+            agregacja selektorów w jednym miejscu.
+          </p>
+          <h4>Komponenty PrivateRoute oraz RestrictedRoute</h4>
+          <pre>
+            import { Navigate } from 'react-router-dom';
+            import { useAuth } from 'hooks';
+
+            export const PrivateRoute = ({ component: Component, redirectTo = '/' }) => {
+              const { isLoggedIn, isRefreshing } = useAuth();
+              const shouldRedirect = !isLoggedIn && !isRefreshing;
+
+              return shouldRedirect ? &ltNavigate to={redirectTo} /> : Component;
+            };
+          </pre>
+          <p>
+            Komponenty te odpowiedzialne są za dostęp do naszych zasobów. Na podstawie hooka useAuth
+            otrzymujemy informacje o użytkowniku. Jeżeli użytkownik jest zalogowany i spróbuje wejść
+            na RestrictedRoute zostanie przekierowany na inny adres URL. Nie chcemy zalogowanemu
+            użytkownikowi dawać możliwości ponownego zalogowania się, bądź zarejestrowania. W
+            przypadku PrivateRoute sprawa jest odwrotna: jeżeli użytkownik nie jest zalogowany
+            należy go przekierować na odpowiedni adres URL.
+          </p>
+          <pre>
+            App.js
+            import { useEffect, lazy } from 'react';
+            import { useDispatch } from 'react-redux';
+            import { Route, Routes } from 'react-router-dom';
+            import { Layout } from './Layout';
+            import { PrivateRoute } from './PrivateRoute';
+            import { RestrictedRoute } from './RestrictedRoute';
+            import { refreshUser } from 'redux/auth/operations';
+            import { useAuth } from 'hooks';
+
+            const HomePage = lazy(() => import('../pages/Home'));
+            const RegisterPage = lazy(() => import('../pages/Register'));
+            const LoginPage = lazy(() => import('../pages/Login'));
+            const TasksPage = lazy(() => import('../pages/Tasks'));
+
+            export const App = () => {
+              const dispatch = useDispatch();
+              const { isRefreshing } = useAuth();
+
+              useEffect(() => {
+                dispatch(refreshUser());
+              }, [dispatch]);
+
+              return isRefreshing ? (
+                &ltb>Refreshing user...&lt/b>
+              ) : (
+                &ltRoutes>
+                  &ltRoute path="/" element={&ltLayout />}>
+                    &ltRoute index element={&ltHomePage />} />
+                    &ltRoute
+                      path="/register"
+                      element={
+                        &ltRestrictedRoute redirectTo="/tasks" component={&ltRegisterPage />} />
+                      }
+                    />
+                    &ltRoute
+                      path="/login"
+                      element={
+                        &ltRestrictedRoute redirectTo="/tasks" component={&ltLoginPage />} />
+                      }
+                    />
+                    &ltRoute
+                      path="/tasks"
+                      element={
+                        &ltPrivateRoute redirectTo="/login" component={&ltTasksPage />} />
+                      }
+                    />
+                  &lt/Route>
+                &lt/Routes>
+              );
+            };
+          </pre>
+          <p>
+            Ostatnia rzecz to zmiany w App.js. Przede wszystkim definiujemy, które ścieżki są
+            Private i powinniśmy przekierować użytkowników na /login, a które są Restricted i
+            powinniśmy zalogowanych użytkowników kierować na stronę /tasks.
+          </p>
+          <p>
+            <a
+              href="https://codesandbox.io/p/sandbox/goit-textbook-lesson-15-16-auth-final-lvri7x?from-embed="
+              >codesandbox.io</a
+            >
+          </p>
+        </article>
+      </section>
+      <section id="5" class="text">
+        <article id="5.1">
+          <h2>5.1 Filmy</h2>
+          <p>
+            <a target="_blank" href="https://youtu.be/9HnQKzxPU6A"
+              >Zajęcie Moduł 8. Użytkownicy. cz.1</a
+            >
+          </p>
+          <p>
+            <a target="_blank" href="https://youtu.be/tMN1yAKuJbo"
+              >Zajęcie Moduł 8. Użytkownicy. cz.2</a
+            >
+          </p>
         </article>
       </section>
     </main>
     <footer class="footer">
       <div class="footer-logo">
-        <img
-          src="../images/footer/konikMaly24x24Squoosh.png"
-          alt="logoImage"
-          width="24"
-        />
+        <img src="../images/footer/konikMaly24x24Squoosh.png" alt="logoImage" width="24" />
         <img src="../images/footer/3KLogo.png" alt="logoText" />
       </div>
       <div id="footer-title">

@@ -133,18 +133,999 @@ SCSS:
           </p>
         </article>
         <article id="1.2">
-          <h2>1.2 Komórki nagłówkowe</h2>
+          <h3>1.2 Komórki nagłówkowe</h3>
           <p>
             Aby utworzyć wiersz z nagłówkami kolumn, używamy standardowego znacznika &lttr> dla
             wiersza i oznaczamy komórki specjalnym znacznikiem &ltth> (table header) - semantycznym
-            znacznikiem komórki nagłówkowej. Domyślnie tekst wewnątrz &lt/th> &ltth>jest zaznaczony
-            pogrubioną czcionką i jest wyśrodkowany.&lt/th>
+            znacznikiem komórki nagłówkowej. Domyślnie tekst wewnątrz &ltth> jest zaznaczony
+            pogrubioną czcionką i jest wyśrodkowany.
           </p>
-
+          <pre>
+            &lttable>
+              &lttr>
+                &ltth>Numer&lt/th>
+                &ltth>Trasa&lt/th>
+                &ltth>Czas podróży&lt/th>
+              &lt/tr>
+              &lttr>
+                &lttd>433&lt/td>
+                &lttd>Kijów - Kowel&lt/td>
+                &lttd>5 godzin&lt/td>
+              &lt/tr>
+              &lttr>
+                &lttd>701&lt/td>
+                &lttd>Charków - Dniepr&lt/td>
+                &lttd>7 godzin&lt/td>
+              &lt/tr>
+              &lttr>
+                &lttd>258&lt/td>
+                &lttd>Lwów - Odessa&lt/td>
+                &lttd>4 godziny&lt/td>
+              &lt/tr>
+            &lt/table>
+          </pre>
           <ruby>B<rt>annotation</rt>Brykiet<rt>annotation</rt></ruby>
           <ruby class="inverted-ruby"> B<rt>annotation</rt>Brykiet<rt>annotation</rt> </ruby>
           <ruby>漢<rp>（</rp><rt>かん</rt><rp>）</rp>字<rp>（</rp><rt>じ</rt><rp>）</rp></ruby>
         </article>
+        <article id="1.3">
+          <h3>1.3 Sekcje tabeli</h3>
+          <p>Aby ulepszyć semantykę znaczników tabeli, istnieje kilka znaczników strukturalnych.</p>
+          <ul class="unnumbered-list-container">
+            <li>&ltthead> - nagłówek, który opakowuje grupę wierszy tabeli w obszarze nagłówka.</li>
+            <li>&lttbody> - ciało, opakowuje główną grupę wierszy tabeli.</li>
+            <li>&lttfoot> - stopka, oznacza grupę wierszy tabeli w obszarze stopki.</li>
+          </ul>
+          <p>
+            W rozkładzie pociągów można wybrać nagłówek z jednego wiersza z nazwami kolumn i ciało.
+          </p>
+          <pre>
+            &lttable>
+              &ltthead>
+                &lttr>
+                  &ltth>Numer&lt/th>
+                  &ltth>Trasa&lt/th>
+                  &ltth>Czas podróży&lt/th>
+                &lt/tr>
+              &lt/thead>
+
+              &lttbody>
+                &lttr>
+                  &lttd>433&lt/td>
+                  &lttd>Kijów - Kowel&lt/td>
+                  &lttd>5 godzin&lt/td>
+                &lt/tr>
+                &lttr>
+                  &lttd>701&lt/td>
+                  &lttd>Charków - Dniepr&lt/td>
+                  &lttd>7 godzin&lt/td>
+                &lt/tr>
+                &lttr>
+                  &lttd>258&lt/td>
+                  &lttd>Lwów - Odessa&lt/td>
+                  &lttd>4 godziny&lt/td>
+                &lt/tr>
+              &lt/tbody>
+            &lt/table>
+          </pre>
+        </article>
+        <article id="1.4">
+          <h3>1.4 Nagłówek tabeli</h3>
+          <p>
+            Jeśli tabela ma nagłówek, można oczywiście oznaczyć go za pomocą znaczników nagłówka.
+          </p>
+          <pre>
+            &lth1>Rozkład jazdy pociągów&lt/h1>
+            &lttable>
+              &lt!-- Znaczniki tabeli -->
+            &lt/table>
+          </pre>
+          <p>
+            Ale byłoby bardziej semantycznie użyć specjalnego znacznika tabeli &ltcaption>, który
+            powinien znajdować się wewnątrz tabeli jako pierwszy element.
+          </p>
+          <pre>
+            &lttable>
+              &ltcaption>
+                Rozkład jazdy pociągów
+              &lt/caption>
+
+              &lt!-- Reszta znaczników tabeli -->
+            &lt/table>
+          </pre>
+        </article>
+        <article id="1.5">
+          <h3>1.5 Łączenie komórek</h3>
+          <p>
+            Niektóre tabele są zrobione tak, że trzeba połączyć kilka komórek poziomo lub pionowo.
+          </p>
+          <p>
+            Napiszmy znaczniki takiej tabeli dodając dodatkowe komórki, biorąc pod uwagę, że „Usługa
+            w chmurze" zajmie dwie komórki w pionie, a „Użycie" - trzy w poziomie.
+          </p>
+          <div class="example-theory">
+            <div>
+              <pre>
+&lttable>
+  &ltthead>
+    &lttr>
+      &ltth>Usługa w chmurze&lt/th>
+      &ltth>Użycie&lt/th>
+      &ltth>&lt/th>
+      &ltth>&lt/th>
+    &lt/tr>
+    &lttr>
+      &ltth>&lt/th>
+      &ltth>Użytkownicy&lt/th>
+      &ltth>Odwiedzenia&lt/th>
+      &ltth>Rozmiar&lt/th>
+    &lt/tr>
+  &lt/thead>
+  &lttbody>
+    &lttr>
+      &lttd>Google&lt/td>
+      &lttd>12000&lt/td>
+      &lttd>307000&lt/td>
+      &lttd>1000 Tb&lt/td>
+    &lt/tr>
+    &lttr>
+      &lttd>Amazon&lt/td>
+      &lttd>9000&lt/td>
+      &lttd>200500&lt/td>
+      &lttd>800 Tb&lt/td>
+    &lt/tr>
+  &lt/tbody>
+&lt/table>
+            </pre
+              >
+            </div>
+            <div>
+              <table class="table-train">
+                <thead>
+                  <tr>
+                    <th>Usługa w chmurze</th>
+                    <th>Użycie</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>Użytkownicy</th>
+                    <th>Odwiedzenia</th>
+                    <th>Rozmiar</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>Google</td>
+                    <td>12000</td>
+                    <td>307000</td>
+                    <td>1000 Tb</td>
+                  </tr>
+                  <tr>
+                    <td>Amazon</td>
+                    <td>9000</td>
+                    <td>200500</td>
+                    <td>800 Tb</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p>
+            Zwróćcie uwagę na puste znaczniki &ltth>, każdy wiersz musi mieć taką samą liczbę
+            komórek, więc na razie zostawimy "dodatkowe" puste. W rezultacie otrzymujemy taką
+            tabelę.
+          </p>
+          <p>
+            Zasady równej liczby komórek w wierszach i kolumnach nie można cofnąć, ale można ją
+            ominąć. Aby rozszerzyć komórkę w poziomie, używa się atrybutu colspan, w pionie -
+            rowspan.
+          </p>
+          <p>
+            Trzeba określić grupę komórek do scalenia, a następnie ustawić atrybut colspan dla
+            najwyższej lewej komórki w grupie z liczbą komórek do scalenia po prawej stronie i / lub
+            rowspan na dole. Następnie konieczne jest usunięcie komórek, które stały się
+            niepotrzebne po prawej stronie i / lub na dole.
+          </p>
+          <p>
+            W naszym zadaniu komórka "Usługa w chmurze" powinna zajmować 2 komórki w pionie, więc
+            dodajemy do niej rowspan="2" i usuwamy puste &ltth> w wierszu poniżej. Podobnie z
+            komórką "Użycie" ustawiamy colspan="3"i usuwamy dwie sąsiednie komórki po prawej stronie
+            w tym wierszu.
+          </p>
+          <div class="example-theory">
+            <div>
+              <pre>
+&lttable>
+  &ltthead>
+    &lttr>
+      &ltth rowspan="2">Usługa w chmurze&lt/th>
+      &ltth colspan="3">Użycie&lt/th>
+      &ltth>&lt/th>
+      &ltth>&lt/th>
+    &lt/tr>
+    &lttr>
+      &ltth>&lt/th>
+      &ltth>Użytkownicy&lt/th>
+      &ltth>Odwiedzenia&lt/th>
+      &ltth>Rozmiar&lt/th>
+    &lt/tr>
+  &lt/thead>
+  &lttbody>
+    &lttr>
+      &lttd>Google&lt/td>
+      &lttd>12000&lt/td>
+      &lttd>307000&lt/td>
+      &lttd>1000 Tb&lt/td>
+    &lt/tr>
+    &lttr>
+      &lttd>Amazon&lt/td>
+      &lttd>9000&lt/td>
+      &lttd>200500&lt/td>
+      &lttd>800 Tb&lt/td>
+    &lt/tr>
+  &lt/tbody>
+&lt/table>
+            </pre
+              >
+            </div>
+            <div>
+              <table class="table-train">
+                <thead>
+                  <tr>
+                    <th rowspan="2">Usługa w chmurze</th>
+                    <th colspan="3">Użycie</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>Użytkownicy</th>
+                    <th>Odwiedzenia</th>
+                    <th>Rozmiar</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>Google</td>
+                    <td>12000</td>
+                    <td>307000</td>
+                    <td>1000 Tb</td>
+                  </tr>
+                  <tr>
+                    <td>Amazon</td>
+                    <td>9000</td>
+                    <td>200500</td>
+                    <td>800 Tb</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <hr />
+        </article>
+        <article id="1.6">
+          <h3>1.6 Przykład</h3>
+          <table class="first-table-container">
+            <thead>
+              <tr>
+                <th><h1>Sites</h1></th>
+                <th><h1>Views</h1></th>
+                <th><h1>Clicks</h1></th>
+                <th><h1>Average</h1></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Google</td>
+                <td>9518</td>
+                <td>6369</td>
+                <td>01:32:50</td>
+              </tr>
+              <tr>
+                <td>Twitter</td>
+                <td>7326</td>
+                <td>10437</td>
+                <td>00:51:22</td>
+              </tr>
+              <tr>
+                <td>Amazon</td>
+                <td>4162</td>
+                <td>5327</td>
+                <td>00:24:34</td>
+              </tr>
+              <tr>
+                <td>LinkedIn</td>
+                <td>3654</td>
+                <td>2961</td>
+                <td>00:12:10</td>
+              </tr>
+              <tr>
+                <td>CodePen</td>
+                <td>2002</td>
+                <td>4135</td>
+                <td>00:46:19</td>
+              </tr>
+              <tr>
+                <td>GitHub</td>
+                <td>4623</td>
+                <td>3486</td>
+                <td>00:31:52</td>
+              </tr>
+            </tbody>
+          </table>
+          <h5 class="second-table-heading">Fixed Table header</h5>
+          <div class="tbl-header">
+            <table class="second-table" cellpadding="0" cellspacing="0" border="0">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Company</th>
+                  <th>Price</th>
+                  <th>Change</th>
+                  <th>Change %</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="tbl-content">
+            <table class="second-table" cellpadding="0" cellspacing="0" border="0">
+              <tbody>
+                <tr>
+                  <td>AAC</td>
+                  <td>AUSTRALIAN COMPANY</td>
+                  <td>$1.38</td>
+                  <td>+2.01</td>
+                  <td>-0.36%</td>
+                </tr>
+                <tr>
+                  <td>AAD</td>
+                  <td>AUSENCO</td>
+                  <td>$2.38</td>
+                  <td>-0.01</td>
+                  <td>-1.36%</td>
+                </tr>
+                <tr>
+                  <td>AAX</td>
+                  <td>ADELAIDE</td>
+                  <td>$3.22</td>
+                  <td>+0.01</td>
+                  <td>+1.36%</td>
+                </tr>
+                <tr>
+                  <td>XXD</td>
+                  <td>ADITYA BIRLA</td>
+                  <td>$1.02</td>
+                  <td>-1.01</td>
+                  <td>+2.36%</td>
+                </tr>
+                <tr>
+                  <td>AAC</td>
+                  <td>AUSTRALIAN COMPANY</td>
+                  <td>$1.38</td>
+                  <td>+2.01</td>
+                  <td>-0.36%</td>
+                </tr>
+                <tr>
+                  <td>AAD</td>
+                  <td>AUSENCO</td>
+                  <td>$2.38</td>
+                  <td>-0.01</td>
+                  <td>-1.36%</td>
+                </tr>
+                <tr>
+                  <td>AAX</td>
+                  <td>ADELAIDE</td>
+                  <td>$3.22</td>
+                  <td>+0.01</td>
+                  <td>+1.36%</td>
+                </tr>
+                <tr>
+                  <td>XXD</td>
+                  <td>ADITYA BIRLA</td>
+                  <td>$1.02</td>
+                  <td>-1.01</td>
+                  <td>+2.36%</td>
+                </tr>
+                <tr>
+                  <td>AAC</td>
+                  <td>AUSTRALIAN COMPANY</td>
+                  <td>$1.38</td>
+                  <td>+2.01</td>
+                  <td>-0.36%</td>
+                </tr>
+                <tr>
+                  <td>AAD</td>
+                  <td>AUSENCO</td>
+                  <td>$2.38</td>
+                  <td>-0.01</td>
+                  <td>-1.36%</td>
+                </tr>
+                <tr>
+                  <td>AAX</td>
+                  <td>ADELAIDE</td>
+                  <td>$3.22</td>
+                  <td>+0.01</td>
+                  <td>+1.36%</td>
+                </tr>
+                <tr>
+                  <td>XXD</td>
+                  <td>ADITYA BIRLA</td>
+                  <td>$1.02</td>
+                  <td>-1.01</td>
+                  <td>+2.36%</td>
+                </tr>
+                <tr>
+                  <td>AAC</td>
+                  <td>AUSTRALIAN COMPANY</td>
+                  <td>$1.38</td>
+                  <td>+2.01</td>
+                  <td>-0.36%</td>
+                </tr>
+                <tr>
+                  <td>AAD</td>
+                  <td>AUSENCO</td>
+                  <td>$2.38</td>
+                  <td>-0.01</td>
+                  <td>-1.36%</td>
+                </tr>
+                <tr>
+                  <td>AAX</td>
+                  <td>ADELAIDE</td>
+                  <td>$3.22</td>
+                  <td>+0.01</td>
+                  <td>+1.36%</td>
+                </tr>
+                <tr>
+                  <td>XXD</td>
+                  <td>ADITYA BIRLA</td>
+                  <td>$1.02</td>
+                  <td>-1.01</td>
+                  <td>+2.36%</td>
+                </tr>
+                <tr>
+                  <td>AAC</td>
+                  <td>AUSTRALIAN COMPANY</td>
+                  <td>$1.38</td>
+                  <td>+2.01</td>
+                  <td>-0.36%</td>
+                </tr>
+                <tr>
+                  <td>AAD</td>
+                  <td>AUSENCO</td>
+                  <td>$2.38</td>
+                  <td>-0.01</td>
+                  <td>-1.36%</td>
+                </tr>
+                <tr>
+                  <td>AAX</td>
+                  <td>ADELAIDE</td>
+                  <td>$3.22</td>
+                  <td>+0.01</td>
+                  <td>+1.36%</td>
+                </tr>
+                <tr>
+                  <td>XXD</td>
+                  <td>ADITYA BIRLA</td>
+                  <td>$1.02</td>
+                  <td>-1.01</td>
+                  <td>+2.36%</td>
+                </tr>
+                <tr>
+                  <td>AAC</td>
+                  <td>AUSTRALIAN COMPANY</td>
+                  <td>$1.38</td>
+                  <td>+2.01</td>
+                  <td>-0.36%</td>
+                </tr>
+                <tr>
+                  <td>AAD</td>
+                  <td>AUSENCO</td>
+                  <td>$2.38</td>
+                  <td>-0.01</td>
+                  <td>-1.36%</td>
+                </tr>
+                <tr>
+                  <td>AAX</td>
+                  <td>ADELAIDE</td>
+                  <td>$3.22</td>
+                  <td>+0.01</td>
+                  <td>+1.36%</td>
+                </tr>
+                <tr>
+                  <td>XXD</td>
+                  <td>ADITYA BIRLA</td>
+                  <td>$1.02</td>
+                  <td>-1.01</td>
+                  <td>+2.36%</td>
+                </tr>
+                <tr>
+                  <td>AAC</td>
+                  <td>AUSTRALIAN COMPANY</td>
+                  <td>$1.38</td>
+                  <td>+2.01</td>
+                  <td>-0.36%</td>
+                </tr>
+                <tr>
+                  <td>AAD</td>
+                  <td>AUSENCO</td>
+                  <td>$2.38</td>
+                  <td>-0.01</td>
+                  <td>-1.36%</td>
+                </tr>
+                <tr>
+                  <td>AAX</td>
+                  <td>ADELAIDE</td>
+                  <td>$3.22</td>
+                  <td>+0.01</td>
+                  <td>+1.36%</td>
+                </tr>
+                <tr>
+                  <td>XXD</td>
+                  <td>ADITYA BIRLA</td>
+                  <td>$1.02</td>
+                  <td>-1.01</td>
+                  <td>+2.36%</td>
+                </tr>
+                <tr>
+                  <td>AAC</td>
+                  <td>AUSTRALIAN COMPANY</td>
+                  <td>$1.38</td>
+                  <td>+2.01</td>
+                  <td>-0.36%</td>
+                </tr>
+                <tr>
+                  <td>AAD</td>
+                  <td>AUSENCO</td>
+                  <td>$2.38</td>
+                  <td>-0.01</td>
+                  <td>-1.36%</td>
+                </tr>
+                <tr>
+                  <td>AAX</td>
+                  <td>ADELAIDE</td>
+                  <td>$3.22</td>
+                  <td>+0.01</td>
+                  <td>+1.36%</td>
+                </tr>
+                <tr>
+                  <td>XXD</td>
+                  <td>ADITYA BIRLA</td>
+                  <td>$1.02</td>
+                  <td>-1.01</td>
+                  <td>+2.36%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Znaczniki tekstu</h2>
+        </article>
+        <article id="2.2">
+          <h3>2.2 Znacznik &ltdl></h3>
+          <p>
+            Znacznik &ltdl> (description list) jest to kontener na listę par terminów i ich opisów,
+            czyli słownik. Istnieje znacznik &ltdt> do tagowania terminów i znacznik &ltdd> do
+            opisów. Służy do zaznaczania (tagowania) listy definicji, na przykład podczas tworzenia
+            glosariusza, książki telefonicznej itp.
+          </p>
+          <dl class="znacznik-dl">
+            <dt>JPEG</dt>
+            <dd>
+              Large files that do not require transparent backgrounds or animations. This format is
+              ideal for vivid photorealistic photographs as it can contain millions of colors.
+            </dd>
+            <dt>PNG</dt>
+            <dd>
+              Has an additional parameter for describing transparency - the alpha channel. Suitable
+              for images with transparent or monochrome backgrounds. Used for icons and decorative
+              items.
+            </dd>
+            <dt>webP</dt>
+            <dd>
+              A replacement format for PNG and JPEG, but with incomplete browser support. When equal
+              image quality, the compressed files will be smaller than PNG and JPEG on average by
+              25%.
+            </dd>
+          </dl>
+        </article>
+        <article id="2.2">
+          <h3>2.2 Znacznik &ltspan></h3>
+          <p>
+            Uniwersalny kontener dla małej zawartości tekstowej, takiej jak pojedyncze słowa,
+            fragmenty słów lub frazy w tablicy tekstowej. Podobnie jak znacznik &ltdiv>, nie ma
+            znaczenia semantycznego i służy do dodatkowej stylizacji.
+          </p>
+          <pre>
+            &ltp>
+              Znacznik &ltspan class="znacznik-span">span&lt/span> jest to uniwersalny pojemnik na małą
+              zawartość tekstową.
+            &lt/p>
+          </pre>
+          <p>
+            Spanowi z atrybutem class="znacznik-span" za pomocą CSS można dodać style, na przykład
+            inny kolor tekstu, jego rozmiar itp.
+          </p>
+          <p>
+            Znacznik <span class="znacznik-span">span</span> jest to uniwersalny pojemnik na małą
+            zawartość tekstową.
+          </p>
+        </article>
+        <article id="2.3">
+          <h3>2.3 Znacznik &ltpre></h3>
+          <p>
+            Domyślnie przeglądarka ignoruje podziały wierszy i więcej niż jedną spację z rzędu. Ten
+            znacznik umożliwia dodanie przeformatowanego tekstu z wymuszonymi znakami końca wiersza.
+            Na przykład zaznaczanie tekstu piosenki lub wiersza.
+          </p>
+          <pre>
+            Wyatt resteth here, that quick could never rest;
+            Whose heavenly gifts increased by disdain,
+            And virtue sank the deeper in his breast;
+            Such profit he by envy could obtain.
+          </pre>
+        </article>
+        <article id="2.4">
+          <h3>2.4 Znacznik &ltsup> i &ltsub></h3>
+          <p>
+            Przeznaczone do wyświetlania znaków w górnym (&ltsup>, skrót od superscript) i dolnym
+            (&ltsub>, skrót od subscript) indeksie. Na przykład do oznaczania prostych wzorów
+            matematycznych lub chemicznych.
+          </p>
+          <pre>
+            &ltp>Formula of water  - H&ltsub>2&lt/sub>O&lt/p>
+            &ltp>Total area of the room - 150м&ltsup>2&lt/sup>.&lt/p>
+            &ltp>Solve the equation a&ltsup>3&lt/sup>+a&ltsup>2&lt/sup>=4&lt/p>
+          </pre>
+          <p>Formula of water - H<sub>2</sub>O</p>
+          <p>Total area of the room - 150м<sup>2</sup>.</p>
+          <p>Solve the equation a<sup>3</sup>+a<sup>2</sup>=4</p>
+        </article>
+        <article id="2.5">
+          <h3>2.5 Znacznik &lttime></h3>
+          <p>
+            Datę i godzinę można zapisać zwykłym tekstem, ale lepiej jest użyć specjalnego znacznika
+            &lttime>. Data dla osoby to tekst wewnątrz znacznika, a dla maszyny - wartość atrybutu
+            datetime w formacie <a href="https://pl.wikipedia.org/wiki/ISO_8601">ISO 8601</a>.
+          </p>
+          <pre>
+            &ltp>
+              Najnowsze wiadomości &lttime datetime="2019-12-14">14 grudnia 2019 roku&lt/time>.
+            &lt/p>
+            &ltp>
+              Spotkanie odbyło się o &lttime datetime="2018-07-14T11:30">11:30 rano&lt/time>.
+            &lt/p>
+          </pre>
+          <p>Najnowsze wiadomości <time datetime="2019-12-14">14 grudnia 2019 roku</time>.</p>
+          <p>Spotkanie odbyło się o <time datetime="2018-07-14T11:30">11:30 rano</time>.</p>
+          <p>
+            Przeglądarka wyświetli tylko tekst wewnątrz znacznika. Osoba zobaczy zrozumiały tekst, a
+            technologie asystujące odczytają atrybut datetime i uzyskają dokładną wartość w
+            wymaganym formacie.
+          </p>
+        </article>
+        <article id="2.6">
+          <h3>2.6 Znacznik &ltaddress></h3>
+          <p>
+            Przeznaczony do przechowywania danych kontaktowych autora artykułu, bloku informacji lub
+            całej strony internetowej. Informacje kontaktowe mogą mieć dowolną odpowiednią formę, na
+            przykład adres fizyczny, adres e-mail, link do strony internetowej, numeru telefonu,
+            znacznik sieci społecznościowej.
+          </p>
+          <pre>
+            &ltaddress>
+              c. London, &ltbr />
+              Dalton House &ltbr />
+              66 Windsor Avenue, SW19 2RR
+            &lt/address>
+
+            &ltaddress>
+              &lta href="mailto:mango@mail.pig">mango@mail.pig&lt/a>
+              &lta href="tel:+1112223344">(111) 222-33-44&lt/a>
+            &lt/address>
+          </pre>
+          <address>
+            c. London, <br />
+            Dalton House <br />
+            66 Windsor Avenue, SW19 2RR
+          </address>
+          <address>
+            <a href="mailto:mango@mail.pig">mango@mail.pig</a>
+            <a href="tel:+1112223344">(111) 222-33-44</a>
+          </address>
+          <p>
+            Zwróćcie uwagę na znacznik &ltbr>, służy on do oznaczania tablicy tekstu z wymuszonymi
+            podziałami wierszy w celu wizualnego formatowania. Na przykład zaznaczenie jednego
+            wiersza adresu w kilku wierszach.
+          </p>
+          <p>
+            Uwaga: Znacznik &ltbr/> (skrót od line break) nie jest używany do wymuszonego dodawania
+            podziałów wierszy między znacznikami ani do dzielenia tablicy tekstu na akapity.
+          </p>
+        </article>
+        <article id="2.7">
+          <h3>2.7 Znacznik &ltstrong> i &ltb></h3>
+          <p>
+            Używane do podkreślenia ważnego słowa lub całej frazy w tekście. Wizualnie oba znaczniki
+            pogrubiają tekst i na pierwszy rzut oka nie ma między nimi różnicy, ale tak nie jest.
+          </p>
+          <p>
+            Znacznik &ltstrong> semantycznie podkreśla tekst jako ważny i wskazuje, że jest to
+            znaczące słowo lub fraza. Na przykład zaznaczyć ostrzeżenie lub dowolną część tekstu, na
+            którą użytkownik powinien najpierw zwrócić uwagę.
+          </p>
+          <pre>
+            &ltp>
+              &ltb>Uwaga!&lt/b> Okres subskrypcji dobiega końca.
+              &ltstrong>Konto zostanie zawieszone.&lt/strong> Odnów subskrypcję lub skontaktuj
+              się z pomocą techniczną.
+            &lt/p>
+          </pre>
+          <p>
+            <b>Uwaga!</b> Okres subskrypcji dobiega końca.
+            <strong>Konto zostanie zawieszone.</strong> Odnów subskrypcję lub skontaktuj się z
+            pomocą techniczną.
+          </p>
+          <p>
+            Znacznik &ltb> (skrót od bold) powoduje, że tekst jest tylko wizualnie pogrubiony,
+            przyciąga uwagę, ale nie przywiązuje szczególnej wagi.
+          </p>
+          <p>
+            Interesująco: W przypadku technologii asystujących, takich jak czytnik ekranu, tekst
+            zawinięty w &ltstrong> ma szczególne znaczenie i będzie dodatkowo wyróżniony intonacją.
+          </p>
+        </article>
+        <article id="2.8">
+          <h3>2.8 Znacznik &ltem> i &lti></h3>
+          <p>
+            Używane do akcentowania uwagi na fragmentach tekstu. Wizualnie oba znaczniki sprawiają,
+            że tekst jest kursywą i na pierwszy rzut oka nie ma między nimi różnicy, ale tak nie
+            jest.
+          </p>
+          <p>
+            Znacznik &ltem> (skrót od emphasis) semantycznie podkreśla tekst, na który kładzie się
+            specjalny nacisk, który zmienia znaczenie frazy. Na przykład można podkreślić sarkazm.
+          </p>
+          <pre>
+            &ltp>Jak &ltem>się cieszę&lt/em> gdy wynagrodzenie jest spóźnione!&lt/p>
+            &ltp>Jak &lti>smutno&lt/i> gdy świeci słońce!&lt/p>
+          </pre>
+          <p>Jak <em>się cieszę</em> gdy wynagrodzenie jest spóźnione!</p>
+          <p>Jak <i>smutno</i> gdy świeci słońce!</p>
+          <p>
+            Znacznik &lti> (skrót od italic) sprawia, że tekst jest tylko wizualnie kursywą, zwraca
+            na siebie uwagę, ale nie przywiązuje szczególnej wagi. Na przykład wydzielić terminy w
+            zdaniu.
+          </p>
+          <p>
+            Interesująco: W przypadku technologii asystujących, takich jak czytnik ekranu, tekst
+            zawinięty w &ltem> ma specjalny nacisk i będzie dodatkowo wyróżniony intonacją.
+          </p>
+        </article>
+      </section>
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Wideo i audio</h2>
+          <p>
+            Przed HTML5 znaczniki wideo i audio były trudnym zadaniem. W nowoczesnym standardzie
+            dodano nowe znaczniki do oznaczania treści multimedialnych z obsługą różnych formatów,
+            wbudowanych elementów sterujących itp.
+          </p>
+        </article>
+        <article id="3.2">
+          <h3>3.2 Wideo</h3>
+          <p>Sparowany znacznik służy do oznaczania treści wideo &ltvideo>.</p>
+          <pre>
+            &ltvideo
+              src="https://videocdn.cdnpk.net/videos/5b68b560-422a-4fd1-871b-1bcddf2af118/horizontal/previews/clear/
+              large.mp4token=exp=1723924703~hmac=710660ce898b6b62c7ed6c8f659f030c80901a38422d8f32da3ffb3f70dcdc34"
+              poster="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?w=640"
+              width="640"
+              controls
+              autoplay
+              loop
+              preload="auto"
+            >&lt/video>
+          </pre>
+          <video
+            src="https://videocdn.cdnpk.net/videos/5b68b560-422a-4fd1-871b-1bcddf2af118/horizontal/previews/clear/large.mp4?token=exp=1723924703~hmac=710660ce898b6b62c7ed6c8f659f030c80901a38422d8f32da3ffb3f70dcdc34"
+            poster="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?w=640"
+            width="640"
+            controls
+            autoplay
+            loop
+            preload="auto"
+          ></video>
+           <video
+            src="https://www.youtube.com/watch?v=K4TOrB7at0Y"
+            poster="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?w=640"
+            width="640"
+            controls
+            autoplay
+            loop
+            preload="auto"
+          ></video>
+          <p>Przeanalizujmy atrybuty.</p>
+          <ul class="unnumbered-list-container">
+            <li>src - wskazuje adres pliku wideo</li>
+            <li>
+              poster - adres obrazu, który jest używany jako plakat, jeśli wideo nie zostało
+              załadowane lub nie jest jeszcze odtwarzane
+            </li>
+            <li>width i height - ustawiają wysokość i szerokość, jak w obrazie</li>
+            <li>
+              controls - atrybut "flaga", jeśli występuje, dodają się elementy sterujące wideo
+            </li>
+            <li>
+              autoplay - atrybut "flaga", jeśli jest obecny, rozpocznie się odtwarzanie wideo jak
+              tylko ono będzie dostępne
+            </li>
+            <li>loop - atrybut "flaga", jeśli jest obecny, wideo zostanie powtórzone w pętli</li>
+          </ul>
+          <p>
+            Atrybut preload wskazuje tryb wstępnego ładowania wideo. Jego wartość wpływa na to,
+            jakie informacje zostaną załadowane. Wartość domyślna zależy od przeglądarki, w której
+            została otwarta strona internetowa.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>none - nie pobierać wideo z wyprzedzeniem</li>
+            <li>metadata - pobrać informacje o usłudze ładowania (czas trwania itp.)</li>
+            <li>auto - pobrać całe wideo z wyprzedzeniem</li>
+          </ul>
+          <h4>Formaty wideo</h4>
+          <p>
+            Pobranie tylko jednego formatu pliku wideo nie wystarczy, niektóre przeglądarki mogą go
+            nie obsługiwać, a użytkownik nie będzie mógł obejrzeć wideo. Istnieje kilka popularnych
+            formatów wideo, które należy udostępnić przeglądarce do wyboru: webm, mp4 i ogg.
+          </p>
+          <p>
+            Aby to zrobić, trzeba usunąć atrybut src z znacznika &ltvideo> i dodać nowy znacznik
+            &ltsource> dla każdego formatu. W atrybucie src należy ukazać adres pliku wideo,
+            natomiast w atrybucie type format wideo. Przeglądarka wybierze pierwszy z listy, który
+            obsługuje i załaduje, ignorując resztę.
+          </p>
+          <pre>
+            &ltvideo
+              poster="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?w=640"
+              width="640"
+              controls
+            >
+              &ltsource
+                src="http://techslides.com/demos/sample-videos/small.webm"
+                type="video/webm"
+              />
+              &ltsource
+                src="http://techslides.com/demos/sample-videos/small.mp4"
+                type="video/mp4"
+              />
+              &ltsource
+                src="http://techslides.com/demos/sample-videos/small.ogg"
+                type="video/ogg"
+              />
+            &lt/video>
+          </pre>
+          <p>
+            Interesująco: Konwersja wideo i audio do wymaganych formatów jest zadaniem twórcy
+            treści, menedżera treści lub w skrajnych przypadkach programisty.
+          </p>
+        </article>
+        <article id="3.3">
+          <h3>3.3 Audio</h3>
+          <p>
+            Sparowany znacznik &ltaudio> jest używany do oznaczania treści audio. Jego użycie jest
+            bardzo podobne do &ltvideo>, ale można ustawić mniej atrybutów.
+          </p>
+          <pre>
+             &ltaudio controls>
+                &ltsource
+                  src="../music/Aylex - Energizer (freetouse.com).mp3"
+                  type="audio/mpeg"
+                  preload="auto"
+                />
+                &lt!-- &ltsource src="song.ogg" type="audio/ogg" /> -->
+                Your browser does not support the &ltcode>audio&lt/code> element.
+              &lt/audio>
+          </pre>
+          <ul>
+            <li>
+              <audio controls>
+                <source
+                  src="../music/Aylex - Energizer (freetouse.com).mp3"
+                  type="audio/mpeg"
+                  preload="auto"
+                />
+                <!-- <source src="song.ogg" type="audio/ogg" /> -->
+                Your browser does not support the <code>audio</code> element.
+              </audio>
+            </li>
+            <li>
+              <audio controls>
+                <source
+                  src="../music/Aylex - Storm (freetouse.com).mp3"
+                  type="audio/mpeg"
+                  preload="auto"
+                />
+                <!-- <source src="song.ogg" type="audio/ogg" /> -->
+                Your browser does not support the <code>audio</code> element.
+              </audio>
+            </li>
+          </ul>
+          <p>Przeanalizujmy atrybuty.</p>
+          <ul class="unnumbered-list-container">
+            <li>src - wskazuje adres pliku audio</li>
+            <li>
+              controls - atrybut "flaga", jeśli występuje, dodają się elementy sterujące audio
+            </li>
+            <li>
+              autoplay - atrybut "flaga", jeśli jest obecny, rozpocznie się odtwarzanie audio jak
+              tylko ono będzie dostępne
+            </li>
+            <li>loop - atrybut "flaga", jeśli jest obecny, audio zostanie powtórzone w pętli</li>
+          </ul>
+          <p>
+            Atrybut preload wskazuje tryb wstępnego ładowania pliku audio. Jego wartość wpływa na
+            to, jakie informacje zostaną załadowane. Wartość domyślna zależy od przeglądarki, w
+            której została otwarta strona internetowa.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>none - nie pobierać audio z wyprzedzeniem</li>
+            <li>metadata - pobrać informacje o usłudze ładowania (czas trwania itp.)</li>
+            <li>auto - pobrać całe audio z wyprzedzeniem</li>
+          </ul>
+          <h4>Formaty audio</h4>
+          <p>
+            Z obsługą formatu w przeglądarce z audio sytuacja jest lepsza. Wszystkie nowoczesne
+            przeglądarki obsługują jeden z dwóch formatów: mp3 albo ogg.
+          </p>
+          <p>
+            Podobnie jak w przypadku wideo, usuwamy atrybut src i używamy znacznika &ltsource> z
+            atrybutamisrc i type.
+          </p>
+          <pre>
+            &ltaudio controls>
+              &ltsource src="song.mp3" type="audio/mpeg" />
+              &ltsource src="song.ogg" type="audio/ogg" />
+            &lt/audio>
+          </pre>
+        </article>
+        <article id="3.4">
+          <h3>3.4 Wsparcie dla starszych przeglądarek</h3>
+          <p>Jeśli przeglądarka jest bardzo stara i nie obsługuje treści multimedialnych HTML5, trzeba poinformować o tym użytkownika. Aby to zrobić, wewnątrz znaczników &ltvideo> albo &ltaudio>, po wszystkich znacznikach &ltsource> trzeba dodać wiersz tekstu, który przeglądarka wyświetli, jeśli nie obsługuje treści multimedialnych.</p>
+          <pre>
+            &ltvideo
+              poster="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?w=640"
+              width="640"
+              controls
+            >
+              &ltsource
+                src="http://techslides.com/demos/sample-videos/small.webm"
+                type="video/webm"
+              />
+              &ltsource
+                src="http://techslides.com/demos/sample-videos/small.mp4"
+                type="video/mp4"
+              />
+              &ltsource
+                src="http://techslides.com/demos/sample-videos/small.ogg"
+                type="video/ogg"
+              />
+
+              Your browser does not support the &ltcode>video&lt/code> element.
+            &lt/video>
+
+            &ltaudio controls>
+              &ltsource src="song.mp3" type="audio/mpeg" />
+              &ltsource src="song.ogg" type="audio/ogg" />
+
+              Your browser does not support the &ltcode>audio&lt/code> element.
+            &lt/audio>
+          </pre>
       </section>
     </main>
     <footer class="footer">

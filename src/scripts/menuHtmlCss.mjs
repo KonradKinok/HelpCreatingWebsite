@@ -47,14 +47,14 @@ sections.forEach(section => {
   console.log('Section', section.id);
   const articles = section.querySelectorAll('article');
   articles.forEach(article => {
-    console.log('Article', article.id, article.firstElementChild.textContent);
+    console.log('Article', article.firstElementChild.textContent);
     const listItem = document.createElement('li');
     const linkItem = document.createElement('a');
     linkItem.href = `#${article.id}`;
     linkItem.textContent = `${article.firstElementChild.textContent}`;
     linkItem.classList.add('link');
     listItem.appendChild(linkItem);
-    if (list) {
+    if (thisPageMenu) {
       thisPageMenu.appendChild(listItem);
     }
   });

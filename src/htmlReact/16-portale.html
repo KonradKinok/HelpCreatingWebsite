@@ -30,20 +30,58 @@
     </header>
     <main class="main-container">
       <!-- section1 -->
-      <section id="section1" class="text">
-        <article id="article1">
-          <h1>Moduł 5 - Zajęcia 10 - Portale</h1>
-          <h2>Nawigacja po programie</h2>
+      <section id="1" class="text">
+        <h1>Moduł 9 - Zajęcia 16 - Portale</h1>
+        <article id="1.1">
+          <h2>1.1 Portale</h2>
+          <p>
+            Portale umożliwiają renderowanie elementów podrzędnych w węzeł DOM, który znajduje się
+            wewnątrz hierarchii DOM komponenta rodzica.
+          </p>
+          <pre>
+            ReactDOM.createPortal(child, container);
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              Pierwszym argumentem może być poddrzewo Virtual DOM o dowolnym stopniu skomplikowania.
+            </li>
+            <li>Drugi argument to węzeł DOM, w którym będzie zrenderowany pierwszy argument.</li>
+          </ul>
+          <p><a href="https://legacy.reactjs.org/docs/portals.html">Dokumentacja portali</a></p>
+        </article>
+        <article id="1.2">
+          <h3>1.2 Sposób wykorzystania</h3>
+          <pre>
+            const PopupWindow = () => {
+              return ReactDOM.createPortal(
+                &ltdiv>PopupWindow with portal&lt/div>,
+                document.querySelector("#popup-root")
+              );
+            };
+          </pre>
+          <p>
+            Typowy sposób wykorzystywania portali zachodzi wtedy, gdy komponent rodzic ma overflow:
+            hidden lub z-index, przy tym konieczne jest, aby element dziecko wizualnie "wychodził"
+            ze swojego kontenera. Na przykład okna modalne, pokazywane podpowiedzi.
+          </p>
+          <p>
+            Bez względu na to, że portal może znajdować się w drzewie DOM gdziekolwiek, zachowuje
+            się jak zwyczajny React-element dziecko. Rzeczy takie jak rekwizyty czy kontekst pracują
+            tak samo jak wcześniej, niezależnie od tego, czy element dziecko jest portalem, ponieważ
+            portal nadal istnieje w drzewie komponentów React niezależnie od jego położenia w
+            drzewie DOM.
+          </p>
+          <p>
+            Dotyczy to również pojawienia się zdarzeń. Zdarzenie utworzone wewnątrz portalu będzie
+            rozprzestrzeniać się do przodków w drzewie React, nawet jeśli nie są oni przodkami w
+            drzewie DOM.
+          </p>
         </article>
       </section>
     </main>
     <footer class="footer">
       <div class="footer-logo">
-        <img
-          src="../images/footer/konikMaly24x24Squoosh.png"
-          alt="logoImage"
-          width="24"
-        />
+        <img src="../images/footer/konikMaly24x24Squoosh.png" alt="logoImage" width="24" />
         <img src="../images/footer/3KLogo.png" alt="logoText" />
       </div>
       <div id="footer-title">

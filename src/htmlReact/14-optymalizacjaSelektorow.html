@@ -30,20 +30,452 @@
     </header>
     <main class="main-container">
       <!-- section1 -->
-      <section id="section1" class="text">
-        <article id="article1">
-          <h1>Moduł 5 - Zajęcia 10 - Optymalizacja selektorów</h1>
-          <h2>Nawigacja po programie</h2>
+      <section id="1" class="text">
+        <h1>Moduł 7 - Zajęcia 14 - Optymalizacja selektorów</h1>
+        <article id="1.1">
+          <h2>1.1 Selektory</h2>
+          <p>
+            Wiemy już, że selektory to funkcje, które enkapsulują w sobie czytanie wartości ze stanu
+            Redux. W najprostszej formie oczekują bieżącego stanu Redux i zwracają jego niezbędną
+            część.
+          </p>
+          <pre>
+            const valueSelector = state => state.some.value;
+          </pre>
+          <p>
+            W komponentach wykozystujemy hook useSelector(selector), do którego przekazujemy
+            odnośnik do funkcji selektora.
+          </p>
+          <pre>
+            const value = useSelector(valueSelector);
+          </pre>
+          <p>
+            W ten sposób komponenty nie wiedzą o formie stanu Redux i procesie obliczenia potrzebnej
+            im wartości. Przy zmianie struktury stanu, należy zaktualizować tylko selektory,
+            komponenty nie zostaną ruszone. Skraca to czas potrzebny do refaktoryzacji i zwiększa
+            tolerancję na stres aplikacji. Selektory ograniczają również dublowanie kodu, jeżeli ten
+            sam selektor jest wykorzystywany w kilku komponentach.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/selectors.png" alt="" />
+          </div>
+          <p>
+            ABSTRAKCJA: W gruncie rzeczy selektory to warstwa abstrakcji, która minimalizuje związek
+            między komponentami i storem Redux.
+          </p>
+        </article>
+      </section>
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Nazewnictwo</h2>
+          <p>
+            Do tej pory nie zastanawialiśmy się nad nazwami selektorów. Niemniej jednak, jeden z
+            punktów oficjalnej
+            <a href="https://redux.js.org/style-guide">instrukcji dla stylu kodu Redux</a>instrukcji
+            dla stylu kodu Redux, zawiera informację o dobrych praktykach nadawania nazw selektorom.
+            Rekomenduje się zaczynać nazwy funkcji selektorów przedrostkiem select, po którym
+            następuje opis wybieranej wartości.
+          </p>
+          <p>
+            Teraz plik z selektorem wygląda następująco. Nazwę każdego selektora zaczynaliśmy od
+            przedrostka get. Nie ma w tym nic złego, najważniejsza jest jednorodność kodu w
+            projekcie.
+          </p>
+          <pre>
+            src/redux/selectors.js
+            export const getTasks = state => state.tasks.items;
+
+            export const getIsLoading = state => state.tasks.isLoading;
+
+            export const getError = state => state.tasks.error;
+
+            export const getStatusFilter = state => state.filters.status;
+          </pre>
+          <p>
+            Będziemy jednkże kierować się dobrymi praktykami z podręcznika dla stylu kodu i zmienimy
+            prefiks na select.
+          </p>
+          <pre>
+            export const selectTasks = state => state.tasks.items;
+
+            export const selectIsLoading = state => state.tasks.isLoading;
+
+            export const selectError = state => state.tasks.error;
+
+            export const selectStatusFilter = state => state.filters.status;
+          </pre>
+          <p>
+            Po zmianie nazw selektorów niezbędna jest aktualizacja kodu importów w plikach
+            komponentów.
+          </p>
+          <pre>
+            //=============== Before ========================
+            import {
+            getTasks,
+            getIsLoading,
+            getError,
+            getStatusFilter,
+            } from "redux/selectors";
+
+            //=============== After ========================
+            import {
+            selectTasks,
+            selectIsLoading,
+            selectError,
+            selectStatusFilter,
+            } from "redux/selectors";
+          </pre>
+        </article>
+      </section>
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Selektory złożone</h2>
+          <p>
+            W najprostszej postaci selektor otrzymuje bieżący status i zwraca jego niezbędną część.
+            Selektory to zwykłe funkcje, co znaczy, że można wykonywać w nich jakieś działania poza
+            zwracaniem wartości. Selektor może obliczać wartość, wykorzystując części statusu i
+            zwracać wyniki obliczeń.
+          </p>
+          <pre>
+            const selectTotalValue = state => {
+              const a = state.values.a;
+              const b = state.values.b;
+              return a + b;
+            };
+          </pre>
+        </article>
+        <article id="3.2">
+          <h3>3.2 Lista zadań</h3>
+          <p>
+            W komponencie listy zadań TaskList mamy kod obliczenia listy zadań, które pasują do
+            obecnego warunku filtrowania. To, co sprawia, że funkcja getVisibleTasks może tworzyć
+            selektor, skrywając tym samym od komponentu lgikę obliczania przefiltrowanej listy
+            zadań.
+          </p>
+          <pre>
+            src/components/TaskList/TaskList.js
+            import { useSelector } from "react-redux";
+            import { selectTasks, selectStatusFilter } from "redux/selectors";
+            import { statusFilters } from "redux/constants";
+
+            const getVisibleTasks = (tasks, statusFilter) => {
+              switch (statusFilter) {
+                case statusFilters.active:
+                  return tasks.filter(task => !task.completed);
+                case statusFilters.completed:
+                  return tasks.filter(task => task.completed);
+                default:
+                  return tasks;
+              }
+            };
+
+            export const TaskList = () => {
+              const tasks = useSelector(selectTasks);
+              const statusFilter = useSelector(selectStatusFilter);
+              const visibleTasks = getVisibleTasks(tasks, statusFilter);
+
+              // Render układu JSX
+            };
+          </pre>
+          <p>
+            Deklarujemy selektor selectVisibleTasks i przensimy do niego logikę onliczania listy
+            przefiltrowanych zadań.
+          </p>
+          <pre>
+            /redux/selectors.js
+            import { statusFilters } from "./constants";
+
+            export const selectTasks = state => state.tasks.items;
+            export const selectIsLoading = state => state.tasks.isLoading;
+            export const selectError = state => state.tasks.error;
+            export const selectStatusFilter = state => state.filters.status;
+
+            export const selectVisibleTasks = state => {
+              // Wykorzystujemy inne selektory
+              const tasks = selectTasks(state);
+              const statusFilter = selectStatusFilter(state);
+
+              switch (statusFilter) {
+                case statusFilters.active:
+                  return tasks.filter(task => !task.completed);
+                case statusFilters.completed:
+                  return tasks.filter(task => task.completed);
+                default:
+                  return tasks;
+              }
+            };
+          </pre>
+          <p>
+            Zwróć uwagę na to, że wykorzystujemy inne selektory selectTasks i selectStatusFilter
+            wewnątrz selektora selectVisibleTasks, aby otrzymać niezbędne części statusu dla
+            następujących obliczeń.
+          </p>
+          <pre>
+            TERMINOLOGIA: Selektory, które tylko zwracają jakiś status, bez obliczeń uzupełniających, będziemy nazywać "prostymi", a te, które zwracają jakieś obliczone wartości - "złożonymi".
+          </pre>
+          <p>
+            Teraz kod komponentu TaskList będzie znacznie łatwiejszy, dlatego że przenieśliśmy całą
+            logikę do selektora. Komponentowi pozostaje tylko wywołać selektor i wykorzystać
+            otrzymaną wartość.
+          </p>
+          <pre>
+            src/components/TaskList/TaskList.js
+            import { useSelector } from "react-redux";
+            import { selectVisibleTasks } from "redux/selectors";
+
+            export const TaskList = () => {
+              const tasks = useSelector(selectVisibleTasks);
+
+              // Render układu JSX
+            };
+          </pre>
+        </article>
+        <article id="3.3">
+          <h3>3.3 Lista zadań</h3>
+          <p>
+            Taka sama sytuacja jest w komponencie TaskCounter, gdzie oblicza się ilość aktywnych i
+            wykonanych zadań.
+          </p>
+          <pre>
+            import { useSelector } from "react-redux";
+            import { selectTasks } from "redux/selectors";
+
+            export const TaskCounter = () => {
+              const tasks = useSelector(selectTasks);
+
+              const count = tasks.reduce(
+                (acc, task) => {
+                  if (task.completed) {
+                    acc.completed += 1;
+                  } else {
+                    acc.active += 1;
+                  }
+                  return acc;
+                },
+                { active: 0, completed: 0 }
+              );
+
+              // Render układu JSX
+            };
+          </pre>
+          <p>
+            Deklarujemy złożony selektor selectTaskCount, który będzie wykorzystywać prosty
+            selectTasks do otrzymania listy wszystkich zadań i zwracać wynik obliczeń.
+          </p>
+          <pre>
+            src/redux/selectors.js
+            export const selectTasks = state => state.tasks.items;
+
+            export const selectTaskCount = state => {
+              const tasks = selectTasks(state);
+
+              return tasks.reduce(
+                (count, task) => {
+                  if (task.completed) {
+                    count.completed += 1;
+                  } else {
+                    count.active += 1;
+                  }
+                  return count;
+                },
+                { active: 0, completed: 0 }
+              );
+            };
+          </pre>
+          <p>
+            Teraz kod komponentu TaskCounter będzie znacznie prostszy, dlatego przenieśliśmy całą
+            logikę do selektora. Komponentowi pozostaje tylko wywołać selektor i wykorzystać
+            otrzymaną wartość.
+          </p>
+          <pre>
+            src/components/TaskCounter/TaskCounter.js
+            import { useSelector } from "react-redux";
+            import { selectTaskCount } from "redux/selectors";
+
+            export const TaskCounter = () => {
+              const count = useSelector(selectTaskCount);
+
+              // Render układu JSX
+            };
+          </pre>
+          <p>Przeanalizuj prawdziwy przykład naszej aplikacji z kodem złożonych selektorów.</p>
+          <p>
+            <a
+              href="https://codesandbox.io/s/goit-react-textbook-lesson-14-redux-toolkit-compound-selectors-1vsoh5?from-embed"
+              >codesandbox.io</a
+            >
+          </p>
+        </article>
+      </section>
+      <section id="4" class="text">
+        <article id="4.1">
+          <h2>4.1 Optymalizacja</h2>
+          <p>
+            Proste selektory zwracają części statusu, dlatego zwracana wartość aktualizuje się tylko
+            przy zmianie odpowiadającej jej części statusu, nawet jeśli to referencyjny typ danych,
+            to znaczy tablica lub obiekt. Złożone selektory zwracają obliczane wartości i te
+            obliczenia uruchamiają się za każdym razem w trakcie aktualizacji statusu.
+          </p>
+          <p>
+            Jeśli teraz w kodzie selektora selectTaskCount dodamy logowanie wiadomości, to zobaczymy
+            ją zbyt często. Ten selektor oblicza ilość aktywnych i wykonanych zadań nawet przy
+            zmianie wartości filtru statusu, choć w żaden sposób nie wpływa to na tablicę zadań w
+            statusie Redux, od którego zależą obliczenia.
+          </p>
+          <pre>
+            src/redux/selectors.js
+            export const selectTaskCount = state => {
+              const tasks = selectTasks(state);
+
+              console.log("Calculating task count");
+
+              return tasks.reduce(
+                (count, task) => {
+                  if (task.completed) {
+                    count.completed += 1;
+                  } else {
+                    count.active += 1;
+                  }
+                  return count;
+                },
+                { active: 0, completed: 0 }
+              );
+            };
+          </pre>
+          <p>
+            Dodaj logowanie wiersza do kodu selektora, po czym otwórz zakładkę Console w narzędziach
+            programisty, zmieniaj wartość filtra i zobacz wynik - wiadomość o obliczeniu ilości
+            zadań, przy tym tablica zadań nie zmienia się. To samo z selektorem selectVisibleTasks.
+          </p>
+          <p>
+            WNIOSEK: Jeśli selektor zwraca referencyjny typ danych lub wykonuje jakieś obliczenia,
+            należy go zoptymalizować tak, aby te obliczenia włączały się tylko przy zmianie tych
+            części statusu, które wykorzystuje się w selektorze.
+          </p>
+        </article>
+        <article id="4.2">
+          <h2>4.2 Funkcja createSelector</h2>
+          <p>
+            Proces optymalizacji selektorów nazywa się memoizacja - zapisanie wyników wykonania
+            funkcji do zapobiegania powtórnym obliczeniom.
+          </p>
+          <p>
+            Do memoizacji selektora wykorzystuje się funkcję createSelector, jaka przyjmuje tablicę
+            selektorów, których wartości są niezbędne do późniejszych obliczeń oraz funkcję
+            konwerter, w której będą wykonywane wszystkie obliczenia.
+          </p>
+          <pre>
+            import { createSelector } from "@reduxjs/toolkit";
+
+            const selector = createSelector(
+            // Tablica selektorów wejściowych
+              [inputSelector1, inputSelector2, inputSelector3],
+            // Funkcja konwerter
+              (result1, result2, result3) => {
+            // Wykonujemy obliczenia i zwracamy wynik
+              }
+            );
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              W tablicy selektorów mogą być inne, dowolne selektory, zarówno proste, jak i złożone
+              oraz memoizowane.
+            </li>
+            <li>
+              Wyniki wejściowych selektorów przekazuje się jako argumenty do funkcji konwertowania w
+              tym samym porządku, w którym sa wyliczone.
+            </li>
+            <li>
+              Powtórne obliczenia wykonują się tylko, jeśli zmieni się wartość jakiegoś parametru, w
+              przeciwnym razie zwracany jest wynik ostatniego wywołania funkcji.
+            </li>
+          </ul>
+          <p>
+            Wykorzystujemy createSelector i piszemy memoizowany selektor podliczenia ilości zadań
+            selectTaskCount. Zależy on wyłącznie od tablicy zadań, dlatego wykorzystujemy jeden
+            wejściowy selektor selectTasks.
+          </p>
+          <pre>
+            src/redux/selectors.js
+            import { createSelector } from "@reduxjs/toolkit";
+
+            // Pozostałe selektory
+
+            export const selectTaskCount = createSelector([selectTasks], tasks => {
+              console.log("Calculating task count. Now memoized!");
+
+              return tasks.reduce(
+                (count, task) => {
+                  if (task.completed) {
+                    count.completed += 1;
+                  } else {
+                    count.active += 1;
+                  }
+                  return count;
+                },
+                { active: 0, completed: 0 }
+              );
+            });
+          </pre>
+          <p>
+            Otwórz zakładkę Console w narzędziach programisty, zmieniaj wartość filtra i zobacz
+            wynik - wiadomości o obliczeniu ilości zadań nie ma. Teraz obliczenia wykonują się
+            tylko, jeśli zmieni się lista zadań.
+          </p>
+          <p>
+            Tak samo dzieje się z selektorem listy zadań w zależności od wartości filtra
+            selectVisibleTasks. Zależy on od listy zadań i filtra, dlatego wykorzystujemy wejściowe
+            selektory selectTasks i selectStatusFilter.
+          </p>
+          <pre>
+            import { createSelector } from "@reduxjs/toolkit";
+
+            // Pozostałe selektory
+
+            export const selectVisibleTasks = createSelector(
+              [selectTasks, selectStatusFilter],
+              (tasks, statusFilter) => {
+                console.log("Calculating visible tasks. Now memoized!");
+
+                switch (statusFilter) {
+                  case statusFilters.active:
+                    return tasks.filter(task => !task.completed);
+                  case statusFilters.completed:
+                    return tasks.filter(task => task.completed);
+                  default:
+                    return tasks;
+                }
+              }
+            );
+          </pre>
+          <p>Przeanalizuj prawdziwy przykład naszej aplikacji z kodem memoizownych selektorów.</p>
+          <p>
+            <a
+              href="https://codesandbox.io/s/goit-react-textbook-lesson-14-redux-toolkit-reselect-suw1m8?from-embed"
+              >codesandbox.io</a
+            >
+          </p>
+        </article>
+      </section>
+      <section id="5" class="text">
+        <article id="5.1">
+          <h2>5.1 Filmy</h2>
+          <p>
+            <a target="_blank" href="https://youtu.be/RzKgcuJtns0"
+              >Zajęcie Moduł 7. Middleware. Asynchroniczny Redux. Selektory i memoizacja cz.1</a
+            >
+          </p>
+          <p>
+            <a target="_blank" href="https://youtu.be/S-5bmL8s-BM"
+              >Zajęcie Moduł 7. Middleware. Asynchroniczny Redux. Selektory i memoizacja cz.2</a
+            >
+          </p>
         </article>
       </section>
     </main>
     <footer class="footer">
       <div class="footer-logo">
-        <img
-          src="../images/footer/konikMaly24x24Squoosh.png"
-          alt="logoImage"
-          width="24"
-        />
+        <img src="../images/footer/konikMaly24x24Squoosh.png" alt="logoImage" width="24" />
         <img src="../images/footer/3KLogo.png" alt="logoText" />
       </div>
       <div id="footer-title">

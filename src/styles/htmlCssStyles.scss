@@ -30,3 +30,10 @@ hr::after {
 .hr-end::after {
     content: 'Przykład - koniec';
 }
+
+ .code-display {
+     white-space: pre-wrap;
+     /* Zachowuje spacje i łamanie linii */
+     overflow-wrap: break-word;
+     /* Zapewnia prawidłowe łamanie długich linii */
+ }

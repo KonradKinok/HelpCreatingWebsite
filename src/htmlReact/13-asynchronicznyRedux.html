@@ -30,20 +30,867 @@
     </header>
     <main class="main-container">
       <!-- section1 -->
-      <section id="section1" class="text">
-        <article id="article1">
-          <h1>Moduł 5 - Zajęcia 10 - Asynchroniczny Redux</h1>
-          <h2>Nawigacja po programie</h2>
+
+      <section id="1" class="text">
+        <h1>Moduł 7 - Zajęcia 13 - Asynchroniczny Redux</h1>
+        <article id="1.1">
+          <h2>1.1 Operacje asynchroniczne</h2>
+          <p>
+            Do tej pory pracowaliśmy z danymi lokalnymi, które były przechowywane w pamięci zakładki
+            przeglądarki lub w lokalnym magazynie. W praktyce ogromna większość danych aplikacji
+            przechowywana jest w bazie danych w backendzie i jakiekolwiek operacje na nich są
+            wykonywane przy pomocy zapytania HTTP.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/client-server-architecture.png" alt="" />
+          </div>
+          <p>
+            Zapytania HTTP to operacje asynchroniczne, które reprezentowane są przez promisy,
+            dlatego można je rozbić na trzy składowe: proces zapytania (pending), pomyślne
+            zakończenie zapytania (fulfilled) i zakończenie zapytania z błędem (rejected). Ten
+            szablon zastosujemy do dowolnych zapytań czytania, tworzenia, usuwania i aktualizacji.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/request-states.png" alt="" />
+          </div>
+        </article>
+      </section>
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Operacje</h2>
+          <p>
+            Przeanalizujemy często spotykane zadanie ładowania danych, przetwarzania wskaźnika
+            pobierania i błędu wykonania zapytania. Zadeklarujemy slice listy zadań, a w jej stanie
+            będziemy przechowywać tablicę zadań, flagę statusu ładowania i dane ewentualnego błędu.
+          </p>
+          <pre>
+            src/redux/tasksSlice.js
+            const tasksSlice = {
+              name: "tasks",
+              initialState: {
+                items: [],
+                isLoading: false,
+                error: null,
+              },
+              reducers: {},
+            };
+          </pre>
+          <p>Dodamy reducer do opracowywania każdego z możliwych stanów zapytania.</p>
+          <pre>
+            src/redux/tasksSlice.js
+            const tasksSlice = {
+              name: "tasks",
+              initialState: {
+                items: [],
+                isLoading: false,
+                error: null,
+              },
+              reducers: {
+                // Wykona się w momencie startu zapytania HTTP
+                fetchingInProgress(state) {},
+                // Wykona się, jeśli zapytanie HTTP zakończy się pomyślnie
+                fetchingSuccess() {},
+                // Wykona się, jeśli zapytanie HTTP zakończy się błędem
+                fetchingError() {},
+              },
+            };
+          </pre>
+          <p>
+            W reducerach zmieniamy odpowiednie części stanu. Flagę ładowania isLoadingu stawiamy w
+            true na starcie zapytania i false w dowolnym innym przypadku, ponieważ zapytanie zostało
+            zakończone. Przy wykonaniu zapytania z błędem, zmieniamy wartość właściwości error,
+            zapisując w niej to, co przyjdzie w action.payload- informacja o błędzie. W przypadku
+            pomyślnego wykonania zapytania, odrzucamy wartość właściwości error, i zapisujemy w
+            itemsotrzymane dane z action.payload - tablica zadań.
+          </p>
+          <pre>
+            src/redux/tasksSlice.js
+            const tasksSlice = {
+              name: "tasks",
+              initialState: {
+                items: [],
+                isLoading: false,
+                error: null,
+              },
+              reducers: {
+                fetchingInProgress(state) {
+                  state.isLoading = true;
+                },
+                fetchingSuccess(state, action) {
+                  state.isLoading = false;
+                  state.error = null;
+                  state.items = action.payload;
+                },
+                fetchingError(state, action) {
+                  state.isLoading = false;
+                  state.error = action.payload;
+                },
+              },
+            };
+
+            export const { fetchingInProgress, fetchingSuccess, fetchingError } =
+              tasksSlice.actions;
+          </pre>
+          <p>
+            Aby przy wysyłaniu akcji wykonać asynchroniczny kod, należy zadeklarować "operację" -
+            asynchroniczny generator akcji, w ciele którego wywołują się inne, synchroniczne
+            generatory akcji. Operacja nie zwraca akcji, zamiast tego zwraca inną funkcję, która
+            jako argument przyjmuje znany nam już dispatch. W ciele tej funkcji można wykonać
+            asynchroniczne działania, na przykład zapytanie HTTP. Do zapytań wykorzystujemy
+            bibliotekę <a href="https://axios-http.com/">axios</a> .
+          </p>
+          <pre>
+            src/redux/operations.js
+            import axios from "axios";
+
+            axios.defaults.baseURL = "https://62584f320c918296a49543e7.mockapi.io";
+
+            const fetchTasks = () => async dispatch => {
+              try {
+                const response = await axios.get("/tasks");
+              } catch (e) {}
+            };
+          </pre>
+          <p>
+            REDUX THUNK: Możliwości deklarowania asynchronicznych generatorów akcji i wykonania
+            asynchronicznych działań dostarcza rozszerzenie store'a
+            [redux-thunk](https://github.com/reduxjs/redux-thunk), które domyślnie zawiera się w
+            Redux Toolkit.
+          </p>
+          <p>
+            Teraz wewnątrz operacji wysyłamy synchroniczne akcje do opracowania trzech sytuacji:
+            ustanowienie wskaźnika ładowania, otrzymanie danych przy pomyślnym zapytaniu i
+            opracowanie błędu.
+          </p>
+          <pre>
+            src/redux/operations.js
+            import axios from "axios";
+            import {
+              fetchingInProgress,
+              fetchingSuccess,
+              fetchingError,
+            } from "./tasksSlice";
+
+            axios.defaults.baseURL = "https://62584f320c918296a49543e7.mockapi.io";
+
+            export const fetchTasks = () => async dispatch => {
+              try {
+                // Wskaźnik ładowania
+                dispatch(fetchingInProgress());
+                // HTTP-request
+                const response = await axios.get("/tasks");
+                // Opracowywanie danych
+                dispatch(fetchingSuccess(response.data));
+              } catch (e) {
+                // Opracowywanie błędu
+                dispatch(fetchingError(e.message));
+              }
+            };
+          </pre>
+          <p>
+            Dalej dodajemy minimalny kod wywołania asynchronicznego generatora akcji w komponencie,
+            render wskaźnika ładowania danych i opracowywanie błędu.
+          </p>
+          <pre>
+            src/components/App.js
+            import { useEffect } from "react";
+            import { useDispatch, useSelector } from "react-redux";
+            import { fetchTasks } from "redux/operations";
+            import { getTasks } from "redux/selectors";
+
+            export const App = () => {
+              const dispatch = useDispatch();
+              // Otrzymujemy części stanu
+              const { items, isLoading, error } = useSelector(getTasks);
+
+              // Wywołujemy operację
+              useEffect(() => {
+                dispatch(fetchTasks());
+              }, [dispatch]);
+
+              // Renderujemy układ w zależności od wartości w stanie
+              return (
+                &ltdiv>
+                  {isLoading && &ltp>Loading tasks...&lt/p>}
+                  {error && &ltp>{error}&lt/p>}
+                  &ltp>{items.length > 0 && JSON.stringify(items, null, 2)}&lt/p>
+                &lt/div>
+              );
+            };
+          </pre>
+          <p>
+            Przeanalizuj kod prawdziwego przykładu. Przy montowaniu komponentu App najpierw
+            wyświetla się wskaźnik ładowania, a za jakiś czas tablica zadań. Aby zaktualizować
+            stronę przykładu w piaskownicy, naciśnij przycisk aktualizacji w dolnej części jego
+            okna.
+          </p>
+          <p>
+            <a
+              href="https://codesandbox.io/s/goit-react-textbook-lesson-13-redux-toolkit-thunk-gnmmsl?from-embed"
+              >codesandbox.io</a
+            >
+          </p>
+        </article>
+      </section>
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 createAsyncThunk</h2>
+          <p>
+            Redux Toolkit upraszcza proces aktualizacji asynchronicznego generatora akcji przy
+            pomocy funkcji [createAsyncThunk()](https://redux-toolkit.js.org/api/createAsyncThunk).
+            Jako pierwszy argument przyjmuje typ akcji, a jako drugi funkcję, która powinna wykonać
+            zapytanie HTTP i zwrócić promise z danymi, które staną się wartością payload. Zwraca
+            asynchroniczny generator akcji (operację), przy uruchomieniu którego wykonuje się
+            funkcja z kodem zapytania.
+          </p>
+          <pre>
+            src/redux/operations.js
+            import axios from "axios";
+            import { createAsyncThunk } from "@reduxjs/toolkit";
+
+            axios.defaults.baseURL = "https://62584f320c918296a49543e7.mockapi.io";
+
+            export const fetchTasks = createAsyncThunk("tasks/fetchAll", async () => {
+              const response = await axios.get("/tasks");
+              return response.data;
+            });
+          </pre>
+          <p>
+            Funkcja createAsyncThunk() automatycznie tworzy akcje reprezentujące cykl życiowy
+            zapytania HTTP i wysyła je w prawidłowym porządku, w zależności od statusu zapytania.
+            Typ tworzonych akcji składa się z łańcucha wskazanego jako pierwszy argument
+            ("tasks/fetchAll"), do którego dodaje się postfiksy "pending", "fulfilled" lub
+            "rejected", w zależności od tego, jakie stany zapytania opisuje akcja.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>"tasks/fetchAll/pending" - początek zapytania</li>
+            <li>"tasks/fetchAll/fulfilled" - pomyślne zakończenie zapytania</li>
+            <li>"tasks/fetchAll/rejected" - zakończenie zapytania z błędem</li>
+          </ul>
+          <p>
+            Po zamienieniu w naszym przykładzie kodu zadeklarowania operacji fetchTasks i
+            przeładowaniu strony w narzędziach programisty widać, jak przy montowaniu komponentu App
+            wysyłane są akcje z prawidłowymi typami i payload.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/thunk-actions.png" alt="" />
+          </div>
+          <p>
+            Funkcja createAsyncThunk nie tworzy reducera oraz nie może wiedzieć, jak chcemy śledzić
+            stan ładowania, z jakimi danymi zakończy się zapytanie i jak je prawidłowo opracowywać.
+            Dlatego w następnym kroku będzie zmiana kodu slice'u tasksSlice tak, aby opracowywał
+            nowe akcje.
+          </p>
+          <pre>
+            src/redux/tasksSlice.js
+            import { createSlice } from "@reduxjs/toolkit";
+            // Importujemy operację
+            import { fetchTasks } from "./operations";
+
+            const tasksSlice = createSlice({
+              name: "tasks",
+              initialState: {
+                items: [],
+                isLoading: false,
+                error: null,
+              },
+              // Dodajemy opracowywanie zewnętrznych akcji
+              extraReducers: (builder) => {
+                    builder
+                        .addCase(fetchTasks.pending, (state, action) {})
+                        .addCase(fetchTasks.fulfilled, (state, action) {})
+                        .addCase(fetchTasks.rejected, (state, action) {})
+              },
+            });
+
+            export const tasksReducer = tasksSlice.reducer;
+          </pre>
+          <p>
+            Właściwość extraReducers wykorzystuje się, aby zadeklarować reducery dla "zewnętrznych"
+            typów akcji, to znaczy tych, które nie zostały wygenerowane z właściwości reducers. Te
+            reducery opracowują "zewnętrzne" akcje, dlatego nie będą dla nich tworzone generatory
+            akcji w slice.actions - nie ma takiej potrzeby. Wykorzystujemy aktualne podejście z
+            użyciem builder i metody addCase
+          </p>
+          <p>addCase przyjmuje dwa argumenty:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              actionCreator - string lub kreator akcji wygenerowany przez createAction, którego
+              można użyć do określenia typu akcji.
+            </li>
+            <li>reducer - funkcja wywołana dla danego przypadku.</li>
+          </ul>
+          <p>
+            AKCJE OPERACJI: Generatory akcji reprezentujące cykl życiowy zapytania są przechowywane
+            w obiekcie operacji jako właściwości pending, fulfilled i rejected. Automatycznie
+            tworzone są przy pomocy createAction i dlatego mają właściwość type oraz przedefiniowaną
+            metodę toString() zwracającą łańcuch typu akcji.
+          </p>
+          <p>
+            SANDBOX: Na przygotowanych Sandboxach zostało przygotowane poprzednie podejście, z
+            wykorzystaniem obiektu w extraReducers. Dzięki temu widzimy jak na dwa różne sposoby
+            możemy przygotować ten sam kod. Podejście z addCase jest podejściem aktualnym.
+          </p>
+          <p>
+            Właściwość reducers nie jest nam więcej potrzebna, dlatego całą logikę opracowywania
+            akcji zapytania przenosimy do nowego reducera.
+          </p>
+          <pre>
+            import { createSlice } from "@reduxjs/toolkit";
+            import { fetchTasks } from "./operations";
+
+            const tasksSlice = createSlice({
+              name: "tasks",
+              initialState: {
+                items: [],
+                isLoading: false,
+                error: null,
+              },
+              extraReducers: (builder) => {
+                    builder
+                        .addCase(fetchTasks.pending, (state, action) {
+                            state.isLoading = true;
+                        })
+                        .addCase(fetchTasks.fulfilled, (state, action) {
+                      state.isLoading = false;
+                      state.error = null;
+                      state.items = action.payload;
+                        })
+                        .addCase(fetchTasks.rejected, (state, action) {
+                      state.isLoading = false;
+                      state.error = action.payload;
+                        })
+              },
+            });
+
+            export const tasksReducer = tasksSlice.reducer;
+          </pre>
+          <p>
+            Pozostało dodanie opracowywania zapytania zakończonego błędem. W tym celu należy
+            uzupełnić kod utworzenia operacji fetchTasks tak, aby w przypadku błędu zapytania
+            zwracany był promise, który będzie odrzucony. Wtedy w akcji błędu zapytania pojawi się
+            właściwość payload.
+          </p>
+          <pre>
+            src/redux/operations.js
+            import { createAsyncThunk } from "@reduxjs/toolkit";
+            import axios from "axios";
+
+            axios.defaults.baseURL = "https://62584f320c918296a49543e7.mockapi.io";
+
+            export const fetchTasks = createAsyncThunk(
+              "tasks/fetchAll",
+              // Wykorzystamy symbol podkreślenia jako nazwę pierwszego parametru,
+              // ponieważ w tej operacji nie jest nam potrzebny
+              async (_, thunkAPI) => {
+                try {
+                  const response = await axios.get("/tasks");
+                  // Przy pomyślnym zapytaniu zwracamy promise z danymi
+                  return response.data;
+                } catch (e) {
+                  // Przy błędzie zapytania zwracamy promise,
+                  // który zostanie odrzucony z tekstem błędu 
+                  return thunkAPI.rejectWithValue(e.message);
+                }
+              }
+            );
+          </pre>
+          <p>
+            Funkcja callback, w której wykonuje się zapytanie, nazywa się payloadCreator i odpowiada
+            za ustalenie wartości właściwości payload. Zostanie wywołana z dwoma argumentami: arg i
+            thunkAPI.
+          </p>
+          <pre>
+            payloadCreator(arg, thunkAPI)
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              arg - wartość, która była przekazana do operacji przy wywołaniu. Wykorzystuje się na
+              przykład do przekazania identyfikatora obiektów podczas usuwania czy tekstu notatki
+              podczas jej tworzenia i tym podobne.
+            </li>
+            <li>
+              thunkAPI - obiekt, który przekazywany jest do asynchronicznego generatora akcji w
+              redux-thunk. Zawiera właściwości i metody dostępu do store, wysyłania akcji oraz
+              niektóre dodatkowe właściwości.
+            </li>
+          </ul>
+          <p>
+            Przeanalizuj kod prawdziwego przykładu, w którym wykorzystuje się cały materiał, jakiego
+            się nauczyliśmy.
+          </p>
+          <p>
+            <a
+              href="https://codesandbox.io/p/sandbox/goit-react-textbook-lesson-13-redux-toolkit-createasyncthunk-ol6wh5?from-embed="
+              >codesandbox.io</a
+            >
+          </p>
+        </article>
+      </section>
+      <section id="4" class="text">
+        <article id="4.1">
+          <h2>4.1 Menadżer zadań</h2>
+          <p>
+            Zmienimy kod naszej aplikacji tak, aby pracować z danymi od strony backendu. W tym celu
+            wykorzystujemy serwis [mockapi.io](https://mockapi.io/), który dostarcza wizualnego
+            interfejsu dla utworzenia prostego backendu z bazą danych. To pozwoli nam wykonywać
+            operacje CRUD z tablicą obiektów.
+          </p>
+          <p>
+            W piaskownicy możesz wziąć kod startowy aplikacji menadżera zadań z już gotowymi
+            komponentami React i bazową logiką Redux, uzupełniając go paralelnie z poznawaniem
+            materiału.
+          </p>
+          <p>
+            <a
+              href="https://codesandbox.io/p/sandbox/goit-react-textbook-lesson-13-redux-toolkit-app-starter-code-0rmpkl?from-embed="
+              >codesandbox.io</a
+            >
+          </p>
+        </article>
+        <article id="4.2">
+          <h3>4.2 Selektory</h3>
+          <p>Z powodu tego, że zmieniła się u nas forma stanu, należy uzupełnić plik selektorów.</p>
+          <pre>
+            src/redux/selectors.js
+            export const getTasks = state => state.tasks.items;
+
+            export const getIsLoading = state => state.tasks.isLoading;
+
+            export const getError = state => state.tasks.error;
+
+            export const getStatusFilter = state => state.filters.status;
+          </pre>
+        </article>
+        <article id="4.3">
+          <h3>4.3 Czytanie zadań</h3>
+          <p>
+            Operacja i reducery dla czytania tablicy zadań już są. Uzupełnimy komponent App tak, aby
+            przy jego montowaniu uruchamiała się operacja zapytania zgodnie z listą zadań.
+          </p>
+          <pre>
+            import { useEffect } from "react";
+            import { useDispatch } from "react-redux";
+            import { fetchTasks } from "redux/operations";
+            // Importy komponentów
+
+            export const App = () => {
+              const dispatch = useDispatch();
+
+              useEffect(() => {
+                dispatch(fetchTasks());
+              }, [dispatch]);
+
+              return (
+                &ltLayout>
+                  &ltAppBar />
+                  &ltTaskForm />
+                  &ltTaskList />
+                &lt/Layout>
+              );
+            };
+          </pre>
+          <p>
+            Po montowaniu komponentu App i zakończeniu zapytania, w interfejsie wyświetla się lista
+            zadań - komponent TaskList, który wykorzystuje selektory do otrzymania tablicy zadań ze
+            stanu Redux.
+          </p>
+        </article>
+        <article id="4.4">
+          <h3>4.4 Wskaźnik zapytania</h3>
+          <p>Dodamy wyświetlanie wskaźnika zapytania nad listą zadań.</p>
+          <pre>
+            import { useEffect } from "react";
+            import { useDispatch, useSelector } from "react-redux";
+            import { fetchTasks } from "redux/operations";
+            import { getError, getIsLoading } from "redux/selectors";
+            // Importy komponentów
+
+            export const App = () => {
+              const dispatch = useDispatch();
+              const isLoading = useSelector(getIsLoading);
+              const error = useSelector(getError);
+
+              useEffect(() => {
+                dispatch(fetchTasks());
+              }, [dispatch]);
+
+              return (
+                &ltLayout>
+                  &ltAppBar />
+                  &ltTaskForm />
+                  {isLoading && !error && &ltb>Request in progress...&lt/b>}
+                  &ltTaskList />
+                &lt/Layout>
+              );
+            };
+          </pre>
+        </article>
+        <article id="4.5">
+          <h3>4.5 Dodawanie zadania</h3>
+          <p>
+            Zadeklarujemy operację dodania zadania, która oczekuje tylko tekstu wprowadzonego przez
+            użytkownika. Za utworzenie unikalnego wskaźnika i dodanie właściwości completed będzie
+            teraz odpowiadał backend.
+          </p>
+          <pre>
+            export const addTask = createAsyncThunk(
+              "tasks/addTask",
+              async (text, thunkAPI) => {
+                try {
+                  const response = await axios.post("/tasks", { text });
+                  return response.data;
+                } catch (e) {
+                  return thunkAPI.rejectWithValue(e.message);
+                }
+              }
+            );
+          </pre>
+          <p>
+            W komponencie TaskForm dodajemy kod uruchomienia operacji zadania przy submicie
+            formularza.
+          </p>
+          <pre>
+            src/components/TaskForm/TaskForm.js
+            import { useDispatch } from "react-redux";
+            import { addTask } from "redux/operations";
+
+            export const TaskForm = () => {
+              const dispatch = useDispatch();
+
+              const handleSubmit = event => {
+                event.preventDefault();
+                const form = event.target;
+                dispatch(addTask(event.target.elements.text.value));
+                form.reset();
+              };
+
+              // Pozostały kod komponentu
+            };
+          </pre>
+          <p>Dodamy w slice tasksSlice kod opracowywania akcji dodania zadania.</p>
+          <pre>
+            src/redux/tasksSlice.js
+            import { createSlice } from "@reduxjs/toolkit";
+            import { fetchTasks, addTask } from "./operations";
+
+            const tasksSlice = createSlice({
+                extraReducers: (builder) => {
+                    builder
+                        // Kod pozostałych reducerów
+                        .addCase(addTask.pending, (state, action) {
+                            state.isLoading = true;
+                        })
+                        .addCase(addTask.fulfilled, (state, action) {
+                      state.isLoading = false;
+                      state.error = null;
+                      state.items.push(action.payload);
+                        })
+                        .addCase(addTask.rejected, (state, action) {
+                      state.isLoading = false;
+                      state.error = action.payload;
+                        })
+              },
+            });
+          </pre>
+        </article>
+        <article id="4.6">
+          <h3>4.6 Usunięcie zadania</h3>
+          <p>
+            Zadeklarujemy operację usuwania, która oczekuje tylko identyfikatora usuwanego zadania.
+          </p>
+          <pre>
+            src/redux/operations.js
+            export const deleteTask = createAsyncThunk(
+              "tasks/deleteTask",
+              async (taskId, thunkAPI) => {
+                try {
+                  const response = await axios.delete(`/tasks/${taskId}`);
+                  return response.data;
+                } catch (e) {
+                  return thunkAPI.rejectWithValue(e.message);
+                }
+              }
+            );
+          </pre>
+          <p>
+            W komponencie Task dodajemy kod uruchomienia operacji usunięcia zadania po kliknięciu na
+            przycisk usunięcia i przekazujemy jego identyfikator.
+          </p>
+          <pre>
+            src/components/Task/Task.js
+            import { useDispatch } from "react-redux";
+            import { MdClose } from "react-icons/md";
+            import { deleteTask } from "redux/operations";
+
+            export const Task = ({ task }) => {
+              const dispatch = useDispatch();
+
+              const handleDelete = () => dispatch(deleteTask(task.id));
+
+              return (
+                &ltdiv>
+                  &ltinput type="checkbox" checked={task.completed} />
+                  &ltp>{task.text}&lt/p>
+                  &ltbutton onClick={handleDelete}>
+                    &ltMdClose size={24} />
+                  &lt/button>
+                &lt/div>
+              );
+            };
+          </pre>
+          <p>Dodajemy w slice tasksSlice kod opracowywania akcji usunięcia zadania.</p>
+          <pre>
+            src/redux/tasksSlice.js
+            import { createSlice } from "@reduxjs/toolkit";
+            import { fetchTasks, addTask, deleteTask } from "./operations";
+
+            const tasksSlice = createSlice({
+                extraReducers: (builder) => {
+                    builder
+                        // Kod pozostałych reducerów
+                        .addCase(deleteTask.pending, (state, action) {
+                            state.isLoading = true;
+                        })
+                        .addCase(deleteTask.fulfilled, (state, action) {
+                      state.isLoading = false;
+                      state.error = null;
+                      const index = state.items.findIndex(
+                        task => task.id === action.payload.id
+                      );
+                      state.items.splice(index, 1);
+                        })
+                        .addCase(deleteTask.rejected, (state, action) {
+                      state.isLoading = false;
+                      state.error = action.payload;
+                        })
+              },
+            });
+
+            export const tasksReducer = tasksSlice.reducer;
+          </pre>
+        </article>
+        <article id="4.7">
+          <h3>4.7 Przełączenie statusu zadania</h3>
+          <p>Deklarujemy operację zmiany statusu, która oczekuje całego obiektu zadania.</p>
+          <pre>
+              src/redux/operations.js
+              export const toggleCompleted = createAsyncThunk(
+                "tasks/toggleCompleted",
+                async (task, thunkAPI) => {
+                  try {
+                    const response = await axios.put(`/tasks/${task.id}`, {
+                      completed: !task.completed,
+                    });
+                    return response.data;
+                  } catch (e) {
+                    return thunkAPI.rejectWithValue(e.message);
+                  }
+                }
+              );
+            </pre
+          >
+          <p>
+            W komponencie Task dodajemy kod uruchomienia operacji zmiany statusu po kliknięciu na
+            checkbox i przekazujemy do niego cały obiekt zadania.
+          </p>
+          <pre>
+              src/components/TaskForm/TaskForm.js
+              import { useDispatch } from "react-redux";
+              import { MdClose } from "react-icons/md";
+              import { deleteTask, toggleCompleted } from "redux/operations";
+
+              export const Task = ({ task }) => {
+                const dispatch = useDispatch();
+
+                const handleDelete = () => dispatch(deleteTask(task.id));
+
+                const handleToggle = () => dispatch(toggleCompleted(task));
+
+                return (
+                  &ltdiv>
+                    &ltinput type="checkbox" checked={task.completed} onChange={handleToggle} />
+                    &ltp>{task.text}&lt/p>
+                    &ltbutton onClick={handleDelete}>
+                      &ltMdClose size={24} />
+                    &lt/button>
+                  &lt/div>
+                );
+              };
+            </pre
+          >
+          <p>Dodajemy do slice tasksSlice kod opracowywania akcji zmiany statusu zadania.</p>
+          <pre>
+              src/redux/tasksSlice.js
+              import { createSlice } from "@reduxjs/toolkit";
+              import { fetchTasks, addTask, deleteTask, toggleCompleted } from "./operations";
+
+              const tasksSlice = createSlice({
+                  extraReducers: (builder) => {
+                      builder
+                          // Kod pozostałych reducerów
+                          .addCase(toggleCompleted.pending, (state, action) {
+                              state.isLoading = true;
+                          })
+                          .addCase(toggleCompleted.fulfilled, (state, action) {
+                              state.isLoading = false;
+                      state.error = null;
+                      const index = state.items.findIndex(
+                        (task) => task.id === action.payload.id
+                      );
+                      state.items[index].completed = !state.items[index].completed;
+                          })
+                          .addCase(toggleCompleted.rejected, (state, action) {
+                        state.isLoading = false;
+                        state.error = action.payload;
+                          })
+                },
+              });
+
+              export const tasksReducer = tasksSlice.reducer;
+            </pre
+          >
+        </article>
+        <article id="4.8">
+          <h3>4.8 Skracamy kod reducerów</h3>
+          <p>
+            Z pewnością zwróciłeś już uwagę na to, że kod reducerów opracowujących akcje pending i
+            rejected wszystkich operacji jest identyczny. Przeniesiemy logikę tych reducerów do
+            funkcji, co pomoże nam ograniczyć dublowanie kodu.
+          </p>
+          <pre>
+            src/redux/tasksSlice.js
+            const handlePending = state => {
+              state.isLoading = true;
+            };
+
+            const handleRejected = (state, action) => {
+              state.isLoading = false;
+              state.error = action.payload;
+            };
+
+            const tasksSlice = createSlice({
+              extraReducers: (builder) => {
+                builder
+                  .addCase(fetchTasks.pending, handlePending)
+                  .addCase(addTask.pending, handlePending)
+                  .addCase(deleteTask.pending, handlePending)
+                  .addCase(toggleCompleted.pending, handlePending)
+                  .addCase(fetchTasks.rejected, handleRejected)
+                  .addCase(addTask.rejected, handleRejected)
+                  .addCase(deleteTask.rejected, handlePending)
+                  .addCase(toggleCompleted.rejected, handleRejected)
+                  .addCase(fetchTasks.fulfilled, (state, action) => {
+                    state.isLoading = false;
+                    state.error = null;
+                    state.items = action.payload;
+                  })
+                  .addCase(addTask.fulfilled, (state, action) => {
+                    state.isLoading = false;
+                    state.error = null;
+                    state.items.push(action.payload);
+                  })
+                  .addCase(deleteTask.fulfilled, (state, action) => {
+                    state.isLoading = false;
+                    state.error = null;
+                    const index = state.items.findIndex(
+                      (task) => task.id === action.payload
+                    );
+                    state.items.splice(index, 1);
+                  })
+                  .addCase(toggleCompleted.fulfilled, (state, action) => {
+                    state.isLoading = false;
+                    state.error = null;
+                    const index = state.items.findIndex(
+                      (task) => task.id === action.payload.id
+                    );
+                    state.items[index].completed = !state.items[index].completed;
+                  });
+                        .addDefaultCase((state, action) => {state.error = "someone use old function, fix it!"})
+              },
+            });
+
+            export const tasksReducer = tasksSlice.reducer;
+          </pre>
+        </article>
+        <article id="4.9">
+          <h3>4.9 addMatcher</h3>
+          <p>
+            Dla powtarzających się wartości możemy zamiast addCase użyć addMatcher. Reducer działa w
+            tym wypadku tak samo, natomiast jako pierwszy argument podajemy funkcję sprawdzającą czy
+            dany Marcher ma zostać wywołany. Pozwala nam to na zmniejszenie ilości kodu, jeśli mamy
+            akcje dla których wykonujemy ten sam kod. Poniżej przykład powyższego kodu z
+            wykorzystaniem addMatcher:
+          </p>
+          <pre>
+            const isPendingAction = (action) => {
+                return action.type.endsWith("/pending");
+            }
+
+            const isRejectAction = (action) => {
+                return action.type.endsWith("/rejected")
+            }
+
+            extraReducers: (builder) => {
+              builder
+                        // .addCase(fetchTasks.pending, handlePending)
+                  // .addCase(addTask.pending, handlePending)
+                  // .addCase(deleteTask.pending, handlePending)
+                  // .addCase(toggleCompleted.pending, handlePending)
+                  // .addCase(fetchTasks.rejected, handleRejected)
+                  // .addCase(addTask.rejected, handleRejected)
+                  // .addCase(deleteTask.rejected, handlePending)
+                  // .addCase(toggleCompleted.rejected, handleRejected)
+                  .addCase(fetchTasks.fulfilled, (state, action) => {
+                      state.isLoading = false;
+                      state.error = null;
+                      state.items = action.payload;
+                  })
+                  .addCase(addTask.fulfilled, (state, action) => {
+                      state.isLoading = false;
+                      state.error = null;
+                      state.items.push(action.payload)
+                  })
+                  .addCase(toggleCompleted.fulfilled, (state, action) => {
+                      state.isLoading = false;
+                      state.error = null;
+                      const index = state.items.findIndex(
+                          task => task.id === action.payload.id
+                      );
+                      state.items[index].completed = !state.items[index].completed
+                  })
+                  .addCase(deleteTask.fulfilled, (state, action) => {
+                      state.isLoading = false;
+                      state.error = null;
+                      const index = state.items.findIndex(
+                        (task) => task.id === action.payload
+                      );
+                      state.items.splice(index, 1);
+                    })
+                  .addMatcher(isPendingAction, handlePending)
+                  .addMatcher(isRejectAction, handleRejected)
+                  .addDefaultCase((state, action) => {state.error = "someone use old function, fix it!"})
+            }
+          </pre>
+        </article>
+        <article id="4.10">
+          <h3>4.10 Finalny kod</h3>
+          <p>
+            Przeanalizuj kod rzeczywistego przykładu, w którym wykorzystuje się cały przerobiony do
+            tej pory materiał.
+          </p>
+          <p>
+            <a
+              href="https://codesandbox.io/s/goit-react-textbook-lesson-13-redux-toolkit-app-final-code-q4v1pb?from-embed"
+              >codesandbox.io</a
+            >
+          </p>
         </article>
       </section>
     </main>
     <footer class="footer">
       <div class="footer-logo">
-        <img
-          src="../images/footer/konikMaly24x24Squoosh.png"
-          alt="logoImage"
-          width="24"
-        />
+        <img src="../images/footer/konikMaly24x24Squoosh.png" alt="logoImage" width="24" />
         <img src="../images/footer/3KLogo.png" alt="logoText" />
       </div>
       <div id="footer-title">
