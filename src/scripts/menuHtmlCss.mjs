@@ -16,6 +16,54 @@ const menuItem = [
     name: '02. HTML część 2',
     link: '../htmlHtmlCss/02-html2.html',
   },
+  {
+    name: '03. Selektory i kolor',
+    link: '../htmlHtmlCss/03-selektoryKolor.html',
+  },
+  {
+    name: '04. Tekst i czcionka',
+    link: '../htmlHtmlCss/04-tekstCzcionka.html',
+  },
+  {
+    name: '05. Model blokowy',
+    link: '../htmlHtmlCss/05-modelBlokowy.html',
+  },
+  {
+    name: '06. Flexbox',
+    link: '../htmlHtmlCss/06-flexbox.html',
+  },
+  {
+    name: '07. Dekoratywne efekty i elementy',
+    link: '../htmlHtmlCss/07-dekoratywneEfektyElementy.html',
+  },
+  {
+    name: '08. Grafika wektorowa',
+    link: '../htmlHtmlCss/08-grafikaWektorowa.html',
+  },
+  {
+    name: '09. Pozycjonowanie elementów',
+    link: '../htmlHtmlCss/09-pozycjonowanieElementow.html',
+  },
+  {
+    name: '10. Animacja',
+    link: '../htmlHtmlCss/10-animacja.html',
+  },
+  {
+    name: '11. Elementy formularzy',
+    link: '../htmlHtmlCss/11-elementyFormularzy.html',
+  },
+  {
+    name: '12. Walidacja formularzy',
+    link: '../htmlHtmlCss/12-walidacjaFormularzy.html',
+  },
+  {
+    name: '13. Responsywność',
+    link: '../htmlHtmlCss/13-responsywnosc.html',
+  },
+  {
+    name: '14. Responsywne grafiki',
+    link: '../htmlHtmlCss/14-responsywneGrafiki.html',
+  },
 ];
 
 menuItem.forEach(element => {
