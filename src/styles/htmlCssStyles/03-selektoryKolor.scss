@@ -1,10 +1,66 @@
+// 2.4
+.alert-2_4 {
+    font-size: 24px;
+    font-weight: 500;
+};
+
+/* Specyficzne style dla każdego typu */
+.success-2_4 {
+    color: green;
+};
+
+.warning-2_4 {
+    color: orange;
+};
+
+.error-2_4 {
+    color: red;
+};
+
+// 2.5
+#title-2_5 {
+    font-weight: 500;
+    color: orange;
+};
+
+// 2.6
+.social-links-2_6 a {
+    color: blue;
+    text-decoration: none;
+}
+
+// 2.7
+.menu-2_6 > li {
+    border: 1px solid tomato;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .container-background{
     display: flex;
     width: 300px;
         height: 150px;
     color:red;
 }
-
 
 .glossy-effect {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1)),

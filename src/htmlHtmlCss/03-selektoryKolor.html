@@ -36,11 +36,390 @@
         <h1>Moduł 2 - Zajęcia 3 - Selektory i kolor</h1>
         <article id="1.1">
           <h2>1.1 Wprowadzenie do CSS</h2>
-          <div class="container-background">
-            <div class="container-background glossy-effect">TEKST</div>
-            <div class="container-background water-effect">TEKST</div>
-            <div class="container-background water-effect2">TEKST</div>
+          <p>
+            CSS (Cascading Style Sheets, Kaskadowe arkusze stylów) - jest językiem do opisu i zmiany
+            wyglądu elementów. HTML służy do definiowania struktury i semantyki treści dokumentu, a
+            CSS jest używany do tworzenia wyglądu naszej strony i jej pozycjonowania.
+          </p>
+        </article>
+        <article id="1.2">
+          <h2>1.2 Składnia</h2>
+          <p>
+            Blok kodu CSS nazywany jest regułą, która składa się z selektora i bloku deklaracji w
+            nawiasach klamrowych.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/react/users.png" alt="" />
           </div>
+          <p>
+            Selektor informuje przeglądarkę, do których elementów zastosować style z tej reguły.
+            Każda deklaracja składa się z pary właściwość: wartość;, gdzie właściwość i jej wartość
+            są oddzielone dwukropkiem ze spacją i koniecznie kończą się średnikiem. One opisują, co
+            dokładnie należy zrobić ze stylami elementu.
+          </p>
+          <pre>
+            selektor {
+              właściwość: wartość;
+              właściwość: wartość;
+              właściwość: wartość;
+            }
+          </pre>
+        </article>
+        <article id="1.3">
+          <h2>1.3 Dodanie stylów</h2>
+          <p>
+            Istnieją trzy sposoby dodawania stylów do dokumentu HTML: style wbudowane (inline
+            styles), wbudowany arkusz stylów (embedded stylesheet) i zewnętrzny arkusz stylów
+            (external stylesheet). Każdy sposób ma swoje zalety, wady, ograniczenia i zakres użycia.
+          </p>
+        </article>
+        <article id="1.4">
+          <h2>1.4 Style wbudowane</h2>
+          <p>
+            Style wbudowane (inline) są ustawiane dla znacznika bezpośrednio w atrybucie style. Nie
+            można ich skalować, są trudne do zastąpienia i ponownego użycia, więc są rzadko używane.
+            Używane głównie w przypadku stylów które nadajemy za pomocą Javascript dynamicznie.
+          </p>
+          <pre>
+            &ltp style="color:blue; font-size:24px;">Ten tekst będzie niebieski.&lt/p>
+          </pre>
+          <p style="color: blue; font-size: 24px">Ten tekst będzie niebieski.</p>
+        </article>
+        <article id="1.5">
+          <h2>1.5 Wbudowany arkusz stylów</h2>
+          <p>
+            Przy takim podejściu reguły CSS dodają się wewnątrz znacznika &ltstyle> w nagłówku
+            dokumentu. Nie można ich ponownie wykorzystać na innych stronach i są trudne do
+            skalowania i konserwacji.
+          </p>
+          <pre>
+            &lthead>
+              &ltstyle type="text/css">
+                p {
+                  color: blue;
+                  font-size: 24px;
+                }
+              &lt/style>
+            &lt/head>
+          </pre>
+          <p>
+            Interesująco: Czasami takie podejście jest stosowane w celu optymalizacji szybkości
+            renderowania strony przez dodanie najważniejszych stylów bezpośrednio do dokumentu HTML.
+            Ta zaawansowana technika nazywa się Critical CSS.
+          </p>
+        </article>
+        <article id="1.5">
+          <h2>1.5 Zewnętrzny arkusz stylów</h2>
+          <p>
+            Zewnętrzny kod CSS jest łatwy do skalowania, utrzymania i ponownego wykorzystania na
+            innych stronach, więc jest to standard łączenia stylów. Projekt tworzy oddzielny plik
+            arkusza stylów z rozszerzeniem .css i podłącza się do dokumentu HTML.
+          </p>
+          <pre>
+            &lthead>
+              &ltlink rel="stylesheet" href="./css/styles.css" />
+            &lt/head>
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              Na tym samym poziomie co index.html tworzony jest folder css, a wewnątrz niego arkusz
+              stylów styles.css.
+            </li>
+            <li>
+              W znaczniku &lthead>, za pomocą znacznika &ltlink>, podłączany jest wcześniej
+              utworzony plik.
+            </li>
+            <li>Atrybut href określa ścieżkę do arkusza stylów względem dokumentu HTML.</li>
+            <li>Atrybut rel określa typ dołączonego dokumentu - stylesheet (arkusz stylów).</li>
+          </ul>
+          <p>
+            Pomocne: Możesz dołączyć dowolną liczbę plików CSS, dodając do każdego znacznik
+            &ltlink>.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/css-selectors.png" alt="" />
+          </div>
+        </article>
+      </section>
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Selektory</h2>
+          <p>
+            Korzystając z różnych selektorów, można wybrać jeden lub grupę elementów. Selektorów
+            jest
+            <a
+              href="https://webdesign.tutsplus.com/the-30-css-selectors-you-must-memorize--net-16048t"
+              target="_blank"
+              rel="noopener noreferrer"
+              >dość dużo</a
+            >, dlatego rozpatrzymy te główne, które można stosować każdego dnia
+          </p>
+        </article>
+        <article id="2.2">
+          <h3>2.2 Selektor elementu (znacznika)</h3>
+          <p>
+            Opisuje do jakich elementów html będzie stosowana reguła CSS. Selektor elementu nie jest
+            wystarczająco specyficzny, aby nadać styl poszczególnym elementom, dlatego jest
+            najczęściej używany do stylizacji wszystkich znaczników tego samego typu na stronie. Na
+            przykład, jeśli trzeba usunąć podkreślenie ze wszystkich linków w dokumencie.
+          </p>
+          <pre>
+            /* Zastosowane do wszystkich akapitów na stronie */
+            p {
+              font-size: 24px;
+            }
+
+            /* Zastosowane do wszystkich linków na stronie */
+            a {
+              text-decoration: none;
+            }
+          </pre>
+        </article>
+        <article id="2.3">
+          <h3>2.3 Selektor klasy</h3>
+          <p>
+            Najczęściej używany selektor. Używany w połączeniu z atrybutem globalnym class. Nazwę
+            klasy ustawia się tylko w języku angielskim i jest to koniecznie używany, w połączeniu z
+            atrybutem globalnym class, rzeczownik opisujący, jakiego rodzaju jest ten element.
+          </p>
+          <pre>
+            &lth1 class="title">Cześć, jestem Mango.&lt/h1>
+            &ltp class="text">
+              Witam na mojej osobistej stronie. Tutaj możesz zobaczyć
+              &lta class="link" href="">projekty&lt/a>.
+            &lt/p>
+          </pre>
+          <p>
+            Selektora klasy używamy do nadania stylu jednemu lub większej liczbie elementów o tej
+            samej wartości atrybutu class (nazwa klasy). W selektorze przed nazwą klasy umieszczana
+            jest kropka .
+          </p>
+          <pre>
+            /* Będzie dotyczyć wszystkich znaczników z klasą title */
+            .title {
+              font-weight: 500;
+            }
+
+            /* Będzie dotyczyć wszystkich znaczników z klasą text */
+            .text {
+              color: brown;
+              font-size: 18px;
+            }
+
+            /* Będzie dotyczyć wszystkich znaczników z klasą link */
+            .link {
+              text-decoration: none;
+            }
+          </pre>
+          <p>
+            Uwaga: Nazwa klasy zawiera tylko małe litery i myślnik. Na przykład, list, list-item,
+            logo-image itp. Podkreślenia list_item, duże litery ListItem lub liczby listitem27 są
+            uznawane za niewłaściwą formę.
+          </p>
+        </article>
+        <article id="2.4">
+          <h3>2.4 Kompozycja klas</h3>
+          <p>Element może mieć kilka klas, wtedy są one oddzielone spacją.</p>
+          <pre>
+            &ltelement class="value1 value2 value3">&lt/element>
+          </pre>
+          <p>
+            Można to wykorzystać do łączenia i ponownego wykorzystywania stylów. Utwórzmy znaczniki
+            i style dla komponentu alertów.
+          </p>
+          <pre>
+            &ltp class="alert success">Zakończono doładowanie konta&lt/p>
+            &ltp class="alert warning">Uwaga, taryfy ulegną zmianie&lt/p>
+            &ltp class="alert error">Błąd transakcji&lt/p>
+          </pre>
+          <p>
+            W stylach opisujemy kilka reguł, które są wspólne dla wszystkich alertów i specyficzne
+            dla każdego typu.
+          </p>
+          <pre>
+            /* Wspólne style dla wszystkich typów alertów */
+            .alert {
+              font-size: 24px;
+              font-weight: 500;
+            }
+
+            /* Specyficzne style dla każdego typu */
+            .success {
+              color: green;
+            }
+
+            .warning {
+              color: orange;
+            }
+
+            .error {
+              color: red;
+            }
+          </pre>
+          <p>Oto działający przykład.</p>
+          <p class="alert-2_4 success-2_4">Zakończono doładowanie konta</p>
+          <p class="alert-2_4 warning-2_4">Uwaga, taryfy ulegną zmianie</p>
+          <p class="alert-2_4 error-2_4">Błąd transakcji</p>
+        </article>
+        <article id="2.5">
+          <h3>2.5 Selektor identyfikatora</h3>
+          <p>
+            Podobnie jak w przypadku klasy, znaczniki mogą mieć globalny atrybut id. Różnica polega
+            na tym, że wartość id musi być unikalna na stronie, to znaczy nie mogą istnieć dwa
+            elementy o tej samej wartości identyfikatora.
+          </p>
+          <pre>
+            &ltp id="title">Nagłówek strony&lt/p>
+          </pre>
+          <p>W selektorze CSS przed nazwą identyfikatora umieszczany jest symbol krzyżyka #.</p>
+          <pre>
+            #title {
+              font-weight: 500;
+              color: orange;
+            }
+          </pre>
+          <p>Przykład:</p>
+          <p id="title-2_5">Nagłówek strony</p>
+          <p>
+            Pomocne: Nie używaj identyfikatorów do stylowania za pomocą CSS. Brak możliwości
+            nadawania elementom tego samo ID uniemożliwia ponowne użycie stylów. Identyfikatory
+            dotyczą "kotwic".
+          </p>
+        </article>
+        <article id="2.6">
+          <h3>2.6 Selektor potomka</h3>
+          <p>
+            Selektor potomka lub selektor kontekstowy stosuje style do elementów podrzędnych i
+            potomnych elementu na dowolnej głębokości zagnieżdżenia.
+          </p>
+          <pre>
+            &lta href="">Czytaj nasz blog!&lt/a>
+
+            &ltul class="social-links">
+              &ltli>
+                &lta href="">Twitter&lt/a>
+              &lt/li>
+              &ltli>
+                &lta href="">Instagram&lt/a>
+              &lt/li>
+              &ltli>
+                &lta href="">Facebook&lt/a>
+              &lt/li>
+            &lt/ul>
+          </pre>
+          <p>
+            Na przykład, zamiast ustawiać style wszystkim linkom, wystarczy zmienić style tylko
+            tych, które znajdują się na liście z klasą social-links.
+          </p>
+          <pre>
+            /* ❌ Będzie zastosowane do wszystkich linków w dokumencie */
+            a {
+              color: blue;
+              text-decoration: none;
+            }
+
+            /* ✅ Będzie zastosowane tylko do linków, które znajdują się wewnątrz znacznika z klasą social-links */
+            .social-links a {
+              color: blue;
+              text-decoration: none;
+            }
+          </pre>
+          <p>Przykład:</p>
+          <a href="">Czytaj nasz blog!</a>
+          <ul class="social-links-2_6">
+            <li>
+              <a href="">Twitter</a>
+            </li>
+            <li>
+              <a href="">Instagram</a>
+            </li>
+            <li>
+              <a href="">Facebook</a>
+            </li>
+          </ul>
+        </article>
+        <article id="2.7">
+          <h3>2.7 Selektor dziecka</h3>
+          <p>
+            Kolejny popularny selektor, który pozwala wybrać tylko bezpośrednie dziecko w elemencie
+            nadrzędnym. Używamy znaczników dla wielopoziomowego menu sklepu, w którym trzeba nadać
+            styl znacznikom &ltli> na liście z klasą menu, ale nie submenu.
+          </p>
+          <pre>
+            &ltul class="menu">
+              &ltli>
+                Komputery i akcesoria
+                &ltul class="submenu">
+                  &ltli>Procesory&lt/li>
+                  &ltli>Monitory&lt/li>
+                  &ltli>Karty graficzne&lt/li>
+                &lt/ul>
+              &lt/li>
+              &ltli>
+                Artykuły gospodarstwa domowego
+                &ltul class="submenu">
+                  &ltli>Lodówki&lt/li>
+                  &ltli>Telewizory&lt/li>
+                  &ltli>Pralki&lt/li>
+                &lt/ul>
+              &lt/li>
+              &ltli>
+                Sprzęty gospodarstwa domowego
+                &ltul class="submenu">
+                  &ltli>Fotele&lt/li>
+                  &ltli>Materace&lt/li>
+                  &ltli>Kominki elektryczne&lt/li>
+                &lt/ul>
+              &lt/li>
+            &lt/ul>
+          </pre>
+          <p>
+            Jeśli używać selektora potomka (kontekstowego), reguła CSS będzie zastosowana do
+            wszystkich znaczników &ltli>, a każdy z nich będzie miał czerwoną obwódkę.
+          </p>
+          <pre>
+            /* ❌ Nie rozwiązuje problemu */
+            .menu li {
+              border: 1px solid tomato;
+            }
+          </pre>
+          <p>
+            Selektor dziecka pomaga rozwiązać ten problem, wybierając tylko te &ltli>, które są
+            dziećmi (pierwszym zagnieżdżeniem) listy ul.menu.
+          </p>
+          <pre>
+            /* ✅ Dokładnie to, czego potrzeba */
+            .menu > li {
+              border: 1px solid tomato;
+            }
+          </pre>
+          <p>Przykład:</p>
+          <ul class="menu-2_6">
+            <li>
+              Komputery i akcesoria
+              <ul class="submenu">
+                <li>Procesory</li>
+                <li>Monitory</li>
+                <li>Karty graficzne</li>
+              </ul>
+            </li>
+            <li>
+              Artykuły gospodarstwa domowego
+              <ul class="submenu">
+                <li>Lodówki</li>
+                <li>Telewizory</li>
+                <li>Pralki</li>
+              </ul>
+            </li>
+            <li>
+              Sprzęty gospodarstwa domowego
+              <ul class="submenu">
+                <li>Fotele</li>
+                <li>Materace</li>
+                <li>Kominki elektryczne</li>
+              </ul>
+            </li>
+          </ul>
         </article>
       </section>
     </main>
