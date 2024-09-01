@@ -34,23 +34,257 @@
     border: 1px solid tomato;
 };
 
+//2.9
+a[title-2_9] {
+    color: yellowgreen;
+};
 
+//2.10
+a[href="https://2.10_htmlreference.io"] {
+    color: teal;
+}
 
+a[href="https://2.10_cssreference.io"] {
+    color: orange;
+}
 
+a[href="https://2.10_www.youtube.com"] {
+    color: tomato;
+}
 
+//3.2
+.link-3_2a{
+    color: teal;
+}
 
+.link-3_2a:hover {
+    color: tomato;
+}
 
+.social-links .link-3_2b {
+    color: blue;
+}
 
+.social-links .link-3_2b:hover {
+    color: blueviolet;
+}
 
+//3.3
+.social-links .link-3_3 {
+    color: orange;
+}
 
+.social-links .link-3_3:hover,
+.social-links .link-3_3:focus {
+    color: orangered;
+}
 
+//3.4
+.social-links .link-3_4 {
+    color:cyan;
+}
 
+.social-links .link-3_4:hover,
+.social-links .link-3_4:focus {
+    color: darkblue;
+}
 
+.social-links .link-3_4:active {
+    color: red;
+}
 
+//3.5
+.social-links .link-3_5 {
+    color:aqua;
+}
 
+.social-links .link-3_5:hover,
+.social-links .link-3_5:focus {
+    color: aquamarine;
+}
 
+.social-links .link-3_5:active {
+    color: azure;
+}
 
+.social-links .link-3_5:visited {
+    color: burlywood;
+}
 
+//3.6
+.cursors-3_6 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cursors-3_6>div {
+    flex: 150px;
+    padding: 10px 2px;
+    white-space: nowrap;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin: 0 5px 5px 0;
+    color: black;
+}
+
+.cursors-3_6>div:hover {
+    background: #eee;
+}
+
+.auto {
+    cursor: auto;
+}
+
+.default {
+    cursor: default;
+}
+
+.none {
+    cursor: none;
+}
+
+.context-menu {
+    cursor: context-menu;
+}
+
+.help {
+    cursor: help;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.progress {
+    cursor: progress;
+}
+
+.wait {
+    cursor: wait;
+}
+
+.cell {
+    cursor: cell;
+}
+
+.crosshair {
+    cursor: crosshair;
+}
+
+.text {
+    cursor: text;
+}
+
+.vertical-text {
+    cursor: vertical-text;
+}
+
+.alias {
+    cursor: alias;
+}
+
+.copy {
+    cursor: copy;
+}
+
+.move {
+    cursor: move;
+}
+
+.no-drop {
+    cursor: no-drop;
+}
+
+.not-allowed {
+    cursor: not-allowed;
+}
+
+.grab {
+    cursor: grab;
+}
+
+.grabbing {
+    cursor: grabbing;
+}
+
+.all-scroll {
+    cursor: all-scroll;
+}
+
+.col-resize {
+    cursor: col-resize;
+}
+
+.row-resize {
+    cursor: row-resize;
+}
+
+.n-resize {
+    cursor: n-resize;
+}
+
+.e-resize {
+    cursor: e-resize;
+}
+
+.s-resize {
+    cursor: s-resize;
+}
+
+.w-resize {
+    cursor: w-resize;
+}
+
+.ns-resize {
+    cursor: ns-resize;
+}
+
+.ew-resize {
+    cursor: ew-resize;
+}
+
+.ne-resize {
+    cursor: ne-resize;
+}
+
+.nw-resize {
+    cursor: nw-resize;
+}
+
+.se-resize {
+    cursor: se-resize;
+}
+
+.sw-resize {
+    cursor: sw-resize;
+}
+
+.nesw-resize {
+    cursor: nesw-resize;
+}
+
+.nwse-resize {
+    cursor: nwse-resize;
+}
+
+.zoom-in{
+    cursor: zoom-in;
+}
+
+.zoom-out{
+    cursor: zoom-out;
+}
+
+// 4.1
+.text-4_1{
+    color: blanchedalmond;
+}
+
+// 4.2
+.text-4_2 {
+    color: beige;
+    background-color: chocolate;
+}
 
 
 

@@ -908,6 +908,31 @@ SCSS:
             zawinięty w &ltem> ma specjalny nacisk i będzie dodatkowo wyróżniony intonacją.
           </p>
         </article>
+        <article id="2.9">
+          <h3>2.9 Znacznik &ltblockquote> i &ltcite></h3>
+          <p>
+            Element HTML &ltblockquote> wskazuje, że załączony tekst jest rozszerzonym cytatem.
+            Zazwyczaj jest to renderowane wizualnie przez wcięcie. Adres URL źródła cytatu można
+            podać za pomocą atrybutu cite, podczas gdy tekstową reprezentację źródła można podać za
+            pomocą elementu &ltcite>.
+          </p>
+          <pre>
+  &ltblockquote cite="https://www.huxley.net/bnw/four.html">
+    &ltp>
+      Words can be like X-rays, if you use them properly—they'll go through anything. You read and you're pierced.
+    &lt/p>
+  &lt/blockquote>
+  &ltp>—Aldous Huxley, &ltcite>Brave New World&lt/cite>&lt/p>
+          </pre>
+          <p>Przykład:</p>
+          <blockquote cite="https://www.huxley.net/bnw/four.html">
+            <p>
+              Words can be like X-rays, if you use them properly—they'll go through anything. You
+              read and you're pierced.
+            </p>
+          </blockquote>
+          <p>—Aldous Huxley, <cite>Brave New World</cite></p>
+        </article>
       </section>
       <section id="3" class="text">
         <article id="3.1">
@@ -937,11 +962,10 @@ SCSS:
             poster="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?w=640"
             width="640"
             controls
-            autoplay
             loop
             preload="auto"
           ></video>
-           <video
+          <video
             src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
             poster="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?w=640"
             width="640"
@@ -1094,7 +1118,12 @@ SCSS:
         </article>
         <article id="3.4">
           <h3>3.4 Wsparcie dla starszych przeglądarek</h3>
-          <p>Jeśli przeglądarka jest bardzo stara i nie obsługuje treści multimedialnych HTML5, trzeba poinformować o tym użytkownika. Aby to zrobić, wewnątrz znaczników &ltvideo> albo &ltaudio>, po wszystkich znacznikach &ltsource> trzeba dodać wiersz tekstu, który przeglądarka wyświetli, jeśli nie obsługuje treści multimedialnych.</p>
+          <p>
+            Jeśli przeglądarka jest bardzo stara i nie obsługuje treści multimedialnych HTML5,
+            trzeba poinformować o tym użytkownika. Aby to zrobić, wewnątrz znaczników &ltvideo> albo
+            &ltaudio>, po wszystkich znacznikach &ltsource> trzeba dodać wiersz tekstu, który
+            przeglądarka wyświetli, jeśli nie obsługuje treści multimedialnych.
+          </p>
           <pre>
             &ltvideo
               poster="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?w=640"
@@ -1124,6 +1153,7 @@ SCSS:
               Your browser does not support the &ltcode>audio&lt/code> element.
             &lt/audio>
           </pre>
+        </article>
       </section>
     </main>
     <footer class="footer">

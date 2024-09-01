@@ -108,8 +108,8 @@
             Ta zaawansowana technika nazywa się Critical CSS.
           </p>
         </article>
-        <article id="1.5">
-          <h2>1.5 Zewnętrzny arkusz stylów</h2>
+        <article id="1.6">
+          <h2>1.6 Zewnętrzny arkusz stylów</h2>
           <p>
             Zewnętrzny kod CSS jest łatwy do skalowania, utrzymania i ponownego wykorzystania na
             innych stronach, więc jest to standard łączenia stylów. Projekt tworzy oddzielny plik
@@ -306,7 +306,8 @@
                 &lta href="">Facebook&lt/a>
               &lt/li>
             &lt/ul>
-          </pre>
+</pre
+          >
           <p>
             Na przykład, zamiast ustawiać style wszystkim linkom, wystarczy zmienić style tylko
             tych, które znajdują się na liście z klasą social-links.
@@ -420,6 +421,507 @@
               </ul>
             </li>
           </ul>
+        </article>
+        <article id="2.8">
+          <h3>2.8 Selektor atrybutu</h3>
+          <p>Umożliwia stosowanie stylów do elementów o określonym atrybucie lub jego wartości.</p>
+        </article>
+        <article id="2.9">
+          <h4>2.9 element[atrybut]</h4>
+          <p>Zastosuje style do wszystkich elementów, które mają określony atrybut.</p>
+          <pre>
+            &lta href="https://htmlreference.io" title="Przewodnik po tagach">htmlreference.io&lt/a>
+            &lta href="https://cssreference.io" title="Przewodnik po tagach">cssreference.io&lt/a>
+            &lta href="https://www.youtube.com">YouTube &lt/a>
+          </pre>
+          <p>Wybiera wszystkie linki z atrybutem title.</p>
+          <pre>
+            a[title] {
+              color: yellowgreen;
+            }
+          </pre>
+          <p>Przykład:</p>
+          <a href="https://htmlreference.io" title-2_9="Przewodnik po tagach"> htmlreference.io </a>
+
+          <a href="https://cssreference.io" title-2_9="Przewodnik po tagach"> cssreference.io </a>
+
+          <a href="https://www.youtube.com">YouTube </a>
+        </article>
+        <article id="2.10">
+          <h4>2.10 element[atrybut="wartość"]</h4>
+          <p>Zastosuje style do wszystkich elementów, które mają atrybut o określonej wartości.</p>
+          <pre>
+            &lta href="https://htmlreference.io" title="Przewodnik po tagach">htmlreference.io&lt/a>
+            &lta href="https://cssreference.io" title="Przewodnik po tagach">cssreference.io&lt/a>
+            &lta href="https://www.youtube.com">YouTube &lt/a>
+          </pre>
+          <p>Wybiera wszystkie linki z atrybutem href i odpowiednią wartością.</p>
+          <pre>
+            /* Nietypowe formatowanie nawiasów klamrowych jest w porządku */
+            a[href="https://htmlreference.io"]
+            {
+              color: teal;
+            }
+
+            a[href="https://cssreference.io"]
+            {
+              color: orange;
+            }
+
+            a[href="https://www.youtube.com"]
+            {
+              color: tomato;
+            }
+          </pre>
+          <p>Przykład:</p>
+          <a href="https://2.10_htmlreference.io" title="Przewodnik po tagach">
+            htmlreference.io
+          </a>
+          <a href="https://2.10_cssreference.io" title="Przewodnik po stylach"> cssreference.io </a>
+          <a href="https://2.10_www.youtube.com">YouTube</a>
+        </article>
+      </section>
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Pseudoklasy stanowe</h2>
+          <p>
+            Selektory stanowe służą do użycia stylów dla elementów interaktywnych na określone
+            zdarzenie, takie jak najechanie kursorem na link lub fokus z klawiatury.
+          </p>
+          <p>
+            Pseudoklasa definiuje określony stan elementu i jest dołączona do selektora znacznika,
+            klasy itp. Pomiędzy selektorem a pseudoklasą nie ma spacji wskazującej, że są one ze
+            sobą powiązane. Jeśli dodać spację, to pseudoklasa będzie dotyczyć wszystkich elementów
+            w dokumencie.
+          </p>
+          <pre>
+            selektor:pseudoklasa {
+              /* Właściwości */
+            }
+          </pre>
+        </article>
+        <article id="3.2">
+          <h3>3.2 Pseudoklasa :hover</h3>
+          <p>
+            Zostaje uruchamiana, gdy kursor myszy znajduje się w granicach elementu, na przykład gdy
+            wskaźnik myszy znajduje się nad linkiem lub innym elementem.
+          </p>
+          <pre>
+            &ltp>
+              Znaleźć doskonałą ściągawkę do tagów można
+              &lta class="link" href="https://htmlreference.io">kliknąc w link&lt/a>.
+            &lt/p>
+          </pre>
+          <p>Dodamy do linku styl bazowy oraz styl po najechaniu kursorem.</p>
+          <pre>
+            .link {
+              color: teal;
+            }
+
+            .link:hover {
+              color: tomato;
+            }
+          </pre>
+          <p>Przykład:</p>
+          <p>
+            Znaleźć doskonałą ściągawkę do tagów można
+            <a class="link-3_2a" href="https://htmlreference.io">kliknąc w link</a>.
+          </p>
+          <p>
+            Pseudoklasy można zastosować do dowolnego selektora, w tym do selektorów kontekstowych.
+          </p>
+          <pre>
+            &ltul class="social-links">
+              &ltli>&lta class="link" href="https://twitter.com">Twitter&lt/a>&lt/li>
+              &ltli>&lta class="link" href="https://www.instagram.com">Instagram&lt/a>&lt/li>
+              &ltli>&lta class="link" href="https://www.facebook.com">Facebook&lt/a>&lt/li>
+            &lt/ul>
+          </pre>
+          <p>Dodamy styl podstawowy oraz styl po najechaniu kursorem do linku wewnątrz listy.</p>
+          <pre>
+            .social-links .link {
+              color: blue;
+            }
+
+            .social-links .link:hover {
+              color: blueviolet;
+            }
+          </pre>
+          <p>Przykład:</p>
+          <ul class="social-links">
+            <li><a class="link-3_2b" href="https://twitter.com">Twitter</a></li>
+            <li><a class="link-3_2b" href="https://www.instagram.com">Instagram</a></li>
+            <li><a class="link-3_2b" href="https://www.facebook.com">Facebook</a></li>
+          </ul>
+          <p>
+            Pomocne: Powyższy zapis możemy przeczytać w taki sposób: „Gdy najedziesz kursorem na
+            elementy z klasą link, które znajdują się wewnątrz elementu z klasą social-links".
+            Selektory są czytane od prawej strony do lewej.
+          </p>
+        </article>
+        <article id="3.3">
+          <h3>3.3 Pseudoklasa :focus</h3>
+          <p>
+            Jest aktywowana, gdy element interaktywny (link, przycisk, pole formularza) otrzymuje
+            fokus podczas nawigacji po stronie za pomocą klawiatury (klawisz Tab).
+          </p>
+          <pre>
+            &ltul class="social-links">
+              &ltli>&lta class="link" href="https://twitter.com">Twitter&lt/a>&lt/li>
+              &ltli>&lta class="link" href="https://www.instagram.com">Instagram&lt/a>&lt/li>
+              &ltli>&lta class="link" href="https://www.facebook.com">Facebook&lt/a>&lt/li>
+            &lt/ul>
+          </pre>
+          <p>Dodamy podstawowy styl i styl fokusu do linku wewnątrz listy.</p>
+          <pre>
+            .social-links .link {
+              color: orange;
+            }
+
+            .social-links .link:focus {
+              color: orangered;
+            }
+          </pre>
+          <p>
+            Aby wziąć pod uwagę najechanie kursorem i fokus, warto od razu stylizować oba stany.
+          </p>
+          <pre>
+            .social-links .link {
+              color: orange;
+            }
+
+            /* Dwa i więcej selektorów są oddzielone przecinkami */
+            .social-links .link:hover,
+            .social-links .link:focus {
+              color: orangered;
+            }
+          </pre>
+          <p>Przykład:</p>
+          <ul class="social-links">
+            <li><a class="link-3_3" href="https://twitter.com">Twitter</a></li>
+            <li><a class="link-3_3" href="https://www.instagram.com">Instagram</a></li>
+            <li><a class="link-3_3" href="https://www.facebook.com">Facebook</a></li>
+          </ul>
+        </article>
+        <article id="3.4">
+          <h3>3.4 Pseudoklasa :active</h3>
+          <p>
+            Występuje, gdy element jest aktywowany. Na przykład link staje się aktywny, jeśli
+            najechać na niego kursorem i kliknąć myszą. Pomimo faktu, że prawie każdy element może
+            stać się aktywny, pseudoklasa :active jest używana głównie dla linków i przycisków.
+          </p>
+          <pre>
+            &ltul class="social-links">
+              &ltli>&lta class="link" href="https://twitter.com">Twitter&lt/a>&lt/li>
+              &ltli>&lta class="link" href="https://www.instagram.com">Instagram&lt/a>&lt/li>
+              &ltli>&lta class="link" href="https://www.facebook.com">Facebook&lt/a>&lt/li>
+            &lt/ul>
+          </pre>
+          <pre>
+            .social-links .link {
+              color: teal;
+            }
+
+            .social-links .link:hover,
+            .social-links .link:focus {
+              color: orange;
+            }
+
+            .social-links .link:active {
+              color: red;
+            }
+          </pre>
+          <p>Przykład:</p>
+          <ul class="social-links">
+            <li><a class="link-3_4" href="https://twitter.com">Twitter</a></li>
+            <li><a class="link-3_4" href="https://www.instagram.com">Instagram</a></li>
+            <li><a class="link-3_4" href="https://www.facebook.com">Facebook</a></li>
+          </ul>
+        </article>
+        <article id="3.5">
+          <h3>3.5 Pseudoklasa :visited</h3>
+          <p>
+            Ta pseudoklasa jest aktywowana na linkach, które zostały już odwiedzone. Domyślnie linki
+            są wyświetlane na niebiesko, a po odwiedzeniu zmieniają kolor na fioletowy.
+          </p>
+          <pre>
+            &ltul class="social-links">
+              &ltli>&lta href="https://twitter.com" class="link">Twitter&lt/a>&lt/li>
+              &ltli>&lta href="https://www.instagram.com" class="link">Instagram&lt/a>&lt/li>
+              &ltli>&lta href="https://www.facebook.com" class="link">Facebook&lt/a>&lt/li>
+            &lt/ul>
+          </pre>
+          <pre>
+            .social-links .link {
+              color: aqua;
+            }
+
+            .social-links .link:hover,
+            .social-links .link:focus {
+              color: aquamarine;
+            }
+
+            .social-links .link:active {
+              color: azure;
+            }
+
+            .social-links .link:visited {
+              color: burlywood;
+            }
+          </pre>
+          <p>Przykład:</p>
+          <ul class="social-links">
+            <li><a href="https://twitter.com" class="link-3_5">Twitter</a></li>
+            <li><a href="https://www.instagram.com" class="link-3_5">Instagram</a></li>
+            <li><a href="https://www.facebook.com" class="link-3_5">Facebook</a></li>
+          </ul>
+        </article>
+        <article id="3.6">
+          <h3>3.6 Właściwość cursor</h3>
+          <p>
+            Ustawia typ wskaźnika myszy, gdy znajduje się w granicach elementu. Typ kursora zależy
+            od systemu operacyjnego i jego ustawień. Zmieniać typ kursora bez powodu to zły pomysł,
+            to tylko wprowadzi w błąd użytkownika, gdy zamiast zwykłej dłoni lub szkła
+            powiększającego zobaczy coś innego. W większości przypadków najlepiej zostawić go tak,
+            jak jest. Najczęściej używamy właściwości cursor przy stylowaniu przycisków.
+          </p>
+          <p>Najedź myszą na tekst (wartości właściwości), a kursor zmieni swój wygląd.</p>
+          <div class="cursors-3_6">
+            <div class="auto">auto</div>
+            <div class="default">default</div>
+            <div class="none">none</div>
+            <div class="context-menu">context-menu</div>
+            <div class="help">help</div>
+            <div class="pointer">pointer</div>
+            <div class="progress">progress</div>
+            <div class="wait">wait</div>
+            <div class="cell">cell</div>
+            <div class="crosshair">crosshair</div>
+            <div class="text">text</div>
+            <div class="vertical-text">vertical-text</div>
+            <div class="alias">alias</div>
+            <div class="copy">copy</div>
+            <div class="move">move</div>
+            <div class="no-drop">no-drop</div>
+            <div class="not-allowed">not-allowed</div>
+            <div class="grab">grab</div>
+            <div class="grabbing">grabbing</div>
+            <div class="all-scroll">all-scroll</div>
+            <div class="col-resize">col-resize</div>
+            <div class="row-resize">row-resize</div>
+            <div class="n-resize">n-resize</div>
+            <div class="s-resize">s-resize</div>
+            <div class="e-resize">e-resize</div>
+            <div class="w-resize">w-resize</div>
+            <div class="ns-resize">ns-resize</div>
+            <div class="ew-resize">ew-resize</div>
+            <div class="ne-resize">ne-resize</div>
+            <div class="nw-resize">nw-resize</div>
+            <div class="se-resize">se-resize</div>
+            <div class="sw-resize">sw-resize</div>
+            <div class="nesw-resize">nesw-resize</div>
+            <div class="nwse-resize">nwse-resize</div>
+            <div class="zoom-in">zoom-in</div>
+            <div class="zoom-out">zoom-out</div>
+          </div>
+        </article>
+      </section>
+      <section id="4" class="text">
+        <article id="4.1">
+          <h2>4.1 Praca z kolorami</h2>
+        </article>
+        <article id="4.2">
+          <h3>4.2 Kolor tekstu</h3>
+          <p>
+            Używając właściwości color można zmienić kolor tekstu elementu. Nowoczesne przeglądarki
+            obsługują kilka podstawowych sposobów opisywania kolorów: słowa kluczowe, rgb i hex.
+          </p>
+          <pre>
+            &ltp class="text">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+              veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+              cumque fuga facere labore quo id necessitatibus quaerat rerum.
+            &lt/p>
+          </pre>
+          <pre>
+            .text {
+              color: blanchedalmond;
+            }
+          </pre>
+          <p>
+            Pomocne: Na serwisie
+            <a
+              href="https://htmlcolorcodes.com/color-picker/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >htmlcolorcodes.com</a
+            >
+            możesz zobaczyć wartości kolorów w różnych formatach.
+          </p>
+          <p>Przykład:</p>
+          <p class="text-4_1">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi, veritatis
+            nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore
+            quo id necessitatibus quaerat rerum.
+          </p>
+        </article>
+        <article id="4.2">
+          <h3>4.2 Kolor tła</h3>
+          <p>Właściwość background-color umożliwia zmianę koloru tła elementu.</p>
+          <pre>
+            &ltp class="text">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+              veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+              cumque fuga facere labore quo id necessitatibus quaerat rerum.
+            &lt/p>
+          </pre>
+          <pre>
+            .text {
+              color: beige;
+              background-color: chocolate;
+            }
+          </pre>
+          <p>Przykład:</p>
+          <p class="text-4_2">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi, veritatis
+            nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore
+            quo id necessitatibus quaerat rerum.
+          </p>
+        </article>
+        <article id="4.3">
+          <h3>4.3 Nazwane kolory</h3>
+          <p>
+            Aby opisać kolor w stylach, można użyć
+            <a
+              href="https://htmlcolorcodes.com/color-names/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >zestawów zarezerwowanych słów</a
+            >
+            . We współczesnym tworzeniu stron internetowych nie są już używane, ale są przydatne,
+            jeśli trzeba szybko ustawić określony kolor.
+          </p>
+          <pre>
+            p {
+              color: tomato;
+            }
+          </pre>
+        </article>
+        <article id="4.4">
+          <h3>4.4 RGB</h3>
+          <p>
+            Istnieją trzy podstawowe kolory: czerwony, zielony i niebieski. Mieszając je w różnych
+            proporcjach, możesz uzyskać dowolny inny kolor.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/rgb-chart.png" alt="" />
+          </div>
+          <p>
+            Ten format używa funkcji rgb() do ustawienia wartości, która określa proporcje każdego z
+            trzech kolorów podstawowych, po czym są one mieszane i uzyskuje się żądany kolor.
+          </p>
+          <pre>
+            rgb(czerwony, zielony, niebieski)
+          </pre>
+          <p>
+            Zakres wartości można określić jako liczby od 0 (brak koloru) do 255 (maksymalny
+            udział). To jest główny sposób ustawiania koloru RGB.
+          </p>
+          <pre>
+            /* Czysta czerwień: 255 czerwonego, 0 zielonego, 0 niebieskiego */
+            p {
+              color: rgb(255, 0, 0);
+            }
+          </pre>
+          <p>Lub procenty od0% do 100%.</p>
+          <pre>
+            /* Czysta czerwień: 100% czerwonego, 0% zielonego, 0% niebieskiego */
+            p {
+              color: rgb(100%, 0%, 0%);
+            }
+          </pre>
+        </article>
+        <article id="4.5">
+          <h3>4.5 Hexadecimal</h3>
+          <p>
+            Ten opis koloru jest oparty na liczbie szesnastkowej. Udział każdego z trzech kolorów
+            podstawowych jest opisany dwoma liczbami.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/hex-color-format.jpg" alt="" />
+          </div>
+          <p>
+            Jako cyfry tego systemu liczbowego używany jest zestaw cyfr od 0 do 9 oraz łacińskie
+            litery od A do F małymi lub dużymi literami.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>0 - najmniejszy udział koloru</li>
+            <li>f - największy udział koloru</li>
+          </ul>
+          <pre>
+            /* Czysta czerwień: ff (100%) czerwonego, 00 (0%) zielonego, 00 (0%) niebieskiego */
+            p {
+              color: #ff0000;
+            }
+
+            /* Czysty zielony kolor: 00 (0%) czerwonego, ff (100%) zielonego, 00 (0%) niebieskiego */
+            p {
+              color: #00ff00;
+            }
+
+            /* Czysty niebieski kolor: 00 (0%) czerwonego, 00 (0%) zielonego, ff (100%) niebieskiego */
+            p {
+              color: #0000ff;
+            }
+          </pre>
+        </article>
+        <article id="4.6">
+          <h3>4.6 Przezroczystość koloru</h3>
+          <p>
+            Głównym sposobem dodania przezroczystości do koloru jest użycie funkcji rgba(). W
+            przeciwieństwie do rgb() dodaje się także przezroczystość (kanał alfa).
+          </p>
+          <pre>
+            rgba(czerwony, zielony, niebieski, alfa)
+          </pre>
+          <p>
+            Najczęściej przezroczystość jest określana liczbą od 0 (przezroczysty) do 1
+            (nieprzezroczysty).
+          </p>
+          <pre>
+            /* Czysty czerwony kolor z przezroczystością 30% */
+            p {
+              background-color: rgba(255, 0, 0, 0.3);
+            }
+          </pre>
+          <p>
+            Ale jest to również możliwe z wartościami procentowymi od 0% (przezroczysty) do 100%
+            (nieprzezroczysty).
+          </p>
+          <pre>
+            /* Czysty czerwony kolor z przezroczystością 30% */
+            p {
+              background-color: rgba(100%, 0%, 0%, 30%);
+            }
+          </pre>
+          <p>
+            Interesująco Można również ustawić przezroczystość kolorów w
+            <a
+              href="https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4"
+              target="_blank"
+              rel="noopener noreferrer"
+              >formacie Hex</a
+            >, ale ze względu względu na złożoność takiego zapisu częściej używa się rgba().
+          </p>
+        </article>
+      </section>
+      <section id="5" class="text">
+        <article id="5.1">
+          <h2>5.1 Kaskada stylów</h2>
+          <p>
+            Kaskadowość - to mechanizm, który zarządza końcowymi wartościami właściwości elementu,
+            gdy stosuje się do niego wiele reguł CSS.
+          </p>
         </article>
       </section>
     </main>
