@@ -1,1 +1,81 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.e50b48c6.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/01-html1.fbf00cce.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/02-html2.0a49fca4.css"><title>Tekst i czcionka</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 1 - Zajęcia 2 - Tekst i czcionka</h1> <article id="1.1"> <h2>1.1 Tabele</h2> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>31.07.2024r.</p> </div> </footer>  <script defer type="module" src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.09e385f1.js"></script><script defer src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.106d34b9.js" nomodule=""></script> <script defer type="module" src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.d76e38a1.js"></script><script defer src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.eba02ac8.js" nomodule=""></script> </body></html>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.8c480b41.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/01-html1.fbf00cce.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/04-tekstCzcionka.784cdfb9.css"><title>Tekst i czcionka</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 2 - Zajęcia 4 - Tekst i czcionka</h1> <article id="1.1"> <h2>1.1 Dekoracja tekstu</h2> <p> Tekst jest główną treścią stron internetowych i istnieje wiele różnych właściwości CSS, które są używane na co dzień do nadawania mu dekoracji. </p> </article> <article id="1.2"> <h3>1.2 Właściwość text-decoration</h3> <p>Ustawia różne dekoracyjne podkreślenia i inne efekty tekstowe.</p> <pre>
+            text-decoration: none | underline | line-through | overline
+          </pre> <p> Arkusz stylów z przeglądarki ustawia znaczenie większości elementów na none, czyli wyłączone. Ale na przykład linki mają domyślnie underline. </p> <pre>
+            &lth1 class="title">Iste odit similique sit&lt/h1>
+            &ltp class="text">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+              &ltspan>veritatis nihil alias iste&lt/span> odit similique sit eius optio veniam,
+              impedit cumque fuga facere labore quo id necessitatibus quaerat rerum.
+            &lt/p>
+            &lta href="" class="link">Czytaj więcej...&lt/a>
+          </pre> <pre>
+            .text > span {
+              text-decoration: line-through;
+            }
+
+            .link {
+              text-decoration: none;
+            }
+          </pre> <p>Przykład:</p> <p class="p-1_2"> text-decoration: <span class="span-none_1_2">none</span> <span class="span-underline_1_2">underline-solid</span> <span class="span-line-through_1_2">line-through-solid</span> <span class="span-overline_1_2">overline-solid</span> <span class="span-dotted_1_2">underline-dotted</span> <span class="span-dashed_1_2">underline-dashed</span> <span class="span-double_1_2">underline-double</span> <span class="span-wavy_1_2">underline-wavy</span> </p> </article> <article id="1.3"> <h3>1.3 Właściwość text-transform</h3> <p> Kontroluje wielkość liter w tekście, na przykład możemy za pomocą tej właściwości zrobić wszystkie litery wielkie. W znacznikach tekst zawsze wpisujemy zgodnie z regułami języka. Następnie za pomocą funkcji text-transform, zostaje poprawiany do pożądanej formy ponieważ wszystkie zmiany wyglądu odbywają się za pomocą CSS. </p> <pre>
+            text-transform: none | uppercase | lowercase | capitalize
+          </pre> <p>Przykład:</p> <p class="p-1_3"> <span class="span-none_1_3">Text-Transform none</span> <span class="span-uppercase_1_3">Text-Transform uppercase</span> <span class="span-lowercase_1_3">Text-Transform lowercase</span> <span class="span-capitalize_1_3">Text-Transform capitalize</span> </p> </article> <article id="1.4"> <h3>1.4 Właściwość text-align</h3> <p>Steruje wyrównaniem w poziomie zawartości tekstowej elementu.</p> <pre>
+            text-align: left | right | center | justify
+          </pre> <p>Domyślnie tekst jest wyrównany do lewej (wartość left).</p> <pre>
+            &ltdiv>
+              &lth6 class="post-title">Lorem ipsum dolor sit amet&lt/h6>
+              &ltp>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi, veritatis
+                nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere
+                labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+              &ltp class="align-right">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+              &ltp class="align-justify">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+            &lt/div>
+          </pre> <p>Wycentrujemy tekst nagłówka i wyrównamy tekst akapitu do prawej i równomiernie.</p> <pre>
+            .post-title {
+              text-align: center;
+            }
+
+            .align-right {
+              text-align: right;
+            }
+
+            .align-justify {
+              text-align: justify;
+            }
+          </pre> <div> <h6 class="post-title-1_4">Lorem ipsum dolor sit amet</h6> <p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi, veritatis nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore quo id necessitatibus quaerat rerum. </p> <p class="align-right-1_4"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi, veritatis nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore quo id necessitatibus quaerat rerum. </p> <p class="align-justify-1_4"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi, veritatis nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore quo id necessitatibus quaerat rerum. </p> </div> <p> Uwaga: Używanie wartości justify nie jest dobrym pomysłem. Chociaż tekst jest dociskany równomiernie do lewej i prawej krawędzi bloku, jego czytelność jest znacznie ograniczona. Dzieje się tak, ponieważ odstępy między słowami mają różną szerokość, co negatywnie wpływa na postrzeganie tekstu. </p> </article> <article id="1.5"> <h3>1.5 Właściwość text-indent</h3> <p> Ustawia wielkość wcięcia pierwszego wiersza bloku tekstu, na przykład akapitu. Nie wpływa na wszystkie inne wiersze z wyjątkiem pierwszej. </p> <pre>
+            text-indent: wartość | procent | inherit
+          </pre> <p> Dowolne jednostki długości są akceptowane jako wartości, na przykład piksele (px). W przypadku ustawienia wartości w procentach wcięcie jest obliczane w zależności od szerokości bloku. </p> <pre>
+            &ltdiv>
+              &lth6>Lorem ipsum dolor sit amet&lt/h6>
+              &ltp class="post-text-px">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.Obcaecati
+                commodi, veritatis nihil alias iste odit similique sit eius optio veniam,
+                impedit cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+              &ltp class="post-text-percent">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.Obcaecati
+                commodi, veritatis nihil alias iste odit similique sit eius optio veniam,
+                impedit cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+            &lt/div>
+          </pre> <pre>
+            .post-text-px {
+              text-indent: 100px;
+            }
+            .post-text-percent {
+              text-indent: 10%;
+            }
+          </pre> <p>Przykład:</p> <div> <h6>Lorem ipsum dolor sit amet</h6> <p class="post-text-px-1_5"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi, veritatis nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore quo id necessitatibus quaerat rerum.Obcaecati commodi, veritatis nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore quo id necessitatibus quaerat rerum. </p> <p class="post-text-percent-1_5"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi, veritatis nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore quo id necessitatibus quaerat rerum.Obcaecati commodi, veritatis nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore quo id necessitatibus quaerat rerum. </p> </div> </article> <article id="1.6"> <h3>1.6 Właściwość line-height</h3> </article></section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>31.07.2024r.</p> </div> </footer>  <script defer type="module" src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.09e385f1.js"></script><script defer src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.106d34b9.js" nomodule=""></script>  </body></html>
