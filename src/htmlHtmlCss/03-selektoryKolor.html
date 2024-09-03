@@ -922,6 +922,667 @@
             Kaskadowość - to mechanizm, który zarządza końcowymi wartościami właściwości elementu,
             gdy stosuje się do niego wiele reguł CSS.
           </p>
+          <ul class="unnumbered-list-container">
+            <li>Jeśli do elementu stosuje się wiele reguł, ich właściwości są łączone</li>
+            <li>
+              Jeśli reguły mają te same właściwości z różnymi wartościami, powoduje to konflikt
+            </li>
+            <pre>
+              /* Jakiego koloru będzie tekst akapitów? */
+              p {
+                color: blue;
+                background-color: orange;
+              }
+
+              p {
+                color: teal;
+              }
+            </pre>
+            <p>
+              Aby zebrać ostateczne style elementu i rozwiązać konflikty wartości właściwości,
+              przeglądarka wykorzystuje dwa mechanizmy: specyficzność i dziedziczenie.
+            </p>
+          </ul>
+        </article>
+        <article id="5.2">
+          <h3>5.2 Specyficzność selektorów</h3>
+          <p>
+            Dla każdej reguły CSS przeglądarka oblicza specyficzność (wagę) selektora. Jeśli
+            właściwości z różnych reguł muszą być zastosowane do elementu i istnieją sprzeczne
+            (identyczne) właściwości, używa się wartości właściwości z reguły z największą
+            specyficznością selektora.
+          </p>
+          <p>
+            Wartość specyficzności składa się z czterech rang, których znaczenie rośnie od prawej
+            strony do lewej.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/specificity.svg" alt="" />
+          </div>
+        </article>
+        <article id="5.3">
+          <h4>5.3 Selektory czwartej rangi</h4>
+          <p>Każdy selektor elementu i pseudoelementu dodaje jednostkę do czwartej rangi.</p>
+          <pre>
+            &ltarticle>
+              &lth1>Lorem ipsum dolor sit amet&lt/h1>
+              &ltp>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+              &lta href="">Czytaj więcej...&lt/a>
+            &lt/article>
+          </pre>
+          <p>
+            Kolor tekstu akapitu będzie pomarańczowy, ponieważ specyficzność drugiej reguły jest
+            większa.
+          </p>
+          <pre>
+            /* Specyficzność - 0 0 0 1 */
+            p {
+              color: green;
+            }
+
+            /* ✅ Specyficzność - 0 0 0 2 */
+            article > p {
+              color: orange;
+            }
+          </pre>
+        </article>
+        <article id="5.4">
+          <h4>5.4 Selektory trzeciej rangi</h4>
+          <p>Każdy selektor klasy, atrybutu i pseudoklasy dodaje jednostkę do trzeciej rangi.</p>
+          <pre>
+            &ltarticle class="post">
+              &lth1 class="post-title">Lorem ipsum dolor sit amet&lt/h1>
+              &ltp>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+              &lta href="" class="post-link">Czytaj więcej...&lt/a>
+            &lt/article>
+          </pre>
+          <p>
+            Tekst nagłowka będzie miał kolor pomarańczowy, ponieważ specyficzność trzeciej reguły
+            jest większa.
+          </p>
+          <pre>
+            /* Specyficzność - 0 0 1 0 */
+            .post-title {
+              color: green;
+            }
+
+            /* Specyficzność - 0 0 1 1 */
+            .post > h1 {
+              color: red;
+            }
+
+            /* ✅ Specyficzność - 0 0 2 0 */
+            .post > .post-title {
+              color: orange;
+            }
+          </pre>
+          <p>
+            Kolor tekstu linku będzie brązowy, ponieważ specyficzność piątej reguły jest większa.
+          </p>
+          <pre>
+            /* Specyficzność - 0 0 0 1 */
+            a {
+              color: green;
+            }
+
+            /* Specyficzność - 0 0 1 0 */
+            .post-link {
+              color: orange;
+            }
+
+            /* Specyficzność - 0 0 1 1 */
+            a.post-link {
+              color: blue;
+            }
+
+            /* Specyficzność - 0 0 2 0 */
+            .post > .post-link {
+              color: red;
+            }
+
+            /* ✅ Specyficzność - 0 0 2 1 */
+            .post > a.post-link {
+              color: brown;
+            }
+          </pre>
+        </article>
+        <article id="5.5">
+          <h4>5.5 Selektory drugiej rangi</h4>
+          <p>Każdy selektor identyfikatora dodaje jednostkę do drugiej rangi.</p>
+          <pre>
+            &ltarticle class="post">
+              &lth1 class="post-title" id="title">Lorem ipsum dolor sit amet&lt/h1>
+              &ltp>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+              &lta href="" class="post-link">Czytaj więcej...&lt/a>
+            &lt/article>
+          </pre>
+          <p>
+            Tekst nagłówka będzie miał kolor pomarańczowy, ponieważ specyficzność drugiej reguły
+            jest większa.
+          </p>
+          <pre>
+            /* Specyficzność - 0 0 1 0 */
+            .post-title {
+              color: green;
+            }
+
+            /* ✅ Specyficzność - 0 1 0 0 */
+            #title {
+              color: orange;
+            }
+          </pre>
+        </article>
+        <article id="5.6">
+          <h4>5.6 Selektory pierwszej rangi</h4>
+          <p>
+            Style wbudowane dodają jednostkę do pierwszej rangi, mają największą specyficzność i nie
+            można ich zastąpić za pomocą CSS.
+          </p>
+          <pre>
+            <!-- Specyficzność takiego stylu - 1 0 0 0 -->
+            &ltp style="color: green;">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+              veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+              cumque fuga facere labore quo id necessitatibus quaerat rerum.
+            &lt/p>
+          </pre>
+        </article>
+        <article id="5.7">
+          <h4>5.7 Jednakowa specyficzność</h4>
+          <p>
+            Jeśli specyficzność jest taka sama, wygrywa reguła, która znajduje się niżej w kodzie.
+          </p>
+          <pre>
+            /* Trzy selektory elementów o tej samej specyficzności */
+            a {
+              color: teal;
+            }
+
+            a {
+              color: brown;
+            }
+
+            /* Ponieważ ta reguła jest niżej, do wszystkich linków zostanie zastosowany pomarańczowy kolor tekstu */
+            a {
+              color: orange;
+            }
+          </pre>
+        </article>
+        <article id="5.8">
+          <h4>5.8 Unikanie specyficzności</h4>
+          <p>
+            eśli selektor wygląda jak A > B > C + X Y, warto przemyśleć czy nie da rady go uprościć.
+            Im prostszy selektor, tym mniej problemów ze specyficznością. Dobrą zasadą jest używanie
+            selektorów klasy. Atrybut class nie tylko pomaga uniknąć problemów ze specyficznością,
+            ale także poprawia czytelność znaczników HTML.
+          </p>
+          <p>
+            Pierwszym podejściem jest przypisanie klasy do wspólnego bloku rodzica i użycie
+            selektorów dziecka i potomka.
+          </p>
+          <pre>
+            &ltarticle class="post">
+              &lth1>Lorem ipsum dolor sit amet&lt/h1>
+              &ltp>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+              &lta href="">Czytaj więcej...&lt/a>
+            &lt/article>
+          </pre>
+          <p>
+            Taki CSS działa dobrze, gdy znaczniki są proste. Jednak wraz ze wzrostem złożoności
+            znaczników blokowych wygodne stylizowanie za pomocą selektorów znacznika staje się
+            niemożliwe. Na przykład, jeśli post zawiera 5 linków, a nie jeden, punktowo wybrać jakiś
+            link nie uda się lub selektor będzie zbyt złożony.
+          </p>
+          <pre>
+            .post {
+              /* Style artykułu */
+            }
+
+            .post > h1 {
+              /* Style nagłówka */
+            }
+
+            .post > p {
+              /* Style tekstu */
+            }
+
+            .post > a {
+              /* Style linku */
+            }
+
+            .post > a:hover {
+              /* Style linku po najechaniu kursorem */
+            }
+          </pre>
+          <p>
+            Drugie podejście polega na dodaniu klas opisowych do bloku rodzica i znajdujących się w
+            nim znaczników.
+          </p>
+          <pre>
+            &ltarticle class="post">
+              &lth1 class="title">Lorem ipsum dolor sit amet&lt/h1>
+              &ltp class="text">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+              &lta class="link" href="">Czytaj więcej...&lt/a>
+            &lt/article>
+          </pre>
+          <p>
+            Ten CSS dobrze się skaluje i jest dobrze obsługiwany. To jest punkt wyjścia do napisania
+            dobrego CSS. Jednak wraz ze wzrostem złożoności znaczników mogą wystąpić drobne problemy
+            ze specyficznością.
+          </p>
+          <pre>
+            .post {
+              /* Style artykułu */
+            }
+
+            .post > .title {
+              /* Style nagłówka */
+            }
+
+            .post > .text {
+              /* Style tekstu */
+            }
+
+            .post > .link {
+              /* Style linku */
+            }
+
+            .post > .link:hover {
+              /* Style linku po najechaniu kursorem */
+            }
+          </pre>
+          <p>
+            Trzecie podejście polega na przypisaniu bardzo konkretnych klas do bloku rodzica i do
+            każdego znacznika w nim na zasadzie nazwa_rodzica-nazwa_dziecka.
+          </p>
+          <pre>
+            &ltarticle class="post">
+              &lth1 class="post-title">Lorem ipsum dolor sit amet&lt/h1>
+              &ltp class="post-text">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+              &lta href="" class="post-link">Czytaj więcej....&lt/a>
+            &lt/article>
+          </pre>
+          <p>
+            To podejście wykorzystuje proste selektory klas, nie trzeba myśleć o specyficzności.
+            Taki CSS jest dobrze skalowalny i dobrze obsługiwany. Współczesny programista
+            wykorzystuje różne odmiany tego podejścia podczas pisania stylów.
+          </p>
+          <pre>
+            .post {
+              /* Style artykułu */
+            }
+
+            .post-title {
+              /* Style nagłówka */
+            }
+
+            .post-text {
+              /* Style tekstu */
+            }
+
+            .post-link {
+              /* Style linku */
+            }
+
+            .post-link:hover {
+              /* Style linku po najechaniu kursorem */
+            }
+          </pre>
+          <p>
+            Pomocne: Nie ograniczaj się do jednego podejścia. Wszystkie trzy metody nazywania klas
+            znaczników i stylów pisania mogą być używane razem, w zależności od sytuacji.
+          </p>
+        </article>
+        <article id="5.9">
+          <h4>5.9 Słowo kluczowe !important</h4>
+          <p>
+            Specyficzność reguły można zwiększyć za pomocą słowa kluczowego !important, dodając go
+            po wartości właściwości.
+          </p>
+          <pre>
+            &ltp class="text" id="text-id">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+              veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+              cumque fuga facere labore quo id necessitatibus quaerat rerum.
+            &lt/p>
+          </pre>
+          <p>
+            Wartość tej właściwości ma pierwszeństwo przed wszystkimi innymi, a tekst akapitu będzie
+            miał kolor pomarańczowy.
+          </p>
+          <pre>
+            p {
+              color: orange !important;
+            }
+
+            p#text-id.text {
+              color: blue;
+            }
+          </pre>
+          <p>
+            Uwaga: Bardzo odradza się używanie !important we współczesnym programowaniu. Jedynym
+            dopuszczalnym przypadkiem jest zastępowanie wartości właściwości, jeśli nie ma
+            bezpośredniego dostępu do pliku ze stylami, na przykład styl z biblioteki.
+          </p>
+        </article>
+        <article id="5.10">
+          <h3>5.10 Dziedziczenie właściwości</h3>
+          <p>
+            Dziedziczenie genetyczne jest zwyczajowo widoczne w życiu. Na przykład wysocy rodzice
+            często mają wysokie dzieci, kolor włosów jest często przenoszony i tak dalej. Coś w tym
+            stylu jest również w CSS. Jeśli ustawić kolor tekstu rodzica na zielony, to jeśli
+            jakakolwiek reguła nie zastąpi tej wartości, kolor tekstu wszystkich jej elementów
+            potomków również będzie zielony.
+          </p>
+          <p>
+            Dziedziczenie to mechanizm, za pomocą którego wartości pewnych właściwości są
+            przekazywane od przodka do jego potomków. Głównie dziedziczone są właściwości dekoracji
+            tekstu, takie jak kolor. Jest to wygodne, ponieważ nie trzeba ustawiać stylów dla
+            każdego potomka oddzielnie.
+          </p>
+          <pre>
+            &ltarticle class="post">
+              &lth1>Popularne w tym miesiącu&lt/h1>
+              &ltp>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+              &lta href="">Czytaj więcej...&lt/a>
+            &lt/article>
+          </pre>
+          <p>Zmienimy cały tekst postu na zielony.</p>
+          <pre>
+            .post {
+              color: green;
+            }
+          </pre>
+          <p>
+            W narzędziach programistycznych, na karcie Styles na samym dole zobaczymy dziedziczenie
+            dla akapitu i nagłówka.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/inheritance.png" alt="" />
+          </div>
+          <p>
+            W życiu nie wszystkie atrybuty rodziców są przekazywane dzieciom. Tak samo jest w CSS,
+            nie każda właściwość jest dziedziczona domyślnie przez potomków. W rzeczywistości, gdyby
+            wszystkie właściwości były dziedziczone, efekt byłby podobny do braku dziedziczenia, a
+            wiele CSS musiałoby zostać napisanych, aby zresetować odziedziczone style i zastąpić to
+            zachowanie.
+          </p>
+        </article>
+        <article id="5.11">
+          <h4>5.11 Wyjątki</h4>
+          <p>
+            Nie wszystkie elementy dziedziczą wartości właściwości od swoich przodków. Na przykład
+            link nie dziedziczy koloru tekstu.
+          </p>
+          <pre>
+            &ltarticle class="post">
+              &lth1>Popularne w tym miesiącu&lt/h1>
+              &ltp>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+                veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+                cumque fuga facere labore quo id necessitatibus quaerat rerum.
+              &lt/p>
+              &lta href="" class="post-link">Czytaj więcej...&lt/a>
+            &lt/article>
+          </pre>
+          <p>
+            Jeśli chcesz, aby post miał taki sam kolor jak reszta tekstu, można użyć specjalnej
+            wartości inherit dla właściwości color, aby nie duplikować koloru w dwóch miejscach.
+          </p>
+          <pre>
+            .post {
+              color: green;
+            }
+
+            .post-link {
+              color: inherit;
+            }
+          </pre>
+          <p>
+            Pomocne: Wartość inherit mówi przeglądarce, że ma dziedziczyć wartość właściwości po
+            przodku. W przypadku koloru preferowaną wartością jest currentColor (bieżący kolor).
+          </p>
+        </article>
+        <article id="5.12">
+          <h3>5.12 Kolor tekstu strony</h3>
+          <p>
+            Aby ustawić podstawowy (dominujący) kolor tekstu całego dokumentu, utwórz regułę dla
+            znacznika &ltbody> i dodaj właściwość color. Ten kolor będzie dziedziczony przez całą
+            zawartość tekstową z wyjątkiem linków.
+          </p>
+          <pre>
+            body {
+              color: #2a2a2a;
+            }
+          </pre>
+        </article>
+      </section>
+      <section id="6" class="text">
+        <article id="6.1">
+          <h2>6.1 Zmienne CSS</h2>
+          <p>
+            Właściwości użytkownika (CSS Custom Properties), znane również jako zmienne CSS, to
+            kontenery dla wartości, określone w dokumencie CSS w celu powtórnego wykorzystania.
+            Zmienne CSS ułatwiają używanie i zmienianie powtarzających się wartości w pliku stylów.
+            Wspierane są natywnie przez przeglądarkę i nie potrzebują żadnych dodatkowych narzędzi.
+          </p>
+          <pre>
+            index.html
+            &ltsection class="section">
+              &lth1 class="section-title">Section title&lt/h1>
+            &lt/section>
+          </pre>
+          <pre>
+            styles.css
+            .section {
+              /* Inne style */
+              border: 2px solid #3f51b5;
+            }
+
+            .section-title {
+              /* Inne style */
+              color: #3f51b5;
+            }
+
+            .section-title::before {
+              /* Inne style */
+              background-color: #3f51b5;
+            }
+          </pre>
+          <p>
+            W podanym przykładzie wartość #3f51b5 występuje trzykrotnie. Przyjmijmy, że to główny
+            kolor marki, który jest cały czas wykorzystywany na różnych podstronach strony
+            internetowej. Jeżeli zmieni się kolor marki, będziemy musieli wszędzie zmienić tę
+            wartość w dużym projekcie mogą to być setki miejsc. Najlepsze, co możemy zrobić, to
+            używać opcji znajdź i zamień.
+          </p>
+        </article>
+        <article id="6.2">
+          <h3>6.2 Zadeklarowanie zmiennej</h3>
+          <p>
+            Z pomocą przychodzą zmienne CSS. Nazwa zmiennej jest czuła na wielkość liter i może
+            zawiera litery łacińskie, cyfry, podkreślniki i pauzy. Utworzymy zmienną --brand-color
+            do przechowywania koloru marki (#3f51b5) i będziemy z niej korzystać.
+          </p>
+          <pre>
+            styles.css
+            :root {
+              --brand-color: #3f51b5;
+            }
+          </pre>
+          <p>
+            Zmienne globalne, dostępne w innej dowolnej zasadzie, określane są w selektorze :root -
+            bardziej specyficznym selektorze elementu &lthtml>. Zadeklarowanie zmiennej zaczyna się
+            od podwójnego łącznika --, za którym pojawia się jej nazwa w dowolnej notacji. Na
+            przykład brand-color lub brandColor - to poprawne nazwy zmiennej. Najważniejsze, aby
+            wszystkie zmienne w projekcie były w jednakowej notacji. Nazwa i wartość rozdzielane są
+            dwukropkiem, a na końcu deklaracji wstawia się średnik.
+          </p>
+          <p>
+            Ciekawostka Deklaracja zmiennej to utworzenie nowej właściwości CSS, która jest
+            dziedziczona, dlatego występuje wszędzie, ponieważ dowolny element staje się potomkiem
+            elementu &lthtml>.
+          </p>
+        </article>
+        <article id="6.3">
+          <h3>6.3 Wykorzystywanie zmiennej</h3>
+          <p>
+            W celu otrzymania dostępu do zmiennej przyjmowana jest wbudowana funkcja var(), której
+            jako pierwszy argument przekazuje się nazwę zmiennej.
+          </p>
+          <pre>
+            styles.css
+            :root {
+              --brand-color: #3f51b5;
+            }
+
+            .section {
+              /* Inne style */
+              border: 2px solid var(--brand-color);
+            }
+
+            .section-title {
+              /* Inne style */
+              color: var(--brand-color);
+            }
+
+            .section-title::before {
+              /* Inne style */
+              background-color: var(--brand-color);
+            }
+          </pre>
+          <p>
+            Zrobiło się trochę więcej kodu, ale jest on bardziej elastyczny i czytelny a co
+            najważniejsze łatwiejszy w utrzymaniu. Jeśli trzeba będzie zmienić kolor marki,
+            wystarczy podmienić wartość zmiennej -brand-color i kolor zmieni się wszędzie, gdzie
+            jest ona wykorzystywana.
+          </p>
+          <p>
+            Wskazówka: Zmienne CSS wykorzystuje się nie tylko do zapisywania palety kolorów
+            projektu, można w nich przechowywać dowolne informacje, na przykład standardowe
+            wielkości czcionek, promień obramowania, odstępny i pola, szerokości kontenerów, punkty
+            zwrotne dla układu adaptacyjnego i tak dalej, to znaczy dowolne wartości, które
+            wykorzystuje się ponownie w różnych zasadach CSS.
+          </p>
+        </article>
+        <article id="6.4">
+          <h3>6.4 Wartości rezerwowe</h3>
+          <p>
+            Funkcja var(nazwa_zmiennej, fallback) może przyjmować dwie wartości. Drugi argument to
+            fallback - wartość, która będzie wykorzystywana, jeżeli zmienna, przekazana przez
+            pierwszy argument, nie jest określona.
+          </p>
+          <pre>
+            styles.css
+            .section {
+              border: 2px solid var(--brand-color, orange);
+            }
+
+            .section-title {
+              color: var(--brand-color, black);
+            }
+
+            .section-title::before {
+              background-color: var(--brand-color, tomato);
+            }
+          </pre>
+          <p>
+            Wskazówka: Możliwość przekazania wartości domyślnej to po pierwsze możliwość, a nie
+            obowiązkowe wymaganie przy wykorzystaniu zmiennych CSS. Nie ma potrzeby pokazywania
+            wszędzie fallbacku.
+          </p>
+        </article>
+        <article id="6.5">
+          <h3>6.5 Zasięg widoczności</h3>
+          <p>
+            Zmienna --brand-color jest globalna, dlatego że została określona w :root, to znaczy
+            jest dostępna wszędzie w naszym pliku css. Jeżeli wartość będzie wykorzystywana tylko w
+            określonej części strony, można tworzyć zmienne o lokalnym zasięgu widoczności. Będą
+            dostępne tylko dla tego elementu i jego potomków, w którym były zadeklarowane.
+          </p>
+          <pre>
+            &ltdiv class="alert">
+              &ltp class="alert-text">Alert text&lt/p>
+              &ltsvg class="alert-icon">&lt/svg>
+            &lt/div>
+          </pre>
+          <pre>
+            styles.css
+            .alert {
+              --alert-text-color: black;
+              --alert-accent-color: tomato;
+            }
+
+            .alert-text {
+              color: var(--alert-text-color);
+              border: 1px solid var(--alert-accent-color);
+            }
+
+            .alert-icon {
+              background-color: var(--alert-accent-color);
+            }
+          </pre>
+        </article>
+        <article id="6.6">
+          <h3>6.6 Przedefiniowanie wartości</h3>
+          <p>
+            Zmienne można przedefiniowywać lokalnie przy pomocy innych wartości. W tym celu należy
+            zadeklarować zmienną o takiej samej nazwie, co w przodku i wprowadzić do niej wymagane
+            wartości.
+          </p>
+          <pre>
+            &ltdiv class="alert">Default&lt/div>
+            &ltdiv class="alert success">Success&lt/div>
+            &ltdiv class="alert warning">Warning&lt/div>
+            &ltdiv class="alert error">Error&lt/div>
+          </pre>
+          <pre>
+            .alert {
+              --alert-text-color: black;
+
+              color: var(--alert-text-color);
+            }
+
+            .alert.success {
+              --alert-text-color: green;
+            }
+
+            .alert.warning {
+              --alert-text-color: orange;
+            }
+
+            .alert.error {
+              --alert-text-color: red;
+            }
+          </pre>
         </article>
       </section>
     </main>

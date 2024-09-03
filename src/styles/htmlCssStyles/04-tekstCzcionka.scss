@@ -1,0 +1,85 @@
+// 1.2
+.p-1_2{
+    display: flex;
+    gap: 10px;
+}
+
+.span-none_1_2 {
+    text-decoration: none;
+}
+
+.span-underline_1_2 {
+    text-decoration: underline solid;
+    text-decoration-color: yellow;
+}
+
+.span-line-through_1_2 {
+    text-decoration: line-through yellow;
+}
+
+.span-overline_1_2 {
+    text-decoration:overline;
+    text-decoration-color: yellow;
+}
+
+.span-dotted_1_2 {
+    text-decoration: underline dotted yellow;
+}
+
+.span-dashed_1_2 {
+    text-decoration-line:underline;
+    text-decoration-style: dashed;
+    text-decoration-color: yellow;
+}
+
+.span-double_1_2 {
+    text-decoration: underline double yellow;
+}
+
+.span-wavy_1_2 {
+    text-decoration: underline wavy yellow;
+}
+
+// 1.3
+.p-1_3 {
+    display: flex;
+    gap: 10px;
+}
+
+.span-none_1_3 {
+    text-transform:none;
+}
+
+.span-uppercase_1_3 {
+    text-transform: uppercase;
+}
+
+.span-lowercase_1_3 {
+    text-transform: lowercase;
+}
+
+.span-capitalize_1_3 {
+    text-transform: capitalize;
+}
+
+// 1.4
+.post-title-1_4 {
+    text-align: center;
+}
+
+.align-right-1_4 {
+    text-align: right;
+}
+
+.align-justify-1_4 {
+    text-align: justify;
+}
+
+// 1.5
+.post-text-px-1_5 {
+    text-indent: 100px;
+}
+
+.post-text-percent-1_5 {
+    text-indent: 10%;
+}
