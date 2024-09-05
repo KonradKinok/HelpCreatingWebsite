@@ -229,6 +229,198 @@
         </article>
         <article id="1.6">
           <h3>1.6 Właściwość line-height</h3>
+          <p>
+            Ustawia odstępy między wierszami (interlinia, wysokość wiersza) tekstu. Domyślnie
+            odstępy między wierszami zależą od rodzaju czcionki i jej rozmiaru i są określane
+            automatycznie przez przeglądarkę.
+          </p>
+          <pre>
+            line-height: mnożnik | wartość | procent | normal | inherit
+          </pre>
+          <p>
+            Wartość można określić w jednostkach bezwzględnych lub względnych oraz w mnożniku.
+            Najlepiej ustawić wartość jako mnożnik, wtedy interlinia jest obliczana na podstawie
+            aktualnego rozmiaru czcionki tekstu.
+          </p>
+          <p>
+            Na przykład, jeśli rozmiar czcionki w układzie to 16px a interlinia 24px, po prostu
+            dzielimy 24 przez 16 i uzyskamy mnożnik 1.5. Użycie mnożnika zapewnia równomierne
+            skalowanie odstępów między wierszami w przypadku zmiany rozmiaru tekstu.
+          </p>
+          <p>Przykład:</p>
+          <p class="line-height-1_6a">
+            .text { <br />
+            font-size: 16px;<br />
+            line-height: 1.5;<br />
+            }<br />
+          </p>
+          <p class="line-height-1_6b">
+            .text { <br />
+            font-size: 16px;<br />
+            line-height: 1;<br />
+            }<br />
+          </p>
+          <p class="line-height-1_6c">
+            .text { <br />
+            font-size: 16px;<br />
+            line-height: 2;<br />
+            }<br />
+          </p>
+          <p class="line-height-1_6d">
+            .text { <br />
+            font-size: 16px;<br />
+            line-height: 20px;<br />
+            }<br />
+          </p>
+          <p class="line-height-1_6e">
+            .text { <br />
+            font-size: 16px;<br />
+            line-height: 10px;<br />
+            }<br />
+          </p>
+        </article>
+        <article id="1.7">
+          <h3>1.7 Właściwość letter-spacing</h3>
+          <p>
+            Określa odstępy między znakami. Domyślnie odległość między znakami jest ustalana na
+            podstawie rodzaju i typu czcionki, jej rozmiaru oraz ustawień systemu operacyjnego.
+          </p>
+          <pre>
+            letter-spacing: wartość | normal | inherit
+          </pre>
+          <p>
+            Czasami projektanci ustawiają niestandardową wartość odstępów między znakami i dlatego
+            istnieje właściwość letter-spacing.
+          </p>
+          <p>Przykład:</p>
+          <p class="letter-spacing-1_7a">
+            .letter-spacing { <br />
+            letter-spacing: normal;<br />
+            }<br />
+          </p>
+          <p class="letter-spacing-1_7b">
+            .letter-spacing { <br />
+            letter-spacing: 10px;<br />
+            }<br />
+          </p>
+          <p class="letter-spacing-1_7c">
+            .letter-spacing { <br />
+            letter-spacing: 5px;<br />
+            }<br />
+          </p>
+        </article>
+        <article id="1.8">
+          <h3>1.8 Właściwość word-spacing</h3>
+          <p>
+            Określa odstępy między wyrazami. Domyślnie odległość między słowami jest ustalana na
+            podstawie typu i rodzaju czcionki, jej rozmiaru oraz ustawień systemu operacyjnego.
+          </p>
+          <pre>
+            word-spacing: wartość | normal | inherit
+          </pre>
+          <p>Przykład:</p>
+          <p class="word-spacing-1_8a">
+            word-spacing: normal | Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+            aspernatur nulla repellat, voluptatem voluptate iure deserunt, repudiandae adipisci a
+            deleniti ad fuga dolore temporibus fugit, dolores iusto facere tempora. A!
+          </p>
+          <p class="word-spacing-1_8b">
+            word-spacing: 20px | Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+            aspernatur nulla repellat, voluptatem voluptate iure deserunt, repudiandae adipisci a
+            deleniti ad fuga dolore temporibus fugit, dolores iusto facere tempora. A!
+          </p>
+          <p class="word-spacing-1_8c">
+            word-spacing: 10px | Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+            aspernatur nulla repellat, voluptatem voluptate iure deserunt, repudiandae adipisci a
+            deleniti ad fuga dolore temporibus fugit, dolores iusto facere tempora. A!
+          </p>
+        </article>
+        <article id="1.9">
+          <h3>1.9 Właściwość text-shadow</h3>
+          <p>
+            Steruje cieniem tekstu, a także ustawia jego parametry: kolor, przesunięcie i promień
+            rozmycia.
+          </p>
+          <pre>
+            text-shadow: &ltprzesunięcie wzdłuż osi x>, &ltprzesunięcie wzdłuż osi y>, &ltpromień rozmycia>, &ltkolor>
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              kolor - można określić w dowolnym formacie. Domyślnie kolor cienia jest taki sam jak
+              kolor tekstu.
+            </li>
+            <li>
+              przesunięcie wzdłuż osi x - poziome przesunięcie cienia względem tekstu. Pozytywna
+              wartość określa przesunięcie cienia w prawo, ujemna - w lewo.
+            </li>
+            <li>
+              przesunięcie wzdłuż osi y - pionowe przesunięcie cienia względem tekstu. Pozytywna
+              wartość ustawia przesunięcie cienia w dół, ujemna - w górę.
+            </li>
+            <li>
+              promień rozmycia - im wyższa wartość, tym bardziej cień jest rozmyty i staje się
+              jasniejszy. Domyślnie, jeśli nie jest ustawiony, będzie 0.
+            </li>
+          </ul>
+          <p>
+            Zróbmy biały tekst z ciemnym cieniem. Aby to zrobić, ustawimy przesunięcie X i Y na 2px,
+            promień rozmycia na 4px i czarny kolor cienia.
+          </p>
+          <pre class="text-shadow-1_9a">
+            .title {
+              color: #ffffff;
+              text-shadow: 2px 2px 4px #000000;
+            }
+          </pre>
+        </article>
+        <article id="1.10">
+          <h4>1.10 Warstwowy efekt cienia</h4>
+          <p>Można dodać wiele cieni do jednego elementu, oddzielając je przecinkami.</p>
+          <p>
+            Kolejność wyświetlania jest następująca - pierwszy cień na liście jest umieszczony na
+            samej górze, ostatni - na samym dole. Oznacza to, że im wcześniej cień zostanie
+            określony, tym wyżej będzie się znajdował w warstwach i będzie wizualnie nakładał się na
+            wszystkie kolejne.
+          </p>
+          <p>Przykład:</p>
+          <pre class="text-shadow-1_10a">
+            .text-shadow {
+              color: #ffffff;
+              text-shadow: 2px 2px 20px #ff0000, 5px 5px 5px #000000;
+            }
+          </pre>
+        </article>
+        <article id="1.11">
+          <h3>1.11 Właściwość white-space</h3>
+          <p>
+            Domyślnie przeglądarka ignoruje więcej niż jedną spację i podział wiersza w znacznikach
+            HTML. Właściwość white-space, podobnie jak znacznik &ltpre>, ale bardziej elastycznie,
+            kontroluje formatowanie spacji i dzielenie wyrazów.
+          </p>
+          <pre>
+            white-space: normal | nowrap | pre | pre-wrap
+          </pre>
+          <p>Przykład:</p>
+          <p class="white-space-1_11a">
+            white-space: normal | Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum
+            possimus rerum a fugiat eveniet pariatur amet ducimus officiis atque ipsam rem
+            reiciendis eum alias minus, quae obcaecati repellendus. Recusandae, nisi.
+          </p>
+          <p class="white-space-1_11b">
+            white-space: nowrap | Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum
+            possimus rerum a fugiat eveniet pariatur amet ducimus officiis atque
+          </p>
+          <p class="white-space-1_11c">
+            white-space: pre | Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum
+            possimus rerum a fugiat eveniet pariatur amet ducimus officiis atque ipsam rem
+            reiciendis eum alias minus, quae obcaecati repellendus. Recusandae, nisi.
+          </p>
+          <p class="white-space-1_11d">
+            white-space: pre-wrap | Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum
+            possimus rerum a fugiat eveniet pariatur amet ducimus officiis atque ipsam rem
+            reiciendis eum alias minus, quae obcaecati repellendus. Recusandae, nisi.
+          </p>
+        </article>
       </section>
     </main>
     <footer class="footer">

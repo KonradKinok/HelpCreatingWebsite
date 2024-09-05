@@ -83,3 +83,84 @@
 .post-text-percent-1_5 {
     text-indent: 10%;
 }
+
+// 1.6
+.line-height-1_6a{
+    font-size: 16px;
+    line-height: 1.5;
+};
+
+.line-height-1_6b {
+    font-size: 16px;
+    line-height: 1;
+};
+
+.line-height-1_6c {
+    font-size: 16px;
+    line-height: 2;
+};
+
+.line-height-1_6d {
+    font-size: 16px;
+    line-height: 20px;
+};
+
+.line-height-1_6e {
+    font-size: 16px;
+    line-height: 10px;
+};
+
+// 1.7
+.letter-spacing-1_7a{
+    letter-spacing: normal;
+};
+
+.letter-spacing-1_7b {
+    letter-spacing: 10px;
+};
+
+.letter-spacing-1_7c {
+    letter-spacing: 5px;
+};
+
+// 1.8
+.word-spacing-1_8a{
+word-spacing: normal;
+}
+
+.word-spacing-1_8b {
+    word-spacing: 20px;
+}
+
+.word-spacing-1_8c {
+    word-spacing: 10px;
+}
+
+// 1.9
+.text-shadow-1_9a {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+// 1.10
+.text-shadow-1_10a {
+    color: #ffffff;
+    text-shadow: 2px 2px 20px #ff0000, 5px 5px 5px #000000;
+}
+
+// 1.11
+.white-space-1_11a{
+    white-space: normal;
+}
+
+.white-space-1_11b {
+    white-space: nowrap;
+}
+
+.white-space-1_11c {
+    white-space: pre;
+}
+
+.white-space-1_11d {
+    white-space: pre-wrap;
+}
