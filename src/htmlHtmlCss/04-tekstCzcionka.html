@@ -422,6 +422,414 @@
           </p>
         </article>
       </section>
+      <!-- section2 -->
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Właściwości czcionki</h2>
+        </article>
+        <article id="2.2">
+          <h3>2.2 Właściwość: font-size</h3>
+          <p>
+            Ustawia rozmiar czcionki elementu w jednostkach bezwzględnych lub względnych. Na razie
+            ograniczmy się do jednostek bezwzględnych - px (piksele).
+          </p>
+          <pre>
+            &ltp class="text-2_2">&lt/p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+              veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+              cumque fuga facere labore quo id necessitatibus quaerat rerum.
+            &lt/p>
+          </pre>
+          <p>
+            Domyślny rozmiar czcionki dla akapitów, który jest ustawiony w arkuszu stylów
+            przeglądarki, to 16px.
+          </p>
+          <pre>
+            .text {
+              font-size: 20px;
+            }
+          </pre>
+          <p class="text-2_2">
+            Przykład: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+            veritatis nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga
+            facere labore quo id necessitatibus quaerat rerum.
+          </p>
+        </article>
+        <article id="2.3">
+          <h3>2.3 Właściwość: font-weight</h3>
+          <p>
+            Kontroluje grubość (wagę) liter w czcionce. Wartość właściwości można określić jako
+            zestaw zarezerwowanych słów lub liczb od 100 do 900 ze skokiem 100, który określa
+            grubość glifu od cienkiego 100 do grubego 900.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/font-weight.png" alt="" />
+          </div>
+          <p>font-weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900</p>
+          <p>
+            Słowa kluczowe są powiązane z liczbami, na przykład normal to 400, a bold to 700.
+            Podczas programowania używane są tylko liczby, ze względu na możliwość ustawienia tej
+            samej dokładnej wagi we wszystkich przeglądarkach.
+          </p>
+          <pre>
+            &lth1 class="title">Iste odit similique sit&lt/h1>
+            &ltp class="text">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+              veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+              cumque fuga facere labore quo id necessitatibus quaerat rerum.
+            &lt/p>
+          </pre>
+          <p>
+            Domyślnie grubość czcionki w akapitach, która jest ustawiona w arkuszu stylów
+            przeglądarki, to 400, a grubość nagłówków to 700.
+          </p>
+          <pre>
+            /* Zamienimy miejscami pogrubienie tekstu nagłówka i akapitu */
+            .title {
+              font-weight: 400;
+            }
+
+            .text {
+              font-weight: 700;
+            }
+          </pre>
+          <hr class="hr-start" />
+          <h1 class="title-2_3">Iste odit similique sit</h1>
+          <p class="text-2_3">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi, veritatis
+            nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore
+            quo id necessitatibus quaerat rerum.
+          </p>
+          <hr class="hr-end" />
+        </article>
+        <article id="2.4">
+          <h3>2.4 Właściwość: font-style</h3>
+          <p>Ustawia styl tekstu, na przykład można ustawić kursywę.</p>
+          <p>font-style: normal | italic | oblique | initial | inherit</p>
+          <p>Ze wszystkich wartości używane są tylko dwie.</p>
+          <ul class="unnumbered-list-container">
+            <li>normal - wartość jest domyślna dla większości znaczników</li>
+            <li>italic - tekst pisany kursywą</li>
+          </ul>
+          <pre>
+            &lth1 class="title">Iste odit similique sit&lt/h1>
+            &ltp class="text">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi,
+              veritatis nihil alias iste odit similique sit eius optio veniam, impedit
+              cumque fuga facere labore quo id necessitatibus quaerat rerum.
+            &lt/p>
+          </pre>
+          <p>Zróbmy tekst nagłówka kursywą.</p>
+          <pre>
+            .title {
+              font-style: italic;
+            }
+          </pre>
+          <hr class="hr-start" />
+          <h1 class="title-2_4">Iste odit similique sit</h1>
+          <p class="text-2_4">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi, veritatis
+            nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore
+            quo id necessitatibus quaerat rerum.
+          </p>
+          <hr class="hr-end" />
+        </article>
+        <article id="2.5">
+          <h3>2.5 Właściwość: font-family</h3>
+          <p>
+            Czcionka — to zbiór znaków typograficznych, cyfr i znaków specjalnych o określonym stylu
+            do wpisywania tekstu.
+          </p>
+          <p>
+            Czcionki są podzielone na kilka głównych grup (rodzin): czcionki szeryfowe (serif),
+            czcionki bezszeryfowe (sans-serif), czcionki o stałej szerokości (monospace), czcionki
+            dekoracyjne i odręczne. MacOS, Linux i Windows zawierają zestaw standardowych czcionek z
+            każdej rodziny. Domyślnie, jeśli nie określono innej czcionki, przeglądarka używa Times
+            New Roman z rodziny szeryfowej (serif).
+          </p>
+          <p>
+            Można zobaczyć, jaką czcionką jest renderowany tekst elementu w narzędziach
+            programistycznych na karcie Computed.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/rendered-font.png" alt="" />
+          </div>
+          <p>
+            Właściwość font-family ustawia czcionkę tekstu elementu. Można podać dowolną liczbę
+            czcionek oddzielonych przecinkami, które przeglądarka, w kolejności od lewej do prawej,
+            spróbuje znaleźć w systemie użytkownika i zastosuje pierwszą znalezioną.
+          </p>
+          <pre>
+            body {
+              font-family: 'Helvetica Neue', 'Roboto', 'Verdana', 'Tahoma', sans-serif;
+            }
+          </pre>
+          <p>
+            Rodzina czcionek jest zawsze wyświetlana na końcu listy, na wypadek gdyby żadna z
+            wymienionych czcionek nie została znaleziona. Wtedy zastosowana zostanie standardowa
+            czcionka z tej rodziny, która jest w systemie użytkownika.
+          </p>
+        </article>
+      </section>
+      <!-- section3 -->
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Pseudoelementy tekstowe</h2>
+        </article>
+        <article id="3.2">
+          <h3>3.2 Pseudoelement ::first-letter</h3>
+          <p>
+            Steruje stylem pierwszego znaku w tekście elementu, do którego jest dodawany. Do tego
+            pseudoelementu można zastosować tylko właściwości czcionki, koloru, tła, a także
+            geometrie elementu.
+          </p>
+          <pre>
+            element::first-letter {
+            }
+          </pre>
+          <p>Na przykład można zaznaczyć pierwsze litery każdego akapitu wiersza.</p>
+          <pre>
+            &ltpre>
+              Nudno jest tu bez ciebie. Nudno do obłędu!
+              Jestem jeszcze wraz z wiewiórką i pieskiem,
+              Piszę, czytam i palę, wciąż mam oczy niebieskie,
+              Lecz to wszystko tylko siłą rozpędu.
+            &lt/pre>
+
+            &ltpre>
+              Wciąż jeszcze świt jest szary, zmierzch niebiesko -złoty,
+              Dzień przechodzi na jedną, noc na drugą stronę
+              I róże zakwitają bez wielkiej ochoty:
+              Bo tak są już przyzwyczajone.
+            &lt/pre>
+
+            &ltpre>
+              A jednak świat się skończył. Czy wy rozumiecie?
+              Świata nie ma i ja go nie stworzę.
+              Czas jest równy i cichy. Lecz czekajcie... może -
+              Może ja jestem już na tamtym świecie?
+            &lt/pre>
+          </pre>
+          <p>
+            Dodamy style dla pseudoelementu ::first-letter znacznika pre. Zmienimy czcionkę, rozmiar
+            i kolor czcionki.
+          </p>
+          <pre>
+            .pre-3_2 {
+              font-family: 'Arial', 'Helvetica', sans-serif;
+              color: #2a2a2a;
+              font-size: 16px;
+            }
+
+            .pre-3_2::first-letter {
+              font-family: 'Tahoma', serif;
+              font-size: 32px;
+              color: #f44336;
+            }
+          </pre>
+          <hr class="hr-start" />
+          <pre class="pre-3_2">
+          Nudno jest tu bez ciebie. Nudno do obłędu!
+          Jestem jeszcze wraz z wiewiórką i pieskiem,
+          Piszę, czytam i palę, wciąż mam oczy niebieskie,
+          Lecz to wszystko tylko siłą rozpędu.
+        </pre
+          >
+          <pre class="pre-3_2">
+          Wciąż jeszcze świt jest szary, zmierzch niebiesko -złoty,
+          Dzień przechodzi na jedną, noc na drugą stronę
+          I róże zakwitają bez wielkiej ochoty:
+          Bo tak są już przyzwyczajone.
+        </pre
+          >
+          <pre class="pre-3_2">
+          A jednak świat się skończył. Czy wy rozumiecie?
+          Świata nie ma i ja go nie stworzę.
+          Czas jest równy i cichy. Lecz czekajcie... może -
+          Może ja jestem już na tamtym świecie?
+        </pre
+          >
+          <hr class="hr-end" />
+        </article>
+        <article id="3.3">
+          <h3>3.3 Pseudoelement ::selection</h3>
+          <p>
+            Steruje stylem zaznaczania tekstu elementu, nadpisując standardowe wartości z arkusza
+            stylów przeglądarki. W projekcie można używać tylko właściwości color i
+            background-color. Zaznacz część przykładowego tekstu za pomocą myszy.
+          </p>
+          <pre>
+            pre::selection {
+              color: #ffffff;
+              background-color: #3f51b5;
+            }
+          </pre>
+          <hr class="hr-start" />
+          <pre class="pre-3_2">
+          Nudno jest tu bez ciebie. Nudno do obłędu!
+          Jestem jeszcze wraz z wiewiórką i pieskiem,
+          Piszę, czytam i palę, wciąż mam oczy niebieskie,
+          Lecz to wszystko tylko siłą rozpędu.
+        </pre
+          >
+          <pre class="pre-3_2 pre-3_3">
+          Nudno jest tu bez ciebie. Nudno do obłędu!
+          Jestem jeszcze wraz z wiewiórką i pieskiem,
+          Piszę, czytam i palę, wciąż mam oczy niebieskie,
+          Lecz to wszystko tylko siłą rozpędu.
+        </pre
+          >
+          <hr class="hr-end" />
+        </article>
+      </section>
+      <!-- section4 -->
+      <section id="4" class="text">
+        <article id="4.1">
+          <h2>4.1 Niestandardowe czcionki</h2>
+          <p>
+            Czcionka sprawia, że witryna jest jasna i zapadająca w pamięć. Miliony witryn z jedną
+            czcionką „Times New Roman" prawdopodobnie byłyby zbyt nudne. Dlatego projektanci tworzą
+            własne czcionki, a programiści mogą ich używać w projektach.
+          </p>
+          <p>
+            Interesująco: Czcionki są podzielone na płatne i bezpłatne. Należy zakupić płatną
+            licencję na czcionkę, a używanie jej bez licencji jest obarczone naruszeniem praw
+            autorskich. Istnieje wiele pięknych darmowych czcionek należących do domeny publicznej.
+          </p>
+        </article>
+        <article id="4.2">
+          <h3>4.2 Serwis Google Fonts</h3>
+          <p>
+            <a href="https://fonts.google.com/">Google Fonts</a> jest to repozytorium ogromnej
+            liczby darmowych czcionek. Wszystko, co trzeba zrobić, to znaleźć odpowiednią czcionkę,
+            pobrać link do niej i umieścić ją w pliku HTML jako kolejny arkusz stylów.
+          </p>
+          <p>
+            Skopiuj i wklej następujący kod HTML do swojego pliku znaczników i otwórz stronę w
+            przeglądarce. Tekst renderowany niestandardową czcionką nie różni się niczym innym niż
+            wyglądem, więc do dekoracji możesz użyć dowolnej właściwości CSS.
+          </p>
+          <pre>
+            &lthtml>
+              &lthead>
+                &ltlink
+                  href="https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap"
+                  rel="stylesheet"
+                />
+
+                &ltstyle>
+                  .title {
+                    font-family: 'Tangerine', cursive;
+                  }
+                &lt/style>
+              &lt/head>
+              &ltbody>
+                &lth1 class="title">Making the Web Beautiful!&lt/h1>
+              &lt/body>
+            &lt/html>
+          </pre>
+          <p>
+            Aby podłączyć niestandardową bezpłatną czcionkę z usługi Google Fonts, kliknij w link i
+            przejdź do <a href="https://fonts.google.com/">strony wyników wyszukiwania</a>.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/font-step-1.png" alt="" />
+          </div>
+          <p>
+            Możesz przewijać galerię czcionek i wyszukiwać tę, która Ci się podoba, lub, jeśli znasz
+            nazwę czcionki, wprowadź ją w polu wyszukiwania i kliknij kartę czcionki.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/font-step-2.png" alt="" />
+          </div>
+          <p>
+            Na stronie czcionki wybieramy żądaną grubość. Nie trzeba wybierać wszystkich dostępnych
+            grubości, im więcej opcji, tym cięższy będzie plik czcionki i tym dłużej wczytuje się
+            Twoja strona internetowa. To samo dotyczy liczby czcionek, zwykle ograniczają się do
+            jednej, maksymalnie dwóch czcionek dla całej witryny.
+          </p>
+          <p>
+            Uwaga! Nie wszystkie czcionki obsługują pełny zakres grubości (od 100 do 900) i styl
+            czcionki (standardowa lub kursywa). Projektant tworzy zestaw najpopularniejszych
+            wartości. Jeśli czcionka nie obsługuje określonej wagi, przeglądarka wyrenderuje ją
+            najbliższą dostępną grubością.
+          </p>
+          <p>Potrzebujemy tylko wagi 700, ponieważ dołączamy czcionkę dla nagłówków.</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/font-step-3.png" alt="" />
+          </div>
+          <p>
+            Na karcie Embed skopiujemy znacznik &ltlink>, który zawiera link do arkusza stylów
+            czcionek i dodajemy go do nagłówka dokumentu HTML, przed pozostałymi stylami.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/font-step-4.png" alt="" />
+          </div>
+          <p>
+            Teraz możesz użyć czcionki Tangerine w arkuszu stylów, określając ją we właściwości
+            font-family.
+          </p>
+        </article>
+        <article id="4.3">
+          <h3>4.3 Dyrektywa @font-face</h3>
+          <p>Zobaczmy, co dokładnie połączyliśmy z dokumentem HTML w ostatniej sekcji.</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/font-face.png" alt="" />
+          </div>
+          <ol class="numbered-list-container">
+            <li>Otwórz narzędzia programistyczne i przejdź do karty „Network".</li>
+            <li>Wybierz filtr „CSS", aby były wyświetlane tylko pliki stylów.</li>
+            <li>Kliknij plik z Google Fonts.</li>
+            <li>Wybierz kartę „Preview", która wyświetli zawartość pliku.</li>
+          </ol>
+          <pre>
+            /* latin */
+            @font-face {
+              font-family: 'Tangerine';
+              font-style: normal;
+              font-weight: 700;
+              font-display: swap;
+              src: local('Tangerine Bold'), local('Tangerine-Bold'),
+                url(https://fonts.gstatic.com/s/tangerine/v12/Iurd6Y5j_oScZZow4VO5srNZi5FNym499g.woff2)
+                  format('woff2');
+              unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+                U+FEFF, U+FFFD;
+            }
+          </pre>
+          <p>
+            Tak więc Google Fonts zwróciło nam najpopularniejszy plik CSS, który zawiera dyrektywę
+            @font-face - deklarację czcionki. Ta dyrektywa umożliwia określenie parametrów
+            podłączonej czcionki.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>font-family - lokalna nazwa do użycia w naszym kodzie CSS.</li>
+            <li>font-style - styl czcionki (standardowa lub kursywa itp.)</li>
+            <li>font-weight - waga podłączanej czcionki.</li>
+            <li>
+              font-display -
+              <a href="https://ymatuhin.ru/front-end/font-display/">steruje wyświetlaniem tekstu</a>
+              podczas ładowania czcionki.
+            </li>
+            <li>
+              src - link do samego pliku czcionki i wyjaśnienie jej typu, zwykle woff albo woff2. W
+              naszym przypadku plik czcionki znajduje się na serwerach Google, ale może to być
+              również czcionka lokalna, która jest przechowywana w plikach projektu.
+            </li>
+            <li>
+              unicode-range - określa zestaw wymaganych znaków w czcionce z
+              <a href="https://symbl.cc/en/unicode-table/">tablicy znaków Unicode</a>. Nie ma
+              potrzeby wczytywania wszystkich symboli, im mniej jest, tym szybciej ładuje się
+              czcionka.
+            </li>
+          </ul>
+          <p>
+            Pomocne: Wszystkie symbole znane ludzkości (języki, znaki matematyczne itp.) są zebrane
+            i opisane w standardzie o nazwie Unicode, w którym każdy symbol ma swoją nazwę (na
+            przykład „latin capital letter a") oraz kod (code point) — liczba od 0 do 10FFFF.
+          </p>
+        </article>
+      </section>
     </main>
     <footer class="footer">
       <div class="footer-logo">

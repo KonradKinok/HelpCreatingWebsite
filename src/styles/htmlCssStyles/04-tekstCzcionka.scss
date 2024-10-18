@@ -1,5 +1,5 @@
 // 1.2
-.p-1_2{
+.p-1_2 {
     display: flex;
     gap: 10px;
 }
@@ -18,7 +18,7 @@
 }
 
 .span-overline_1_2 {
-    text-decoration:overline;
+    text-decoration: overline;
     text-decoration-color: yellow;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .span-dashed_1_2 {
-    text-decoration-line:underline;
+    text-decoration-line: underline;
     text-decoration-style: dashed;
     text-decoration-color: yellow;
 }
@@ -47,7 +47,7 @@
 }
 
 .span-none_1_3 {
-    text-transform:none;
+    text-transform: none;
 }
 
 .span-uppercase_1_3 {
@@ -85,47 +85,63 @@
 }
 
 // 1.6
-.line-height-1_6a{
+.line-height-1_6a {
     font-size: 16px;
     line-height: 1.5;
-};
+}
+
+;
 
 .line-height-1_6b {
     font-size: 16px;
     line-height: 1;
-};
+}
+
+;
 
 .line-height-1_6c {
     font-size: 16px;
     line-height: 2;
-};
+}
+
+;
 
 .line-height-1_6d {
     font-size: 16px;
     line-height: 20px;
-};
+}
+
+;
 
 .line-height-1_6e {
     font-size: 16px;
     line-height: 10px;
-};
+}
+
+;
 
 // 1.7
-.letter-spacing-1_7a{
+.letter-spacing-1_7a {
     letter-spacing: normal;
-};
+}
+
+;
 
 .letter-spacing-1_7b {
     letter-spacing: 10px;
-};
+}
+
+;
 
 .letter-spacing-1_7c {
     letter-spacing: 5px;
-};
+}
+
+;
 
 // 1.8
-.word-spacing-1_8a{
-word-spacing: normal;
+.word-spacing-1_8a {
+    word-spacing: normal;
 }
 
 .word-spacing-1_8b {
@@ -149,7 +165,7 @@ word-spacing: normal;
 }
 
 // 1.11
-.white-space-1_11a{
+.white-space-1_11a {
     white-space: normal;
 }
 
@@ -163,4 +179,49 @@ word-spacing: normal;
 
 .white-space-1_11d {
     white-space: pre-wrap;
+}
+
+// 2.2
+.text-2_2 {
+    font-size: 20px;
+}
+
+// 2.3
+.title-2_3 {
+    font-weight: 400;
+}
+
+.text-2_3 {
+    font-weight: 700;
+}
+
+// 2.4
+.title-2_4 {
+    font-style: italic;
+}
+
+// 3.2
+.pre-3_2 {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    color: #2ab8e4;
+    font-size: 16px;
+}
+
+.pre-3_2::first-letter {
+    font-family: 'Tahoma', serif;
+    font-size: 32px;
+    color: #f44336;
+}
+
+
+// 3.3
+.pre3-3 {
+    font-family: 'Raleway';
+    font-weight: 700;
+}
+
+.pre-3_3::selection {
+    font-family: 'Tahoma', serif;
+    font-size: 32px;
+    color: #f44336;
 }
