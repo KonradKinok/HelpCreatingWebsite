@@ -18,7 +18,7 @@
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
     <link rel="stylesheet" href="../styles/htmlCssStyles.scss" />
-    <link rel="stylesheet" href="../styles/htmlCssStyles/02-html2.scss" />
+    <link rel="stylesheet" href="../styles/htmlCssStyles/05-modelBlokowy.scss" />
 
     <title>Model blokowy</title>
   </head>
@@ -33,9 +33,399 @@
     <main class="main-container">
       <!-- section1 -->
       <section id="1" class="text">
-        <h1>Moduł 1 - Zajęcia 2 - Model blokowy</h1>
+        <h1>Moduł 3 - Zajęcia 4 - Model blokowy</h1>
         <article id="1.1">
-          <h2>1.1 Tabele</h2>
+          <h2>1.1 Model blokowy elementu</h2>
+          <p>
+            Model blokowy (ang. box model) definiuje rozmieszczenie elementów na stronie i ich
+            wzajemną interakcję. Niezależnie od tego, jak element wizualnie wygląda na stronie, jest
+            on przede wszystkim prostokątnym kontenerem. Ten kontener ma 4 obszary: zawartość lub
+            treść elementu (wewnątrz), margines wewnętrzny (padding), obramowanie (border) i
+            margines zewnętrzny (margin).
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/frame.png" alt="" />
+          </div>
+          <ul class="unnumbered-list-container">
+            <li>
+              Obszar treści (content) — to treść elementu, taka jak tekst, obrazy, filmy lub
+              elementy zagnieżdżone. Domyślnie wysokość (height) obszaru zawartości jest określana
+              przez treść (content), a szerokość (width) jest określana przez typ elementu (blokowy
+              lub liniowy)
+            </li>
+            <li>
+              Margines wewnętrzny (padding) — to odległość między treścią elementu a jego
+              obramowaniem (border). Jest on używany do efektów dekoracyjnych. Nie można określić
+              wartości ujemnych.
+            </li>
+            <li>
+              Obramowanie (border) — to krawędź elementu. Domyślnie jego szerokość wynosi zero.
+              Jeśli kolor obramowania nie jest ustawiony, przyjmuje ono kolor głównej zawartości,
+              np. tekstu.
+            </li>
+            <li>
+              Margines zewnętrzny (margin) — dodaje odstęp z zewnątrz elementu, od zewnętrznej
+              krawędzi (obramowania) do sąsiednich elementów, oddzielając je w ten sposób na
+              stronie. Dla marginesu zewnętrznego można określić wartość ujemną. Element tła nie ma
+              zastosowania do marginesu zewnętrznego.
+            </li>
+          </ul>
+        </article>
+        <article id="1.2">
+          <h2>1.2 Właściwości obszarów kontenera w modelu blokowym</h2>
+          <p>Przyjrzyjmy się, jak ustawić marginesy i obramowania.</p>
+          <ul class="unnumbered-list-container">
+            <li>Właściwość border dodaje obramowanie;</li>
+            <li>Właściwość padding ustawia wewnętrzne marginesy;</li>
+            <li>Właściwość margin ustawia zewnętrzne marginesy.</li>
+          </ul>
+          <p>
+            Geometria elementu ma 4 boki: górny (top), prawy (right), dolny (bottom) i lewy (left).
+            Dlatego marginesy wewnętrzne, obramowania i marginesy zewnętrzne mogą być różne i
+            ustawione dla każdej strony osobno lub mieć te same wartości dla każdej strony.
+          </p>
+          <hr class="hr-start" />
+          <pre>
+            &ltp class="text_1-2">
+              This is the content of an element, such as text, image, video, or nested elements. By default, the
+               height of the content area is determined by the content, and the width is determined by the element type.
+            &lt/p>
+          </pre>
+          <pre>
+            .text_1-2 {
+              border: 2px dashed #2196F3;
+              padding: 15px;
+              margin: 20px;
+            }
+          </pre>
+          <p class="text_1-2">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi, veritatis
+            nihil alias iste odit similique sit eius optio veniam, impedit cumque fuga facere labore
+            quo id necessitatibus quaerat rerum.
+          </p>
+          <p>
+            W narzędziach deweloperskich zakładka Elements > Computed pokazuje geometrię wybranego
+            elementu.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/frame1.png" alt="" />
+          </div>
+          <hr class="hr-end" />
+        </article>
+        <article id="1.3">
+          <h2>1.3 Właściwość box-sizing</h2>
+          <p>
+            Właściwość box-sizing definiuje typ modelu blokowego elementu — wzór (algorytm)
+            obliczania jego wymiarów.
+          </p>
+          <pre>
+            box-sizing: content-box | border-box | inherit
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              content-box — właściwości width i height ustawiają szerokość i wysokość obszaru
+              zawartości i nie obejmują wymiarów marginesów wewnętrznych (padding), obramowań
+              (border) i marginesów zewnętrznych (margin). Są to wartości domyślne.
+            </li>
+            <li>
+              border-box — właściwości width i height ustawiają ostateczny rozmiar elementu i
+              obejmują wartości marginesów wewnętrznych (padding), obramowań (border), ale nie
+              marginesów zewnętrznych (margin).
+            </li>
+            <li>inherit — dziedziczy wartość modelu blokowego elementu nadrzędnego.</li>
+          </ul>
+          <p>
+            Marginesy zewnętrzne (margin) nie są brane pod uwagę przy obliczaniu szerokości lub
+            wysokości elementu.
+          </p>
+        </article>
+        <article id="1.4">
+          <h2>1.4 Wartość border-box</h2>
+          <p>
+            W tym modelu blokowym właściwości width i height określają ostateczne wymiary elementu,
+            a nie jego obszarowi zawartości. Treść jest automatycznie "kompresowana", dzięki czemu
+            padding i border nadal mieszczą się w kontenerze.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/border-box.png" alt="" />
+          </div>
+          <p>
+            Wzory do obliczania ostatecznej szerokości i wysokości bloku z wartością border-box.
+          </p>
+          <pre>
+            Szerokość = width
+            Wysokość = height
+          </pre>
+          <p>
+            Jeśli ustawisz właściwość box-sizing na border-box, zmieni się typ modelu blokowego
+            bieżącego elementu.
+          </p>
+          <pre>
+            .box {
+              box-sizing: border-box;
+              width: 150px;
+              height: 150px;
+              border: 5px solid #f44336;
+              padding: 30px;
+              margin: 100px;
+              background-color: #ffeb3b;
+            }
+          </pre>
+          <p>
+            W narzędziach deweloperskich zakładka Elements > Computed pokazuje geometrię tego
+            elementu.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/border-box1.png" alt="" />
+          </div>
+          <p>
+            W nowoczesnych projektach wartość border-box jest uważana za standard dla modelu
+            blokowego. Aby nie ustawiać właściwości box-sizing dla każdego elementu osobno, na
+            początku arkusza stylów używany jest następujący kod CSS:
+          </p>
+          <pre>
+            *,
+            *::before,
+            *::after {
+              box-sizing: border-box;
+            }
+
+            /* Reszta kodu */
+          </pre>
+          <p>
+            Używając uniwersalnego selektora * (wybiera wszystkie elementy), wartość border-box jest
+            ustawiana dla wszystkich elementów oraz pseudoelementów ::before i ::after dokumentu
+            (dowiesz się o nich później).
+          </p>
+          <p>
+            Normalizator modern-normalize ma domyślnie ustawione globalne border-box, więc jeśli
+            jest połączony z projektem, można pominąć box-sizing w swoich stylach.
+          </p>
+        </article>
+      </section>
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Geometria elementu</h2>
+        </article>
+        <article id="2.2">
+          <h2>2.2 Właściwość padding</h2>
+          <p>
+            Właściwość padding — to właściwość, która kontroluje wewnętrzne marginesy między treścią
+            a obramowaniem dla wszystkich boków elementu: górnego (top), prawego (right), dolnego
+            (bottom) i lewego (left). Wartości komponentów tej właściwości są ustawiane w tej
+            właśnie kolejności w kierunku zgodnym z ruchem wskazówek zegara, zaczynając od góry.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/padding.png" alt="" />
+          </div>
+          <p>Wynik zależy od liczby wartości właściwości.</p>
+          <pre>
+            /* Jednakowe marginesy 20px ze wszystkich stron */
+            padding: 20px;
+
+            /* Górny i dolny margines 10px, lewy i prawy margines 20px */
+            padding: 10px 20px;
+
+            /* Górny margines 10px, lewy i prawy margines 20px, dolny margines 5px */
+            padding: 10px 20px 5px;
+
+            /* Górny margines 10px, prawy margines 15px, dolny margines 20px, lewy margines 25px */
+            padding: 10px 15px 20px 25px;
+          </pre>
+          <p>
+            Marginesy wewnętrzne są używane do efektów dekoracyjnych. Na przykład, aby utworzyć
+            wolną przestrzeń między obramowaniem elementu a jego treścią, jak w poniższym
+            przykładzie. Jeśli nie ustawisz marginesu, tekst będzie dotykał obramowania akapitu.
+          </p>
+          <p>
+            Nawet jeśli właściwości obramowania nie są jawnie określone, ono nadal istnieje.
+            Domyślnie jego szerokość wynosi 0 i służy do budowania geometrii elementu, więc zawsze
+            możesz ustawić margines wewnętrzny między obramowaniem a zawartością.
+          </p>
+        </article>
+        <article id="2.3">
+          <h2>2.3 Właściwość margin</h2>
+          <p>
+            Właściwość komponentu margin kontroluje zewnętrzne marginesy od obramowania do
+            sąsiednich elementów dla wszystkich stron elementu. Wynik zależy od tego, ile wartości
+            właściwości zostało określonych.
+          </p>
+          <pre>
+            /* Jednakowe marginesy 20px ze wszystkich stron */
+            margin: 20px;
+
+            /* Odstępy u góry i u dołu 10px, od lewej i prawej 20px */
+            margin: 10px 20px;
+
+            /* Odstępy u góry 10px, po lewej i prawej 20px, u dołu 5px */
+            margin: 10px 20px 5px;
+
+            /* Odstępy u góry 10px, po prawej 15px, u dołu 20px, po lewej 25px */
+            margin: 10px 15px 20px 25px;
+          </pre>
+          <p>
+            Marginesy zewnętrzne służą do tworzenia przestrzeni między dwoma sąsiadującymi
+            elementami.
+          </p>
+          <hr class="hr-start" />
+          <pre>
+            &ltdiv class="post_2-3">
+              &ltdiv class="post-thumb_2-3">
+                &ltimg class="post-image_2-3" src="https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_1280.jpg" 
+                alt="Tabby cat in a funny sitting position">
+              &lt/div>
+              &lth1 class="post-heading_2-3">All about cats&lt/h1>
+              &ltp class="post-text_2-3">
+              Lorem ipsum dolor sit, amet consectetur elit omnis adipisicing. Omnis voluptatibus sit 
+              reprehenderit iure est eveniet saepe fugit debitis laborum odio voluptatem repellat eaque voluptatum quos neque
+               optio, perspiciatis aperiam error odit praesentium consequatur totam maiores. Minus similique molestias,
+                eveniet delectus eaque dignissimos! Id deserunt magni doloremque, corrupti consectetur vero veniam!
+              &lt/p>
+            &lt/div>
+          </pre>
+          <pre>
+            *,
+            *::before,
+            *::after {
+              box-sizing: border-box;
+            }
+
+            body {
+              font-family: sans-serif;
+              line-height: 1.5;
+              color: #212121;
+            }
+
+            img_2-3 {
+              display: block;
+              max-width: 100%;
+              height: auto;
+            }
+
+            .post_2-3 {
+              padding: 20px;
+              max-width: 400px;
+              background-color: #fff;
+              border: 2px dashed #2a2a2a;
+            }
+
+            .post-thumb_2-3 {
+              margin-bottom: 30px;
+              border: 2px dashed tomato;
+            }
+
+            .post-heading_2-3 {
+              margin-top: 0;
+              margin-bottom: 20px;
+              border: 2px dashed teal;
+            }
+
+            .post-text_2-3 {
+              margin-bottom: 0;
+              margin-top: 0;
+              border: 2px dashed blue;
+            }
+          </pre>
+          <div class="post_2-3">
+            <div class="post-thumb_2-3">
+              <img
+                class="post-image_2-3"
+                src="https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_1280.jpg"
+                alt="Tabby cat in a funny sitting position"
+              />
+            </div>
+            <h1 class="post-heading_2-3">All about cats</h1>
+            <p class="post-text_2-3">
+              Lorem ipsum dolor sit, amet consectetur elit omnis adipisicing. Omnis voluptatibus sit
+              reprehenderit iure est eveniet saepe fugit debitis laborum odio voluptatem repellat
+              eaque voluptatum quos neque optio, perspiciatis aperiam error odit praesentium
+              consequatur totam maiores. Minus similique molestias, eveniet delectus eaque
+              dignissimos! Id deserunt magni doloremque, corrupti consectetur vero veniam!
+            </p>
+          </div>
+          <hr class="hr-end" />
+        </article>
+        <article id="2.4">
+          <h2>2.4 Padding czy margin?</h2>
+          <p>
+            Jeżeli do tworzenia odstępów użyjesz padding, elementy będą ściśle przylegać do siebie
+            ramkami bez odstępów. Jeśli element nie ma obramowania lub koloru tła, nie można
+            wizualnie określić, czy odstępy są prawidłowe i trzeba otworzyć narzędzia deweloperskie.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/padding-margin.png" alt="" />
+          </div>
+          <p>
+            Bardzo ważne jest, aby nie mylić padding і margin. Różnica polega na tym, że właściwość
+            padding oddziela zawartość od obramowania elementu, właściwość margin tworzy odstępy
+            pomiędzy sąsiadującymi elementami.
+          </p>
+          <p>
+            WSKAZÓWKA Jeśli masz trudności z zapamiętaniem, gdzie użyć padding, a gdzie margin,
+            podczas procesu tworzenia układu ustaw kolor tła dla wszystkich elementów, gdyż ma on
+            zastosowanie tylko do marginesów wewnętrznych (padding) i obramowania (border), ale nie
+            do marginesów zewnętrznych (margin). Będzie to wizualnie bardziej zrozumiałe. Po
+            zakończeniu tworzenia układu usuń właściwości pomocnicze koloru tła z reguł CSS.
+          </p>
+        </article>
+        <article id="2.5">
+          <h2>2.5 Globalny reset stylów</h2>
+          <p>
+            Często wartości margin i padding z arkusza stylów przeglądarki nie pasują do projektu, a
+            niektóre z nich są w ogóle niepotrzebne. Na przykład, nagłówki i akapity zazwyczaj
+            potrzebują tylko dolnego lub górnego marginesu zewnętrznego, a domyślnie są ustawione
+            oba.
+          </p>
+          <p>
+            W listach standardowe padding i margin zazwyczaj nie są potrzebne. Tak, jeśli usuniesz
+            standardowy padding, znaczniki listy znikną, ale w większości przypadków nie są one
+            potrzebne z założenia i resetujemy je za pomocą właściwości list-style-type.
+          </p>
+          <p>
+            Podczas pisania stylów trzeba będzie dodać dla tych elementów wartości resetujące lub
+            nadpisujące w każdej regule CSS.
+          </p>
+          <p>
+            Jak rozwiązać ten problem? Możesz wynieść zerowanie wartości domyślnych arkusza stylów
+            przeglądarki do stylów globalnych za pomocą selektora znaczników. Zmniejszy to liczbę
+            powtórzeń kodu z zerowaniem wartości. Następnie musisz tylko określić w regułach
+            wartości z projektu, bez kodu resetującego niepotrzebne wartości.
+          </p>
+          <pre>
+            h1, h2, h3, h4, h5, h6, p {
+              margin-top: 0;
+              margin-bottom: 0;
+            }
+
+            ul, ol {
+              margin-top: 0;
+              margin-bottom: 0;
+              padding-left: 0;
+            }
+          </pre>
+          <p>
+            Po zmianie wartości w regułach wszystko będzie działać dzięki mechanizmowi kaskadowania
+            stylów.
+          </p>
+          <p>
+            Domyślnie, w arkuszu stylów przeglądarki margin elementu body jest ustawiony na 8px ze
+            wszystkich stron. Jest to zrobione po to, aby zawartość stron internetowych bez
+            dodatkowego projektu nie przylegała ściśle do granic karty przeglądarki i ułatwiała
+            czytanie tekstu.
+          </p>
+          <p>
+            W projektowaniu nowoczesnych stron internetowych margines ten nie jest używany, więc
+            jest zawsze resetowany w regule z selektorem body.
+          </p>
+          <p>
+            Zerowanie marginesu body jest już pewnego rodzaju standardem w nowoczesnym rozwoju, więc
+            normalizator modern-normalize zawiera ten krok. Dlatego też, jeśli używasz normalizatora
+            na swojej stronie internetowej, nie musisz resetować marginesu zewnętrznego body w
+            kodzie.
+          </p>
+        </article>
+        <article id="2.6">
+          <h2>2.6 Właściwość border</h2>
         </article>
       </section>
       <section id="7" class="text">
@@ -68,6 +458,5 @@
     </footer>
     <!-- SKRYPTY JS -->
     <script defer type="module" src="../scripts/menuHtmlCss.mjs"></script>
-    <script defer type="module" src="../scripts/htmlCssScripts/02-html.mjs"></script>
   </body>
 </html>
