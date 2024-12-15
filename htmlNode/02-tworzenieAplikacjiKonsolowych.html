@@ -1,1 +1,109 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.8c480b41.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.f61efc39.css"><title>Tworzenie aplikacji konsolowych</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 1 - Zajęcia 2 - Tworzenie aplikacji konsolowych</h1> <article id="1.1"> <h2>1.1 Zarządzanie statusem</h2> </article> </section>  </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.658ae41c.js"></script> </body></html>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.8c480b41.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.13208f18.css"><title>Tworzenie aplikacji konsolowych</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 1 - Zajęcia 2 - Tworzenie aplikacji konsolowych</h1> <article id="1.1"> <h2>1.1 Tworzenie aplikacji konsolowych</h2> <p> Aplikacje konsolowe (CLI applications) - to takie który uruchamiamy poprzez terminal, tradycyjnie precyzujemy działanie takich poleceń poprzez przekazywanie parametrów przy ich wywoływaniu. Skrót CLI (command-line interface) tłumaczy się jako 'wiersz poleceń', ale dla niektórych systemów operacyjnych lub programów mówimy też właśnie o terminalu (np. dla VSC lub MacOS). </p> <p> W poprzednim module zauważyliśmy, że przekazane parametry przy uruchomieniu skryptu są dostępne w tablicy process.args w postaci: ["/path/to/node", "/path/to/yourScript.js", "param 1", "param 2", …]. </p> <p> Aby otrzymać same parametry należy więc wykonać polecenie process.argv.slice(2), który zwróci tablicę ze wszystkimi rozdzielonymi spacjami wartościami: ["param 1", "param 2", …]. </p> <p> Opracowywanie wszelkiego rodzaju kombinacji parametrów i ich formatów jest bardzo niewygodne. Z tego powodu zazwyczaj wykorzystuje się dodatkowe moduły npm. Jeden z najpopularniejszych, którego będziemy używać, to moduł commander. </p> <p> Dodatkowo możemy wykorzystać wprowadzanie danych w konsoli przez użytkownika zgodnie poprzez schemat pytanie-odpowiedź, będziemy do tego wykorzystywać moduł Node.js readline. Inicjalizacja jest dość prosta: </p> <pre>
+            const readline = require('readline');
+            const rl = readline.createInterface({
+              input: process.stdin,// wprowadzenie ze standardowego strumienia
+              output: process.stdout,// wyprowadzenie do standardowego strumienia
+            });
+          </pre> <p> Podpinamy moduł readline i tworzymy instancję rl, dla której w opcjach przekazujemy strumienie wejścia i wyjścia, do wyboru may konsolę, plik i tak dalej. W naszym przypadku bierzemy standardowe strumienie i będziemy pracować używając konsoli, gdzie uruchamiamy skrypt. Jeśli chcemy zareagować na każdą wprowadzoną przez użytkownika wartość (potwierdzoną klawiszem enter) użyjemy zdarzenia line: </p> <pre>
+            rl.on('line', cmd => {
+              console.log(`You just typed: ${cmd}`);
+            });
+          </pre> <p> Nas jednak bardziej interesuje możliwość zadania użytkownikowi pytania i otrzymania na nie odpowiedzi, analogicznie do funkcji prompt z przeglądarki: </p> <pre>
+            rl.question('Jak się nazywasz? ', answer => {
+              console.log(`Miło cię poznać. ${answer}`);
+            });
+          </pre> <p> W trakcie trwania dłuższej operacji możemy ustawić w rozmowie pauzę czyli innymi słowami zablokować wprowadzenie kolejnych danych: </p> <pre>
+            rl.pause();
+          </pre> <p>Aby zamknąć wprowadzanie danych, należy wywołać metodę:</p> <pre>
+            rl.close();
+          </pre> <p> Napiszmy teraz prostą aplikację - "Odgadnij liczbę", gdzie należy zgadywać, jaką liczbę od 1 do 10 wylosował program, a ten na końcu pokaże, za którym razem nam się to udało i zapisze udaną próbę do pliku podanego jako parametr. </p> <p> Przydadzą się nam standardowe moduły fs, readline oraz niestandardowe, które należy zainstalować przy pomocy npm, moduł [commander](https://www.npmjs.com/package/commander) i [colors](https://www.npmjs.com/package/colors). Poniżej znajdziecie kod programu i jego analizę. </p> <pre>
+            const readline = require("readline");
+            const fs = require("fs").promises;
+            const { program } = require("commander");
+            require("colors");
+            program.option(
+              "-f, --file [type]",
+              "file for saving game results",
+              "results.txt"
+            );
+            program.parse(process.argv);
+
+            const rl = readline.createInterface({
+              input: process.stdin,
+              output: process.stdout,
+            });
+
+            let count = 0;
+            const logFile = program.opts().file;
+            const mind = Math.floor(Math.random() * 10) + 1;
+
+            const isValid = (value) => {
+              if (isNaN(value)) {
+                console.log("Wprowadź liczbę!".red);
+                return false;
+              }
+              if (value < 1 || value > 10) {
+                console.log("Liczba powinna znajdować się w przedziale od 1 do 10".red);
+                return false;
+              }
+              return true;
+            };
+
+            const log = async (data) => {
+              try {
+                await fs.appendFile(logFile, `${data}\n`);
+                console.log(`Udało się zapisać rezultat w pliku ${logFile}`.green);
+              } catch (err) {
+                console.log(`Nie udało się zapisać pliku ${logFile}`.red);
+              }
+            };
+
+            const game = () => {
+              rl.question(
+                "Wprowadź liczbę od 1 do 10, aby zgadywać: ".yellow,
+                async (value) => {
+                  value = Number.parseInt(value, 10);
+                  if (!isValid(value)) {
+                    game();
+                    return;
+                  }
+                  count += 1;
+                  if (value === mind) {
+                    console.log("Gratulacje. Odgadłeś liczbę za %d razem".green, count);
+                    await log(
+                      `${new Date().toLocaleDateString()}: Gratulacje. Odgadłeś liczbę za ${count} razem`
+                    );
+                    rl.close();
+                    return;
+                  }
+                  console.log("Nie zgadłeś. Kolejna próba.".red);
+                  game();
+                }
+              );
+            };
+
+            game();
+
+          </pre> <p> Cały program składa się z trzech funkcji. Podstawowa z nich to funkcja gry game(), która wywołuje się rekurencyjnie do momentu, aż nie zgadniemy podanej liczby. Na początku podłączamy moduł colors, który pozwala nam zmieniać kolor tekstu w konsoli. Dalej podłączamy moduł commander, który pozwoli nam obsłużyć parametry podane przy uruchomieniu programu </p> <pre>
+            const { program } = require('commander');
+            program.option(
+              '-f, --file [type]',
+              'file for saving game results',
+              'results.txt',
+            );
+            program.parse(process.argv);
+          </pre> <p> Wskazujemy, że opcjonalnie czekamy na wprowadzenie parametrów z flagą -f lub jej dłuższym zapisem --file. Innymi słowami określamy, że uruchomienie programu powinno nastąpić w następującej postaci: </p> <pre>
+            node game.js -f my_log.txt
+          </pre> <p> Kiedy w ten sposób uruchomimy nasz program, przekażemy, że należy w zmiennej program.file umieścić wartość my_log.txt. </p> <p> W kodzie wskazujemy przez trzeci parametr program.option, że jeżeli parametr -f nie będzie przekazany przy uruchomieniu, to domyślnie program.file będzie miał wartość results.txt. </p> <p> Drugi parametr to podpowiedź która pokaże się jeśli spróbujemy uruchomić nasz program z flagą -h czyli help </p> <pre>
+            node index.js -h
+          </pre> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/02-node-course-game.333f70d2.png" alt=""> </div> <p>Dalej w naszym programie wykonujemy inicjalizację modułu readline.</p> <p>Tworzymy również trzy zmienne, które będziemy dalej wykorzystywać:</p> <ul class="unnumbered-list-container"> <li>count - to licznik ilości prób, które podjął użytkownik, aby odgadnąć liczbę,</li> <li>logFile - nazwa pliku, w którym będą zapisane rezultaty gry,</li> <li>mind - to wylosowana liczba od 1 do 10, którą należy odgadnąć.</li> </ul> <p> Funkcja isValid odpowiada za walidację wprowadzonych wartości w konsoli. Sprawdza, czy wprowadzona wartość jest liczbą i znajduje się w przedziale od 1 do 10. Jeżeli dane są poprawne, to funkcja zwraca prawdę, jeżeli nie - fałsz. </p> <p> Funkcja log odpowiada za zapisanie wyników gry. Wykorzystuje ona funkcję appendFile modułu fs do zapisu danych. Jeżeli plik istnieje, to rezultaty będą dopisane w istniejącym pliku, jeżeli pliku nie ma - zostanie on utworzony. Zwróć uwagę, że funkcja jest asynchroniczna i czekamy w niej na wykonanie operacji zapisania wyników. </p> <p> Następnie docieramy do podstawowej funkcji game. Wewnątrz zachodzi wywołanie metody: </p> <pre>
+            rl.question(
+              'Wprowadź liczbę od 1 do 10, aby zgadnąć wybraną: '.yellow,
+              (value) => {...});
+          </pre> <p> która podsłuchuje konsolę i przy wprowadzeniu wartości wywołuje funkcję callback, która opracowuje wprowadzoną wartość. </p> <p> Jeżeli wartość po sparsowaniu nie przechodzi walidacji, to włączamy funkcję gry ponownie: </p> <pre class="color">
+            value = Number.parseInt(value, 10);
+            if (!isValid(value)) {
+              game();
+              return;
+            }
+          </pre> <ul class="unnumbered-list-container"> <li>Jeśli walidacja przebiegła pomyślnie, to zwiększamy licznik prób do 1.</li> <li> Następnie porównujemy wprowadzoną wartość z "założoną" i jeśli tak to: <ul> <li>Wyprowadzamy gratulacje i ilość prób w grze,</li> <li>Następnie przy pomocy funkcji log zapisujemy wynik w pliku,</li> <li> Po próbie zapisania pliku zamykamy interfejs do wprowadzania przez rl.close(), </li> <li>Nasz program kończy się</li> </ul> </li> <li> Jeżeli jednak odpowiedź nie pokrywa się, wykonujemy ponownie funkcję game() do momentu w którym liczba zostanie odgadnięta. </li> </ul> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/03-node-course-game-results.c9a77126.png" alt=""> </div> </article> </section>  </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.658ae41c.js"></script> </body></html>
