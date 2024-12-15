@@ -33,10 +33,523 @@
       <section id="1" class="text">
         <h1>Moduł 1 - Zajęcia 1 - Podstawy Node.js</h1>
         <article id="1.1">
-          <h2>1.1 Zarządzanie statusem</h2>
+          <h2>1.1 Wprowadzenie</h2>
+          <p>
+            Platforma Node.js to środowisko uruchomieniowe (runtime environment) JavaScript po
+            stronie serwera. Oznacza to, że programiści mogą wykorzystać ten sam język programowania
+            zarówno do front-endu, jak i do back-endu dla aplikacji webowych, nad którymi pracują.
+            Nowa wersja Node.js wychodzi zazwyczaj przynajmniej dwa razy w roku.
+          </p>
+          <p>
+            Zgodnie z ankietą
+            <a
+              href="https://survey.stackoverflow.co/2019#technology-_-other-frameworks-libraries-and-tools"
+              >Stack Overflow 2019</a
+            >, Node.js to najpopularniejsze narzędzie w kategorii "frameworki, biblioteki i
+            narzędzia" i korzysta z niego nawet 50% profesjonalnych deweloperów.
+          </p>
+        </article>
+        <article id="1.2">
+          <h3>1.2 Dziedziny zastosowania technologii</h3>
+          <p>
+            Co sprawia, że Node.js jest tak atrakcyjny dla programistów? Przeanalizujmy po kolei
+            dziedziny w których może zostać on wykorzystany.
+          </p>
+
+          <h4>Przesyłanie strumieniowe (streaming)</h4>
+          <p>
+            Node.js - dobry wybór jako baza do wykorzystania protokołów przesyłania danych "po
+            kawałku". Można tworzyć serwisy przesyłania strumieniowego do słuchania muzyki lub
+            oglądania filmów. Ma wbudowany moduł przesyłania strumieniowego, pozwalający przekazywać
+            ogromną ilość danych w mniejszych częściach i po kolei. Dzięki temu nie potrzebujesz
+            tymczasowo przechowywać danych w całości lub cashować ich w pamięci aplikacji.
+          </p>
+
+          <h4>Aplikacje czasu rzeczywistego (real-time)</h4>
+          <p>
+            Możemy tworzyć aplikacje w rodzaju czatu lub wideokonferencji, gdzie ludzie mogą
+            rozmawiać ze sobą w czasie rzeczywistym. Takie aplikacje jak Slack czy Discord zostały
+            napisane z pomocą Node.js. Można również tworzyć narzędzia dla jednoczesnej pracy nad
+            tym samym dokumentem przez kilka osób.
+          </p>
+
+          <h4>Microservices</h4>
+          <p>
+            Mikroserwisy stały się ostatnimi czasy popularne przy pisaniu aplikacji. Dzięki swojej
+            lekkości i prostocie Node.js to preferowana i łatwo skalowalna technologia do tworzenia
+            i obsługi mikroserwisów.
+          </p>
+
+          <h4>Aplikacje konsolowe</h4>
+          <p>
+            Dzięki ogromnej ilości dostępnych pakietów w repozytorium NPM można łatwo tworzyć
+            narzędzia (skrypty) działające w konsoli, które mogą na przykład manipulować plikami na
+            serwerze lub jak już wiecie, kompilować pliki scss czy "sklejać" pliki js.
+          </p>
+
+          <h4>Aplikacje desktopowe</h4>
+          <p>
+            Dzięki frameworkowi Electron możemy budować aplikacje desktopowe na podstawie
+            technologii webowych. Przykładem takich aplikacji są edytory tekstu Atom i Visual Studio
+            Code oraz wspomniany już Slack.
+          </p>
+        </article>
+        <article id="1.3">
+          <h3>1.3 Podstawowe korzyści</h3>
+          <p>
+            Przyszedł czas porozmawiać o korzyściach płynących z technologii, które niewątpliwie
+            istnieją, skoro jest ona tak szeroko wykorzystywana.
+          </p>
+
+          <h4>Repozytorium NPM z otwartym kodem źródłowym</h4>
+          <p>
+            Na stronie Node Package Manager znajduje się wiele dostępnych modułów i możesz łatwo
+            znaleźć gotowe rozwiązanie dla swojej aplikacji, zamiast musieć wynajdować koło na nowo.
+          </p>
+          <h4>Skalowalne systemy</h4>
+          <p>
+            Z Node.js łatwo skalować aplikację horyzontalnie, stawiając wiele instancji projektu na
+            różnych serwerach. Dostępne jest również wertykalne skalowanie z wykorzystaniem
+            wbudowanego modułu cluster, który będzie rozgałęziać proces aplikacji na wszystkie
+            dostępne u ciebie rdzenie CPU.
+          </p>
+          <h4>Pasuje do mikroserwisów</h4>
+          <p>
+            Wiele firm wybiera Node.js, kiedy chcą przejść na mikroserwisy. Jest idealny do tego
+            rozwiązania architektonicznego.
+          </p>
+          <h4>Jeden język programowania</h4>
+          <p>
+            Obecnie podstawowym językiem dla front-endu jest JavaScript. Używanie go po stronie
+            back-endu pozwala zatrudnić full-stack dewelopera, a nie dwóch pracowników na różne
+            stanowiska. Oszczędzanie czasu i pieniędzy w biznesie zawsze było i będzie dużym plusem.
+          </p>
+          <h4>Paradygmat asynchronicznego wejścia-wyjścia</h4>
+          <p>
+            Główny problem z operacjami wejścia-wyjścia to oczekiwanie odpowiedzi. Wykorzystanie
+            nie-blokującego API pozwala kontynuować pracę nad kolejnym zadaniem, nie czekając na
+            odpowiedź poprzedniego. Dopiero gdy operacja wejścia-wyjścia zostanie zakończona,
+            otrzymasz powiadomienie przy pomocy callback lub promise. Główna korzyść z takiego
+            rozwiązania polega na zwiększeniu efektywności na rzecz opracowywania większej ilości
+            jednoczesnych połączeń.
+          </p>
+          <h4>Reusable code</h4>
+          <p>
+            Ponieważ podstawowym językiem jest JavaScript, możesz łatwo wymieniać się fragmentami
+            kodu między licznymi komponentami twojego systemu. Co więcej, możesz wykorzystać te same
+            fragmenty kodu czy biblioteki zarówno we front-endzie, jak i back-endzie aplikacji.
+          </p>
+          <h4>Czas wyjścia na rynek</h4>
+          <p>
+            Bardzo często w biznesie pojawia się wspaniały pomysł, który trzeba przetestować na
+            rynku. Przy pomocy Node.js możesz szybko dostarczyć MVP (Minimalna wersja produktu,
+            minimum viable product, produkt wykazujący się minimalnymi, ale wystarczającymi dla
+            pierwszych użytkowników funkcjami), co zmniejszy ilość pieniędzy i czasu potrzebnych dla
+            jego realizacji.
+          </p>
+          <h4>Przetestowane na produkcji</h4>
+          <p>
+            Od momentu utworzenia Node.js w 2009 roku w wielu firmach pojawiła się możliwość
+            sprawdzenia, jak Node.js spisuje się na produkcji. Technologia dobrze się
+            zaprezentowała, dlatego wiele dużych firm zdecydowało się przejść na Node.js.
+          </p>
+        </article>
+        <article id="1.4">
+          <h3>1.4 Jakie firmy wykorzystują Node.js w swoich aplikacjach?</h3>
+          <p>Lista firm wykorzystujących Node.js w produkcji jest dość obszerna:</p>
+          <ul class="unnumbered-list-container">
+            <li>Netflix,</li>
+            <li>Microsoft,</li>
+            <li>
+              Capital One, ogromna korporacja finansowa wykonuje wiele projektów dzięki szybkiemu
+              developmentowi opartemu o Node.js.
+            </li>
+            <li>Agencje reklamowe, takie jak Fusion Marketing,</li>
+            <li>Walmart w handlu detalicznym,</li>
+            <li>Uber w transporcie,</li>
+            <li>Google,</li>
+            <li>Twitter,</li>
+            <li>GoDaddy</li>
+          </ul>
         </article>
       </section>
       <!-- section2 -->
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 System modułowy Node.js</h2>
+        </article>
+        <article id="2.2">
+          <h3>2.2 Globalne zmienne</h3>
+          <p>
+            Aby zmienna w Node.js była dostępna globalnie, trzeba zadeklarować ją jako właściwość
+            obiektu Global.
+          </p>
+          <pre>
+            global.foo = 3;
+          </pre>
+          <p>
+            Obiekt Global to odpowiednik obiektu window z przeglądarki. Metoda require, służąca do
+            połączenia modułów nie jest globalna i będzie lokalna dla każdego modułu.
+          </p>
+          <p>Również lokalnymi dla każdego modułu są:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              module.export - obiekt odpowiadający za to, co dokładnie będzie eksportować moduł gdy
+              zażądamy go przy wykorzystaniu require;
+            </li>
+            <li>__filename - nazwa pliku wykonywanego skryptu;</li>
+            <li>__dirname - absolutna ścieżka do wykonywanego skryptu.</li>
+          </ul>
+          <p>
+            Wrócimy do nich trochę później i przeanalizujemy je bardziej szczegółowo, gdy przyjrzymy
+            się podłączaniu modułów w Node.js.
+          </p>
+          <p>W sekcji Global znajdują się między innymi takie klasy, jak:</p>
+          <ul class="unnumbered-list-container">
+            <li>Buffer - klasa wykorzystywana do operacji z danymi binarnymi.</li>
+            <li>process - obiekt w którym znajdują się informacje o danym procesie Node.js</li>
+          </ul>
+          <p>
+            Na przykład właściwość process.argv będzie zawierać tablicę argumentów polecenia
+            podanych przy uruchamianiu skryptu w Node.js. Zerowym elementem będzie ścieżka absolutna
+            dla Node.js, drugim ścieżka pliku który został uruchomiony a następnie dostępne będą
+            podane parametry.
+          </p>
+          <p>Do pracy z katalogami wykorzystuje się następujące funkcje:</p>
+          <ul class="unnumbered-list-container">
+            <li>process.cwd() zwraca ścieżkę obecnego katalogu roboczego,</li>
+            <li>process.chdir() wykonuje przejście do innego katalogu. Polecenie</li>
+            <li>
+              process.exit() kończy proces ze wskazanym jako argument kodem: 0 - poprawne
+              zakończenie działania, inne statusy np. 1 - oznaczają błąd.
+            </li>
+          </ul>
+          <p>
+            Ważna metoda process.nextTick(fn) zaplanuje wykonanie podanej jako callback funkcji w
+            taki sposób, że zostanie wykonana przed zakończeniem bieżącego "obrotu" Event Loop,
+            (nazwa funkcji może być tutaj nieco myląca, aby przesunąć wykonanie funkcji na następny
+            tick możemy użyć setImmediate)
+          </p>
+          <pre>
+            setImmediate(function () {
+              console.log("setImmediate callback");
+            });
+
+            process.nextTick(function () {
+              console.log("NextTick callback");
+            });
+
+            // NextTick callback
+            // setImmediate callback
+          </pre>
+          <p>
+            Obiekt process zawiera jeszcze wiele właściwości i metod, z którymi można zapoznać się
+            samodzielnie w dokumentacji do Node.js.
+          </p>
+        </article>
+        <article id="2.3">
+          <h3>2.3 Moduły</h3>
+          <p>
+            Do podłączenia dodatkowych modułów do twojego projektu w Node.js można zastosować
+            wygodny system zarządzania modułami NPM. Najprościej rzecz ujmując: z jednej strony jest
+            to publiczne repozytorium dla Node.js zawierające stworzone przez społeczność moduły czy
+            biblioteki. Z drugiej strony jest to też narzędzie który instalujemy razem z Node.js i
+            dostępne przez:
+          </p>
+          <p>
+            Polecenie npm które pozwala tworzyć, usuwać lub aktualizować potrzebne ci moduły,
+            automatycznie uwzględniając przy tym wszystkie zależności wybranego przez ciebie modułu
+            od innych modułów uzupełniających. Instalacja modułu nastąpi po wykonaniu polecenia:
+          </p>
+          <pre>
+            npm install nazwa-paczki@wersja-paczki flagi
+          </pre>
+          <p>
+            Biorąc pod uwagę to, że wszystkie publiczne moduły NPM można łatwo zainstalować przy
+            pomocy npm, dla twojego projektu należy stworzyć plik package.json z listą wszystkich
+            niezbędnych do pracy zależności i później zainstalować na serwerze wszystkie potrzebne
+            moduły dzięki poleceniu:
+          </p>
+          <pre>
+            npm install
+          </pre>
+          <p>Podstawowe flagi przy instalacji to:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              -S lub --save - moduł instaluje się jako podstawowa zależność. Oznacza to, że moduł
+              jest niezbędny do normalnego funkcjonowania programu niezależnie do tego gdzie jest
+              uruchomiony. W pliku package.json znajdziemy go potem pod kluczem dependancies
+            </li>
+            <li>
+              -D lub --save-dev - oznacza, że moduł zainstaluje się w devDependencies - czyli jest
+              potrzebny tylko podczas developmentu, a nie w środowisku produkcyjnym.
+            </li>
+            <li>
+              -g czyli global - pozwala zainstalować moduł do wykorzystania w dowolnym projekcie na
+              danej maszynie.
+            </li>
+          </ul>
+          <p>Moduły należą do jednej z trzech kategorii:</p>
+          <ol class="numbered-list-container">
+            <li>bazowe (core modules)</li>
+            <li>plikowe (file modules)</li>
+            <li>moduły npm (npm modules)</li>
+          </ol>
+          <p>
+            Nazwy bazowych modułów są zarezerwowane i nie powinny być nadpisywane; moduły takie jak
+            fs i os, dostarcza nam środowisko Node.
+          </p>
+          <p>
+            File Module - gdy tworzysz plik w którym przypisane zostało coś (funkcja, obiekt, itd.)
+            do właściwości module.exports, a później plik ten jest wykorzystywany w innych plikach
+            twojego programu to mówimy o module plikowym.
+          </p>
+          <p>
+            Moduły npm - to w zasadzie moduły plikowe (często rozbite na wiele plików), które
+            znajdują się w specjalnym folderze o nazwie node_modules.
+          </p>
+          <p>
+            Gdy wykorzystujesz funkcję require, Node określa typ modułu na podstawie podanej
+            ścieżki/nazwy.
+          </p>
+          <p>
+            Jeżeli wskażesz moduł który nie jest jednym z core modules, to Node.js będzie szukał w
+            bieżącym katalogu podkatalogu node_modules.
+          </p>
+          <p>
+            Jeżeli to nie zakończy się sukcesem, to Node.js przejdzie do katalogu-rodzica i znów
+            zacznie szukać katalogu node_modules, i następnie szukał tam modułu.
+          </p>
+          <p>
+            Proces będzie się powtarzał, dopóki moduł nie zostanie znaleziony lub nie zostanie
+            osiągnięty katalog root.
+          </p>
+        </article>
+        <article id="2.4">
+          <h3>2.4 Moduły ComonJS</h3>
+          <p>
+            Node.js pracuje z systemem podłączania modułów CommonJS. Każdy moduł CommonJS
+            reprezentuje gotowy do wykorzystania fragment kodu JavaScript, który eksportuje obiekty
+            specjalne który możemy używać w dowolnej ilości miejsc. Dwa główne narzędzia modułów
+            CommonJS to:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>
+              obiekt module.exports zawierający to, co moduł chce uczynić dostępnym dla innych
+              części systemu
+            </li>
+            <li>
+              funkcja require, która jest wykorzystywana przez jedne moduły do importu obiektu
+              exports z innych.
+            </li>
+          </ul>
+          <p>Stwórzmy plik/moduł module.js</p>
+          <pre>
+            module.js
+
+            const info = msg => {
+              console.log(`Info: ${msg}`);
+            };
+
+            const log = msg => {
+              console.log(`Log: ${msg}`);
+            };
+
+            module.exports = {
+              info,
+              log,
+            };
+          </pre>
+          <p>
+            Konstrukcja module - specjalny obiekt, który jest dostępny w Node.js w celu realizacji
+            modułów Common.js. Wszystko to, co będzie przypisane jego właściwości exports, będzie
+            eksportować się z tego modułu.
+          </p>
+          <p>W innym pliku, main.js, podłączymy ten moduł i wywołajmy eksportowane funkcje:</p>
+          <pre>
+            const logger = require('./module');
+
+            logger.info('info function');
+            logger.log('log function');
+          </pre>
+        </article>
+        <article id="2.5">
+          <h3>2.5 Moduły ECMAScript</h3>
+          <p>
+            Zaczynając od wersji: 6.х Node.js wspiera również podłączenie modułów zgodnie ze
+            standardem ECMAScript. Jednak pełne importowanie działa dopiero z wersją 14.x.
+          </p>
+          <p>
+            Aby wykorzystać moduły ECMAScript musimy skorzystać z jednego z dwóch sposobów. Pierwszy
+            - dodać do plików rozszerzenie .mjs, abyśmy mogli wykorzystać moduły ECMAScript lub
+            drugi - w pliku package.json utworzyć pole "type" z wartością "module". Wykorzystamy
+            drugi sposób i najpierw utworzymy w pustym folderze plik package.json przy pomocy
+            polecenia:
+          </p>
+          <pre>
+            npm init -y
+          </pre>
+          <p>i dodamy w nim pole "type" z wartością "module".</p>
+          <p>Później utworzymy moduł import.js.</p>
+          <pre>
+            export const info = msg => {
+              console.log(`Info: ${msg}`);
+            };
+
+            export const log = msg => {
+              console.log(`Log: ${msg}`);
+            };
+          </pre>
+          <p>W pliku app.js importujemy wskazany moduł i wywołujemy funkcję:</p>
+          <pre>
+            import { info, log } from './import.js';
+
+            info('info function');
+            log('log function');
+          </pre>
+          <p>W ten sposób zrealizowaliśmy drugie podejście podłączenia modułów czyli ECMAScript.</p>
+        </article>
+      </section>
+      <!-- section3 -->
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Praca z plikami</h2>
+          <p>
+            Moduł FileSystem (fs) pozwala na pracę z plikami w Node.js. Obecnie najczęściej
+            korzystamy z jego wersji promise, dzięki czemu nie musimy korzystać ze składni
+            callback-ów.
+          </p>
+          <pre>
+            const fs = require('fs').promises;
+          </pre>
+          <p>Najczęściej wykorzystywane funkcje do podstawowych operacji na plikach to:</p>
+          <ul class="unnumbered-list-container">
+            <li>fs.readFile(filename, [options]) - czytanie pliku;</li>
+            <li>fs.writeFile(filename, data, [options]) - zapis pliku;</li>
+            <li>fs.appendFile(filename, data, [options])dodanie do pliku;</li>
+            <li>fs.rename(oldPath, newPath) - zmiana nazwy pliku;</li>
+            <li>fs.unlink(path, callback) - usunięcie pliku.</li>
+          </ul>
+          <p>Przy operacjach z plikami nigdy nie powinniśmy zapominać o obsłudze błędów.</p>
+          <p>
+            Należy również pamiętać, że parametr data w funkcji readFile, zawiera obiekt będący
+            instancją klasy Buffer, zawierający ciąg przeczytanych bajtów, to znaczy surowe dane.
+          </p>
+          <p>
+            W przypadku prostych plików tekstowych możemy przekonwertować data metodą toString():
+          </p>
+          <pre>
+            fs.readFile('readme.txt')
+            .then(data => console.log(data.toString()))
+            .catch(err => console.log(err.message));
+          </pre>
+          <p>
+            Istnieją również metody modułu fs z synchronicznymi wersjami, kończące się na Sync, jak
+            również i wersje przyjmujące callback.
+          </p>
+          <p>Możemy je importować poprzez:</p>
+          <pre>
+            const fs = require('fs');
+          </pre>
+          <p>
+            Wtedy wszystkie funkcje nie zwracają promise więc nie możemy wykorzystać składni .then.
+            Funkcjom synchronicznym nie jest również potrzebny callback, ponieważ są one blokujące i
+            dlatego też nie są rekomendowane, chyba że wymaga tego obecne zadanie i dobrze
+            rozumiesz, w jakim celu je stosujesz. Zobaczmy przykłady:
+          </p>
+          <pre>
+            readFileSync
+
+            try {
+              const data = fs.readFileSync("readme.txt");
+              console.log(data.toString());
+            } catch (err) {
+              console.log(err.message);
+            }
+          </pre>
+          <pre>
+            readFile (wersja bez promise)
+
+            const fs = require("fs");
+
+            fs.readFile("readme.txt", function (err, data) {
+              if (err) {
+                console.log("error", err.message);
+              } else {
+                console.log(data.toString());
+              }
+            });
+          </pre>
+          <pre>
+            readFile (wersja bez promise)
+
+            const fs = require("fs");
+
+            fs.readFile("readme.txt", function (err, data) {
+              if (err) {
+                console.log("error", err.message);
+              } else {
+                console.log(data.toString());
+              }
+            });
+          </pre>
+          <p>
+            Napiszmy skrypt files.js, który będzie odczytał obecny katalog i wyprowadzał do konsoli
+            jego zawartość: nazwę pliku, jego rozmiar i datę wprowadzenia ostatniej zmiany w pliku.
+          </p>
+          <pre>
+            const fs = require('fs').promises;
+
+            fs.readdir(__dirname)
+              .then(files => {
+                return Promise.all(
+                  files.map(async filename => {
+                    const stats = await fs.stat(filename);
+                    return {
+                      Name: filename,
+                      Size: stats.size,
+                      Date: stats.mtime,
+                    };
+                  }),
+                );
+              })
+              .then(result => console.table(result));
+          </pre>
+          <p>
+            Przeanalizujmy ten kod bardziej szczegółowo. Na początku podłączamy standardowy moduł fs
+            w wersji z promisami:
+          </p>
+          <pre>
+            const fs = require('fs').promises;
+          </pre>
+          <p>
+            Przy pomocy ścieżki ze zmiennej __dirname odczytujemy wszystkie pliki z obecnego
+            katalogu.
+          </p>
+          <p>
+            W rezultacie działania funkcji readdir, w zmiennej files otrzymujemy promise który
+            zwróci tablicę nazw plików i katalogów z obecnego katalogu.
+          </p>
+          <p>Zwracamy więc tablicę promisów gdzie każdy analizuje kolejny element files</p>
+          <p>
+            Zmienna stats zawierać będzie szczegółowe informacje o każdym kolejnym pliku i katalogu.
+          </p>
+          <p>Zwracamy obiekt z nazwą pliku oraz</p>
+          <ul class="unnumbered-list-container">
+            <li>stats.mtime - czas ostatniej zmiany pliku</li>
+            <li>stats.size - który określa rozmiar pliku w bajtach.</li>
+          </ul>
+          <p>
+            Rezultat wykonania tego promise, czyli zmienną result, przekazujemy funkcji
+            console.table i dzięki niej wyświetlimy tabelkę z informacjami przy wykonaniu naszego
+            skryptu w konsoli.
+          </p>
+          <p>Wynik wykonania skryptu:</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/01-node-file.png" alt="" />
+          </div>
+        </article>
+      </section>
     </main>
     <footer class="footer">
       <div class="footer-logo">
@@ -47,7 +560,7 @@
         <p></p>
       </div>
       <div class="footer-date">
-        <p>19.09.2024r.</p>
+        <p>14.12.2024r.</p>
       </div>
     </footer>
     <!-- SKRYPTY JS -->

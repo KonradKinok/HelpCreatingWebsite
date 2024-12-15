@@ -33,10 +33,389 @@
       <section id="1" class="text">
         <h1>Moduł 1 - Zajęcia 3 - Framework Express</h1>
         <article id="1.1">
-          <h2>1.1 Zarządzanie statusem</h2>
+          <h2>1.1 Wprowadzenie do Express</h2>
+          <p>
+            Express - to minimalistyczny i elastyczny web framework dla aplikacji Node.js,
+            dostarczający obszerny zestaw narzędzi potrzebnych dla typowej aplikacji backend.
+            Pozwala wygodnie tworzyć między innymi API oparte o protokół HTTP i metodologię REST.
+          </p>
+          <p>
+            Przystąpmy od razy do praktyki. Utwórz katalog dla swojej aplikacji i przejdź do niego
+          </p>
+          <pre>
+            $ mkdir myapp
+            $ cd myapp
+          </pre>
+          <p>Przy pomocy polecenia:</p>
+          <pre>
+            $ npm init -y
+          </pre>
+          <p>
+            utwórz plik package.json dla swojej aplikacji. Teraz zainstaluj paczkę Express w
+            katalogu myapp i zapisz go na liście zależności poprzez polecenie:
+          </p>
+          <pre>
+            $ npm install express
+          </pre>
+          <p>
+            UWAGA: w poniższych przykładach korzystamy z wersji express 4.18.2 - możesz sprawdzić ją
+            w pliku package.json
+          </p>
+          <p>W katalogu myapp utwórz plik o nazwie app.js i dodaj w niej następujący kod:</p>
+          <pre>
+            const express = require('express');
+            const app = express();
+
+            app.get('/', (req, res) => {
+              res.send('Hello World!');
+            });
+
+            app.listen(3000, () => {
+              console.log('Example app listening on port 3000!');
+            });
+          </pre>
+          <p>
+            Aplikacja uruchamia serwer i nasłuchuje połączeń na porcie 3000. Uruchom ją korzystając
+            z polecenia:
+          </p>
+          <pre>
+            $ node app.js
+          </pre>
+          <p>
+            Aplikacja daje w przeglądarce odpowiedź "Hello World!"" dla zapytania GET adresowanego
+            do root URL (/) (w przypadku uruchomienia aplikacji lokalnie, pełną ścieżką będzie więc
+            [localhost:3000/](http://localhost:3000) lub 127.0.0.1:3000/.
+          </p>
+          <p>
+            O ścieżce i funkcji która zostanie wywołana dla niej będziemy mówić w skrócie jako o
+            route
+          </p>
+          <p>
+            URL-e które udostępnia dany serwer w swoim API, nazywamy też często endpoint-ami, są to
+            właśnie swojego rodzaju "punkty styku" pomiędzy frontendem a backendem.
+          </p>
+          <p>
+            Dla wszystkich pozostałych ścieżek URL odpowiedzią będzie standardowy status 404 - Not
+            Found.
+          </p>
+          <p>
+            Dla opracowywania zapytań, w routes w Express dodano szereg wbudowanych funkcji. Routing
+            bądź trasowanie określa, jak twoja aplikacja odpowiada na zapytanie klienta dla
+            konkretnego adresu - URL. Każdy route może mieć jedną lub więcej funkcji, które wykonują
+            się przy odpytaniu danej ścieżki. Określenie route w Express ma następującą strukturę:
+          </p>
+          <pre>
+            app.METHOD(PATH, HANDLER)
+          </pre>
+          <p>Gdzie:</p>
+          <ul class="unnumbered-list-container">
+            <li>app to instancja aplikacji Express.</li>
+            <li>METHOD -— metoda zapytania HTTP (GET, POST, PUT, PATCH, DELETE).</li>
+            <li>
+              PATH —- ścieżka na serwerze, w naszym przypadku mamy tylko jedną i jest nią root
+              strony '/'.
+            </li>
+            <li>HANDLER —- funkcja, wykonywana po odpytaniu naszego endpointa.</li>
+          </ul>
+          <p>Przyjrzyjmy się krótko temu, do czego wykorzystuje się każdą z metod HTTP:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              GET żąda danych o zasobie. Zapytania z wykorzystaniem tej metody mają tylko zwracać
+              dane.
+            </li>
+            <li>
+              POST wykorzystuje się aby utworzyć nowy zasób przy użyciu danych wysłanych w zapytaniu
+            </li>
+            <li>PUT służy do utworzenia lub (częściej) modyfikacji całościowej danego zasobu</li>
+            <li>DELETE usuwa wskazany zasób.</li>
+            <li>
+              PATCH wykorzystuje się do częściowej aktualizacji zasobu. Wrócimy jeszcze do
+              czasowników, gdy będziemy analizować tworzenie pełnego REST API.
+            </li>
+          </ul>
+          <p>
+            W naszym przypadku funkcja HANDLER przyjmuje również dwa parametry, obiekt zapytania req
+            i obiekt odpowiedzi res (istnieje trzeci parametr next do którego wrócimy w dalszej
+            części kursu).
+          </p>
+          <pre>
+            (req, res) => {
+              res.send('Hello World!');
+            };
+          </pre>
+          <p>
+            Do uruchomienia serwera wywołuje się metodę app.listen(), w której przekazuje się numer
+            portu. Aplikacja zwraca odpowiedź "Hello World!" na zapytania adresowane do root URL (/)
+            lub trasy. Dla wszystkich pozostałych ścieżek (endpointów) które nie są zdefiniowane w
+            naszej aplikacji, na przykład http://localhost:3000/contact, odpowiedzią będzie:
+          </p>
+          <pre>
+            Cannot GET /contact
+            --- 404 Not Found ---
+          </pre>
+          <p>Dodamy program obsłużenia route /contact:</p>
+          <pre>
+            app.get('/contact', (req, res) => {
+            res.send('&lth1>Contact page&lt/h1>');
+          });
+          </pre>
+          <p>
+            I teraz URL http://localhost:3000/contact będzie zwracał nam dokument z nagłówkiem
+            Contact page.
+          </p>
+          <p>
+            Symbol ? w ścieżce definiuje, że poprzedni znak może wystąpić 1 raz lub być całkiem
+            nieobecny. Zdefiniowana poniżej ścieżka obsługuje zarówno /cotact jak i /contact
+          </p>
+          <pre>
+            app.get('/con?tact', (req, res) => {
+              res.send('&lth1>Contact page&lt/h1>');
+            });
+          </pre>
+          <p>
+            Symbol + definiuje, że poprzedzający go znak może wystąpić jeden raz lub więcej. Ta
+            ścieżka obsługuje: /contact, /conntact, /connntact i tak dalej.
+          </p>
+          <pre>
+            app.get('/con+tact', (req, res) => {
+              res.send('&lth1>Contact page&lt/h1>');
+            });
+          </pre>
+          <p>
+            Symbol * definiuje, że na miejscu tego symbolu może znajdować się dowolna ilość innych
+            znaków. Ta ścieżka obsługuje /contact, /conxtact, /con123tact i tak dalej.
+          </p>
+          <pre>
+            app.get('/con*tact', (req, res) => {
+              res.send('&lth1>Contact page&lt/h1>');
+            });
+          </pre>
+          <p>
+            Warto zauważyć, że choć jest taka możliwość, lepiej wybierać określone ścieżki bez
+            korzystania z symboli jeśli nie ma takiej potrzeby.
+          </p>
         </article>
       </section>
       <!-- section2 -->
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Oprogramowanie pośredniczące</h2>
+          <p>
+            Przejdźmy teraz do tematu middleware lub oprogramowania pośredniczącego. W praktyce
+            oprogramowanie pośredniczące to po prostu funkcja przyjmująca trzy argumenty: obiekt
+            zapytania (req), obiekt odpowiedzi (res) i funkcję next. Oprogramowanie pośredniczące
+            wykonuje się kaskadowo lub łańcuchowo. Wyobraź sobie rurę wodociągową, którą płynie
+            woda. Woda pompowana jest przez jeden koniec rury, następnie przepływa przez
+            ciśnieniomierz i zawory, nasze oprogramowanie pośredniczące, zanim wpada do miejsca
+            przeznaczenia - naszej szklanki. Podobnie jak w tej analogii, kolejność middlewares ma
+            znaczenie. Na końcu łańcucha middleware znajdzie się funkcja obsługująca ścieżkę
+            (kończąca się na przykład metodą res.send())
+          </p>
+          <p>
+            Stwórzmy własne oprogramowanie pośredniczące w naszym pliku app.js przed wywołaniem
+            dowolnej ścieżki.
+          </p>
+          <pre>
+            app.use((req, res, next) => {
+              console.log('Nasze oprogramowanie pośredniczące');
+              next();
+            });
+          </pre>
+          <p>
+            Ta funkcja na ten moment nie robi nic istotnego, ale każde zapytanie przechodzi przez
+            nią, a na konsoli zawsze będzie wyskakiwać nasza wiadomość.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/04-middleware-pl.png" alt="" />
+          </div>
+          <p>
+            Oprogramowanie pośredniczące (middleware) to funkcje mające dostęp do obiektu zapytania
+            (req), obiektu odpowiedzi (res) i funkcji przetwarzania pośredniego w cyklu
+            "zapytanie-odpowiedź" aplikacji. Funkcja kontynuowania wykonywania z reguły definiowana
+            jest jako next.
+          </p>
+          <p>Co robi więc middleware?</p>
+          <ul class="unnumbered-list-container">
+            <li>wykonuje kod wspólny dla wielu ścieżek;</li>
+            <li>wnosi zmiany do obiektów zapytań i odpowiedzi;</li>
+            <li>może zakończyć cykl "zapytanie-odpowiedź" i przerwać opracowywanie zapytania;</li>
+            <li>
+              może wywołać następną funkcję przetwarzania z kolejki, poprzez wykonanie funkcji
+              next().
+            </li>
+          </ul>
+          <p>
+            Jeżeli bieżąca funkcja przetwarzania pośredniego nie kończy cyklu "zapytanie-odpowiedź",
+            powinna ona wywołać next() aby przejść do następnej funkcji. W przeciwny razie zapytanie
+            zawiesi się.
+          </p>
+        </article>
+      </section>
+      <!-- section3 -->
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Przekazanie danych na serwer</h2>
+        </article>
+        <article id="3.2">
+          <h3>3.2 Przekazanie parametru do URL</h3>
+          <p>
+            Pierwszy sposób - przekazanie przez parametr. Ścieżki mogą zawierać parametry - nazwane
+            segmenty adresu URL. Nazwa parametru powinna zawierać symbole z przedziału [A-Za-z0-9_].
+            W określeniu ścieżki, przed nazwą parametru stawia się znak dwukropka. Dodamy
+            następujący handler dla ścieżki:
+          </p>
+          <pre>
+            app.get('/contact/:id', (req, res) => {
+              res.send(`&lth1>Contact&lt/h1> Prametr: ${req.params.id}`);
+            });
+          </pre>
+          <p>
+            Jeżeli teraz zwrócimy się po ścieżce /contact/123 to req.params.id będzie zawierał
+            wartość 123. Ten sposób przekazywania parametrów na serwer wykorzystywany jest bardzo
+            często. Na przykład aktualizacja danych użytkownika może wyglądać następująco:
+          </p>
+          <pre>
+            app.patch('/user/:userId', (req, res) => {
+              const { userId } = req.params;
+                // wykonujemy wymagane działania
+            });
+          </pre>
+          <p>Zobaczymy więcej przykładów gdy będziemy analizować REST API.</p>
+        </article>
+        <article id="3.3">
+          <h3>3.3 Wykorzystanie parametrów zapytania GET</h3>
+          <p>
+            Drugi sposób - parametry zapytania GET lub też query params. W adresie URL, po którym
+            następuje zwrócenie się do serwera, stawia się znak zapytania ?, za którym następuje
+            lista par klucz=wartość rozdzielonych symbolami &. Na przykład:
+          </p>
+          <pre>
+            http://localhost:3000/contacts?skip=0&limit=10
+          </pre>
+          <p>
+            To najprostszy sposób między innymi na obsłużenie paginacji wyników naszego zapytania.
+            Rezultat takiego zapytania znajduje się w obiekcie req.query. W naszym konkretnym
+            przykładzie:
+          </p>
+          <pre>
+            {
+              skip: "0",
+              limit: "10"
+            }
+          </pre>
+          <p>
+            Jeżeli w zapytaniu GET parametry query nie są podane, na przykład mamy ścieżkę /search
+            bez znaku zapytania i dalszych danych, to req.query domyślnie otrzyma pusty obiekt: {}.
+          </p>
+          <p>
+            Framework Express zawiera wbudowane narzędzie służące do odczytywania parametrów query,
+            ponieważ jest to bardzo często spotykana praktyka.
+          </p>
+        </article>
+        <article id="3.4">
+          <h3>3.4 Wysyłanie danych przy pomocy formularza</h3>
+          <p>
+            Przy wysyłaniu danych na serwer zazwyczaj wykorzystuje się metody HTTP: POST, PUT i
+            PATCH. Formularze HTML mogą korzystać z metody POST, zobaczmy więc jak odczytać z nich
+            dane.
+          </p>
+          <p>
+            Żądanie HTTP składa się między innymi z listy nagłówków (headers) i ciała wiadomości
+            (request body). Zapytanie POST od formularza standardowo zawiera nagłówek Content-Type:
+            application/x-www-form-urlencoded. Zazwyczaj w celu otrzymania wysłanych danych należy
+            podłączyć odpowiedni parser jako middleware, jest on już zawarty w frameworku. Do
+            utworzenia parsera danych od formularzy stosuje się funkcję urlencoded().:
+          </p>
+          <pre>
+            app.use(express.urlencoded({ extended: false }));
+          </pre>
+          <p>
+            Do tej funkcji przekazujemy obiekt definiujący parametry parsowania. Wartość extended:
+            false wskazuje, że rezultat parsingu będzie reprezentować listę par klucz-wartość, a
+            każda wartość może być przedstawiona jako string lub tablica. Gdy parametr ten jest
+            równy true, parser wykorzystuje inną bibliotekę do analizy formatu parametrów.
+          </p>
+          <p>Przyjmijmy informację od formularza uwierzytelnienia:</p>
+          <pre>
+            &ltform action="/login" method="POST">
+              &ltlabel for="email">Email&lt/label>
+              &ltinput type="text" name="email" id="email" />
+              &ltlabel for="password">Hasło&lt/label>
+              &ltinput type="password" name="password" id="password" />
+              &ltbutton type="submit">Zaloguj&lt/button>
+            &lt/form>
+          </pre>
+          <p>
+            Po wciśnięciu przycisku w formularzu, przeglądarka wyśle na URL &lturl naszej
+            aplikacji>/login dane formularza. Będą to dwie zmienne: email i password. Odpowiedzialne
+            są za to wartości atrybutów name w znacznikach typu input. Te dane możemy odczytać po
+            stronie serwera w następujący sposób:
+          </p>
+          <pre>
+            app.post('/login', (req, res, next) => {
+              const { email, password } = req.body;
+                // Wykonujemy niezbędne operacje
+            });
+          </pre>
+          <p>
+            W wyniku tego serwer powinien otrzymać dane w obiekcie req.body, w następującej postaci:
+          </p>
+          <pre>
+            {
+              email: 'Wartość wprowadzona w polu input o name=email',
+              password: 'Wartość wprowadzona w polu input o name=password'
+            }
+          </pre>
+        </article>
+        <article id="3.5">
+          <h3>3.5 Przekazanie JSON</h3>
+          <p>
+            Przy tworzeniu aplikacji webowych na Node.js, często trzeba pracować z danymi w formacie
+            JSON. To podstawowy sposób przekazywania danych dla Web-API. Istnieje również format
+            XML, jednak coraz bardziej się on starzeje z powodu swojej rozwlekłości i wychodzi z
+            użytku. Parser JSON w naszej aplikacji podłączamy w następujący sposób:
+          </p>
+          <pre>
+            app.use(express.json());
+          </pre>
+          <p>Dane w postaci JSON mogą pochodzić między innymi</p>
+          <ul class="unnumbered-list-container">
+            <li>z kodu JavaScript po stronie przeglądarki,</li>
+            <li>z zapytania z innego serwera</li>
+            <li>zapytania curl dla systemu linux</li>
+            <li>
+              Przy użyciu klienta służącego do testowania zapytań HTTP, takiego jak Postman lub
+              Insomnia (więcej o nich dowiemy się na module dotyczącym REST API)
+            </li>
+          </ul>
+          <p>
+            Po tym, jak parser JSON zostanie podłączony, nasze handlers mogą interpretować wartość
+            req.body jako obiekt JavaScript zamiast wartości string.
+          </p>
+          <pre>
+            app.post('/login', (req, res, next) => {
+              const { email, password } = req.body;
+                // Wykonujemy niezbędne operacje
+            });
+          </pre>
+          <p>
+            Dany przykład wskazuje, że wysłany został obiekt JSON z właściwościami email i password.
+            Co najważniejsze, w zapytaniu nagłówek Content-Type powinien zawierać application/json,
+            a ty powinieneś wysłać właśnie wartość typu JSON.
+          </p>
+          <p>
+            Przeanalizowaliśmy wszystkie podstawowe sposoby przesyłania danych na serwer, które
+            przydadzą się nam później.
+          </p>
+        </article>
+      </section>
+       <!-- section4 -->
+      <section id="4" class="text">
+        <article id="4.1">
+          <h2>4.1 Routing w aplikacji</h2>
+        </article>
+        <article id="4.2">
+          <h3>4.2 Metody Route</h3>
     </main>
     <footer class="footer">
       <div class="footer-logo">
@@ -47,7 +426,7 @@
         <p></p>
       </div>
       <div class="footer-date">
-        <p>19.09.2024r.</p>
+        <p>15.12.2024r.</p>
       </div>
     </footer>
     <!-- SKRYPTY JS -->
