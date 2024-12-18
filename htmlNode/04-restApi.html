@@ -1,1 +1,202 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.8c480b41.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.13208f18.css"><title>Rest API</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 2 - Zajęcia 4 - Rest API</h1> <article id="1.1"> <h2>1.1 Zarządzanie statusem</h2> </article> </section>  </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.658ae41c.js"></script> </body></html>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.8c480b41.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/03-frameworkExpress.ed24fdcb.css"><title>Rest API</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 2 - Zajęcia 4 - Rest API</h1> <article id="1.1"> <h2>1.1 Przykład aplikacji</h2> <p> Po części teoretycznej przejdźmy do praktyki i stworzymy prostą aplikację opartą o express. </p> <p> Framework Express zapewnia swój generator aplikacji <a href="https://expressjs.com/en/starter/generator.html">https://expressjs.com/en/starter/generator.html</a> . Generator zorientowany jest na architekturę aplikacji MVC i tworzy następującą strukturę katalogów: </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/05-struktura-katalogow.4eec9c63.jpg" alt=""> </div> <p>Aby zainstalować template należy użyć polecenia:</p> <pre>
+            npx express-generator --view=ejs simple-express
+          </pre> <p> npx - narzędzie, które jest już w systemie, jeśli zainstalowany został Node.js w wersji wyższej niż 8.x. Pozwala ono wykonywać polecenia innych narzędzi, nie instalując ich globalnie w systemie. </p> <p>Dalej wskazujemy, że chcemy wykorzystać szablony ejs parametrem --view=ejs</p> <p>Jako ostatni parametr wskazujemy nazwę aplikacji (i folderu) simple-express.</p> <p> Aplikacja znajduje się w pliku app.js. Pierwsze, co powinniśmy zrobić, to zmienić var na const w całej aplikacji. Po tej operacji plik app.js powinien wyglądać następująco: </p> <pre>
+          const createError = require('http-errors');
+          const express = require('express');
+          const path = require('path');
+          const cookieParser = require('cookie-parser');
+          const logger = require('morgan');
+
+          const indexRouter = require('./routes/index');
+          const usersRouter = require('./routes/users');
+
+          const app = express();
+
+          // view engine setup
+          app.set('views', path.join(__dirname, 'views'));
+          app.set('view engine', 'ejs');
+
+          app.use(logger('dev'));
+          app.use(express.json());
+          app.use(express.urlencoded({ extended: false }));
+          app.use(cookieParser());
+          app.use(express.static(path.join(__dirname, 'public')));
+
+          app.use('/', indexRouter);
+          app.use('/users', usersRouter);
+
+          // catch 404 and forward to error handler
+          app.use(function (req, res, next) {
+            next(createError(404));
+          });
+
+          // error handler
+          app.use(function (err, req, res, next) {
+          // set locals, only providing error in development
+            res.locals.message = err.message;
+            res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+          // render the error page
+            res.status(err.status || 500);
+            res.render('error');
+          });
+
+          module.exports = app;
+        </pre> <p> Na początku podłączone są wszystkie niezbędne pakiety, potrzebne do działania aplikacji. </p> <p>Następnie zażądane są moduły zawierające routing.</p> <pre>
+          const indexRouter = require('./routes/index');
+          const usersRouter = require('./routes/users');
+        </pre> <p>Później tworzymy egzemplarz aplikacji i ustawiamy wykorzystanie szablonów ejs.</p> <pre>
+          const app = express();
+
+          // view engine setup
+          app.set('views', path.join(__dirname, 'views'));
+          app.set('view engine', 'ejs');
+        </pre> <p>Następnie pojawią się podłączenia middleware</p> <pre>
+          app.use(logger('dev'));
+          app.use(express.json());
+          app.use(express.urlencoded({ extended: false }));
+          app.use(cookieParser());
+        </pre> <p> Podłącza się logger, opracowywanie JSON i danych z formularzy, a na koniec moduł do pracy z cookie. </p> <p>Dalej dodawane jest opracowywanie zasobów statycznych z folderu public:</p> <pre>
+          app.use(express.static(path.join(__dirname, 'public')));
+        </pre> <p>Następnie mamy podłączenie routerów w aplikacji:</p> <pre>
+          app.use('/', indexRouter);
+          app.use('/users', usersRouter);
+        </pre> <p> Pamiętaj, że porządek podłączanego programu pośredniczącego ma znaczenie. Na końcu aplikacji pojawia się opracowywanie błędów. Najpierw zachodzi opracowywanie nieistniejącej ścieżki czyli klasyczny błąd 404. </p> <pre>
+          app.use(function (req, res, next) {
+            next(createError(404));
+          });
+        </pre> <p> Następnie z kolei mamy handler błędów które zostaną "wyrzucone" podczas obsługi ścieżek. </p> <pre>
+          app.use(function (err, req, res, next) {
+          // set locals, only providing error in development
+            res.locals.message = err.message;
+            res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+          // render the error page
+            res.status(err.status || 500);
+            res.render('error');
+          });
+        </pre> <p> Tutaj zachodzi opracowywanie błędu. Podajemy zmienne message i error do szablonu error.ejs i renderujemy go. </p> <p> Wewnątrz folderu z naszą aplikacją trzeba zainstalować wszystkie pakiety z pliku package.json poprzez polecenie: </p> <pre>
+            npm i
+          </pre> <p> Teraz dla ułatwienia sobie pracy zainstalujemy pakiet nodemon. Pozwala on wykonywać live reload serwera w trakcie pracy nad kodem. Dodamy wymaganą zależność do devDependencies: </p> <pre>
+            npm i nodemon -D
+          </pre> <p> Następnie w pliku package.json dla uruchomienia aplikacji w trybie deweloperskim dodajemy skrypt start:dev: </p> <pre>
+            "scripts": {
+              "start": "node ./bin/www",
+              "start:dev": "nodemon ./bin/www"
+            },
+          </pre> <p>Uruchomienie aplikacji w trybie deweloperskim będzie następowało przez polecenie:</p> <pre>
+            npm run start:dev
+          </pre> <p> Po uruchomieniu, aplikacja powinna wyglądać następująco po przejściu na adres [localhost:3000](http://localhost:3000) w przeglądarce: </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/06-gotowa-aplikacja-express.0e8c670c.png" alt=""> </div> <p> Aplikacja wykonuje renderowanie swojego jedynego szablonu. Samo renderowanie wykonuje się w pliku routingu routes/index.js. </p> <pre>
+            router.get('/', (req, res, next) => {
+              res.render('index', { title: 'Express' });
+            });
+          </pre> <p> Przyszedł czas na zmianę naszej aplikacji - dodamy formularz, abyśmy mogli przyjąć dane od użytkownika. Plik index.ejs powinien teraz wyglądać tak: </p> <pre>
+            &lt!DOCTYPEhtml>
+            &lthtml>
+              &lthead>
+                &lttitle>&lt%= title %>&lt/title>
+                &ltlink rel="stylesheet" href="/stylesheets/style.css" />
+              &lt/head>
+              &ltbody>
+                &ltform action="/login" method="POST">
+                  &ltlabel for="email">Email&lt/label>
+                  &ltinput type="text" name="email" id="email" />
+                  &ltlabel for="password">Hasło&lt/label>
+                  &ltinput type="password" name="password" id="password" />
+                  &ltbutton type="submit">Zaloguj się&lt/button>
+                &lt/form>
+              &lt/body>
+            &lt/html>
+          </pre> <p> Dla lepszego wyglądu dodamy następujące style do pliku public/stylesheets/style.css. </p> <pre>
+            form {
+              display: flex;
+              flex-direction: column;
+              width: 400px;
+            }
+
+            input,
+            button {
+              margin-bottom: 15px;
+            }
+          </pre> <p> Potrzebny jest nam program opracowywania dla ścieżki /login, do którego będą przychodzić dane z formularza. Dodajmy go, ale najpierw potrzebujemy nowy szablon response.ejs, gdzie będziemy pokazywać dane z formularza. </p> <pre>
+            &lt!DOCTYPEhtml>
+            &lthtml>
+            &lthead>
+              &lttitle>&lt%= title %>&lt/title>
+              &ltlink rel='stylesheet' href='/stylesheets/style.css' />
+            &lt/head>
+            &ltbody>
+              &ltp>Email: &lt%= email %>&lt/p>
+              &ltp>Password: &lt%= password %>&lt/p>
+              &lta href='/'>Wróć do strony główej&lt/a>
+            &lt/body>
+            &lt/html>
+          </pre> <p>Teraz w pliku routingu dodamy program opracowywania ścieżki /login.</p> <pre>
+            router.post('/login', (req, res, next) => {
+              const { email, password } = req.body;
+              res.render('response', { title: 'Simple express app', email, password });
+            });
+          </pre> <p> Jest dość uproszczony. Przyjmujemy w nim tylko dwie zmienne i przekazujemy je do renderowania szablonu response.ejs, aby pokazać, że dane zostały otrzymane. Jeżeli wszystko zostało wykonane prawidłowo, wtedy przy wysyłaniu formularza będziemy po prostu widzieli, co wysłaliśmy na serwer </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/07-respons-serwera.f17822d9.png" alt=""> </div> <p> Ten przykład pokazuje przekazanie danych z frontendu do backendu, wykorzystując formularz. </p> <p>Teraz w pliku routingu user.js dodamy następujący obiekt z kontaktami:</p> <pre>
+            const express = require('express');
+            const router = express.Router();
+            const contacts = [
+              { id: '1', username: 'Felix', surname: 'Brown', email: 'felix@test.com' },
+              { id: '2', username: 'Sonya', surname: 'Redhead', email: 'sonya@test.com' },
+              { id: '3', username: 'Conan', surname: 'Barbarian', email: 'conan@test.com' },
+            ];
+            /* GET users listing. */
+            router.get('/', function (req, res, next) {
+              res.json(contacts);
+            });
+
+            module.exports = router;
+          </pre> <p> Jeżeli zwrócimy się po ścieżce <a href="https://simple-express-nodebook.glitch.me/users">/users</a> , serwer powinien odesłać nam JSON z tablicą kontaktów. </p> <p> Dla lepszego odczytywania plików JSON w przeglądarce można wykorzystać następującą aplikację: <a href="https://github.com/callumlocke/json-formatter">https://github.com/callumlocke/json-formatter</a>. Dostępna jest ona także jako rozszerzenie dla Chrome. Gdy je zainstalujesz, zawsze będziesz widział dane JSON w czytelnej wersji. </p> <p> Dodajmy program opracowywania dla otrzymania konkretnego użytkownika zgodnie z jego identyfikatorem: </p> <pre>
+            router.get('/:id', function (req, res, next) {
+              const { id } = req.params;
+              const contact = contacts.filter(el => el.id === id);
+              res.json(contact);
+            });
+          </pre> <p> Teraz po zwróceniu się do url <a href="https://simple-express-nodebook.glitch.me/users/2">/users/2</a> otrzymujemy dane Rudej Soni: </p> <p> Taki sposób przekazywania danych będziemy najczęściej wykorzystywać do redagowania i usuwania konkretnego podmiotu zgodnie z jego unikalnym identyfikatorem. </p> <p> Z pełnym kodem wskazanego przykładu można zapoznać się tutaj: <a href="https://glitch.com/~simple-express-nodebook">https://glitch.com/~simple-express-nodebook</a> </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/08-pelna-aplikacja.a2e23e52.jpg" alt=""> </div> </article> </section>  <section id="2" class="text"> <article id="2.1"> <h2>2.1 Zmienne środowiskowe</h2> <p> Gdy zaczynamy pisać aplikację webową, prędzej czy później spotkamy się z potrzebą wykorzystania zewnętrznych źródeł danych, serwisów, danych kont API i tak dalej. Dostęp do tych źródeł prawie zawsze realizowany jest przy pomocy tajnych kluczy. Jest to spory problem, gdy kod aplikacji jest przekazywany do ogólnodostępnego repozytorium, takiego jak GitHub. Kod dostępny jest dla wszystkich, którzy mają do niego dostęp, co oznacza, że nasze tajne klucze również są widoczne. Nawet prywatne repozytoria mogą nie być do końca bezpieczne. </p> <p> Jak rozwiązywany jest ten problem? Dobrą praktyką jest wykorzystanie zmiennych środowiskowych. To innymi słowy lokalne zmienne, które są dostępne dla naszej aplikacji, ustalane podczas jej uruchamiania. </p> <p> Dostęp do tych zmiennych często realizowany jest przy pomocy modułu dotenv. Paczka ta ładuje zmienne środowiskowe z pliku .env, który należy utworzyć np. w głównym katalogu naszej aplikacji. Następnie podłączamy moduł do naszej aplikacji, po czym dodaje on zmienne środowiskowe do obiektu process.env, przy użyciu którego możemy wykorzystać je w aplikacji. Sam plik .env powinniśmy dodać do pliku .gitignore aby przez przypadek nie znalazł się w repozytorium. </p> <p>Na początku zainstalujmy pakiet.</p> <pre>
+            npm install dotenv
+          </pre> <p>Teraz dodajmy do pliku app.js następującą instrukcję.</p> <pre>
+            require('dotenv').config();
+          </pre> <p> Następnie tworzymy plik .env w katalogu root naszej aplikacji i dodajemy do niego zmienne. </p> <pre>
+            SECRET_KEY=123456
+            NODE_ENV=development
+          </pre> <p> Teraz w pliku aplikacji app.js dostępne będą wszystkie zmienne, które dodajemy do pliku .env. Przykłady powyżej, dostępne są teraz w aplikacji w następujący sposób: </p> <pre>
+            process.env.SECRET_KEY;
+            process.env.NODE_ENV;
+          </pre> <p> Dalej będziemy wykorzystywać zmienne środowiskowe do dostępu do tajnych danych, takich jak klucze szyfrujące dla cookie lub jwt, url podłączenia do bazy danych i inne. </p> </article> </section>  <section id="3" class="text"> <article id="3.1"> <h2>3.1 Logowanie</h2> <p> W prawie każdej aplikacji niezbędne jest odnotowywanie zapytań do serwera. Generator aplikacji wykorzystuje w tym celu moduł morgan — elastyczny komponent pośredniczący do logowania informacji o zapytaniach z możliwością ustawienia formatu. </p> <p>Aby wykorzystać ten moduł należy skorzystać z następujących instrukcji:</p> <pre>
+            const logger = require('morgan');
+            ...
+            app.use(logger('dev'))
+          </pre> <p> Przy tworzeniu middleware, wykorzystujemy jeden z dostępnych formatów naszych logów - dev. Istnieje pięć zdefiniowanych formatów, które możemy wykorzystać </p> <ul class="unnumbered-list-container"> <li> combined - wykorzystuje tryb combined serwera Apache: <p> :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" </p> </li> <li> common - wykorzystuje tryb common serwera Apache: <p> :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] </p> </li> <li> dev - format dziennika z kolorowym kodowaniem (po statusie odpowiedzi). <ul> <li>zielony dla kodów zakończonych sukcesem,</li> <li>czerwony dla kodów z błędami serwera,</li> <li>żółty dla kodów z błędami klienta,</li> <li>turkusowy dla kodów przekierowania</li> <li>biały dla kodów informacyjnych</li> </ul> <p>:method :url :status :response-time ms - :res[content-length]</p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/09-logger.34e4a9aa.jpg" alt=""> </div> </li> <li> short krótszy odpowiednik formatu domyślnego <p> :remote-addr :remote-user :method :url HTTP/:http-version :status :res[content-length] - :response-time ms </p> </li> <li> tiny - najkrótszy ze zdefiniowanych formatów, zawiera tylko czas odpowiedzi i kilka elementów uzupełniających. <p>:method :url :status :res[content-length] - :response-time ms</p> </li> </ul> <p> Często nasze logi muszą zostać opracowane przez zewnętrzne oprogramowanie, dzięki użyciu Morgan, można tworzyć również własne formaty logów. W tym celu należy przekazać specjalny string zawierający odpowiednie markery. Na przykład przekazując następujący format :method :url :response-time ms będziemy widzieć zapisy w rodzaju: </p> <pre>
+            GET / 15 ms:
+          </pre> <p> Domyślnie dostępne są następujące <a href="https://www.npmjs.com/package/morgan#tokens">markery</a>. Możesz również określać niestandardowe markery i dodać je do informacji wyprowadzanych przez logger. </p> </article> </section>  <section id="4" class="text"> <article id="4.1"> <h2>4.1 Czym jest REST</h2> </article> <article id="4.2"> <h3>4.2 Wprowadzenie</h3> <p> REST (REpresentational State Transfer) - to inaczej przekazywanie reprezentatywnego stanu. Jest to lista zasad projektowania architektury, dla zwiększenia skalowalności i elastyczności komunikacji sieciowych. Zasady te odpowiadają na szereg pytań: </p> <ul class="unnumbered-list-container"> <li>Jakie istnieją komponenty systemu?</li> <li>Jak komunikują się one między sobą?</li> <li> Jak można zagwarantować możliwość zmiany i rozwinięcia różnych części systemu w dowolnym czasie? </li> <li>Jak można skalować systemy obsługi coraz większej ilości użytkowników?</li> </ul> <p> Roy Fielding po raz pierwszy wprowadził termin REST w 2000 roku w swojej pracy doktorskiej "Architectural Styles and the Design of Network-based Software Architectures". Można ją znaleźć <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm">tutaj</a>. </p> <p> W momencie publikacji dysertacji Internet był już bardzo popularny. Fielding zrobił krok do tyłu i przeanalizował cechy, które sprawiły, że Internet odniósł większy sukces niż konkurencyjne rozwiązania. Przedstawił on schematyczną strukturę, która uczyni komunikację internetową "podobną do sieci". Dlatego też, REST to ogólny zbiór zasad, niespecyficznych dla Internetu. Można je stosować do innych typów sieci, na przykład do wewnętrznych systemów. REST nie jest również protokołem, ponieważ nie definiuje on szczegółów implementacji. W pracy doktorskiej Fieldinga przedstawiony został szereg architektonicznych ograniczeń, które powinien spełniać system, aby być RESTful. </p> </article> <article id="4.3"> <h3>4.3 Czym jest URI i URL?</h3> <p> Zanim przejdziemy do tego, jakie architektoniczne ograniczenia nakłada REST, przeanalizujmy terminologię URL i URI. Terminy URI i URL często wykorzystywane są zamiennie, ale to nie do końca to samo. </p> <p> ::: tip URI: Reprezentuje sobą identyfikator konkretnego zasobu, jak np. strona, książka lub dokument. </p> <p> ::: tip URL: Reprezentuje szczególny typ identyfikatora zasobu, który zawiera również informację o tym, jak otrzymać do niego dostęp. </p> <p> W zasadzie URI to szersze pojęcie i zawiera w sobie URL. Jeżeli chcemy przeprowadzić jakieś upraszczające analogie, to można założyć, że URI jest rodzajem nazwy, a URL to konkretna nazwa i sposób, jak do niej dotrzeć. Na przykład ISBN książki to URI, a https://goit.ua to URL - mamy tu nazwę oraz sposób dotarcia do niej, czyli protokół. </p> <p> To oznacza, że jeżeli protokół (https, ftp itd.) jest obecny w ścieżce, to powinniśmy nazywać ją adresem URL, nawet jeśli jest ona także URI. </p> <p>Tradycyjnie zapisujemy URL w formacie:</p> <pre>
+            &ltscheme>://[&ltlogin>[:&ltpassword>]@]&lthost>[:&ltport>]][/&ltpath>][?&ltquery>][#&ltfragment>]
+          </pre> <p>Przykład:</p> <pre>
+            http://user:password@host.com:80/resourse/path/?query=name&ttt=123#hash
+          </pre> <p>W tym zapisie:</p> <ul class="unnumbered-list-container"> <li>scheme - to protokół sieciowy, poprzez który następuje zwrócenie się do zasobu;</li> <li> login - nieobowiązkowy parametr, nazwa użytkownika wykorzystywana aby uzyskać dostęp do zasobu; </li> <li>password - hasło dla wskazanego użytkownika, jeśli jest wymagane;</li> <li> host - zapisana w całości domenowa nazwa hosta w systemie DNS (goit.ua) lub adres IP hosta w postaci czterech grup liczb dziesiętnych (jeśli korzystamy z formatu IPV4), rozdzielonych kropkami; </li> <li> port - port hosta dla danego połączenia. Pamiętamy klasyczna ścieżkę do aplikacji express: http://localhost:3000 gdzie 3000 to właśnie port. Pojawia się pytanie, dlaczego port nie pokazuje się dla URL w przeglądarce. Wynika to z tego, że domyślnie, dla protokołu http port to 80, a dla https jest równy 443 i przeglądarka podstawia go za nas. </li> <li>path - ścieżka prowadząca do miejsca znajdowania się zasobu;</li> <li> query - łańcuch parametrów zapytania z przekazywanymi na serwer (metodą GET) parametrami. Zaczyna się od symbolu ?, następnie znajdziemy delimiter poszczególnych parametrów - znak &. Przykład: ?foo=123&baz=234&bar=value; </li> <li> fragment - identyfikator z poprzedzającym symbolem #. Często nazywamy go kotwicą. Z takim odnośnikiem przeglądarka otworzy stronę i przewinie okno przeglądania do wskazanego elementu z odpowiednim atrybutem id, na przykład: https://example.com/#contact </li> </ul> </article> <article id="4.4"> <h3>4.4 Architektoniczne ograniczenia rozwiązań RESTful</h3> <h4>Klient-serwer</h4> <p> Pierwsze ograniczenie wynika z tego, że sieć powinna składać się z klientów i serwerów. Serwer to komputer, który przechowuje zasoby, a klientami mogą być na przykład przeglądarki, które chcą wykorzystać zasoby przechowywane na serwerze. Gdy przeglądasz Internet, twój komputer zachowuje się jak klient i wysyła zapytania HTTP na serwer w celu uzyskania dostępu do informacji i zarządzania nimi. Każdy system RESTful powinien działać zgodnie z modelem klient-serwer, nawet jeśli dany element systemu czasem zachowuje się jak klient, a czasem jak serwer (ponieważ serwery mogą komunikować się między sobą i wtedy jeden z nich przyjmuje rolę klienta w danych połączeniu). </p> <p> Alternatywą dla architektury klient-serwer, odmienną od RESTful, jest architektura na podstawie zdarzeń. W tym modelu każdy komponent nieprzerwanie transmituje zdarzenia, oczekując przy tym odpowiednich zdarzeń od innych komponentów. Nie ma bezpośredniej komunikacji, tylko transmisja i nasłuchiwanie. REST wymaga indywidualnej współpracy elementów systemu, dlatego architektura integracji na podstawie zdarzeń nie będzie RESTful. </p> <h4>Stateless</h4> <p> Brak stanu nie oznacza, że serwery i klienci nie mają swoich stanów. Oznacza to jednak, że nie mogą śledzić swoich stanów nawzajem. Gdy klient nie jest aktualnie połączony z serwerem, serwer nie wie o jego istnieniu i na odwrót. Każde zapytanie analizowane jest oddzielnie, co oznacza brak ciągłej sesji. </p> <h4>Jeden interfejs</h4> <p> Ograniczenie to gwarantuje, że istnieje wspólny język między serwerami i klientami, który pozwala wymieniać lub zmieniać część bez naruszenia pracy całego systemu. Jest to osiągalne kosztem 4 dodatkowych ograniczeń: </p> <ul class="unnumbered-list-container"> <li>identyfikacja zasobów;</li> <li>manipulowanie zasobami przy pomocy widoków;</li> <li>informacyjne (samoopisujące się) wiadomości;</li> <li>hipermedia.</li> </ul> <h5>Pierwsze ograniczenie interfejsu: identyfikacja źródeł</h5> <p> Pierwsze z tych ograniczeń wpływa na sposób identyfikacji zasobów. W terminologii REST zasobem może być cokolwiek - dokument HTML, plik, informacja o zamówieniu i tak dalej. Każdy zasób powinien być jednoznacznie identyfikowalny stabilnym identyfikatorem. "Stabilny" identyfikator oznacza, że nie zmienia się on przy interakcji z zasobem, ani nawet przy zmianie stanu zasobu. Jeżeli zasób naprawdę przemieścił się do innego identyfikatora, serwer powinien dać klientowi odpowiedź wskazującą, że zapytanie było błędne i dać mu odnośnik do nowego położenia zasobu. </p> <p> Internet wykorzystuje URL do identyfikacji zasobów oraz HTTP jako standard łączności. Aby otrzymać zasób, który przechowywany jest na serwerze, klient wysyła zapytanie HTTP - GET na URL, który identyfikuje ten zasób. Za każdym razem, gdy wprowadzasz do swojej przeglądarki adres, tworzy ona zapytanie GET na podany URL. Jeżeli otrzymuje status 200 i dokument w formacie który rozumie (np.HTML), wyświetla stronę w oknie, aby można było ją przejrzeć. </p> <h5>Drugie ograniczenie interfejsu: manipulowanie zasobami przed widoki</h5> <p> Drugie ograniczenie mówi o tym, że klient zarządza zasobami, wysyłając "widoki" na serwer - powinien być to obiekt JSON lub XML, zawierający dane, który użytkownik chciałby dodać, usunąć lub zmienić. W REST serwer w pełni kontroluje zasoby i odpowiada za wszelkie zmiany. Jako zasoby mogą służyć zapisy w bazie danych, pliki i tak dalej. Gdy klient chce wprowadzić zmiany do zasobów, wysyła do serwera widok tego, jak powinien wyglądać otrzymany zasób. Serwer przyjmuje zapytanie jako propozycję, ale ma pełną kontrolę i sam podejmuje działanie w zależności od zdefiniowanych zasad. </p> <p> Najprostszy przykład to blog. Gdy użytkownik tworzy nowy wpis na blogu, komputer-klient zawiadamia serwer, że należy go dodać. W tym celu wysyła on zapytanie HTTP przy użyciu metody POST, lub ewentualnie PUT z zawartością dla nowego posta na blogu. Serwer odpowiada do klienta i przekazuje informację, czy wpis był utworzony lub czy powstał problem z jego utworzeniem. </p> <h5>Trzecie ograniczenie interfejsu: samoopisujące się (self-descriptive) wiadomości</h5> <p> Wiadomości informacyjne - kolejne ograniczenie, pomaga ujednolicić interfejs między klientami i serwerem. Wiadomość samoopisująca się to taka, która zawiera wszystkie niezbędne informacje, które niezbędne są odbiorcy dla jej zrozumienia. </p> <p> W celu zrozumienia, jak odnosi się to do Internetu, przeanalizujemy później zbiór metod zapytań HTTP i kody odpowiedzi. Poniżej zobaczmy krótki przykład: </p> <p> Gdy użytkownik wprowadza http://www.example.com w polu adresu swojej przeglądarki internetowej, przeglądarka wysyła następujące zapytanie HTTP: </p> <pre>
+            GET / HTTP/1.1
+            Host: www.example.com
+          </pre> <p> Ta wiadomość jest informacyjna, ponieważ zawiadamia serwer, jaka metoda HTTP została wykorzystana oraz jaki jest protokół użytkownika (HTTP 1.1). </p> <p>Serwer może wysłać odpowiedź podobną do tej:</p> <pre>
+            HTTP/1.1 200 OK
+            Content-Type: text/html
+
+            &lt!DOCTYPE html>
+            &lthtml lang="en-US">
+              &lthead>
+                &ltmeta charset="UTF-8" />
+                &lttitle>Your Site Title Here&lt/title>
+              &lt/head>
+              &ltbody>
+                Hello world!
+                &lta href="https://goit.ua">GoIT world!&lt/a>
+                &ltimg src="https://goit.ua/wp-content/themes/1/images/Layer.png">
+              &lt/body>
+            &lt/html>
+          </pre> <p> Ta wiadomość jest informacyjna (samoopisowa), ponieważ informuje klienta, jak powinien interpretować ciało wiadomości wskazując na przykład, że Content-type to text/html. Klient otrzymuje w jednej wiadomości wszystko co jest mu potrzebne, aby opracować ją w odpowiedni sposób. </p> <p> Dodatkowo widzimy kod odpowiedzi 200 OK, który oznacza, że nie było problemów z realizacją naszego żądania. </p> <h5>Czwarte ograniczenie interfejsu: hipermedia</h5> <p> Ostatnie ograniczenie interfejsu, to ograniczenie hipermediów. Hipermedia to nazwa dla danych wysyłanych z serwera do klienta, które będą zawierać informację o tym, co klient może zrobić dalej, innymi słowy, jakie dalsze zapytania możemy wykonać. W REST serwery powinny wysyłać do klientów tylko hipermedia. HTML to jedna z odmian hipermediów. </p> <p>Zobaczmy przykład:</p> <pre>
+            &lta href="https://goit.ua">GoIT world!&lt/a>
+          </pre> <p> Informuje przeglądarkę, że powinna wykonać zapytanie GET na https://goit.ua, jeśli użytkownik kliknie na odnośnik. </p> <pre>
+            &ltimg src="https://goit.ua/wp-content/themes/1/images/Layer.png" />
+          </pre> <p> Informuje przeglądarkę, że trzeba niezwłocznie wysłać zapytanie GET na https://goit.ua/wp-content/themes/1/images/Layer.png, aby mogła pokazać zdjęcie (również przykład hipermediów) użytkownikowi. </p> <h5>Buforowanie</h5> <p> Buforowanie odnosi się do ograniczenia, przy którym odpowiedzi serwera powinny być oznaczone jako buforowalne lub niebuforowalne. Mówimy o nim wtedy, gdy klient zapisuje poprzednie odpowiedzi otrzymane od serwera, ponieważ, gdy te dane znów będą przydatne, nie musi robić zapytań do sieci, a wykorzysta już posiadaną część danych. Buforowanie częściowo lub w pełni eliminuje niektóre interakcje klient-serwer, rozwijając skalowalność i wydajność aplikacji. Wykorzystywane jest np. przy serwisach streamingowych takich jak Netflix. </p> <h5>Wielowarstwowy (wielopoziomowy) system</h5> <p> Wielowarstwowy (wielopoziomowy) system polega na tym, że komponentów może być więcej niż tylko serwery i klienci. Oznacza to, że w systemie może być więcej niż jeden poziom. Jednakże każdy komponent powinien być tak ograniczony, aby widzieć i współdziałać tylko z następną warstwą. Dla przykładu, proxy to dodatkowy komponent, który przekazuje zapytania HTTP na odpowiednie serwery lub inne proxy. Serwery proxy są przydatne dla implementacji dodatkowych warstw bezpieczeństwa. Serwer proxy pełni rolę serwera dla klienta, który wysyła zapytanie, a następnie działa już jako klient, gdy przekazuje to zapytanie dalej do właściwych serwerów. </p> <p> API Gateway to kolejny przykład dodatkowej warstwy, która przekazuje zapytanie HTTP do odpowiedniego serwera, a następnie odpowiada otrzymanymi informacjami. Wykorzystywana jest często przy architekturze mikroserwisów. </p> <h5>Kod zapytania</h5> <p> Nieobowiązkowe ograniczenie, które odnosi się do możliwości serwera dotyczących wysyłania wykonalnego kodu do klienta. Na przykład gdy dokument HTML jest załadowany, przeglądarka automatycznie ładuje kod plików JavaScript z serwera i wykonuje go lokalnie. </p> </article> <article id="4.5"> <h3>4.5 Podsumowanie</h3> <p> W ten sposób system RESTful to dowolna sieć podlegająca analizowanym ograniczeniom. System RESTful powinien być elastyczny dla różnych rodzajów wykorzystania, skalowalny dla podsumowania dużej ilości użytkowników i komponentów i możliwy do adaptowania z biegiem czasu. Pamiętaj jednak, że REST to projekt teoretyczny a nie konkretne implementacje. </p> </article> </section>  <section id="5" class="text"> <article id="5.1"> <h2>5.1 Podstawowe metody HTTP</h2> </article> <article id="5.2"> <h3>5.2 Idempotentność</h3> <p> Właściwość operacji, gdzie przy powtórnym stosowaniu do obiektu, da zawsze taki sam rezultat. </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.658ae41c.js"></script> </body></html>

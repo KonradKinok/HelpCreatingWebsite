@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.8c480b41.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.13208f18.css"><title>Framework Express</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 1 - Zajęcia 3 - Framework Express</h1> <article id="1.1"> <h2>1.1 Wprowadzenie do Express</h2> <p> Express - to minimalistyczny i elastyczny web framework dla aplikacji Node.js, dostarczający obszerny zestaw narzędzi potrzebnych dla typowej aplikacji backend. Pozwala wygodnie tworzyć między innymi API oparte o protokół HTTP i metodologię REST. </p> <p> Przystąpmy od razy do praktyki. Utwórz katalog dla swojej aplikacji i przejdź do niego </p> <pre>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.8c480b41.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.f61efc39.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/03-frameworkExpress.ed24fdcb.css"><title>Framework Express</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 1 - Zajęcia 3 - Framework Express</h1> <article id="1.1"> <h2>1.1 Wprowadzenie do Express</h2> <p> Express - to minimalistyczny i elastyczny web framework dla aplikacji Node.js, dostarczający obszerny zestaw narzędzi potrzebnych dla typowej aplikacji backend. Pozwala wygodnie tworzyć między innymi API oparte o protokół HTTP i metodologię REST. </p> <p> Przystąpmy od razy do praktyki. Utwórz katalog dla swojej aplikacji i przejdź do niego </p> <pre>
             $ mkdir myapp
             $ cd myapp
           </pre> <p>Przy pomocy polecenia:</p> <pre>
@@ -91,4 +91,40 @@
               const { email, password } = req.body;
                 // Wykonujemy niezbędne operacje
             });
-          </pre> <p> Dany przykład wskazuje, że wysłany został obiekt JSON z właściwościami email i password. Co najważniejsze, w zapytaniu nagłówek Content-Type powinien zawierać application/json, a ty powinieneś wysłać właśnie wartość typu JSON. </p> <p> Przeanalizowaliśmy wszystkie podstawowe sposoby przesyłania danych na serwer, które przydadzą się nam później. </p> </article> </section>  <section id="4" class="text"> <article id="4.1"> <h2>4.1 Routing w aplikacji</h2> </article> <article id="4.2"> <h3>4.2 Metody Route</h3> </article></section></main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>15.12.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.658ae41c.js"></script> </body></html>
+          </pre> <p> Dany przykład wskazuje, że wysłany został obiekt JSON z właściwościami email i password. Co najważniejsze, w zapytaniu nagłówek Content-Type powinien zawierać application/json, a ty powinieneś wysłać właśnie wartość typu JSON. </p> <p> Przeanalizowaliśmy wszystkie podstawowe sposoby przesyłania danych na serwer, które przydadzą się nam później. </p> </article> </section>  <section id="4" class="text"> <article id="4.1"> <h2>4.1 Routing w aplikacji</h2> </article> <article id="4.2"> <h3>4.2 Metody Route</h3> <p> Przy pomocy klasy express.Router można utworzyć modułowe, programy obsługi ścieżek (handlers). Instancja Router reprezentuje kompleksowy system pośredniczących programów obsługi i trasowania; z tego powodu często nazywany jest "mini-aplikacją". </p> <pre>
+            const express = require("express");
+            const router = express.Router();
+
+            // określamy bazową ścieżkę
+            router.get("/", (req, res) => {
+              res.send("To główny router");
+            });
+
+            // określamy ścieżkę about
+            router.get("/about", (req, res) => {
+              res.send("About");
+            });
+
+            module.exports = router;
+          </pre> <p>Później podłączamy moduł my-router.js w aplikacji:</p> <pre>
+            const myRouter = require('./my-router');
+            ...
+            app.use('/my-router', myRouter);
+          </pre> <p> Dana aplikacja może teraz opracowywać zapytania adresowane do zasobów /my-router i /my-router/about. </p> <p> Express wspiera dużą ilość metod trasowania, odpowiadających metodom HTTP, ale z większością nie będziemy nawet mieć do czynienia. Podstawowymi metodami dla nas będą: </p> <ul class="unnumbered-list-container"> <li>get</li> <li>post</li> <li>put</li> <li>delete</li> <li>patch</li> </ul> <p> Istnieje także szczególna metoda app.all(), nie będąca odpowiednikiem konkretnej metody HTTP. Ta metoda wykorzystywana jest do ładowania funkcji pośredniczącego opracowywania w ścieżce dla wszystkich metod zapytań. Bywa przydatna, gdy musimy reagować na dowolne zwrócenie się do serwera. </p> <p> W podanym niżej przykładzie program opracowywania będzie uruchomiony dla zapytań do dla ścieżki /anything, niezależnie od tego, czy wykorzystywany jest GET, POST, PUT, DELETE lub jakakolwiek inna metoda zapytania HTTP, wspierana w module http. </p> <pre>
+            app.all('/anything', (req, res, next) => {
+              console.log('Anything method.');
+              next();// przechodzimy do dalszej obsługi zapytania
+            });
+          </pre> </article> <article id="4.3"> <h3>4.3 Metody odpowiedzi</h3> <p> Część metod znajdujących się w obiekcie odpowiedzi (res), wymienione zostały w tablicy poniżej, mogą przekazywać odpowiedź do klienta i zakończyć cykl "zapytanie-odpowiedź". Jeżeli żadna z tych metod nie zostanie wywołana w którejkolwiek funkcji obsługi trasy, zapytanie klienta zawiesi się. </p> <table class="table-metody-odpowiedzi"> <thead> <tr> <th>Metoda</th> <th>Opis</th> </tr> </thead> <tbody class="table-body-metody-odpowiedzi"> <tr> <td><code>res.download()</code></td> <td>Zaproszenie do ładowania pliku</td> </tr> <tr> <td><code>res.end()</code></td> <td>Zakończenie procesu odpowiedzi</td> </tr> <tr> <td><code>res.json()</code></td> <td>Wysłanie odpowiedzi JSON</td> </tr> <tr> <td><code>res.jsonp()</code></td> <td>Wysłanie odpowiedzi JSON ze wsparciem JSONP</td> </tr> <tr> <td><code>res.redirect()</code></td> <td>Przekierowanie odpowiedzi</td> </tr> <tr> <td><code>res.render()</code></td> <td>Wyprowadzenie szablonu widoku</td> </tr> <tr> <td><code>res.send()</code></td> <td>Wysłanie odpowiedzi różnych typów</td> </tr> <tr> <td><code>res.sendFile()</code></td> <td>Wysłanie pliku w postaci strumienia obiektów</td> </tr> </tbody> </table> </article> <article id="4.4"> <h3>4.4 Łańcuchy metod</h3> <p> Metoda app.route() pozwala tworzyć programy opracowywania tras, łańcuchy dla konkretnej ścieżki trasy. O ile ścieżka jest taka sama, to dla różnych metod HTTP, wygodne jest tworzenie tras modułowych, aby minimalizować redundancję i ilość błędów. Niżej pokazano przykład połączonych w łańcuch programów opracowywania tras, określonych przy pomocy funkcji app.route(). </p> <pre>
+            app
+            .route("/blog")
+            .get((req, res) => {
+              res.send("Get a list of blog");
+            })
+            .post((req, res) => {
+              res.send("Add a record to blog");
+            })
+            .put((req, res) => {
+              res.send("Update blog");
+            });
+          </pre> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>15.12.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.658ae41c.js"></script> </body></html>
