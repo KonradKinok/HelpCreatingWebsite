@@ -1,39 +1,39 @@
 .img-container {
-    width: 350px;
-    margin: 0 auto;
-    overflow: hidden;
-    border: 2px solid black;
-    border-radius: 15px;
+  width: 350px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 2px solid black;
+  border-radius: 15px;
 }
 
 hr {
-    border: none;
-    border-top: 3px double #ffffff;
-    color: yellow;
-    overflow: visible;
-    text-align: center;
-    height: 5px;
-    margin: 15px auto;
+  border: none;
+  border-top: 3px double #ffffff;
+  color: yellow;
+  overflow: visible;
+  text-align: center;
+  height: 5px;
+  margin: 15px auto;
 }
 
 hr::after {
-    background: var(--main-container-bottom-backcolor);
-    padding: 0 4px;
-    position: relative;
-    top: -13px;
+  background: var(--main-container-bottom-backcolor);
+  padding: 0 4px;
+  position: relative;
+  top: -13px;
 }
 
-.hr-start::after{
-    content: 'Przykład - początek';
+.hr-start::after {
+  content: 'Przykład - początek';
 }
 
 .hr-end::after {
-    content: 'Przykład - koniec';
+  content: 'Przykład - koniec';
 }
 
- .code-display {
-     white-space: pre-wrap;
-     /* Zachowuje spacje i łamanie linii */
-     overflow-wrap: break-word;
-     /* Zapewnia prawidłowe łamanie długich linii */
- }
+.code-display {
+  white-space: pre-wrap;
+  /* Zachowuje spacje i łamanie linii */
+  overflow-wrap: break-word;
+  /* Zapewnia prawidłowe łamanie długich linii */
+}

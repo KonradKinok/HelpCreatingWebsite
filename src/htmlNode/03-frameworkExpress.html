@@ -18,6 +18,8 @@
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
     <link rel="stylesheet" href="../styles/nodeStyles.scss" />
+    <link rel="stylesheet" href="../styles/nodeStyles/nodeStylest.scss" />
+
     <title>Framework Express</title>
   </head>
   <body class="body-container">
@@ -409,13 +411,148 @@
           </p>
         </article>
       </section>
-       <!-- section4 -->
+      <!-- section4 -->
       <section id="4" class="text">
         <article id="4.1">
           <h2>4.1 Routing w aplikacji</h2>
         </article>
         <article id="4.2">
           <h3>4.2 Metody Route</h3>
+          <p>
+            Przy pomocy klasy express.Router można utworzyć modułowe, programy obsługi ścieżek
+            (handlers). Instancja Router reprezentuje kompleksowy system pośredniczących programów
+            obsługi i trasowania; z tego powodu często nazywany jest "mini-aplikacją".
+          </p>
+          <pre>
+            const express = require("express");
+            const router = express.Router();
+
+            // określamy bazową ścieżkę
+            router.get("/", (req, res) => {
+              res.send("To główny router");
+            });
+
+            // określamy ścieżkę about
+            router.get("/about", (req, res) => {
+              res.send("About");
+            });
+
+            module.exports = router;
+          </pre>
+          <p>Później podłączamy moduł my-router.js w aplikacji:</p>
+          <pre>
+            const myRouter = require('./my-router');
+            ...
+            app.use('/my-router', myRouter);
+          </pre>
+          <p>
+            Dana aplikacja może teraz opracowywać zapytania adresowane do zasobów /my-router i
+            /my-router/about.
+          </p>
+          <p>
+            Express wspiera dużą ilość metod trasowania, odpowiadających metodom HTTP, ale z
+            większością nie będziemy nawet mieć do czynienia. Podstawowymi metodami dla nas będą:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>get</li>
+            <li>post</li>
+            <li>put</li>
+            <li>delete</li>
+            <li>patch</li>
+          </ul>
+          <p>
+            Istnieje także szczególna metoda app.all(), nie będąca odpowiednikiem konkretnej metody
+            HTTP. Ta metoda wykorzystywana jest do ładowania funkcji pośredniczącego opracowywania w
+            ścieżce dla wszystkich metod zapytań. Bywa przydatna, gdy musimy reagować na dowolne
+            zwrócenie się do serwera.
+          </p>
+          <p>
+            W podanym niżej przykładzie program opracowywania będzie uruchomiony dla zapytań do dla
+            ścieżki /anything, niezależnie od tego, czy wykorzystywany jest GET, POST, PUT, DELETE
+            lub jakakolwiek inna metoda zapytania HTTP, wspierana w module http.
+          </p>
+          <pre>
+            app.all('/anything', (req, res, next) => {
+              console.log('Anything method.');
+              next();// przechodzimy do dalszej obsługi zapytania
+            });
+          </pre>
+        </article>
+        <article id="4.3">
+          <h3>4.3 Metody odpowiedzi</h3>
+          <p>
+            Część metod znajdujących się w obiekcie odpowiedzi (res), wymienione zostały w tablicy
+            poniżej, mogą przekazywać odpowiedź do klienta i zakończyć cykl "zapytanie-odpowiedź".
+            Jeżeli żadna z tych metod nie zostanie wywołana w którejkolwiek funkcji obsługi trasy,
+            zapytanie klienta zawiesi się.
+          </p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>Metoda</th>
+                <th>Opis</th>
+              </tr>
+            </thead>
+            <tbody class="table-body-metody-odpowiedzi">
+              <tr>
+                <td><code>res.download()</code></td>
+                <td>Zaproszenie do ładowania pliku</td>
+              </tr>
+              <tr>
+                <td><code>res.end()</code></td>
+                <td>Zakończenie procesu odpowiedzi</td>
+              </tr>
+              <tr>
+                <td><code>res.json()</code></td>
+                <td>Wysłanie odpowiedzi JSON</td>
+              </tr>
+              <tr>
+                <td><code>res.jsonp()</code></td>
+                <td>Wysłanie odpowiedzi JSON ze wsparciem JSONP</td>
+              </tr>
+              <tr>
+                <td><code>res.redirect()</code></td>
+                <td>Przekierowanie odpowiedzi</td>
+              </tr>
+              <tr>
+                <td><code>res.render()</code></td>
+                <td>Wyprowadzenie szablonu widoku</td>
+              </tr>
+              <tr>
+                <td><code>res.send()</code></td>
+                <td>Wysłanie odpowiedzi różnych typów</td>
+              </tr>
+              <tr>
+                <td><code>res.sendFile()</code></td>
+                <td>Wysłanie pliku w postaci strumienia obiektów</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+        <article id="4.4">
+          <h3>4.4 Łańcuchy metod</h3>
+          <p>
+            Metoda app.route() pozwala tworzyć programy opracowywania tras, łańcuchy dla konkretnej
+            ścieżki trasy. O ile ścieżka jest taka sama, to dla różnych metod HTTP, wygodne jest
+            tworzenie tras modułowych, aby minimalizować redundancję i ilość błędów. Niżej pokazano
+            przykład połączonych w łańcuch programów opracowywania tras, określonych przy pomocy
+            funkcji app.route().
+          </p>
+          <pre>
+            app
+            .route("/blog")
+            .get((req, res) => {
+              res.send("Get a list of blog");
+            })
+            .post((req, res) => {
+              res.send("Add a record to blog");
+            })
+            .put((req, res) => {
+              res.send("Update blog");
+            });
+          </pre>
+        </article>
+      </section>
     </main>
     <footer class="footer">
       <div class="footer-logo">
