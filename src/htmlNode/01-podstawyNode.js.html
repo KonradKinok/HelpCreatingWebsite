@@ -18,7 +18,7 @@
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
     <link rel="stylesheet" href="../styles/nodeStyles.scss" />
-    <link rel="stylesheet" href="../styles/htmlCssStyles.scss" />
+    <link rel="stylesheet" href="../styles/nodeStyles/nodeStylest.scss" />
     <title>Podstawy Node.js</title>
   </head>
   <body class="body-container">
@@ -172,6 +172,121 @@
             <li>Twitter,</li>
             <li>GoDaddy</li>
           </ul>
+        </article>
+        <article id="1.5">
+          <h3>1.5 Instalacja VS</h3>
+          <ol class="numbered-list-container">
+            <li>
+              <span class="span-s1a5">npm init</span> - służy do inicjalizacji nowego projektu
+              Node.js poprzez utworzenie pliku package.json w katalogu projektu. Plik package.json
+              zawiera kluczowe informacje o projekcie, takie jak nazwa, wersja, opis, punkt wejścia
+              (np. index.js), skrypty, zależności i inne metadane. Podczas uruchamiania npm init w
+              wierszu poleceń, użytkownik jest proszony o podanie tych informacji. Można również
+              użyć flagi -y lub --yes, aby zaakceptować domyślne wartości bez interakcji. Dzięki npm
+              init proces tworzenia nowego projektu jest uproszczony, a plik package.json jest
+              generowany automatycznie, co ułatwia zarządzanie zależnościami i konfiguracją
+              projektu.
+            </li>
+            <li>
+              <span class="span-s1a5">npm i nazwaBiblioteki -D</span> - (lub równoważne npm install
+              nazwaBiblioteki -D albo npm install nazwaBiblioteki --save-dev) służy do
+              zainstalowania pakietu jako zależności deweloperskiej w projekcie Node.js. Opis:
+              <ul class="unnumbered-list-container">
+                <li>npm install - polecenie instalujące pakiet.</li>
+                <li>nazwaBiblioteki - nazwa pakietu, który chcesz zainstalować.</li>
+                <li>
+                  -D lub --save-dev - flaga wskazująca, że pakiet ma być dodany do zależności
+                  deweloperskich (devDependencies) w pliku package.json.
+                </li>
+              </ul>
+              Zależności deweloperskie to pakiety potrzebne wyłącznie podczas tworzenia i testowania
+              aplikacji, ale nie są wymagane w środowisku produkcyjnym. Przykłady takich pakietów to
+              narzędzia do testowania (np. jest), linters (np. eslint) czy transpilery (np. babel).
+              Użycie flagi -D lub --save-dev podczas instalacji pakietu za pomocą npm dodaje go do
+              sekcji devDependencies w pliku package.json, co oznacza, że pakiet jest potrzebny
+              tylko w fazie deweloperskiej projektu. Warto jednak pamiętać, że istnieją inne
+              polecenia, takie jak npm ci, które różnią się od npm install pod względem działania i
+              zastosowania. npm ci jest używane głównie w środowiskach ciągłej integracji i zapewnia
+              szybszą oraz bardziej deterministyczną instalację zależności.
+            </li>
+            <li>
+              <span class="span-s1a5">npm i nazwaBiblioteki</span> - służy do instalowania pakietu o
+              nazwie nazwaBiblioteki w projekcie Node.js. Instaluje ono pakiet oraz wszystkie jego
+              zależności, zapisując je w katalogu node_modules i aktualizując plik package.json w
+              sekcji dependencies. Dzięki temu można korzystać z funkcji i modułów dostarczanych
+              przez zainstalowaną bibliotekę w swoim projekcie. Aby zainstalować bibliotekę express,
+              użyj polecenia: npm install express Po wykonaniu tego polecenia, express zostanie
+              dodany do sekcji dependencies w pliku package.json, a jego kod będzie dostępny w
+              katalogu node_modules.
+            </li>
+          </ol>
+        </article>
+        <article id="1.6">
+          <h3>1.6 Komendy</h3>
+          <ol class="numbered-list-container">
+            <li>
+              <span>ls</span> - w PowerShell polecenie ls jest aliasem dla cmdletu Get-ChildItem,
+              który służy do wyświetlania zawartości katalogów i uzyskiwania informacji o plikach
+              oraz podkatalogach.
+              <ul class="unnumbered-list-container">
+                <li>
+                  ls jest aliasem w PowerShell dla Get-ChildItem, co oznacza, że oba polecenia
+                  działają identycznie.
+                </li>
+                <li>
+                  Get-ChildItem może być używany z różnymi parametrami, takimi jak -Recurse do
+                  rekursywnego przeszukiwania katalogów czy -Force do wyświetlania ukrytych plików.
+                </li>
+                <li>
+                  Aby uzyskać szczegółowe informacje o plikach, można użyć: Get-ChildItem |
+                  Format-List *
+                </li>
+                Chociaż ls jest powszechnie używany w systemach Unix/Linux, w PowerShell jest on
+                aliasem dla Get-ChildItem. Należy pamiętać, że nie wszystkie opcje dostępne w ls w
+                systemach Unix/Linux będą działać w PowerShell, ponieważ Get-ChildItem ma własny
+                zestaw parametrów i funkcji.
+              </ul>
+            </li>
+            <li>
+              <span>cd</span> - w PowerShell służy do zmiany bieżącego katalogu roboczego. Jest ono
+              aliasem dla cmdletu Set-Location, który umożliwia nawigację pomiędzy katalogami w
+              systemie plików. Przykłady użycia:
+              <ul class="unnumbered-list-container">
+                <li>
+                  Przejście do podkatalogu: cd NazwaKatalogu To polecenie przenosi do podkatalogu
+                  NazwaKatalogu znajdującego się w bieżącym katalogu.
+                </li>
+                <li>
+                  Przejście do katalogu nadrzędnego: cd .. To polecenie przenosi do katalogu
+                  nadrzędnego względem bieżącego katalogu.
+                </li>
+                <li>
+                  Przejście do określonej ścieżki: cd C:\Users\NazwaUżytkownika\Dokumenty To
+                  polecenie ustawia bieżący katalog na C:\Users\NazwaUżytkownika\Dokumenty.
+                </li>
+              </ul>
+              Chociaż ls jest powszechnie używany w systemach Unix/Linux, w PowerShell jest on
+              aliasem dla Get-ChildItem. Należy pamiętać, że nie wszystkie opcje dostępne w ls w
+              systemach Unix/Linux będą działać w PowerShell, ponieważ Get-ChildItem ma własny
+              zestaw parametrów i funkcji.
+            </li>
+            Uwagi:
+            <ul class="unnumbered-list-container">
+              <li>
+                W PowerShell można używać zarówno cd, jak i Set-Location do zmiany katalogu. Oba
+                polecenia działają identycznie, ponieważ cd jest aliasem dla Set-Location.
+              </li>
+              <li>
+                Aby wyświetlić bieżący katalog, można użyć polecenia Get-Location lub jego aliasu
+                pwd.
+              </li>
+              <li>
+                W przeciwieństwie do niektórych innych powłok, w PowerShell można bezpośrednio
+                przechodzić między różnymi dyskami, wpisując ich litery, np.: cd D: To polecenie
+                przenosi do katalogu głównego dysku D.
+              </li>
+            </ul>
+          </ol>
         </article>
       </section>
       <!-- section2 -->
