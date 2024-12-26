@@ -17,7 +17,7 @@
     />
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
-    <link rel="stylesheet" href="../styles/nodeStyles.scss" />
+    <link rel="stylesheet" href="../styles/nodeStyles/nodeStylest.scss" />
     <title>ODM Mongoose</title>
   </head>
   <body class="body-container">
@@ -33,10 +33,722 @@
       <section id="1" class="text">
         <h1>Moduł 3 - Zajęcia 6 - ODM Mongoose</h1>
         <article id="1.1">
-          <h2>1.1 Zarządzanie statusem</h2>
+          <h2>1.1 Mongoose</h2>
+          <p>
+            Mongoose to specjalna biblioteka ODM (Object Data Modelling) służąca do pracy z MongoDB.
+          </p>
+          <p>
+            Mongoose służy do utworzenia schematów kolekcji w MongoDB, zapewnia przez to możliwość
+            walidacji danych i trzymania się określonych typów danych. Oficjalną dokumentację można
+            zobaczyć <a href="https://mongoosejs.com/docs/guide.html">tutaj</a>.
+          </p>
+        </article>
+        <article id="1.2">
+          <h3>1.2 Podłączenie</h3>
+          <p>
+            Do pracy z Mongoose należy zainstalować bibliotekę (będziemy korzystali z wersji 7.1.0:
+          </p>
+          <pre>
+             npm install mongoose -S
+          </pre>
+          <p>Następnie należy zażądać mongoose:</p>
+          <pre>
+            const mongoose = require('mongoose');
+          </pre>
+          <p>
+            Podłączenie do bazy tworzymy przy pomocy metody mongoose.connect(), w której jako
+            pierwszy parametr przekazuje się adres do podłączenia do bazy danych, a jako drugi
+            obiekt ustawień:
+          </p>
+          <p>
+            Zmienna uriDb powinna zawierać string SRV którego używaliśmy w Compass i Robo3T,
+            pochodzący z pliku .env
+          </p>
+          <pre>
+            const connection = mongoose.connect(uriDb, {
+              useNewUrlParser: true,
+              useUnifiedTopology: true,
+            });
+          </pre>
+          <p>Przy pomocy metody mongoose.disconnect() możemy odłączyć się od bazy danych.</p>
+        </article>
+        <article id="1.3">
+          <h3>1.3 Schemat dokumentu</h3>
+          <p>
+            Jedną z korzyści płynących z ODM Mongoose jest, że daną kolekcję można opisać konkretnym
+            schematem. Tworzymy ją w następujący sposób:
+          </p>
+          <pre>
+            const { Schema } = mongoose;
+          </pre>
+          <p>Tworzymy instancję klasy Schema</p>
+          <pre>
+            const dogs = new Schema({
+              nickname: String,
+              age: Number,
+            });
+          </pre>
+          <p>
+            Schemat powinien zawierać metadane obiektów. Definiujemy więc, jakie właściwości będzie
+            mieć każdy dokument w kolekcji i jakie będą ich typy danych. Dla typów danych można
+            wskazać jedną z następujących wartości:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>String</li>
+            <li>Number</li>
+            <li>Date</li>
+            <li>Buffer</li>
+            <li>Boolean</li>
+            <li>Schema.Types.mixed (dowolne dane)</li>
+            <li>Schema.Types.ObjectId</li>
+            <li>Array</li>
+          </ul>
+          <p>
+            Dla skomplikowanych właściwości, takich jak obiekt, zamiast pojedynczego typu możemy
+            zdefiniować bardziej skomplikowaną strukturę
+          </p>
+          <pre>
+            const dogs = new Schema({
+              nickname: String,
+              age: Number,
+              owner: {
+                name: String,
+                address: [String], // typ - tablica stringów
+                birthday: Date,
+              },
+            });
+          </pre>
+          <p>
+            Przy tworzeniu schematu, Mongoose może wykorzystać wbudowane zasady walidacji, które
+            można dodać do definicji dokumentów:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>required: wymaga obowiązkowej wartości dla właściwości;</li>
+            <li>min i max: wprowadza minimalne i maksymalne wartości dla danych liczbowych;</li>
+            <li>
+              minlength i maxlength: wprowadza minimalną i maksymalną długość dla typu string;
+            </li>
+            <li>
+              enum: definiuje, że wartość powinna reprezentować jedną ze wskazanych w tablicy;
+            </li>
+            <li>match: string powinien odpowiadać regularnemu wyrażeniu.</li>
+          </ul>
+          <pre>
+            const dogs = new Schema({
+              nickname: {
+                type: String,
+                minlength: 2,
+                maxlength: 7,
+                required: [true, 'Nickname is required'],
+                    // druga wartość to komunikat który pokaże się
+                    // jeśli wartość nie spełnia warunku
+              },
+              age: {
+                type: Number,
+                min: 1,
+                max: 50,
+              },
+              owner: {
+                name: String,
+                address: [String], // typ - tablica stringów
+                birthday: Date,
+              },
+            });
+          </pre>
+          <p>
+            Jeżeli spróbujesz dodać nieprawidłowe dane do bazy danych wykorzystując Schema, to
+            zapytanie zwróci błąd.
+          </p>
+          <p>Następnie należy utworzyć model, wykorzystując składnię:</p>
+          <pre>
+            const Dog = mongoose.model('dog', dogs);
+          </pre>
+          <p>
+            Pierwszy parametr w metodzie mongoose.model wskazuje na nazwę modelu, a drugi parametr
+            to schemat danych, opcjonalny trzeci parametr będzie nazwą kolekcji, jeśli go nie
+            podamy, Mongoose stworzy ją na podstawie nazwy modelu.
+          </p>
+          <p>Dalej można tworzyć obiekty jako instancje modelu:</p>
+          <pre>
+            const dog = new Dog({
+              nickname: 'Burek',
+              age: 1,
+            });
+          </pre>
+          <p>
+            W celu zapisania obiektu w bazie wywołuje się metodę save. Dostępna jest dla wszystkich
+            tworzonych instancji modelu i zapisuje dany obiekt do bazy danych.
+          </p>
+          <p>
+            Metoda zwraca rezultat, obiekt typu Document, który reprezentuje konkretny dokument
+            zapisany w kolekcji.
+          </p>
+          <pre>
+            const result = dog.save();
+            console.log('Pies zapisany do bazy! ', result); Pies zapisany w bazie
+          </pre>
+        </article>
+        <article id="1.4">
+          <h3>1.4 Indeksy</h3>
+          <p>
+            Jeśli któreś pole często jest wykorzystywane przy wyszukiwaniu dokumentów, można mu
+            nadać indeks. Indeksowanie pól pozwala szybciej wykonywać wyszukiwanie po tych polach.
+            Indeks można dodać do pola na dwa sposoby.
+          </p>
+          <p>Pierwszy to określić go w samym schemacie:</p>
+          <pre>
+            const dogs = new Schema({
+              nickname: { type: String, index: 1 },
+              age: Number,
+            });
+          </pre>
+          <p>Lub wywołując metodę index na instancji Schema:</p>
+          <pre>
+            const dogs = new Schema({
+              nickname: String,
+              age: Number,
+            });
+
+            dogs.index({ nickname: 1 });
+          </pre>
+        </article>
+        <article id="1.5">
+          <h3>1.5 Unikalne pola</h3>
+          <p>
+            Wartość pola można uczynić unikalną na poziomie Mongoose. Oznacza to, że może istnieć
+            tylko jeden dokument o danej wartości konkretnego pola.
+          </p>
+          <p>
+            Na przykład sensowne jest oznaczenie pola email jako unikalnego w kolekcji users. W tym
+            celu, w schemacie, przy określaniu pola, należy dodać właściwość unique:
+          </p>
+          <pre>
+            const user = new Schema({
+              username: String,
+              email: { type: String, unique: true },
+            });
+          </pre>
+        </article>
+        <article id="1.6">
+          <h3>1.6 Pola obowiązkowe</h3>
+          <p>
+            Jeśli przy utworzeniu nowego dokumentu nie wskażemy pola, to obiekt będzie utworzony bez
+            tego pola. Niektóre pola powinny obowiązkowo brać udział w nowo utworzonym obiekcie
+            Document. Na przykład, także nazwa użytkownika i email w dokumencie powinny być
+            obowiązkowe, możliwe że będziemy musieli wysyłać maile do użytkownika w celu ponownego
+            utworzenia hasła i tak dalej. Za pole obowiązkowe odpowiada właściwość required.
+          </p>
+          <pre>
+            const user = new Schema({
+              username: { type: String, required: true },
+              email: { type: String, unique: true, required: true },
+            });
+          </pre>
+          <p>
+            UWAGA: wszelkie definicje, w tym unikalność pola, istnieją tylko podczas operowania na
+            bazie danych przy użyciu Mongoose z danymi schematami, jeśli będziemy edytować lub
+            dodawać dokumenty np. przez Robo3T, to te zasady nie zostaną zastosowane!
+          </p>
+        </article>
+        <article id="1.7">
+          <h3>1.7 Metody w obiekcie schema</h3>
+          <p>
+            W schematach, które określa moduł Mongoose istnieje możliwość dodania metod dla
+            instancji modelu. Daje to możliwość wywołania wcześniej określonych metod, wykorzystując
+            obiekt typu Document.
+          </p>
+          <p>
+            W celu dodania metody do obiektu typu Schema trzeba dodać funkcję do właściwości
+            Schema.methods. Wewnątrz takiej funkcji dostęp do obiektu schematu zachodzi po słowie
+            kluczowym this.
+          </p>
+          <p>
+            Typowy przykład wykorzystania to utworzenie funkcji, która zwraca pełną nazwę
+            użytkownika, szyfruje hasło użytkownika i tak dalej.
+          </p>
+          <pre>
+            const user = new Schema({
+              firstName: String,
+              lastName: String,
+            });
+
+            user.methods.fullName = function () {
+              return `${this.firstName} ${this.lastName}`;
+            };
+          </pre>
+          <p>
+            Wyszukując później dokument z bazy, możemy wywoływać na nim funkcję fullName()
+            zwracającą pełne imię i nazwisko użytkownika.
+          </p>
+        </article>
+        <article id="1.8">
+          <h3>1.8 Podstawowe operacje z danymi w Mongoose.</h3>
+        </article>
+        <article id="1.9">
+          <h4>1.9 Tworzenie dokumentów</h4>
+          <p>
+            Oprócz przeanalizowanej metody save(), można również wykorzystywać metodę modelu
+            Dog.create(). Jako pierwszy parametr metody przekazuje się obiekt do zapisania.
+          </p>
+          <pre>
+            Cat.create({
+              nickname: 'Barsik',
+              age: 1,
+            });
+          </pre>
+        </article>
+        <article id="1.10">
+          <h4>1.10 Otrzymanie danych</h4>
+          <p>
+            Aby wyszukać wiele dokumentów można wykorzystać na modelu metodę (podobnie jak w
+            Robo3T).
+          </p>
+          <pre>
+            Model.find([query], [project]);
+          </pre>
+          <p>Lub dla jednego dokumentu:</p>
+          <pre>
+            Model.findOne([query], [project]);
+          </pre>
+        </article>
+        <article id="1.11">
+          <h4>1.11 Usunięcie danych</h4>
+          <p>Do usunięcia danych stosuje się następujące metody:</p>
+          <pre>
+            deleteOne([query], [options]);
+            deleteMany([query], [options]);
+          </pre>
+          <p>
+            Tworzy operację usunięcia, w toku której z kolekcji usuwane są wszystkie lub jeden
+            dokument zgodny z query.
+          </p>
+          <pre>
+            findOneAndDelete([query], [options]);
+          </pre>
+          <p>
+            Tworzy operację wyszukania i usunięcia jednego dokumenty (pierwszego pasującego do
+            query)
+          </p>
+        </article>
+        <article id="1.12">
+          <h4>1.12 Modyfikowanie dokumentu</h4>
+          <pre>
+            updateOne([query], [update], [options]);
+            updateMany([query], [update], [options]);
+          </pre>
+          <p>Te metody aktualizują odpowiednio jeden lub wiele dokumentów</p>
+          <pre>
+            findOneAndUpdate([query], [update], [options]);
+          </pre>
+          <p>Aktualizuje i zwraca pierwszy pasujący dokument.</p>
+          <p>
+            UWAGA: w Mongoose niektóre opcje nazywają się inaczej niż gdy korzystamy bezpośrednio z
+            MongoSH
+          </p>
         </article>
       </section>
       <!-- section2 -->
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Podłączenie Mongoose w projekcie</h2>
+          <p>
+            Przeanalizujmy teraz aplikację REST API i podłączenie do niej Mongoose. Struktura naszej
+            aplikacji będzie następująca:
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/38-mongoose-1.png" alt="" />
+          </div>
+          <p>
+            Z całą aplikacją możecie zaznajomić się
+            <a href="https://glitch.com/~nodebook-api-mongoose">tutaj</a>:
+          </p>
+          <p>
+            API dostępne pod tym URL:
+            <a href="https://nodebook-api-mongoose.glitch.me/api/tasks"
+              >https://nodebook-api-mongoose.glitch.me/api/tasks</a
+            >. Znów możesz przy pomocy Postman wykonać wszystkie operacje CRUD.
+          </p>
+          <p>
+            API jest dostępne pod tym URL:
+            <a href="https://nodebook-api-mongoose.glitch.me/api/tasks"
+              >https://nodebook-api-mongoose.glitch.me/api/tasks</a
+            >.
+          </p>
+          <p>Możesz przy pomocy Postman wykonać wszystkie operacje CRUD.</p>
+          <p>
+            Funkcje do pracy z bazą danych i schematy oddzielamy od reszty aplikacji i umieszczamy w
+            folderze service.
+          </p>
+          <p>Określamy schematy dla dokumentów w sub-folderze schemas.</p>
+          <p>
+            Routes zostaną w głównym katalogu aplikacji, w folderze api, a logikę pracy aplikacji
+            (obsługę endpointów) przenosimy do folderu controller.
+          </p>
+          <p>Przeanalizujmy teraz bardziej szczegółowo każdy element naszej aplikacji.</p>
+        </article>
+        <article id="2.2">
+          <h3>2.2 Plik główny i podłączenie do bazy danych</h3>
+          <p>
+            Plik serwera server.js. Podłączamy niezbędne moduły i tworzymy instancję aplikacji
+            express.
+          </p>
+          <pre>
+            const express = require('express');
+            const cors = require('cors');
+            const mongoose = require('mongoose');
+
+            require('dotenv').config();
+
+            const app = express();
+          </pre>
+          <p>
+            Podłączamy parser JSON i pozwalamy na międzydomenowe zapytania do naszej aplikacji
+            poprzez middleware cors:
+          </p>
+          <pre>
+            // parse application/json
+            app.use(express.json());
+            // cors
+            app.use(cors());
+          </pre>
+          <p>Podłączamy routes dla naszego API, a także obsługę błędów 404 i błędów serwera 500:</p>
+          <pre>
+            const routerApi = require('./api');
+            app.use('/api', routerApi);
+
+            app.use((_, res, __) => {
+              res.status(404).json({
+                status: 'error',
+                code: 404,
+                message: 'Use api on routes: /api/tasks',
+                data: 'Not found',
+              });
+            });
+
+            app.use((err, _, res, __) => {
+              console.log(err.stack);
+              res.status(500).json({
+                status: 'fail',
+                code: 500,
+                message: err.message,
+                data: 'Internal Server Error',
+              });
+            });
+          </pre>
+          <p>
+            Podłączamy się do serwera MongoDB przy pomocy mongoose.connect. Ta metoda zwraca
+            promise, po którego poprawnym zakończeniu, uruchamiamy nasz serwer przez app.listen.
+          </p>
+          <p>
+            Jeżeli jednak przy podłączeniu do bazy danych wystąpił błąd, to nie ma w tym przypadku
+            po co nawet uruchamiać serwera, wypisujemy więc do konsoli wiadomość o błędzie.
+          </p>
+          <pre>
+            const PORT = process.env.PORT || 3000;
+            const uriDb = process.env.DB_HOST;
+
+            const connection = mongoose.connect(uriDb, {
+              useUnifiedTopology: true,
+              useFindAndModify: false,
+            });
+
+            connection
+              .then(() => {
+                app.listen(PORT, function () {
+                  console.log(`Server running. Use our API on port: ${PORT}`);
+                });
+              })
+              .catch(err =>
+                console.log(`Server not running. Error message: ${err.message}`),
+              );
+          </pre>
+        </article>
+        <article id="2.3">
+          <h3>2.3 Routes</h3>
+          <p>Plik routingu api/index.js jest u nas dość przejrzysty:</p>
+          <pre>
+            const express = require('express');
+            const router = express.Router();
+            const ctrlTask = require('../controller');
+
+            router.get('/tasks', ctrlTask.get);
+
+            router.get('/tasks/:id', ctrlTask.getById);
+
+            router.post('/tasks', ctrlTask.create);
+
+            router.put('/tasks/:id', ctrlTask.update);
+
+            router.patch('/tasks/:id/status', ctrlTask.updateStatus);
+
+            router.delete('/tasks/:id', ctrlTask.remove);
+
+            module.exports = router;
+          </pre>
+          <p>
+            Importujemy kontroler i dla każdej trasy i niezbędnej metody HTTP wywołujemy odpowiednią
+            metodę kontrolera ctrlTask. Przy dalszej pracy nad aplikacją mogą tu pojawić się
+            programy pośredniczące do autoryzacji niektórych tras, walidacji przekazywanych danych i
+            tak dalej.
+          </p>
+        </article>
+        <article id="2.4">
+          <h3>2.4 Kontrolery</h3>
+          <p>
+            Tu umieścimy logikę pracy naszej aplikacji. Faktyczny kontroler to w naszym przypadku
+            handler - funkcja, która ma za zadanie opracować wynik dla danego route-a, zwraca się
+            więc do bazy danych przez nasz service i z otrzymanym rezultatem wraca do aplikacji.
+          </p>
+          <p>Aby otrzymać listę wszystkich zadań z bazy, wystarczy prosta funkcja:</p>
+          <pre>
+            const get = async (req, res, next) => {
+            try {
+              const results = await service.getAlltasks();
+              res.json({
+                status: 'success',
+                code: 200,
+                data: {
+                  tasks: results,
+                },
+              });
+            } catch (e) {
+              console.error(e);
+              next(e);
+            }
+          };
+          </pre>
+          <p>
+            Zwracamy się do naszego serwisu i pytamy bazę o wszystkie bieżące zadania naszej TO-DO
+            listy:
+          </p>
+          <pre>
+            const results = await service.getAlltasks();
+          </pre>
+          <p>Następnie przesyłamy otrzymany wynik do klienta:</p>
+          <pre>
+            res.json({
+              status: 'success',
+              code: 200,
+              data: {
+                tasks: results,
+              },
+            });
+          </pre>
+          <p>
+            W przypadku błędu, wysyłamy go dalej przez next(err), do funkcji obsługi błędów w pliku
+            server.js.
+          </p>
+          <p>
+            Kontroler do opracowywania zapytania po id jest podobny do poprzedniego, z pewną istotną
+            różnicą. W przypadku, w którym serwis niczego nam nie zwrócił z bazy danych, zwracamy
+            odpowiedź 404 - niczego nie znaleziono, ponieważ oznacza to, że task o podanym id nie
+            istnieje:
+          </p>
+          <pre>
+            const getById = async (req, res, next) => {
+            const { id } = req.params;
+            try {
+              const result = await service.getTaskById(id);
+              if (result) {
+                res.json({
+                  status: 'success',
+                  code: 200,
+                  data: { task: result },
+                });
+              } else {
+                res.status(404).json({
+                  status: 'error',
+                  code: 404,
+                  message: `Not found task id: ${id}`,
+                  data: 'Not Found',
+                });
+              }
+            } catch (e) {
+              console.error(e);
+              next(e);
+            }
+          };
+          </pre>
+          <p>
+            Dokładnie tak samo postępujemy dla kontrolerów aktualizacji zadania i usunięcia - jeżeli
+            niczego nie znaleziono, zwracamy błąd 404.
+          </p>
+        </article>
+        <article id="2.5">
+          <h3>2.5 Serwis pracy z bazą danych</h3>
+          <p>Serwis z operacjami na bazie danych również jest dość prosty:</p>
+          <pre>
+            const Task = require('./schemas/task');
+
+            const getAlltasks = async () => {
+              return Task.find();
+            };
+
+            const getTaskById = id => {
+              return Task.findOne({ _id: id });
+            };
+
+            const createTask = ({ title, text }) => {
+              return Task.create({ title, text });
+            };
+
+            const updateTask = (id, fields) => {
+                return Task.findOneAndUpdate(
+                { _id: id },
+                { $set: fields },
+                { new: true }
+              );
+            };
+
+            const removeTask = id => {
+              return Task.findByIdAndRemove({ _id: id });
+            };
+
+            module.exports = {
+              getAlltasks,
+              getTaskById,
+              createTask,
+              updateTask,
+              removeTask,
+            };
+          </pre>
+          <p>Mamy pięć funkcji, które wykonują podstawowe operacje dla naszego prostego API.</p>
+          <p>
+            Aby otrzymać wszystkie zadania, wykorzystujemy metodę find, którą wywołujemy na modelu i
+            zwracamy rezultat (promise) do kontrolera:
+          </p>
+          <pre>
+            const getAlltasks = async () => {
+              return Task.find();
+            };
+          </pre>
+          <p>
+            Otrzymanie konkretnego zadania po id. Wywołujemy metodę findOne, która odnajduje
+            maksymalnie jeden wynik zgodnie z warunkiem { _id: id }. Jeśli metoda niczego nie
+            znajdzie, to zwrócona zostanie wartość null, co poskutkuje następnie błędem 404 zgodnie
+            z logiką kontrolera.
+          </p>
+          <pre>
+            const getTaskById = id => {
+              return Task.findOne({ _id: id });
+            };
+          </pre>
+          <p>Utworzenie nowego zadania. Wywołujemy w modelu metodę create:</p>
+          <pre>
+            const createTask = ({ title, text }) => {
+              return Task.create({ title, text });
+            };
+          </pre>
+          <p>
+            Aktualizujemy zadanie metodą findOneAndUpdate, jako pierwszy parametr przekazujemy
+            warunek wyszukiwania - czyli wartość pola _id, jako drugi - obiekt z operatorem $set i
+            polami, które należy zaktualizować. Flaga new w trzecim parametrze wskazuje, że metoda
+            powinna zwrócić już zaktualizowany dokument.
+          </p>
+          <pre>
+            const updateTask = (id, fields) => {
+                return Task.findOneAndUpdate(
+                { _id: id },
+                { $set: fields },
+                { new: true }
+              );
+            };
+          </pre>
+          <p>
+            I ostatnia operacja, usunięcie zadania z bazy danych. Wykorzystujemy metodę Mongoose
+            findByIdAndRemove, do której przekazujemy id zadania, a metoda znajduje i usuwa je z
+            bazy danych.
+          </p>
+          <pre>
+            const removeTask = id => {
+              return Task.findByIdAndRemove({ _id: id });
+            };
+          </pre>
+        </article>
+        <article id="2.6">
+          <h3>2.6 Schemat</h3>
+          <p>
+            Ostatnim, co zostało nam do przeanalizowania jest plik utworzenia schematu naszej
+            kolekcji zadań.
+          </p>
+          <pre>
+            const {Schema, model} = require('mongoose');
+
+            const task = new Schema(
+              {
+                title: {
+                  type: String,
+                  minlength: 2,
+                  maxlength: 70,
+                },
+                text: {
+                  type: String,
+                  minlength: 3,
+                  maxlength: 170,
+                },
+                isDone: {
+                  type: Boolean,
+                  default: false,
+                },
+              },
+              { versionKey: false, timestamps: true },
+            );
+
+            const Task = model('task', task);
+
+            module.exports = Task;
+          </pre>
+          <p>
+            Wszystkie obecne tu elementy omówiliśmy już wcześniej, ale powtórzmy na tym przykładzie.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>Tworzymy schemat z trzema polami title, text, isDone.</li>
+            <li>Określamy typ przechowywanych wartości i nakładamy ograniczenia.</li>
+          </ul>
+          <p>
+            Z nowych konceptów, pojawiły się następujące parametry jako opcje przy tworzeniu
+            schematu.
+          </p>
+          <pre>
+            { versionKey: false, timestamps: true }
+          </pre>
+          <p>
+            Pierwsza właściwość versionKey ustawiona na false, wyłącza pewne domyślne zachowanie.
+            Mongoose normalnie dodaje wersjonowanie dokumentu - właściwość __v, który wskazuje ile
+            razy dany dokument był aktualizowany.
+          </p>
+          <p>
+            W zasadzie jest to potrzebne dla dokumentów ze skomplikowaną strukturą, a ponieważ
+            struktura naszego schematu jest dość prosta, wyłączmy niepotrzebną wartość.
+          </p>
+          <p>
+            Druga opcja dodaje do naszego schematu dwie dodatkowe właściwości, czas utworzenia
+            dokumentu createdAt i czas aktualizacji updatedAt.
+          </p>
+          <p>
+            Mongoose będzie automatycznie dodawać te pola przy utworzeniu, a przy zmianie
+            aktualizował pole updatedAt, dzięki czemu my nie musimy o tym pamiętać.
+          </p>
+          <p>
+            W wyniku tego, dokument w naszej kolekcji tasks powinien wyglądać tak, przechowując
+            wszystkie zdefiniowane właściwości:
+          </p>
+          <pre>
+            {
+              "isDone": false,
+              "_id": "5f8e3067975b9d23a0dbd270",
+              "title": "My work",
+              "text": "Pain and pain!",
+              "createdAt": "2020-10-20T00:33:43.492Z",
+              "updatedAt": "2020-10-20T00:43:16.961Z"
+            }
+          </pre>
+          <p>
+            Na tym zakończyliśmy analizę prostej aplikacji REST API, z podłączoną biblioteką
+            Mongoose.
+          </p>
+        </article>
+      </section>
     </main>
     <footer class="footer">
       <div class="footer-logo">

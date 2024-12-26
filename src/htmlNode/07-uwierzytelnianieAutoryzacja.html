@@ -17,7 +17,7 @@
     />
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
-    <link rel="stylesheet" href="../styles/nodeStyles.scss" />
+    <link rel="stylesheet" href="../styles/nodeStyles/nodeStylest.scss" />
     <title>Uwierzytelnienie i autoryzacja</title>
   </head>
   <body class="body-container">
@@ -33,7 +33,36 @@
       <section id="1" class="text">
         <h1>Moduł 4 - Zajęcia 7 - Uwierzytelnienie i autoryzacja</h1>
         <article id="1.1">
-          <h2>1.1 Zarządzanie statusem</h2>
+          <h2>1.1 Uwierzytelnienie przy pomocy JSON Web Token (JWT)</h2>
+          <p>
+            Teraz przeanalizujemy uwierzytelnienie zapytań przy pomocy JWT. Tokeny te generowane są
+            na backendzie i wykorzystywane przez API oraz przez aplikacje webowe w dowolnym
+            współczesnym frameworku typu React, Angular, Vue.js.
+          </p>
+          <p>
+            Aplikacja webowa będzie więc wysyłać token jwt, dołączony do każdego zapytania,
+            najczęściej umieszczony w nagłówku Authorization
+          </p>
+          <p>Przeanalizujmy dla naszego API trzy routes:</p>
+          <ul class="unnumbered-list-container">
+            <li>/registration — rejestracja nowego użytkownika;</li>
+            <li>/login — dla poprawnych danych logowania zwróci jwt</li>
+            <li>/list, — dostępny tylko dla użytkowników autoryzujących się przy pomocy tokena.</li>
+          </ul>
+          <p>
+            Końcowy wynik będzie wygląda w następujący sposób:
+            <a href="https://glitch.com/~nodebook-passport-jwt">link</a>
+          </p>
+        </article>
+        <article id="1.2">
+          <h3>1.2 Czym są web-tokeny JSON?</h3>
+          <p>
+            JSON Web Token (JWT) to zasadniczo string (w formacie bezpiecznym dla URL, to znaczy nie
+            zawiera znaków specjalnych które należałoby zakodować), zawierający zakodowany obiekt
+            JSON. JWT to otwarty, szeroko wykorzystywany standard, opisany w standardzie RFC 7519,
+            który zawiera szczegóły implementacji, dotyczące zwłaszcza tego, w jaki sposób JWT ma
+            implementować funkcje generowania i sprawdzania poprawności tokena.
+          </p>
         </article>
       </section>
       <!-- section2 -->

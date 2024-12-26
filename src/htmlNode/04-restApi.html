@@ -1206,8 +1206,8 @@
             opracowywanie błędów.
           </p>
         </article>
-        <article id="8.2">
-          <h3>8.2 Realizacja API</h3>
+        <article id="8.3">
+          <h3>8.3 Realizacja API</h3>
           <p>W pliku routingu opisujemy całą logikę działania naszego API.</p>
           <p>
             Do generowania losowego, unikalnego identyfikatora zadania wykorzystujemy moduł nanoid:
@@ -1230,6 +1230,157 @@
             ];
           </pre>
           <p>Później do tej tablicy będziemy dodawać nowe zadania, usuwać je i modyfikować.</p>
+        </article>
+        <article id="8.4">
+          <h4>8.4 Odczytanie</h4>
+          <p>Pierwszy endpoint to otrzymanie listy wszystkich zadań:</p>
+          <pre>
+            router.get('/tasks', (req, res, next) => {
+              res.json({
+                status: 'success',
+                code: 200,
+                data: {
+                  tasks,
+                },
+              });
+            });
+          </pre>
+          <p>
+            Tu wszystko jest dość proste, wysyłamy obiekt ze statusem 'success', kodem 200 i
+            właściwością data. To nasz payload, w którym umieścimy tablicę zadań. Wykorzystamy
+            program Postman i wyślemy nasze pierwsze zapytanie:
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/10-postman-api-1.png" alt="" />
+          </div>
+          <p>Funkcja do otrzymania zadania po konkretnym ID</p>
+          <pre>
+            router.get('/tasks/:id', (req, res, next) => {
+              const { id } = req.params;
+              const [task] = tasks.filter(el => el.id === id);
+              res.json({
+                status: 'success',
+                code: 200,
+                data: { task },
+              });
+            });
+          </pre>
+        </article>
+        <article id="8.5">
+          <h4>8.5 Utworzenie nowego zadania</h4>
+          <pre>
+            router.post('/tasks', (req, res, next) => {
+            const { title, text } = req.body;
+            const task = {
+              id: nanoid(),
+              title,
+              text,
+              done: false,
+            };
+
+            tasks.push(task);
+
+            res.status(201).json({
+              status: 'success',
+              code: 201,
+              data: { task },
+            });
+          });
+          </pre>
+          <p>
+            Przy wysyłaniu Postman wybieramy zakładkę Body, tryb raw format JSON i ustawiamy metodę
+            HTTP na POST. W body naszego zapytania wpisujemy:
+          </p>
+          <pre>
+            {
+              "title": "Vacation",
+              "text": "Enjoy"
+            }
+          </pre>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/11-postman-api-2.png" alt="" />
+          </div>
+          <p>
+            Widzimy, że utworzyliśmy nowy zasób. Zwróć uwagę, że dostajemy status 201, a powtórne
+            zapytanie do listy zadań pokaże nam już dwa zadania.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/12-postman-api-3.png" alt="" />
+          </div>
+        </article>
+        <article id="8.6">
+          <h4>8.6 Aktualizacja zadania</h4>
+          <pre>
+            router.put('/tasks/:id', (req, res, next) => {
+              const { id } = req.params;
+              const { title, text } = req.body;
+              const [task] = tasks.filter(el => el.id === id);
+              task.title = title;
+              task.text = text;
+              res.json({
+                status: 'success',
+                code: 200,
+                data: { task },
+              });
+            });
+          </pre>
+          <p>
+            Jeśli chcemy modyfikować nasze zadanie, możemy to zrobić przez nowy obiekt przy pomocy
+            Postmana i metody HTTP - PUT:
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/13-postman-api-4.png" alt="" />
+          </div>
+          <p>Wywołanie pełnej listy zadań pokaże nam już zaktualizowaną listę:</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/14-postman-api-5.png" alt="" />
+          </div>
+        </article>
+        <article id="8.7">
+          <h4>8.7 Częściowa aktualizacja</h4>
+          <p>Dla aktualizacji statusu wykorzystujemy oddzielny URL i metodę HTTP - PATCH:</p>
+          <pre>
+            router.patch('/tasks/:id/status', (req, res, next) => {
+              const { id } = req.params;
+              const { done } = req.body;
+              const [task] = tasks.filter(el => el.id === id);
+              task.done = done;
+              res.json({
+                status: 'success',
+                code: 200,
+                data: { task },
+              });
+            });
+          </pre>
+          <p>Tutaj zmieniamy wartość tylko właściwości done danego zadania</p>
+          <pre>
+            {
+              "done": true
+            }
+          </pre>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/15-postman-api-6.png" alt="" />
+          </div>
+        </article>
+        <article id="8.8">
+          <h4>8.8 Usuwanie</h4>
+          <p>Ostatnie działanie, to usunięcie zadania z listy:</p>
+          <pre>
+            router.delete('/tasks/:id', (req, res, next) => {
+              const { id } = req.params;
+              const newtasks = tasks.filter(el => el.id !== id);
+              tasks = [...newtasks];
+              res.status(204).json();
+            });
+          </pre>
+          <p>
+            Zainstaluj Postman i znając pełny URL aplikacji:
+            <a href="https://nodebook-api.glitch.me/api/tasks/"
+              >https://nodebook-api.glitch.me/api/tasks/</a
+            >
+            spróbuj samodzielnie powtórzyć wskazane działanie po utworzeniu i aktualizacji listy
+            zadań. Alternatywnie możesz korzystać też z programu Insomnia
+          </p>
         </article>
       </section>
     </main>
