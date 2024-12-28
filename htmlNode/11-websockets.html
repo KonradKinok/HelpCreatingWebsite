@@ -1,1 +1,167 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.8c480b41.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.f61efc39.css"><title>Websockets</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 6 - Zajęcia 11 - Websockets</h1> <article id="1.1"> <h2>1.1 Zarządzanie statusem</h2> </article> </section>  </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.658ae41c.js"></script> </body></html>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.066807ea.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.73765607.css"><title>Websockets</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 6 - Zajęcia 11 - Websockets</h1> <article id="1.1"> <h2>1.1 WebSockets</h2> <p> WebSocket to protokół dwustronnej wymiany danych. W praktyce oznacza to, że WebSockets ustanawia jedno połączenie klienta z serwerem. Po niezbędnych potwierdzeniach, że zarówno klient jak i serwer może pracować z WebSockets, serwer i klient mogą wysyłać przez nie wiadomości tekstowe, przy czym przesyłanie zachodzi od razu, ponieważ tworzone są dwustronne kanały. Połączenie jest cały czas aktywne, co pozwala nie przekazywać m.in. zbędnych nagłówków HTTP. </p> <p> Przy użyciu WebSocketów nie ma ograniczeń w ilości połączeń, ani w kolejności zapytań. </p> </article> <article id="1.2"> <h2>1.2 Moduł ws</h2> <p> W celu rozpoczęcia pracy z WebSocketami potrzebne są tylko dwie rzeczy: przeglądarka wspierająca WebSocket i serwer realizujący tę technologię. Po stronie przeglądarki wszystko jest proste - WebSockets jest wspierane przez większość współczesnych wersji przeglądarek. Sprawdzić wsparcie tej technologii przez konkretną przeglądarkę można pod tym linkiem <a href="https://echo.websocket.events/.ws">https://echo.websocket.events/.ws</a> - możemy tam przetestować wysyłanie i otrzymywanie wiadomości poprzez socket </p> <p>Stwórzmy jednak własny serwer obsługujący socket</p> <p>Na serwerze należy zainstalować moduł:</p> <pre>
+            npm install ws
+          </pre> <p>A następnie, zadeklarujmy instancję WebSocket</p> <pre>
+            const WebSocketServer = new require('ws');
+          </pre> <p>Korzystając z niej uruchamiamy serwer WebSocket na wybranym porcie:</p> <pre>
+            const wss = new WebSocketServer.Server({ port: 8080 });
+          </pre> <p> Serwer WebSocket będzie działał, czekając na zapytania zgodnie z protokołem ws:// na wprowadzony port (w naszym przypadku 8080). Napiszemy funkcję callback na zdarzenie połączenia: </p> <pre>
+            wss.on('connection', ws => {
+              console.log('Nowe połączenie');
+            });
+          </pre> <p> Dodatkowo należy napisać niedużego klienta, w tym przypadku po prostu - stronę internetową która może zostać umieszczona na dowolnym serwerze internetowym (lub uruchomiona lokalnie na naszym komputerze) </p> <pre>
+            &lt!DOCTYPEhtml>
+            &lthtml lang="en">
+              &lthead>
+                &ltmeta charset="UTF-8" />
+                &ltmeta name="viewport" content="width=device-width, initial-scale=1.0" />
+                &ltmeta http-equiv="X-UA-Compatible" content="ie=edge" />
+                &lttitle>WebSocket&lt/title>
+              &lt/head>
+              &ltscript>
+                window.onload = () => {
+                  const ws = new WebSocket('ws://localhost:8080');
+                };
+              &lt/script>
+              &ltbody>&lt/body>
+            &lt/html>
+          </pre> <p> Teraz przy otwarciu strony w przeglądarce zostanie utworzone połączenie i odpowiednio w konsoli serwera pojawi się napis - Nowe połączenie. </p> <p> Na razie są to interakcje zachodzące od serwera do klienta, dodajmy więc wymianę wiadomości. Dodajmy potrzebną funkcjonalność do serwera: </p> <pre>
+            const WebSocketServer = new require('ws');
+
+            const wss = new WebSocketServer.Server({ port: 8080 });
+
+            let clients = [];
+
+            wss.on('connection', ws => {
+              let id = clients.length;
+              clients[id] = ws;
+              console.log(`Nowe połączenie #${id}`);
+            // wysyłamy do klienta wiadomość
+              clients[id].send(`Cześć, został nadany numer №${id}`);
+            // wysyłamy wszystko pozostałym
+              clients.forEach((item, index) => {
+                if (index !== id) {
+                  item.send(`Do nas przypisany został numer - ${id}`);
+                }
+              });
+            });
+          </pre> <p>Do klienta należy dopisać kod dla przyjmowania wiadomości z serwera:</p> <pre>
+            window.onload = () => {
+              const ws = new WebSocket('ws://localhost:8080');
+              ws.onmessage = e => {
+                console.log(e.data);
+              };
+            };
+          </pre> <p> Teraz spróbujemy otworzyć stronę w kilku oknach przeglądarki. Zobaczymy wiadomości w konsolach zarówno przeglądarek, jak i serwera. Zaszła więc wymiana danych w obie strony. </p> </article> </section>  <section id="2" class="text"> <article id="2.1"> <h2>2.1 Socket.io</h2> <p> Ta biblioteka pozwala zapewniać współpracę w czasie rzeczywistym, w nieco prostszy sposób niż ws. Socket.io również zapewnia obustronne połączenie w czasie rzeczywistym na podstawie zdarzeń. Dostępna jest na dowolnej platformie, przeglądarce lub urządzeniu, jest szybka i niezawodna. Socket.io składa się z dwóch części: </p> <ul class="unnumbered-list-container"> <li>Serwer, na którym socket.io integruje się się z serwerem HTTP Node.JS;</li> <li>Biblioteki klienta, ładowanej na stronie przeglądarki czyli socket.io-client</li> </ul> <p>Wystarczy, że zainstalujemy paczkę w klasyczny sposób:</p> <pre>
+            npm install socket.io
+          </pre> <p>Następnie dodajmy do naszej aplikacji express i utwórzmy plik app.js.</p> <pre>
+            const express = require('express');
+            const app = express();
+            const http = require('http').createServer(app);
+            const io = require('socket.io')(http);
+
+            app.use(express.static('public'));
+
+            io.on('connection', socket => {
+              console.log('User connected!');
+              socket.emit('message', 'User connected!');
+            });
+
+            http.listen(3000, () => {
+              console.log('listening on *:3000');
+            });
+          </pre> <p> Zwróć uwagę, że przy inicjalizacji instancji socket.io, przekazujemy obiekt http (HTTP-serwera). </p> <p> Następnie, zaczynamy nasłuchiwać zdarzenia connection które wywołane zostanie dla nowych podpiętych użytkowników, a gdy to nastąpi, wyprowadzamy wiadomość User connected! do konsoli serwera. Następnie wysyłamy zdarzenie message do danego klienta z taką samą wiadomością. </p> <p>W folderze public umieścimy plik index.html, który będzie naszym klientem.</p> <pre>
+            &lt!DOCTYPEhtml>
+            &lthtml lang="en">
+              &lthead>
+                &ltmeta charset="UTF-8" />
+                &ltmeta name="viewport" content="width=device-width, initial-scale=1.0" />
+                &ltmeta http-equiv="X-UA-Compatible" content="ie=edge" />
+                &ltscript src="/socket.io/socket.io.js">&lt/script>
+                &lttitle>SocketIO&lt/title>
+              &lt/head>
+              &ltbody>
+                &ltscript>
+                  const socket = io.connect('/');
+                  socket.on('message', data => {
+                    console.log(data);
+                  });
+                &lt/script>
+              &lt/body>
+            &lt/html>
+          </pre> <p> Wszystko, co trzeba zrobić, aby zacząć pracować z WebSocketami po stronie przeglądarki to załadować socket.io-client jako skrypt. Dostarczy on globalną zmienną io, dzięki której możemy podłączyć się do serwera przy użyciu metody io.connect('/') i obsłużyć nasze zdarzenie message. </p> <p> Jeżeli uruchomimy serwer, to przy wejściu przez przeglądarkę na adres http://localhost:3000/ w konsoli przeglądarki zobaczymy wiadomość User connected!. </p> <p> Przeanalizujemy bardziej szczegółowo zdarzenia serwerowej i przeglądarkowej części socket.io. </p> <p> Idea budowania aplikacji socket.io zawiera się w tym, że obie jej części - serwerowa i klienta - mają dużo wspólnych właściwości i metod, natomiast inaczej reagują one na poszczególne zdarzenia. </p> <p>Na serwerze są tylko trzy zdefiniowane wcześniej zdarzenia:</p> <ol class="numbered-list-container"> <li>connection — zdarzenie następuje przy ustanowieniu połączenia z klientem;</li> <li> on — zdarzenie następuje przy otrzymaniu wiadomości od klienta o podanej nazwie; </li> <li>disconnect — przerwanie połączenia danego klienta.</li> </ol> <p>W przeglądarkowej części socket.io jest więcej określonych zdarzeń:</p> <ol class="numbered-list-container"> <li>connecting — zdarzenie następuje podczas nawiązywania połączenia z serwerem;</li> <li>connect_failed — zdarzenie następuje przy nieudanej próbie połączenia;</li> <li>connect — zdarzenie następuje przy nawiązaniu połączenia z serwerem;</li> <li> on — zdarzenie następuje przy otrzymaniu wiadomości o określonej nazwie od serwera; </li> <li>disconnect — zdarzenie następuje przy zerwaniu połączenia z serwerem;</li> <li> reconnecting (może pojawić się nie jeden raz) - zdarzenie następuje przy próbie ustanowienia połączenia; </li> <li>reconnect — zdarzenie następuje przy ponownym nawiązaniu połączenia;</li> <li>error — zdarzenie błędu;</li> </ol> <p> Po tym wprowadzeniu przyszedł czas na zrealizowanie prostego czatu w bibliotece Socket.io. </p> </article> </section>  <section id="3" class="text"> <article id="3.1"> <h2>3.1 Tworzymy czat</h2> <p> Przeanalizujmy utworzenie prostego czatu przy pomocy biblioteki Socket.io. To nasz przykład, który będziemy rozpatrywać - <a href="https://glitch.com/~chat-nodebook">Chat example</a> </p> <p>Realizacja części serwerowej jest dość prosta:</p> <pre>
+            const express = require('express');
+            const app = express();
+            const http = require('http');
+            const server = http.createServer(app);
+            const io = require('socket.io')(server);
+
+            server.listen(process.env.PORT || 3000, function () {
+              console.log('Server running in port 3000');
+            });
+
+            app.use(express.static(__dirname + '/public'));
+          </pre> <p> Podłączamy wszystkie niezbędne moduły, uruchamiamy serwer i wskazujemy, gdzie będą znajdować się zasoby statystyczne, w naszym przypadku strona html i skrypty związane z zachowaniem klienta. </p> <p>Następnie tworzymy obiekt:</p> <pre>
+            const users = {};
+          </pre> <p> będziemy tam zapisywać, zgodnie z unikalnym kluczem klienta, nazwę dla każdego podłączanego użytkownika. </p> <p>Cała praca czatu będzie zamknięta wewnątrz konstrukcji:</p> <pre>
+            io.sockets.on('connection', (client) => { … })
+          </pre> <p> Ten kod wykona się dla każdego nowo podłączanego użytkownika w zdarzeniu connection. </p> <p>Wewnątrz tworzymy funkcję:</p> <pre>
+            const broadcast = (event, data) => {
+              client.emit(event, data);
+              client.broadcast.emit(event, data);
+            };
+          </pre> <p> Ta funkcja wykonuje zdarzenie event i przesyła dane data konkretnie dla bieżącego użytkownika client.emit(event, data), następnie inicjuje zdarzenie dla wszystkich pozostałych podłączonych użytkowników client.broadcast.emit(event, data). </p> <p>Przy pierwszym podłączeniu danego użytkownika wykonujemy zdarzenie user</p> <pre>
+            broadcast('user', users);
+          </pre> <p>i powiadamiamy wszystkich uczestników czatu o naszej aktualnej liście użytkowników.</p> <p>Przydadzą się nam jeszcze dwie funkcje dla zdarzeń</p> <ul class="unnumbered-list-container"> <li>message - wysłanie wiadomości na czacie</li> <li>disconnect - użytkownik wyszedł z czatu (zamknął zakładkę przeglądarki).</li> </ul> <p>Wysłanie wiadomości:</p> <pre>
+            client.on('message', message => {
+            if (users[client.id] !== message.name) {
+              users[client.id] = message.name;
+              broadcast('user', users);
+            }
+            broadcast('message', message);
+          });
+          </pre> <p> Sprawdzamy, czy użytkownik jest już na liście users czy też zmienił nazwę przy wysłaniu wiadomości i jeśli tak, to następnie informujemy wszystkich użytkowników przez zdarzenie user, że dany użytkownik zmienił swoją nazwę. Później wywołujemy zdarzenie message i wysyłamy otrzymaną wiadomość do wszystkich użytkowników. </p> <p> Jeżeli użytkownik zaktualizował stronę lub zamknął zakładkę przeglądarki nastąpi zdarzenie disconnect. </p> <pre>
+            client.on('disconnect', () => {
+              delete users[client.id];
+              client.broadcast.emit('user', users);
+            });
+          </pre> <p> Usuwamy bieżącego użytkownika z listy users i wysyłamy do wszystkich pozostałych użytkowników przez zdarzenie user zaktualizowaną listę. Zwróć uwagę, że wysyłamy to zdarzenie tylko do pozostałych użytkowników. Na nasze potrzeby to wszystko co potrzebujemy po stronie serwera </p> <p>Kod klienta jest bardziej skomplikowany.</p> <p>Tworzymy zmienne ze wszystkimi niezbędnymi dla DOM elementami:</p> <pre>
+            const usersList = document.getElementById('users');
+            const board = document.getElementById('board');
+            const userMessage = document.getElementById('msg_txt');
+            const userName = document.getElementById('msg_name');
+            const sendButton = document.getElementById('msg_btn');
+          </pre> <p>Podłączamy socket.io:</p> <pre>
+            const socket = io();
+          </pre> <p>Tworzymy tablicę, w której będziemy zapisywać otrzymane od serwera wiadomości:</p> <pre>
+            const messages = [];
+          </pre> <p>i ustawiamy limit dla maksymalnej ilości wiadomości na ekranie:</p> <pre>
+            const LIMIT_MESSAGES = 10;
+          </pre> <p> Funkcja renderListOfMessages za każdym razem po otrzymaniu zdarzenia message rysuje zaktualizowaną listę wiadomości od użytkowników na stronie. </p> <p> Funkcja renderListOfUsers za każdym razem przy otrzymaniu zdarzenia user rysuje zaktualizowaną listę użytkowników na stronie. </p> <p> Za podłączenie handlers do odpowiednich zdarzeń odpowiada następujący fragment kodu: </p> <pre>
+            socket.on('user', renderListOfUsers);
+            socket.on('message', renderListOfMessages);
+          </pre> <p>Samo wysłanie wiadomości na serwer wykonuje się w funkcji sendUserMessage.</p> <pre>
+            const sendUserMessage = () => {
+            let name = userName.value;
+            const message = userMessage.value;
+
+            if (message === '' || name === '') {
+              return;
+            }
+
+            socket.emit('message', {
+              message,
+              name,
+            });
+
+            userMessage.value = '';
+            userMessage.focus();
+          };
+
+          sendButton.addEventListener('click', sendUserMessage);
+          </pre> <p>Funkcja</p> <pre>
+            const pressEnterKey = e => {
+            if (e.keyCode === 13) {
+              sendUserMessage();
+            }
+          };
+          </pre> <p>będzie wywoływać funkcję sendUserMessage, jeżeli naciśniemy klawisz Enter.</p> <p> Jak widać, cała logika pracy kodu klienta zbudowana jest na obsługiwaniu zdarzeń user i message, które generuje dla nas serwer, a także generowaniu zdarzenia message które służy do wysyłania na serwer wiadomości (funkcja sendUserMessage). </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.e00d2eb0.js"></script> </body></html>

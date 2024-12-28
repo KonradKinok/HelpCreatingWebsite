@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.8c480b41.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.73765607.css"><title>Rest API</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 2 - Zajęcia 4 - Rest API</h1> <article id="1.1"> <h2>1.1 Przykład aplikacji</h2> <p> Po części teoretycznej przejdźmy do praktyki i stworzymy prostą aplikację opartą o express. </p> <p> Framework Express zapewnia swój generator aplikacji <a href="https://expressjs.com/en/starter/generator.html">https://expressjs.com/en/starter/generator.html</a> . Generator zorientowany jest na architekturę aplikacji MVC i tworzy następującą strukturę katalogów: </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/05-struktura-katalogow.4eec9c63.jpg" alt=""> </div> <p>Aby zainstalować template należy użyć polecenia:</p> <pre>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.066807ea.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.73765607.css"><title>Rest API</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 2 - Zajęcia 4 - Rest API</h1> <article id="1.1"> <h2>1.1 Przykład aplikacji</h2> <p> Po części teoretycznej przejdźmy do praktyki i stworzymy prostą aplikację opartą o express. </p> <p> Framework Express zapewnia swój generator aplikacji <a href="https://expressjs.com/en/starter/generator.html">https://expressjs.com/en/starter/generator.html</a> . Generator zorientowany jest na architekturę aplikacji MVC i tworzy następującą strukturę katalogów: </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/05-struktura-katalogow.4eec9c63.jpg" alt=""> </div> <p>Aby zainstalować template należy użyć polecenia:</p> <pre>
             npx express-generator --view=ejs simple-express
           </pre> <p> npx - narzędzie, które jest już w systemie, jeśli zainstalowany został Node.js w wersji wyższej niż 8.x. Pozwala ono wykonywać polecenia innych narzędzi, nie instalując ich globalnie w systemie. </p> <p>Dalej wskazujemy, że chcemy wykorzystać szablony ejs parametrem --view=ejs</p> <p>Jako ostatni parametr wskazujemy nazwę aplikacji (i folderu) simple-express.</p> <p> Aplikacja znajduje się w pliku app.js. Pierwsze, co powinniśmy zrobić, to zmienić var na const w całej aplikacji. Po tej operacji plik app.js powinien wyglądać następująco: </p> <pre>
           const createError = require('http-errors');
@@ -321,7 +321,7 @@
             app.listen(PORT, function () {
               console.log(`Server running. Use our API on port: ${PORT}`);
             });
-          </pre> <p> Podłączamy tu opracowywanie danych w formacie JSON, włączamy cors i dodajemy opracowywanie błędów. </p> </article> <article id="8.2"> <h3>8.2 Realizacja API</h3> <p>W pliku routingu opisujemy całą logikę działania naszego API.</p> <p> Do generowania losowego, unikalnego identyfikatora zadania wykorzystujemy moduł nanoid: </p> <pre>
+          </pre> <p> Podłączamy tu opracowywanie danych w formacie JSON, włączamy cors i dodajemy opracowywanie błędów. </p> </article> <article id="8.3"> <h3>8.3 Realizacja API</h3> <p>W pliku routingu opisujemy całą logikę działania naszego API.</p> <p> Do generowania losowego, unikalnego identyfikatora zadania wykorzystujemy moduł nanoid: </p> <pre>
             const { nanoid } = require('nanoid');
           </pre> <p> Wszystkie dane o zadaniach przechowujemy w tablicy tasks, gdzie na "sztywno" przypisujemy jedno zadanie. </p> <pre>
             let tasks = [
@@ -332,4 +332,83 @@
                 done: false,
               },
             ];
-          </pre> <p>Później do tej tablicy będziemy dodawać nowe zadania, usuwać je i modyfikować.</p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.658ae41c.js"></script> </body></html>
+          </pre> <p>Później do tej tablicy będziemy dodawać nowe zadania, usuwać je i modyfikować.</p> </article> <article id="8.4"> <h4>8.4 Odczytanie</h4> <p>Pierwszy endpoint to otrzymanie listy wszystkich zadań:</p> <pre>
+            router.get('/tasks', (req, res, next) => {
+              res.json({
+                status: 'success',
+                code: 200,
+                data: {
+                  tasks,
+                },
+              });
+            });
+          </pre> <p> Tu wszystko jest dość proste, wysyłamy obiekt ze statusem 'success', kodem 200 i właściwością data. To nasz payload, w którym umieścimy tablicę zadań. Wykorzystamy program Postman i wyślemy nasze pierwsze zapytanie: </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/10-postman-api-1.dd8d311c.png" alt=""> </div> <p>Funkcja do otrzymania zadania po konkretnym ID</p> <pre>
+            router.get('/tasks/:id', (req, res, next) => {
+              const { id } = req.params;
+              const [task] = tasks.filter(el => el.id === id);
+              res.json({
+                status: 'success',
+                code: 200,
+                data: { task },
+              });
+            });
+          </pre> </article> <article id="8.5"> <h4>8.5 Utworzenie nowego zadania</h4> <pre>
+            router.post('/tasks', (req, res, next) => {
+            const { title, text } = req.body;
+            const task = {
+              id: nanoid(),
+              title,
+              text,
+              done: false,
+            };
+
+            tasks.push(task);
+
+            res.status(201).json({
+              status: 'success',
+              code: 201,
+              data: { task },
+            });
+          });
+          </pre> <p> Przy wysyłaniu Postman wybieramy zakładkę Body, tryb raw format JSON i ustawiamy metodę HTTP na POST. W body naszego zapytania wpisujemy: </p> <pre>
+            {
+              "title": "Vacation",
+              "text": "Enjoy"
+            }
+          </pre> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/11-postman-api-2.8545d253.png" alt=""> </div> <p> Widzimy, że utworzyliśmy nowy zasób. Zwróć uwagę, że dostajemy status 201, a powtórne zapytanie do listy zadań pokaże nam już dwa zadania. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/12-postman-api-3.1a73766c.png" alt=""> </div> </article> <article id="8.6"> <h4>8.6 Aktualizacja zadania</h4> <pre>
+            router.put('/tasks/:id', (req, res, next) => {
+              const { id } = req.params;
+              const { title, text } = req.body;
+              const [task] = tasks.filter(el => el.id === id);
+              task.title = title;
+              task.text = text;
+              res.json({
+                status: 'success',
+                code: 200,
+                data: { task },
+              });
+            });
+          </pre> <p> Jeśli chcemy modyfikować nasze zadanie, możemy to zrobić przez nowy obiekt przy pomocy Postmana i metody HTTP - PUT: </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/13-postman-api-4.017b9c90.png" alt=""> </div> <p>Wywołanie pełnej listy zadań pokaże nam już zaktualizowaną listę:</p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/14-postman-api-5.823b14f9.png" alt=""> </div> </article> <article id="8.7"> <h4>8.7 Częściowa aktualizacja</h4> <p>Dla aktualizacji statusu wykorzystujemy oddzielny URL i metodę HTTP - PATCH:</p> <pre>
+            router.patch('/tasks/:id/status', (req, res, next) => {
+              const { id } = req.params;
+              const { done } = req.body;
+              const [task] = tasks.filter(el => el.id === id);
+              task.done = done;
+              res.json({
+                status: 'success',
+                code: 200,
+                data: { task },
+              });
+            });
+          </pre> <p>Tutaj zmieniamy wartość tylko właściwości done danego zadania</p> <pre>
+            {
+              "done": true
+            }
+          </pre> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/15-postman-api-6.180af113.png" alt=""> </div> </article> <article id="8.8"> <h4>8.8 Usuwanie</h4> <p>Ostatnie działanie, to usunięcie zadania z listy:</p> <pre>
+            router.delete('/tasks/:id', (req, res, next) => {
+              const { id } = req.params;
+              const newtasks = tasks.filter(el => el.id !== id);
+              tasks = [...newtasks];
+              res.status(204).json();
+            });
+          </pre> <p> Zainstaluj Postman i znając pełny URL aplikacji: <a href="https://nodebook-api.glitch.me/api/tasks/">https://nodebook-api.glitch.me/api/tasks/</a> spróbuj samodzielnie powtórzyć wskazane działanie po utworzeniu i aktualizacji listy zadań. Alternatywnie możesz korzystać też z programu Insomnia </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.e00d2eb0.js"></script> </body></html>

@@ -1,1 +1,97 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.8c480b41.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.f61efc39.css"><title>Praca z plikami</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 5 - Zajęcia 8 - Praca z plikami</h1> <article id="1.1"> <h2>1.1 Zarządzanie statusem</h2> </article> </section>  </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.658ae41c.js"></script> </body></html>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.066807ea.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.73765607.css"><title>Praca z plikami</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 5 - Zajęcia 8 - Praca z plikami</h1> <article id="1.1"> <h2>1.1 Wprowadzenie. Ładowanie plików</h2> <p> Formularz HTTP wysyłany na serwer przez przeglądarkę powinien wykorzystywać jakąś formę kodowania. Jeśli jej nie wskażemy, to domyślnie wykorzystuje się application/x-www-form-urlencoded. Spotkaliśmy się już z tą metodą kodowania, gdy analizowaliśmy przekazywanie danych na serwer i wiemy, że jest wspierana przez Express przy użyciu wbudowanego parsera. </p> <p> Jeżeli pojawia się potrzeba załadowania plików na serwerze, zadanie staje się trochę trudniejsze. Niezbędne jest dla nas do wysyłania plików, przyjmowanie typu kodowania multipart/form-data które nie jest opracowywane przez Express bezpośrednio. </p> <p> Jest kilka pakietów służących do ładowania plików na serwer. Przeanalizujemy pracę z jednym z nich: <a href="https://github.com/expressjs/multer">Multer</a>. </p> <p> Zanim przejdziemy do przykładów tego, jak korzystać z tego pakietu, sprecyzujmy jedną ogólną kwestię. Co powinniśmy zrobić po opracowaniu formularza? Po tym, jak zakończymy pracować z danymi z formularza należy zwrócić odpowiedź do przeglądarki. Istnieją dwa rozpowszechnione podejścia: </p> <ul class="unnumbered-list-container"> <li> Pierwsze - przyjmujemy dane, po opracowaniu formularza możemy wysłać HTML lub JSON bezpośrednio do przeglądarki. </li> <li> Drugie podejście to przeadresowanie. Jest bardziej popularne niż pierwsze i wykorzystuje w zasadzie dwa kody odpowiedzi. Pierwszy kod odpowiedzi 302 (Found — Znaleziono) i drugi kod odpowiedzi 303 (See Other — Zobacz inne), który w naszej opinii powinien zadziałać lepiej. Express domyślnie wykorzystuje dla statusu kod odpowiedzi 302. </li> </ul> </article> </section>  <section id="2" class="text"> <article id="2.1"> <h2>2.1 Multer</h2> <p> Multer działa jak program pośredniczący (middleware) dla frameworka Express, który jest wykorzystywany przy ładowaniu plików do opracowywania multipart/form-data. W gruncie rzeczy jest tak naprawdę warstwą abstrakcji dla pakietu niższego poziomu busboy i jest od niego prostszy w użyciu. Multer nie obsługuje żadnego innego typu formularza, niż multipart/form-data. </p> <p>Instalacja:</p> <pre>
+            npm install -S multer
+          </pre> <p> Multer dodaje do obiektu request.body obiekt file (lub files). Obiekt body zawiera wartość pól tekstowych formularza, obiekt file (files) zawiera plik lub pliki ładowane przez formularz. </p> <p>Pełen kod naszej aplikacji jest następujący:</p> <pre>
+            const createError = require('http-errors');
+            const express = require('express');
+            const path = require('path');
+            const fs = require('fs').promises;
+            const app = express();
+            const multer = require('multer');
+            const uploadDir = path.join(process.cwd(), 'uploads');
+            const storeImage = path.join(process.cwd(), 'images');
+
+            const storage = multer.diskStorage({
+              destination: (req, file, cb) => {
+                cb(null, uploadDir);
+              },
+              filename: (req, file, cb) => {
+                cb(null, file.originalname);
+              },
+              limits: {
+                fileSize: 1048576,
+              },
+            });
+
+            const upload = multer({
+              storage: storage,
+            });
+
+            app.post('/upload', upload.single('picture'), async (req, res, next) => {
+              const { description } = req.body;
+              const { path: temporaryName, originalname } = req.file;
+              const fileName = path.join(storeImage, originalname);
+              try {
+                await fs.rename(temporaryName, fileName);
+              } catch (err) {
+                await fs.unlink(temporaryName);
+                return next(err);
+              }
+              res.json({ description, message: 'Plik załadowany pomyślnie', status: 200 });
+            });
+
+            // catch 404 and forward to error handler
+            app.use((req, res, next) => {
+              next(createError(404));
+            });
+
+            app.use((err, req, res, next) => {
+              res.status(err.status || 500);
+              res.json({ message: err.message, status: err.status });
+            });
+
+            const isAccessible = path => {
+              return fs
+                .access(path)
+                .then(() => true)
+                .catch(() => false);
+            };
+
+            const createFolderIsNotExist = async folder => {
+              if (!(await isAccessible(folder))) {
+                await fs.mkdir(folder);
+              }
+            };
+
+            const PORT = process.env.PORT || 3000;
+
+            app.listen(PORT, async () => {
+              createFolderIsNotExist(uploadDir);
+              createFolderIsNotExist(storeImage);
+              console.log(`Server running. Use on port:${PORT}`);
+            });
+          </pre> <p>Pakiet dostarcza następujących informacji dla każdego załadowanego pliku:</p> <table class="table-metody-odpowiedzi"> <tr> <th>Klucz</th> <th>Opis</th> <th>Uwagi</th> </tr> <tr> <td>fieldname</td> <td>Nazwa pola, wprowadzona w formularzu</td> <td></td> </tr> <tr> <td>originalname</td> <td>Nazwa pliku na komputerze użytkownika</td> <td></td> </tr> <tr> <td>encoding</td> <td>Kodowanie pliku</td> <td></td> </tr> <tr> <td>mimetype</td> <td>Mime-typ pliku</td> <td></td> </tr> <tr> <td>size</td> <td>Rozmiar pliku w bajtach</td> <td></td> </tr> <tr> <td>destination</td> <td>Katalog, w którym będzie zapisany plik</td> <td>DiskStorage</td> </tr> <tr> <td>filename</td> <td>Nazwa pliku bez destination</td> <td>DiskStorage</td> </tr> <tr> <td>path</td> <td>Pełna ścieżka do ładowanego pliku</td> <td>DiskStorage</td> </tr> <tr> <td>buffer</td> <td>Buffer z całego pliku</td> <td>MemoryStorage</td> </tr> </table> <p>Tworzymy opcje przestrzeni dyskowej DiskStorage w której przechowywane będą pliki:</p> <pre>
+            const storage = multer.diskStorage({
+              destination: (req, file, cb) => {
+                cb(null, uploadDir);
+              },
+              filename: (req, file, cb) => {
+                cb(null, file.originalname);
+              },
+              limits: {
+                fileSize: 1048576,
+              },
+            });
+          </pre> <p> Przy pomocy opcji, definiujemy funkcje dla miejsca docelowego pliku destination i nazwy pliku filename i określamy, gdzie będzie znajdował się plik po ładowaniu: </p> <ul class="unnumbered-list-container"> <li> destination wykorzystuje się, aby określić katalog, w którym będą umieszczone pliki; </li> <li> filename wykorzystuje się, aby określić, jak będzie nazwany plik wewnątrz katalogu. Jeśli nazwa pliku filename nie jest określona, to do każdego pliku będzie przypisana losowa nazwa bez rozszerzenia pliku. </li> </ul> <p> W parametrach każdej funkcji jest zapytanie (req) i zbiór informacji o pliku (file) np: </p> <pre>
+            {
+              fieldname: 'picture',
+              originalname: 'nazwa_pliku.jpg',
+              encoding: '7bit',
+              mimetype: 'image/jpeg'
+            }
+          </pre> <p> Istnieje również obiekt limits ustanawiający ograniczenia rozmiaru pliku. W pełni pokrywa się on z metodami pakietu busboy, a <a href="https://github.com/mscdex/busboy#busboy-methods">tutaj</a> możesz zobaczyć pełną listę metod. </p> <p> W naszym przykładzie ustawiliśmy maksymalny rozmiar pliku na 1 MB (1024 * 1024 bajty = 1048576 = 1MB). </p> <p>Tworzymy egzemplarz multer:</p> <pre>
+            const upload = multer({
+              storage: storage,
+            });
+          </pre> <p>Dalej wykorzystujemy program pośredniczący:</p> <pre>
+            upload.single('picture');
+          </pre> <p> Ładuje on jeden plik o nazwie picture do tymczasowego folderu uploads, a informacja o pliku będzie zapisana w req.file. </p> <p>Wewnątrz middleware przenosimy plik do folderu stałego zapisu images.</p> <p>Pełny kod przykładu znajduje się na <a href="">Github Gist</a></p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.e00d2eb0.js"></script> </body></html>

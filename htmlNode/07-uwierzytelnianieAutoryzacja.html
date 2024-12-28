@@ -1,1 +1,168 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.8c480b41.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.f61efc39.css"><title>Uwierzytelnienie i autoryzacja</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 4 - Zajęcia 7 - Uwierzytelnienie i autoryzacja</h1> <article id="1.1"> <h2>1.1 Zarządzanie statusem</h2> </article> </section>  </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.658ae41c.js"></script> </body></html>
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.066807ea.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.73765607.css"><title>Uwierzytelnienie i autoryzacja</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <h1>Moduł 4 - Zajęcia 7 - Uwierzytelnienie i autoryzacja</h1> <article id="1.1"> <h2>1.1 Uwierzytelnienie przy pomocy JSON Web Token (JWT)</h2> <p> Teraz przeanalizujemy uwierzytelnienie zapytań przy pomocy JWT. Tokeny te generowane są na backendzie i wykorzystywane przez API oraz przez aplikacje webowe w dowolnym współczesnym frameworku typu React, Angular, Vue.js. </p> <p> Aplikacja webowa będzie więc wysyłać token jwt, dołączony do każdego zapytania, najczęściej umieszczony w nagłówku Authorization </p> <p>Przeanalizujmy dla naszego API trzy routes:</p> <ul class="unnumbered-list-container"> <li>/registration — rejestracja nowego użytkownika;</li> <li>/login — dla poprawnych danych logowania zwróci jwt</li> <li>/list, — dostępny tylko dla użytkowników autoryzujących się przy pomocy tokena.</li> </ul> <p> Końcowy wynik będzie wygląda w następujący sposób: <a href="https://glitch.com/~nodebook-passport-jwt">link</a> </p> </article> <article id="1.2"> <h3>1.2 Czym są web-tokeny JSON?</h3> <p> JSON Web Token (JWT) to zasadniczo string (w formacie bezpiecznym dla URL, to znaczy nie zawiera znaków specjalnych które należałoby zakodować), zawierający zakodowany obiekt JSON. JWT to otwarty, szeroko wykorzystywany standard, opisany w standardzie RFC 7519, który zawiera szczegóły implementacji, dotyczące zwłaszcza tego, w jaki sposób JWT ma implementować funkcje generowania i sprawdzania poprawności tokena. </p> <p> Popatrz na przykład tokenu JWT ze strony <a href="https://jwt.io/">https://jwt.io/</a> : </p> <pre>
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+            eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.
+            SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+          </pre> <p>Zwróć uwagę, że token podzielony jest na trzy części, które rozdzielone są kropką .</p> <p> header - zawiera informację, między innymi o tym jaki algorytm hashowania został zastosowany przy tworzeniu JWT, dzięki czemu wiadomo jak prawidłowo rozszyfrować i sprawdzić autentyczność tokena. </p> <pre>
+            {
+              "alg": "HS256",
+              "typ": "JWT"
+            }
+          </pre> <p> payload - Część ta zawiera dane, które chcesz przechowywać przy pomocy JWT. Zwróć uwagę, że payload jest niezabezpieczony i może być rozszyfrowany bez prywatnego klucza, dane zakodowane są po prostu w Base64 (popularny "dwustronny" sposób szyfrowania informacji). JWT nie są przeznaczone do wysyłania danych poufnych, takich jak hasła, numery kart kredytowych itp. </p> <pre>
+            {
+              "sub": "1234567890",
+              "name": "John Doe",
+              "iat": 1516239022
+            }
+          </pre> <p> signature - podpis, otrzymany poprzez zaszyfrowanie header i payload, przy użyciu sekretnego klucza prywatnego oraz określonego w headerze algorytmu hashowania. </p> <p> W ten sposób za każdym razem, gdy tworzony jest token na bazie tych samych informacji, </p> <ul class="unnumbered-list-container"> <li>header zostanie taki sam (jeżeli nie zmienisz algorytmu hashowania);</li> <li>payload również będzie taki sam;</li> <li> signature natomiast będzie zawierać zaszyfrowane dane, na podstawie algorytmu hashowania przy użyciu naszego tajnego klucza - może się więc zmieniać (później zobaczymy dlaczego) </li> </ul> </article> <article id="1.3"> <h3>1.3 Kodowanie i dekodowanie JWT</h3> <p> Do tworzenia jwt, będziemy wykorzystywać pakiet npm pod nazwą <a href="https://www.npmjs.com/package/jsonwebtoken">[jsonwebtoken]</a>, który pozwala szyfrować i deszyfrować nasze tokeny. Dla przykładu przeanalizujemy następujący kod: </p> <pre>
+            const jwt = require('jsonwebtoken');
+
+            const payload = { id: 123456, username: 'Larson' };
+            const secret = 'secret word';
+            const token = jwt.sign(payload, secret);
+
+            console.log(token);
+          </pre> <p>Zobaczmy kolejne kroki. Aplikacja zaczyna się od dołączenia modułu jsonwebtoken:</p> <pre>
+            const jwt = require('jsonwebtoken');
+          </pre> <p>Następnie tworzymy payload - czyli dane które chcemy zapisać w tokenie.</p> <pre>
+            const payload = { id: 123456, username: 'Larson' };
+          </pre> <p> Utworzyliśmy obiekt, który zawiera właściwość id z wartością 123456 i właściwość username o wartości 'Larson'. Token powinien być zaszyfrowany (i weryfikowany) przy użyciu tajnego klucza. Tworzymy string, który będzie wykorzystywany do podpisania tokenu, tak, aby nie można było go sfałszować. Tylko serwer powinien mieć dostęp do sekretu. </p> <p> UWAGA: nigdy nie udostępniaj sekretu, nie przechowuj go w aplikacji frontendowej, nie trzymaj go w repozytorium - traktuj go jak hasło do bazy danych. </p> <pre>
+            const secret = 'secret word';
+          </pre> <p> Kolejnym krokiem będzie utworzenie naszego JWT. Robimy to poprzez wywołanie funkcji sign z modułu jsonwebtoken. </p> <pre>
+            const token = jwt.sign(payload, secret);
+          </pre> <p> Funkcja ta przyjmuje payload i nasz tajny klucz. Rezultatem działania tej funkcji jest token, który zawiera nasz zakodowany header, payload i signature. </p> <p> W ostatniej instrukcji wypisujemy nasz token do konsoli. Uruchamiając naszą aplikację, </p> <pre>
+            $ node app.js
+          </pre> <p>otrzymamy mniej więcej taką wartość:</p> <pre>
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+            eyJpZCI6MTIzNDU2LCJ1c2VybmFtZSI6IkxhcnNvbiIsImlhdCI6MTYwMjQ2NDkxNX0.73IZBwNckdPPr0j813BBfFMU0ooitR5UrmaQwLaK6AI
+          </pre> <p> To token podobny do tego, który wzięliśmy ze strony <a href="https://jwt.io/">https://jwt.io/</a> . Zawiera on te same trzy części (header, payload i signature). Jeżeli wstawimy nasz token do sekcji Encoded to zobaczymy jego zawartość </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/39-jwt-1.51de3eaf.png" alt=""> </div> <p> Dodajmy do pliku app.js dekodowanie tokenu i również wypiszmy informacje o nim do konsoli: </p> <pre>
+            const decode = jwt.decode(token);
+
+            console.log(decode);
+          </pre> <p>Teraz, gdy uruchamiamy aplikację, otrzymujemy mniej więcej taki wynik:</p> <pre>
+            $ node app.js
+          </pre> <pre>
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+            eyJpZCI6MTIzNDU2LCJ1c2VybmFtZSI6IkxhcnNvbiIsImlhdCI6MTYwMjQ2NTQ5NH0.UOZww-C3SSZJz_I4o0vZNAAkTwFQFPM8cn1HQwnxRU4
+            { id: 123456, username: 'Larson', iat: 1602465494 }
+          </pre> <p> Widać, że token został z sukcesem zdekodowany i zawiera te same dane co wcześniej, wraz z dodatkowym atrybutem: </p> <p> iat - Issued At - czyli timestamp momentu w który został wygenerowany dany token - dlatego też nasze tokeny będą nieco innego w zależności od tego kiedy zostały utworzone. </p> <p>Do sprawdzenia autentyczności tokenu należy wykorzystać metodę verify.</p> <pre>
+            const verify = jwt.verify(token, secret);
+
+            console.log(verify);
+          </pre> <p> Wartość zmiennej verify jest taka sama, jak w decode, ale jeśli token będzie podrobiony, to zostanie wyrzucony błąd 'JsonWebTokenError: invalid signature'. </p> </article> <article id="1.4"> <h3>1.4 Autoryzacja przy pomocy JWT</h3> <p> Wróćmy teraz do naszej aplikacji po tym, jak dowiedzieliśmy się, jak pracować z JWT. </p> </article> <article id="1.5"> <h4>1.5 Strategia JWT</h4> <p> Zacznijmy od konfiguracji strategii JWT. Odpowiada za nią moduł <a href="https://www.npmjs.com/package/passport-jwt">passport-jwt</a>: </p> <pre>
+            const passport = require('passport');
+            const passportJWT = require('passport-jwt');
+            const User = require('../schemas/user');
+            require('dotenv').config();
+            const secret = process.env.SECRET;
+
+            const ExtractJWT = passportJWT.ExtractJwt;
+            const Strategy = passportJWT.Strategy;
+            const params = {
+              secretOrKey: secret,
+              jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+            };
+
+            // JWT Strategy
+            passport.use(
+              new Strategy(params, function (payload, done) {
+                User.find({ _id: payload.id })
+                  .then(([user]) => {
+                    if (!user) {
+                      return done(new Error('User not found'));
+                    }
+                    return done(null, user);
+                  })
+                  .catch(err => done(err));
+              }),
+            );
+          </pre> <p> Krótko powiedzmy, czym jest strategia w tym kontekście. To funkcja oprogramowania pośredniczącego, przez którą przechodzą zapytania, zanim znajdą się w funkcji opracowywania trasy. Jeżeli strategia uwierzytelniania zwraca błąd w callbacku done, oznacza to, że program opracowywania trasy nie będzie wywołany i wysłana zostanie odpowiedź 401 Unauthorized (Błąd autoryzacji). </p> <p> Strategia JWT jest skonfigurowana tak, aby odczytać token JWT z nagłówka HTTP Authorization (autoryzacja) - dla każdego wprowadzanego zapytania. </p> <p> Zamiast ExtractJWT.fromAuthHeaderAsBearerToken można określić inne metody odczytywania tokenów lub nawet napisać swoją własną. Pełną listę można znaleźć w dokumentacji paczki passport-jwt. </p> <p> Jeśli skonfigurujecie passport tak jak w przykładzie, to będziecie oczekiwać nagłówka w następującej postaci: </p> <pre>
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+            eyJpZCI6IjVmMWYxODhiYzdmMGRiMmJjNDVhZTdkNiIsImlhdCI6MTU5NTg3NDA5MiwiZXhwIjoxNTk1ODc3NjkyfQ.
+            SJuXhjiNrhsZ-9Ikdw7wdkttn-KcLTztd_Rk3kf4elA
+          </pre> <p> W wartości nagłówka, po słowie kluczowym Bearer następuje spacja, a później nasz token JWT. </p> <p> Właściwość secretOrKey to tajny klucz, którym będą podpisane nasze tokeny. Dla bezpieczeństwa przechowujemy tajny klucz tylko w zmiennych środowiskowych, aby nikt nie znalazł ich w kodzie nawet jeśli da radę włamać się do naszego repozytorium. </p> <p> W naszej strategii otrzymujemy ładunek payload, w którym znajduje się id użytkownika. Następnie zwracamy się do bazy danych i próbujemy znaleźć użytkownika o takim id i albo zwracamy obiekt użytkownika, albo błąd, jeśli użytkownik nie został znaleziony. </p> <p>W głównym pliku naszej aplikacji dołączamy następującą konfigurację</p> <pre>
+            ...
+            require('./config/config-passport')
+            app.use('/api', routerApi)
+            ...
+          </pre> </article> <article id="1.6"> <h4>1.6 Route - rejestracja</h4> <p> Tworzymy użytkownika z unikalnym email, jeżeli użytkownik z podanym email już istnieje, zwracamy status 409 Conflict. Jeżeli nie, tworzymy go i zapisujemy w bazie danych: </p> <pre>
+            router.post('/registration', async (req, res, next) => {
+            const { username, email, password } = req.body;
+            const user = await User.findOne({ email }).lean();
+            if (user) {
+              return res.status(409).json({
+                status: 'error',
+                code: 409,
+                message: 'Email is already in use',
+                data: 'Conflict',
+              });
+            }
+            try {
+              const newUser = new User({ username, email });
+              newUser.setPassword(password);
+              await newUser.save();
+              res.status(201).json({
+                status: 'success',
+                code: 201,
+                data: {
+                  message: 'Registration successful',
+                },
+              });
+            } catch (error) {
+              next(error);
+            }
+          });
+          </pre> </article> <article id="1.7"> <h4>1.7 Logowanie - otrzymanie tokenu do autoryzacji</h4> <p> Jeżeli dla użytkownika zgadza się kombinacja email i passsword, generujemy dla niego JWT token. </p> <p>Tworzymy ładunek payload, w którym umieszczamy id użytkownika i jego username.</p> <p> Następnie tworzymy token przy pomocy metody jwt.sign. Pierwszy parametr to wyżej wspomniane dane, drugi to klucz-sekret, który wykorzystujemy w strategii autoryzacji passport-jwt, a trzeci parametr to określenie "żywotności" naszego tokenu JWT, czyli określamy po jakim czasie straci on swoją ważność (informacja ta zostanie automatycznie dołączona do payload). </p> <p> Zdefiniowaliśmy żywotność na jedną godzinę (1h), moglibyśmy też użyć zapisów takich jak: </p> <ul class="unnumbered-list-container"> <li>2 dni - 2d,</li> <li>1 tydzień - 1w</li> <li>5 miesięcy - 5m</li> <li>1 rok - 1y</li> </ul> <p>lub po prostu podać (w milisekundach) wybraną wartość</p> <p>W zasadzie nigdy token nie powinien być "wieczny"</p> <pre>
+            router.post('/login', async (req, res, next) => {
+            const { email, password } = req.body;
+            const user = await User.findOne({ email });
+
+            if (!user || !user.validPassword(password)) {
+              return res.status(400).json({
+                status: 'error',
+                code: 400,
+                message: 'Incorrect login or password',
+                data: 'Bad request',
+              });
+            }
+
+            const payload = {
+              id: user.id,
+              username: user.username,
+            };
+
+            const token = jwt.sign(payload, secret, { expiresIn: '1h' });
+            res.json({
+              status: 'success',
+              code: 200,
+              data: {
+                token,
+              },
+            });
+          });
+          </pre> </article> <article id="1.8"> <h4>1.8 Route dostępny jedynie z tokenem</h4> <p> Tutaj wszystko jest proste - program opracowywania tras zadziała tylko, jeśli wysłany z zapytaniem token jest prawidłowy, a za sprawdzenie jego poprawności odpowiada middleware auth: </p> <pre>
+            router.get('/list', auth, (req, res, next) => {
+            const { username } = req.user;
+            res.json({
+              status: 'success',
+              code: 200,
+              data: {
+                message: `Authorization was successful: ${username}`,
+              },
+            });
+          });
+          </pre> <p> W funkcji auth przy pomocy passport.authenticate uruchamiamy strategię jwt i sprawdzamy otrzymany token JWT. Jeżeli użytkownik nie został znaleziony lub pojawił się inny błąd, zwracamy 401 'Unauthorized'. </p> <p> W przypadku gdy użytkownik istnieje a token nie wygasł, umieszczamy dane użytkownika w req.user i przechodzimy do następnego programu pośredniczącego lub programu obsługi przy pomocy wywołania metody next(): </p> <pre>
+            const auth = (req, res, next) => {
+            passport.authenticate('jwt', { session: false }, (err, user) => {
+              if (!user || err) {
+                return res.status(401).json({
+                  status: 'error',
+                  code: 401,
+                  message: 'Unauthorized',
+                  data: 'Unauthorized',
+                });
+              }
+              req.user = user;
+              next();
+            })(req, res, next);
+          };
+          </pre> <p>Przy pomocy middleware auth możemy teraz ograniczyć dostęp do dowolnych ścieżek.</p> <p>Powyższy przykład to właśnie stosunkowo prosta implementacja autoryzacji JWT.</p> </article> </section>  </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>19.09.2024r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlNode/01-podstawyNode.js.e00d2eb0.js"></script> </body></html>
