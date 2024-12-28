@@ -121,6 +121,7 @@ menuLinks.forEach(link => {
     }
   });
 });
+
 //Footer
 const footerLogo = document.querySelector('div.footer-logo');
 const animationIcon = document.querySelector('div#footerAnimationIcon');
