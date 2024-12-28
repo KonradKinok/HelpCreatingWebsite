@@ -56,6 +56,10 @@ const menuItem = [
     name: '12. Materiały dodatkowe',
     link: '../htmlNode/12-materialyDodatkowe.html',
   },
+  {
+    name: '13. Podstawy SQL',
+    link: '../htmlNode/13-podstawySql.html',
+  },
 ];
 
 menuItem.forEach(element => {

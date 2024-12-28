@@ -17,7 +17,7 @@
     />
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
-    <link rel="stylesheet" href="../styles/nodeStyles.scss" />
+    <link rel="stylesheet" href="../styles/nodeStyles/nodeStylest.scss" />
     <title>Testowanie aplikacji</title>
   </head>
   <body class="body-container">
@@ -33,10 +33,387 @@
       <section id="1" class="text">
         <h1>Moduł 5 - Zajęcia 9 - Testowanie aplikacji</h1>
         <article id="1.1">
-          <h2>1.1 Zarządzanie statusem</h2>
+          <h2>1.1 Wprowadzenie do testowania</h2>
+          <p>
+            Rozwój aplikacji sprawia, że rośnie też prawdopodobieństwo pojawienia się błędów. Bez
+            testowania aplikację często należałoby sprawdzać ręcznie, ale przy dużej ilości
+            funkcjonalności będzie to pochłaniało ogromna ilość czasu.
+          </p>
+          <p>
+            Z pomocą przychodzi nam zautomatyzowane testowanie funkcjonalności aplikacji. Testowanie
+            oznacza, że piszemy kod, który sprawdza, czy nie pojawiły się błędy przy wprowadzaniu
+            zmian do naszej aplikacji.
+          </p>
+          <p>
+            Często to właśnie programiści piszą testy modułowe. Modułowe testowanie wykonuje
+            sprawdzenie logiki aplikacji na poziomie funkcji lub metod.
+          </p>
+          <p>Takie testowanie stosuje się do wszystkich rodzajów aplikacji.</p>
+          <p>Istnieją dwa podejścia do tworzenia nowych funkcjonalności:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Code first. Najpierw programujemy, a potem testujemy. Oznacza to, że na początku pisze
+              się kod, realizuje funkcjonalność naszej aplikacji, a później pisany jest test danej
+              funkcjonalności, następnie albo dopracowujemy funkcjonalność, albo przechodzimy do
+              kolejnego zadania jeśli wszystko jest w porządku.
+            </li>
+            <li>
+              Test first. To drugie podejście. Jeszcze przed napisaniem funkcjonalności naszej
+              aplikacji pisze się test, który sprawdza przyszłą funkcjonalność. Dopiero po
+              stworzeniu testów, przechodzimy do napisania funkcjonalności naszej aplikacji.
+            </li>
+          </ul>
+          <p>Istnieją dwie popularne metodyki które wykorzystują jedno z powyższych podejść:</p>
+          <ul class="unnumbered-list-container">
+            <li>TDD - programowanie przez testowanie (Test-Driven Development);</li>
+            <li>BDD - programowanie przez realizację zachowania (Behavior-Driven Development).</li>
+          </ul>
+          <p>
+            Zarówno w podejściu TDD, jak i w BDD testy pisze się wcześniej, przed napisaniem
+            faktycznego kodu implementującego daną funkcjonalność. Napisanie testów w pierwszej
+            kolejności pomaga zastanowić się nad działaniem oprogramowania, co ostatecznie zapobiega
+            pominięciu w funkcjonalności aplikacji wszystkich potrzebnych elementów. Jak widać na
+            schemacie, BDD pracuje "ponad" TDD.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/40-test-1.png" alt="" />
+          </div>
+          <p>
+            Algorytm pisania testów w podejściu TDD jest następujący: na początku pisze się kilka
+            testów, następnie wykonuje się uruchomienie testów które, ponieważ funkcjonalność
+            jeszcze nie jest realizowana, nie powodzą się. Przystępujemy więc do realizacji
+            niezbędnej funkcjonalności aplikacji i stopniowo testy zaczynają przechodzić, aż do
+            pełnej realizacji funkcjonalności.
+          </p>
+          <p>
+            Algorytm pisania testów w BDD jest prawie taki sam, pojawia się jednak różnica
+            stylistyczna. BDD opisuje projektowanie oprogramowania komputerowego, faktycznie
+            tworzymy więc plan przed napisaniem kodu. Testy pisane są z uwzględnieniem tego, czego
+            oczekujemy od pracy całości jeszcze niezrealizowanej funkcjonalności w kontekście
+            oprogramowania. Podejście takie stworzone zostało, aby naprawić problemy, które mogą
+            pojawić się przy wykorzystaniu TDD, a konkretnie, ułatwić tworzenie kodu przez
+            reprezentację wizualną jego funkcjonalności. Testy i ich wyniki wyglądają bardziej
+            zrozumiale nie tylko dla programistów, lecz także dla klienta.
+          </p>
+          <p>
+            Ważna w zrozumieniu testowania jest piramida testowa. Wykorzystuje się ją do rozłożenia
+            testów na różne poziomy aplikacji.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/41-test-2.png" alt="" />
+          </div>
+          <p>
+            Każdą aplikację można podzielić na kilka warstw. Rozpatrzymy typowe rozwarstwienie z
+            poziomem komponentów, serwisów i interfejsem użytkownika. Dolna część piramidy jest
+            pokryta modułowymi (unit) testami. Napisane są przeważnie przez programistów i pokrywają
+            komponenty atomowe, takie jak klasy, metody i funkcje. Włączane są bardzo często,
+            pracują szybko, a ich ilość w danej aplikacji jest stosunkowo duża.
+          </p>
+          <p>
+            Testy integracyjne. To sprawdzenie, czy nowo realizowana funkcjonalność nie zepsuła kodu
+            aplikacji. To scenariusz, który pokrywa bardziej skomplikowane funkcje, takie jak testy
+            API. Uruchamiamy je dosyć rzadko, z reguły przy releasie i branch merges.
+          </p>
+          <p>
+            W górnej części znajdują się testy interfejsu użytkownika i ręcznego testowania, czyli
+            End-to-End. Nie będziemy ich w poniższych przykładach analizować. Uruchamiane są rzadko
+            i w kontekście całego systemu
+          </p>
         </article>
       </section>
       <!-- section2 -->
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Biblioteki w celach testowych</h2>
+          <p>
+            Biblioteki do testowania to specjalne narzędzia, pomagające w procesie testowania. Można
+            napisać własną bibliotekę uruchamiania swoich testów, ale społeczność programistów już
+            wykonała ogromną część pracy i napisała wiele takich narzędzi, dlatego łatwiej będzie je
+            wykorzystać niż odkrywać koło na nowo.
+          </p>
+        </article>
+        <article id="2.2">
+          <h3>2.2 Stack technologiczny do testowania modułowego</h3>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/42-test-library-1.png" alt="" />
+          </div>
+        </article>
+        <article id="2.3">
+          <h4>2.3 Runner, Reporter</h4>
+          <p>
+            Niezbędne, aby wykonać testy. Nasz test modułowy to zwykły plik JavaScript, ale aby
+            korzystać z dodanych funkcji twórców testów, na przykład włączać kilka testów na raz,
+            informować o błędach lub sukcesie wykonania, potrzebny jest nam wykonawca testów i
+            narzędzie które zgłosi ewentualne błędy, czyli runner i reporter. Będziemy używać
+            <a href="https://jestjs.io/">Jest</a>, ale istnieją alternatywy takie jak
+            <a href="https://mochajs.org/">Mocha</a> i
+            <a href="https://jasmine.github.io/">Jasmine</a> lub
+            <a href="https://github.com/avajs/ava">Ava</a> .
+          </p>
+        </article>
+        <article id="2.4">
+          <h4>2.4 SPY, Mock</h4>
+          <p>
+            Przy pisaniu testów unikamy łączenia ich z innymi częściami infrastruktury naszej
+            aplikacji. W ten sposób inne nietestowalne funkcje powinny być zamienione "fałszywą"
+            funkcją, która zachowuje się tak, jak jest od niej oczekiwane i tu z pomocą przyjdą nam
+            stuby i mocki. Różnica między terminami polega na tym, że stub niczego nie sprawdza, a
+            tylko imituje wprowadzony stan, a mock to obiekt, który ma żądania. Na przykład, że
+            testowana funkcja powinna być wywołana określoną ilość razy. Do testowania stubs i mock
+            wykorzystujemy Jest, ale istnieją również inne biblioteki
+            <a href="https://sinonjs.org/">Sinon </a> i
+            <a href="https://github.com/testdouble/testdouble.js/">Testdouble</a>.
+          </p>
+        </article>
+        <article id="2.5">
+          <h4>2.5 Matchers</h4>
+          <p>
+            Biblioteki służące do sprawdzania warunków takich jak: czy a jest większe niż b?.
+            Istnieje wiele rozwiązań które do tego służą, <a href="https://jestjs.io/">Jest</a> lub
+            alternatywnie innymi <a href="https://www.chaijs.com/">Chai</a> i
+            <a href="https://shouldjs.github.io/">Shouldjs</a>
+            .
+          </p>
+        </article>
+        <article id="2.6">
+          <h4>2.6 Coverage</h4>
+          <p>
+            Stopień pokrycia testami. To wskaźnik (często procentowy), który służy jako punkt
+            orientacyjny przy określaniu tego, jak dobrze przetestowany jest już nasz kod. Jest
+            używa popularnego narzędzia o nazwie <a href="https://istanbul.js.org/">Istanbul</a> aby
+            określić poziom coverage.
+          </p>
+          <p>
+            Dziś dostępne jest wiele frameworków do testowania modułowego, niektóre mniej inne
+            bardziej skupione na jednym zagadnieniu. Jak widać biblioteka Jest przyda się nam do
+            dowolnego zadania, które może pojawić się przy testowaniu naszej aplikacji .
+          </p>
+        </article>
+      </section>
+      <!-- section3 -->
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Jest</h2>
+          <p>
+            <a href="https://jestjs.io/">Jest</a> — narzędzie wiersza poleceń, zbudowane jest na
+            podstawie innej popularnej biblioteki testowania Jasmine. Za Jest odpowiedzialny jest
+            Facebook i często wykorzystuje się go razem z React. Dlatego też ważne, żeby fullstack
+            deweloper umiał się nim posługiwać.
+          </p>
+          <p>Zalety i cechy charakterystyczne Jest:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Wbudowana w bibliotekę
+              <a href="https://jestjs.io/docs/mock-functions">imitacja modułów</a> JavaScript/Node
+              upraszcza izolowanie kodu przy testowaniu modułowym;
+            </li>
+            <li>
+              Aby zacząć pracować z biblioteką nie trzeba dołączać wielu różnych narzędzi, na
+              przykład dla Mocha wymagane jest importowanie Chai, podłączenie Istanbul i tak dalej;
+            </li>
+            <li>
+              Izolowanie (sandboxed) i równoczesne wykonywanie testów prowadzi do przyspieszenia ich
+              wykonania;
+            </li>
+            <li>
+              Zapewniona modułowość, różne ustawienia i łatwość dostosowania do danej aplikacji.
+            </li>
+          </ul>
+          <p>
+            Biblioteki dla modułowego testowania wykorzystują te same konstrukcje dla określenia
+            testów i ich zbiorów. Jest nie stanowi wyjątku w tym przypadku.
+          </p>
+          <p>Konstrukcje w plikach testów:</p>
+          <ul class="unnumbered-list-container">
+            <li>describe - pojedynczy zbiór testów;</li>
+            <li>test (lub it) - pojedynczy test;</li>
+            <li>beforeAll - przygotowanie przed testowaniem;</li>
+            <li>beforeEach - przygotowanie dla każdego zbioru testów lub testu;</li>
+            <li>afterAll - działania po zakończeniu testowania;</li>
+            <li>afterEach - działania po zakończeniu każdego zbioru lub testu.</li>
+          </ul>
+          <p>
+            Polecenie describe określa zbiór testów. Wykorzystuje się je jako swego rodzaju kontener
+            dla zbioru testów.
+          </p>
+          <p>
+            Polecenie test wykorzystywane jest dla pojedynczego testu lub inaczej - przypadku
+            testowego.
+          </p>
+          <p>
+            Inne konstrukcje, takie jak beforeAll, afterAll, beforeEach i afterEach, jak wynika to z
+            ich nazw, wykonywane są przed lub po zbiorze testów lub przypadku testowym. Przy
+            beforeEach i afterEach wewnętrzny kod tych funkcji wykonuje się wielokrotnie.
+          </p>
+          <p>
+            Testy powinny zawierać minimum po jednym poleceniu describe i nieograniczoną ilość
+            poleceń test. Pozostałe polecenia nie są obowiązkowe jeśli nie są nam potrzebne.
+          </p>
+          <p>
+            Stwórzmy prosty przykład. Aby móc skorzystać z Jest w nowym folderze projektu należy
+            wykonać polecenie:
+          </p>
+          <pre>
+            npm init -y
+          </pre>
+          <p>To utworzy plik package.json. Następnie zainstalujemy Jest:</p>
+          <pre>
+            npm i jest -D
+          </pre>
+          <p>
+            Teraz należy otworzyć plik package.json i ręcznie zmienić wartość polecenia test na
+            jest, jak to przedstawiono niżej. Dodaliśmy więc komendę która uruchomi testy.
+          </p>
+          <pre>
+            {
+              "name": "test-jest",
+              "version": "1.0.0",
+              "description": "",
+              "main": "index.js",
+              "scripts": {
+                "test": "jest"
+              },
+              "keywords": [],
+              "author": "",
+              "license": "ISC",
+              "devDependencies": {
+                "jest": "^26.6.1"
+              }
+            }
+          </pre>
+          <p>Utworzymy moduł pow.js, który będzie zawierał funkcję potęgowania.</p>
+          <pre>
+            module.exports = (a, b) => {
+              return a ** b;
+            };
+          </pre>
+          <p>
+            Teraz utworzymy plik z testami pow.test.js. W nazwie będzie zawierał słowo- klucz test
+            (wymóg Jest dzięki któremu biblioteka może rozpoznać plik z testami):
+          </p>
+          <pre>
+            const pow = require('./pow');
+
+            describe('hooks', function () {
+              beforeAll(() => {
+                console.log('Wykonam się przed testami');
+              });
+
+              afterAll(() => {
+                console.log('Wykonam się po testach');
+              });
+
+              beforeEach(() => {
+                console.log('Wykonam się przed każdym testem');
+              });
+
+              afterEach(() => {
+                console.log('Wykonam się po każdym teście');
+              });
+
+              test('1 to power 2 to equal 1', () => {
+                console.log('1 to power 2 to equal 1');
+                expect(pow(1, 2)).toBe(1);
+              });
+
+              test('3 to power 2 to equal 9', () => {
+                console.log('3 to power 2 to equal 9');
+                expect(pow(3, 2)).toBe(9);
+              });
+            });
+          </pre>
+          <p>
+            Jako przykład wykorzystaliśmy wszystkie konstrukcje o których wcześniej mówiliśmy. W
+            każdej z nich wyprowadzamy przy pomocy console.log odpowiednią wiadomość.
+          </p>
+          <p>
+            Faktycznie testowanie funkcji obsługujemy dwoma testami, gdzie oczekujemy, że funkcja
+            potęgowania zwróci prawidłowy rezultat.
+          </p>
+          <p>Włączenie testów nastąpi przez polecenie:</p>
+          <pre>
+            npm run test
+          </pre>
+          <p>Po włączeniu powinniśmy otrzymać taki log w konsoli:</p>
+          <pre>
+             console.log
+                Wykonam się przed testami
+
+                  at Object.log (pow.test.js:5:13)
+
+              console.log
+                Wykonam się przed każdym testem
+
+                  at Object.log (pow.test.js:13:13)
+
+              console.log
+                1 to power 2 to equal 1
+
+                  at Object.log (pow.test.js:21:13)
+
+              console.log
+                Wykonam się po każdym teście
+
+                  at Object.log (pow.test.js:17:13)
+
+              console.log
+                Wykonam się przed każdym testem
+
+                  at Object.log (pow.test.js:13:13)
+
+              console.log
+                3 to power 2 to equal 9
+
+                  at Object.log (pow.test.js:26:13)
+
+              console.log
+                Wykonam się po każdym teście
+
+                  at Object.log (pow.test.js:17:13)
+
+              console.log
+                Wykonam się po testach
+
+                  at Object.log (pow.test.js:9:13)
+
+            PASS  ./pow.test.js
+              hooks
+                ✓ 1 to power 2 to equal 1 (6 ms)
+                ✓ 3 to power 2 to equal 9 (3 ms)
+
+            Test Suites: 1 passed, 1 total
+            Tests:       2 passed, 2 total
+            Snapshots:   0 total
+            Time:        0.521 s
+            Ran all test suites.
+          </pre>
+          <p>Zwróć uwagę na porządek wykonania konstrukcji.</p>
+          <p>
+            W Jest wykorzystuje się składnię oczekiwania, u podstaw której leży język twierdzenia
+            Expect. Wymieńmy podstawowe metody Expect, które obsługuje Jest. Pozostałe można
+            zobaczyć w <a href="https://jestjs.io/docs/using-matchers">dokumentacji</a>.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>not — odwraca wartość następnej operacji w łańcuchu sprawdzenia;</li>
+            <li>
+              expect(func(arg)).toBe(value) — sprawdzenie ścisłej równości pomiędzy zwróconą
+              wartością func(arg) a podanym value;
+            </li>
+            <li>expect(func(arg)).toEqual(value) — głębokie porównanie podanych wartości</li>
+            <li>expect(func(arg)).toBeTruthy() — sprawdza, czy podana wartość jest truthy</li>
+            <li>expect(func(arg)).toBeNull() — sprawdza czy otrzymana wartość to null;</li>
+            <li>expect(func(arg)).toBeUndefined() — sprawdza czy wartość to undefined;</li>
+            <li>
+              expect(func).toBeDefined() — sprawdza, czy funkcja/zmienna jest zdefiniowana/li>
+            </li>
+          </ul>
+          <p>
+            W expect() przekazywane jest wywołanie funkcji, która zwraca faktyczną wartość i
+            wykorzystując metody Expect porównujemy ją z oczekiwaną wartością, twardo zakodowaną w
+            testach.
+          </p>
+        </article>
+      </section>
     </main>
     <footer class="footer">
       <div class="footer-logo">

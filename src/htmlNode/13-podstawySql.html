@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
+    />
+    <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
+    <link rel="stylesheet" href="../styles/stylStartowy.scss" />
+    <link rel="stylesheet" href="../styles/nodeStyles/nodeStylest.scss" />
+    <title>Podstawy SQL</title>
+  </head>
+  <body class="body-container">
+    <header class="menu-sticky">
+      <nav class="nav-container">
+        <!-- Nawigacja do innych stron -->
+        <ul id="main-menu" class="nav-list-container"></ul>
+        <ul id="this-page-menu" class="this-page-menu"></ul>
+      </nav>
+    </header>
+    <main class="main-container">
+      <!-- section1 -->
+      <section id="1" class="text">
+        <h1>Moduł 7 - Zajęcia 12 - Materiały dodatkowe - Podstawy SQL</h1>
+        <article id="1.1">
+          <h2>1.1 Praca z bazami SQL</h2>
+        </article>
+        <article id="1.2">
+          <h3>1.2 CREATE TABLE: Tworzymy tabelę</h3>
+          <p>
+            Do utworzenia tabeli w SQL wykorzystywane jest wyrażenie CREATE TABLE. Przyjmuje ono
+            jako parametry nazwy kolumn, które chcemy wprowadzić, a także ich typy danych.
+          </p>
+          <p>Utworzymy trzy tabele z nazwami "genders", "users" i "contacts".</p>
+          <p>W tabeli "genders" będą trzy kolumny:</p>
+          <ul class="unnumbered-list-container">
+            <li>id - numer porządkowy płci typ INT, to unikalny klucz;</li>
+            <li>name - nazwa płci typ VARCHAR(30);</li>
+            <li>
+              created_at - czas utworzenia zapisu typ TIMESTAMP, wartość domyśla to obecny czas i
+              data.
+            </li>
+          </ul>
+          <p>Kod do utworzenia:</p>
+          <pre>
+            CREATE TABLE genders (
+                id INT PRIMARY KEY,
+                name VARCHAR(30),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+          </pre>
+          <p>W tabeli "users" będziemy mieli siedem kolumn:</p>
+          <ul class="unnumbered-list-container">
+            <li>id - numer porządkowy kontaktu typ INT, to unikalny klucz;</li>
+            <li>name - nazwa użytkownika, typ VARCHAR(30)</li>
+            <li>email - adres elektroniczny użytkownika, typ VARCHAR(30);</li>
+            <li>password - hasło użytkownika, typ VARCHAR(30);</li>
+            <li>age - wiek użytkownika, typ TINYINT UNSIGNED;</li>
+            <li>
+              gender_id - to foreign key, który wiąże tabele "users" i "genders" połączeniem jeden
+              do wielu. Jedna płeć może być u wielu użytkowników;
+            </li>
+            <li>
+              created_at - czas utworzenia zapisu typ TIMESTAMP, wartość domyślna to bieżące czas i
+              data.
+            </li>
+          </ul>
+          <p>Kod do utworzenia:</p>
+          <pre>
+            CREATE TABLE users (
+                id INT PRIMARY KEY,
+                name VARCHAR(30),
+                email VARCHAR(30),
+                password VARCHAR(30),
+                age TINYINT UNSIGNED,
+                gender_id INT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (gender_id) REFERENCES genders (id)
+                      ON DELETE SET NULL
+                      ON UPDATE CASCADE
+            );
+          </pre>
+          <p>Tutaj pojawiła się u nas instrukcja:</p>
+          <pre>
+                FOREIGN KEY (gender_id) REFERENCES genders (id)
+                      ON DELETE SET NULL
+                      ON UPDATE CASCADE
+          </pre>
+          <p>
+            Mówi, że dla kolumny gender_id w tabeli users należy utworzyć referencyjny odnośnik do
+            tabeli genders, przy czym wartość kolumny będzie się zgadzać z wartością kolumny id w
+            tabeli genders dla konkretnego zapisu. Zapis ON DELETE SET NULL mówi, że jeśli zapis
+            będzie usunięty z tabeli genders, wtedy powinniśmy wartość dla kolumny gender w tabeli
+            users ustawić w wartości NULL. Zapis ON UPDATE CASCADE mówi, że jeśli zmieniona zostanie
+            wartość pola id w tabeli genders, to wartość dla kolumny gender_id w tabeli users
+            również zostanie automatycznie zmieniona.
+          </p>
+          <p>W tabeli "contacts" będzie siedem kolumn:</p>
+          <ul class="unnumbered-list-container">
+            <li>id - numer porządkowy kontaktu typ INT, to unikalny klucz;</li>
+            <li>name - nazwa kontaktu typ VARCHAR(30);</li>
+            <li>email - adres elektroniczny kontaktu typ VARCHAR(30);</li>
+            <li>phone - telefon kontaktu typ VARCHAR(30);</li>
+            <li>favorite - kontakt znajduje się w ulubionych lub nie, logicznego typu;</li>
+            <li>
+              user_id - to foreign key, który wiąże tablicę "contacts" i "users" połączeniem jeden
+              do wielu. Jeden użytkownik może mieć wiele kontaktów;
+            </li>
+            <li>
+              created_at - czas utworzenia zapisu typ TIMESTAMP, wartość domyślna to bieżące czas i
+              data.
+            </li>
+          </ul>
+          <p>Kod będzie wyglądał następująco:</p>
+          <pre>
+            CREATE TABLE contacts (
+                id INT PRIMARY KEY,
+                name VARCHAR(30),
+                email VARCHAR(30),
+                phone VARCHAR(30),
+                favorite BOOLEAN,
+                user_id INT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users (id)
+                      ON DELETE CASCADE
+                      ON UPDATE CASCADE
+            );
+          </pre>
+          <p>Po tym nasza baza danych będzie miała następujący ER-wykres:</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/61-baza-sql-1.png" alt="" />
+          </div>
+        </article>
+        <article id="1.3">
+          <h3>1.3 INSERT: Wprowadzanie danych</h3>
+          <p>
+            Teraz uzupełnijmy nasze tabele. Można to zrobić przy pomocy polecenia INSERT. Format
+            polecenia przed wprowadzeniem danych - pokazujemy nazwę kolumn. Jeżeli nie wskażemy
+            którejś z kolumn, na jej miejscu będzie zapisane NULL lub wartość domyślna.
+          </p>
+          <p>Wstawmy wartości do tabeli genders:</p>
+          <pre>
+            INSERT INTO genders (id, name)
+            VALUES (1, 'male'), (2, 'female');
+          </pre>
+          <p>
+            Przy wstawianiu nie wskazaliśmy wartości dla pola created_at, ale dzięki instrukcji
+            DEFAULT CURRENT_TIMESTAMP wartość będzie podstawiona automatycznie.
+          </p>
+          <p>Wstawiamy wartość do tabeli users:</p>
+          <pre>
+            INSERT INTO users (id, name, email, password, age, gender_id)
+            VALUES (1, 'Boris', 'boris@test.com', 'password', 23, 1),
+            (2, 'Alina', 'alina@test.com', 'password', 32, 2),
+            (3, 'Maksim', 'maksim@test.com', 'password', 40, 1);
+          </pre>
+          <p>Wstawiamy wartość do tabeli contacts:</p>
+          <pre>
+            INSERT INTO contacts (id, name, email, phone, favorite, user_id)
+            VALUES (1, 'Allen Raymond', 'nulla.ante@vestibul.co.uk', '(992) 914-3792', 0, 1),
+            (2, 'Chaim Lewis', 'dui.in@egetlacus.ca', '(294) 840-6685', 1, 1),
+            (3, 'Kennedy Lane', 'mattis.Cras@nonenimMauris.net', '(542) 451-7038', 1, 2),
+            (4, 'Wylie Pope', 'est@utquamvel.net', '(692) 802-2949', 0, 2),
+            (5, 'Cyrus Jackson', 'nibh@semsempererat.com', '(501) 472-5218', 0, null);
+          </pre>
+        </article>
+        <article id="1.4">
+          <h3>1.4 SELECT: Odebranie danych</h3>
+          <p>
+            Dane zapytanie wykorzystywane jest w przypadku, w którym musimy pokazać dane w tabeli.
+            Chyba najprostszym przykładem wykorzystywania SELECT będzie następujące zapytanie:
+          </p>
+          <pre>
+            SELECT * FROM contacts
+          </pre>
+          <p>Rezultatem danego zapytania będzie tabela ze wszystkimi danymi w tabeli contacts.</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>email</th>
+                <th>phone</th>
+                <th>favorite</th>
+                <th>user</th>
+                <th>created_at</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Allen Raymond</td>
+                <td>
+                  <a
+                    href="mailto:nulla.ante@vestibul.co.uk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >nulla.ante@vestibul.co.uk</a
+                  >
+                </td>
+                <td>(992) 914-3792</td>
+                <td>0</td>
+                <td>1</td>
+                <td>2021-06-06 23:18:08</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Chaim Lewis</td>
+                <td>
+                  <a href="mailto:dui.in@egetlacus.ca" target="_blank" rel="noopener noreferrer"
+                    >dui.in@egetlacus.ca</a
+                  >
+                </td>
+                <td>(294) 840-6685</td>
+                <td>1</td>
+                <td>1</td>
+                <td>2021-06-06 23:18:08</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Kennedy Lane</td>
+                <td>
+                  <a
+                    href="mailto:mattis.Cras@nonenimMauris.net"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >mattis.Cras@nonenimMauris.net</a
+                  >
+                </td>
+                <td>(542) 451-7038</td>
+                <td>1</td>
+                <td>2</td>
+                <td>2021-06-06 23:18:08</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Wylie Pope</td>
+                <td>
+                  <a href="mailto:est@utquamvel.net" target="_blank" rel="noopener noreferrer"
+                    >est@utquamvel.net</a
+                  >
+                </td>
+                <td>(692) 802-2949</td>
+                <td>0</td>
+                <td>2</td>
+                <td>2021-06-06 23:18:08</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Cyrus Jackson</td>
+                <td>
+                  <a href="mailto:nibh@semsempererat.com" target="_blank" rel="noopener noreferrer"
+                    >nibh@semsempererat.com</a
+                  >
+                </td>
+                <td>(501) 472-5218</td>
+                <td>0</td>
+                <td></td>
+                <td>2021-06-06 23:18:08</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Znak gwiazdki * oznacza, że chcemy pokazać wszystkie kolumny z tabeli bez wyjątków.
+            Ponieważ w bazie danych zazwyczaj jest więcej niż jedna tabela, musimy wskazać nazwę
+            tej, z której dane chcemy zobaczyć. Robi się to, wykorzystując słowo kluczowe FROM.
+          </p>
+          <p>
+            Gdy potrzebujesz tylko niektórych kolumn z tabeli, możesz wskazać ich nazwy przez
+            przecinek zamiast gwiazdki.
+          </p>
+          <pre>
+            SELECT name, email FROM contacts ORDER BY name
+          </pre>
+          <p>
+            Czasem potrzebujemy posortować wyjściowe dane. W tym celu wykorzystujemy ORDER BY "nazwa
+            kolumny". OREDER BY ma dwa modyfikatory: ASC sortować rosnąco, wartość domyślna i DESC
+            sortować malejąco:
+          </p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Allen Raymond</td>
+                <td>
+                  <a
+                    href="mailto:nulla.ante@vestibul.co.uk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >nulla.ante@vestibul.co.uk</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Chaim Lewis</td>
+                <td>
+                  <a href="mailto:dui.in@egetlacus.ca" target="_blank" rel="noopener noreferrer"
+                    >dui.in@egetlacus.ca</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Cyrus Jackson</td>
+                <td>
+                  <a href="mailto:nibh@semsempererat.com" target="_blank" rel="noopener noreferrer"
+                    >nibh@semsempererat.com</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Kennedy Lane</td>
+                <td>
+                  <a
+                    href="mailto:mattis.Cras@nonenimMauris.net"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >mattis.Cras@nonenimMauris.net</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Wylie Pope</td>
+                <td>
+                  <a href="mailto:est@utquamvel.net" target="_blank" rel="noopener noreferrer"
+                    >est@utquamvel.net</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Aby włączyć do danych wyjściowych tylko niektóre konkretne zapisy według warunku,
+            wykorzystuje się słowo kluczowe WHERE. Pozwala ono filtrować dane po określonym warunku.
+          </p>
+          <p>W następnym zapytaniu wprowadzimy tylko wybrane kontakty.</p>
+          <pre>
+            SELECT name, email
+            FROM contacts
+            WHERE favorite = true
+            ORDER BY name
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Chaim Lewis</td>
+                <td>
+                  <a href="mailto:dui.in@egetlacus.ca" target="_blank" rel="noopener noreferrer"
+                    >dui.in@egetlacus.ca</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Kennedy Lane</td>
+                <td>
+                  <a
+                    href="mailto:mattis.Cras@nonenimMauris.net"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >mattis.Cras@nonenimMauris.net</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Warunki w WHERE mogą być napisane z wykorzystaniem logicznych operatorów AND i OR, a
+            także matematycznych operatorów porównania (=, &lt, >, &lt=, >=, &lt>).
+          </p>
+          <p>
+            Warunki w WHERE mogą być zapisane z wykorzystaniem jeszcze kilku poleceń, które
+            wyglądają następująco:
+          </p>
+          <h4>
+            IN - IN - porównuje wartość w kolumnie z kilkoma możliwymi wartościami i zwraca true,
+            jeżeli wartość pokrywa się choćby z jedną wartością.
+          </h4>
+          <pre>
+            SELECT name, email
+            FROM users
+            WHERE age IN(20, 30, 40)
+            ORDER BY name
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Maksim</td>
+                <td>
+                  <a href="mailto:maksim@test.com" target="_blank" rel="noopener noreferrer"
+                    >maksim@test.com</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h4>BETWEEN - sprawdza, czy wartość znajduje się w jakimś przedziale.</h4>
+          <pre>
+            SELECT name, email, age
+            FROM users
+            WHERE age BETWEEN 30 AND 40
+            ORDER BY name
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>email</th>
+                <th>age</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Alina</td>
+                <td>
+                  <a href="mailto:alina@test.com" target="_blank" rel="noopener noreferrer"
+                    >alina@test.com</a
+                  >
+                </td>
+                <td>32</td>
+              </tr>
+              <tr>
+                <td>Maksim</td>
+                <td>
+                  <a href="mailto:maksim@test.com" target="_blank" rel="noopener noreferrer"
+                    >maksim@test.com</a
+                  >
+                </td>
+                <td>40</td>
+              </tr>
+            </tbody>
+          </table>
+          <h4>LIKE - wyszukuje po szablonie.</h4>
+          <p>
+            Tak więc, jeżeli chcemy wyprowadzić wszystkie kontakty, w których nazwie jest litera
+            'L', możemy wykorzystać następujący zapis:
+          </p>
+          <pre>
+            SELECT name, email
+            FROM contacts
+            WHERE name LIKE '%L%'
+            ORDER BY name
+          </pre>
+          <p>Znak % oznacza dowolny ciąg znaków (0 znaków również się do tego zalicza).</p>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Allen Raymond</td>
+                <td>
+                  <a
+                    href="mailto:nulla.ante@vestibul.co.uk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >nulla.ante@vestibul.co.uk</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Chaim Lewis</td>
+                <td>
+                  <a href="mailto:dui.in@egetlacus.ca" target="_blank" rel="noopener noreferrer"
+                    >dui.in@egetlacus.ca</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Kennedy Lane</td>
+                <td>
+                  <a
+                    href="mailto:mattis.Cras@nonenimMauris.net"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >mattis.Cras@nonenimMauris.net</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Wylie Pope</td>
+                <td>
+                  <a href="mailto:est@utquamvel.net" target="_blank" rel="noopener noreferrer"
+                    >est@utquamvel.net</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            W SQL również jest inwersja. W tym celu trzeba napisać NOT przed dowolnym logicznym
+            wyrażeniem w warunku (NOT BETWEEN i tak dalej).
+          </p>
+          <pre>
+            SELECT name, email, age
+            FROM users
+            WHERE age NOT BETWEEN 30 AND 40
+            ORDER BY name
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>email</th>
+                <th>age</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Boris</td>
+                <td>
+                  <a href="mailto:boris@test.com" target="_blank" rel="noopener noreferrer"
+                    >boris@test.com</a
+                  >
+                </td>
+                <td>23</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+        <article id="1.5">
+          <h3>1.5 Funkcje agregacji</h3>
+          <p>
+            SQL ma wiele wbudowanych funkcji do wykonywania różnych operacji. Przeanalizujemy
+            najczęściej wykorzystywane:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>COUNT() - zwraca ilość linijek;</li>
+            <li>SUM() - zwraca sumę wszystkich pól z liczbowymi wartościami w nich;</li>
+            <li>AVG() - zwraca średnią wartość wśród linijek;</li>
+            <li>MIN()/MAX() - zwraca minimalną/maksymalną wartość wśród linijek.</li>
+          </ul>
+          <p>Znajdź minimalny wiek wśród użytkowników.</p>
+          <pre>
+            SELECT min(age) as minAge
+            FROM users
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>minAge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>23</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Znajdź średni wiek użytkowników:</p>
+          <pre>
+            SELECT avg(age) as averageAge
+            FROM users
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>averageAge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>31.666666666666668</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Znajdźmy ilość kontaktów dla każdego użytkownika przy pomocy funkcji COUNT. W operatorze
+            SELECT musimy dodać łańcuch GROUP BY user_id, ponieważ funkcja jest agregowana po polu
+            user_id i należy grupować znaczenia po nazwie.
+          </p>
+          <pre>
+            SELECT COUNT(user_id) as total_contacts, user_id
+            FROM contacts
+            GROUP BY user_id
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>total_contacts</th>
+                <th>user_id</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>2</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Tak jak oczekiwaliśmy, dla każdego użytkownika dodaliśmy po dwa kontakty. Jest także
+            kontakt bez użytkownika.
+          </p>
+        </article>
+        <article id="1.6">
+          <h3>1.6 Umieszczone SELECT</h3>
+          <p>
+            Dotychczas analizowaliśmy tylko proste zapytania. Często jednak trzeba wykorzystać tak
+            zwane umieszczone zapytania lub podzapytania.
+          </p>
+          <p>
+            Należy wyprowadzić kontakty dla użytkowników, których wiek jest mniejszy niż 30 lat.
+          </p>
+          <p>Pierwsze zapytanie, znaleźć id użytkowników młodszych niż 30 lat.</p>
+          <pre>
+            SELECT id
+            FROM users
+            WHERE age < 30
+          </pre>
+          <p>Następnie łączymy zapytania przy pomocy WHERE:</p>
+          <pre>
+            SELECT *
+            FROM contacts
+            WHERE user_id IN (SELECT id
+                FROM users
+                WHERE age < 30)
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>email</th>
+                <th>phone</th>
+                <th>favorite</th>
+                <th>user_id</th>
+                <th>created_at</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Allen Raymond</td>
+                <td>
+                  <a
+                    href="mailto:nulla.ante@vestibul.co.uk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >nulla.ante@vestibul.co.uk</a
+                  >
+                </td>
+                <td>(992) 914-3792</td>
+                <td>0</td>
+                <td>1</td>
+                <td>2021-06-07 07:59:35</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Chaim Lewis</td>
+                <td>
+                  <a href="mailto:dui.in@egetlacus.ca" target="_blank" rel="noopener noreferrer"
+                    >dui.in@egetlacus.ca</a
+                  >
+                </td>
+                <td>(294) 840-6685</td>
+                <td>1</td>
+                <td>1</td>
+                <td>2021-06-07 07:59:35</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+        <article id="1.7">
+          <h3>1.7 Pseudonimy</h3>
+          <p>
+            W poprzednich przykładach używaliśmy już pseudonimów. Aby nadać kolumnie pseudonim,
+            można wykorzystać słowo klucz AS:
+          </p>
+          <pre>
+            SELECT id, name as fullName, phone as mobile
+            FROM contacts
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>fullName</th>
+                <th>mobile</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Allen Raymond</td>
+                <td>(992) 914-3792</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Chaim Lewis</td>
+                <td>(294) 840-6685</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Kennedy Lane</td>
+                <td>(542) 451-7038</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Wylie Pope</td>
+                <td>(692) 802-2949</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Cyrus Jackson</td>
+                <td>(501) 472-5218</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Pseudonimy często wykorzystuje się na początku pracy z powiązanymi tabelami.</p>
+        </article>
+        <article id="1.8">
+          <h3>1.8 JOIN: Przyłączenie tabeli</h3>
+          <p>
+            W bazach danych tabele są najczęściej powiązane między sobą. Na przykład, mamy tabele
+            users i genders powiązane ze sobą polem gender_id, a tabele contacts i users polem
+            user_id.
+          </p>
+          <p>
+            Do połączenia tabel wykorzystuje się opertator JOIN. Przeanalizujemy konkretne
+            przykłady.
+          </p>
+          <p>
+            Jak już wspomnieliśmy, w tabeli users znajduje się kolumna gender_id, w danym przypadku
+            jest ona tak zwanym foreign key i ogniwem łączącym dwie tabele. Jeżeli chcemy
+            wyprowadzić wszystkie informacje o użytkowniku, łącznie z informacją o jego płci, musimy
+            podłączyć drugą tabelę genders. Aby to zrobić, można wykorzystać INNER JOIN, gdzie
+            warunek połączenia wprowadza się przy pomocy ON:
+          </p>
+          <pre>
+            SELECT u.id, u.name, u.email, g.name AS gender
+            FROM users AS u
+            INNER JOIN genders AS g ON g.id = u.gender_id
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>email</th>
+                <th>gender</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Boris</td>
+                <td>
+                  <a href="mailto:boris@test.com" target="_blank" rel="noopener noreferrer"
+                    >boris@test.com</a
+                  >
+                </td>
+                <td>male</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Alina</td>
+                <td>
+                  <a href="mailto:alina@test.com" target="_blank" rel="noopener noreferrer"
+                    >alina@test.com</a
+                  >
+                </td>
+                <td>female</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Maksim</td>
+                <td>
+                  <a href="mailto:maksim@test.com" target="_blank" rel="noopener noreferrer"
+                    >maksim@test.com</a
+                  >
+                </td>
+                <td>male</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            To prosty przykład wykorzystania JOIN. Istnieje jeszcze kilka wariantów jego
+            wykorzystania:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>(INNER) JOIN: Zwraca zapisy, których wartości odpowiadają sobie w obu tabelach.</li>
+            <li>
+              LEFT (OUTER) JOIN: Zwraca wszystkie zapisy z lewej tabeli i odpowiadające zapisy z
+              prawej tabeli.
+            </li>
+            <li>
+              RIGHT (OUTER) JOIN: Zwraca wszystkie zapisy z prawej tabeli i odpowiadające zapisy z
+              lewej tabeli.
+            </li>
+            <li>
+              FULL (OUTER) JOIN: Zwraca wszystkie zapisy, jeżeli są zgodności w lewej lub prawej
+              tabeli.
+            </li>
+          </ul>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/62-baza-sql-2.png" alt="" />
+          </div>
+          <p>
+            W okrągłym nawiasie słowa można domyślnie nie pisać, to znaczy zapisy INNER JOINiJOIN`
+            to ekwiwalenty.
+          </p>
+          <p>
+            Przeanalizujmy konkretny przykład, aby zrozumieć różnicę między INNER JOIN i LEFT JOIN:
+          </p>
+          <pre>
+            SELECT c.id, c.name, c.email, u.name AS owner
+            FROM contacts AS c
+            JOIN users AS u ON u.id = c.user_id
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>email</th>
+                <th>owner</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Allen Raymond</td>
+                <td>
+                  <a
+                    href="mailto:nulla.ante@vestibul.co.uk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >nulla.ante@vestibul.co.uk</a
+                  >
+                </td>
+                <td>Boris</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Chaim Lewis</td>
+                <td>
+                  <a href="mailto:dui.in@egetlacus.ca" target="_blank" rel="noopener noreferrer"
+                    >dui.in@egetlacus.ca</a
+                  >
+                </td>
+                <td>Boris</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Kennedy Lane</td>
+                <td>
+                  <a
+                    href="mailto:mattis.Cras@nonenimMauris.net"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >mattis.Cras@nonenimMauris.net</a
+                  >
+                </td>
+                <td>Alina</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Wylie Pope</td>
+                <td>
+                  <a href="mailto:est@utquamvel.net" target="_blank" rel="noopener noreferrer"
+                    >est@utquamvel.net</a
+                  >
+                </td>
+                <td>Alina</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            W tym przypadku, w próbie, nie otrzymujemy kontaktu bez użytkownika, ponieważ
+            wykorzystywane było skrzyżowanie tabel. Aby otrzymać wszystkie kontakty, nawet jeśli
+            brak przy nich właścicieli z tabeli users, musimy wykorzystać LEFT JOIN.
+          </p>
+          <pre>
+            SELECT c.id, c.name, c.email, u.name AS owner
+            FROM contacts AS c
+            LEFT JOIN users AS u ON u.id = c.user_id
+          </pre>
+          <p>Wynik:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>email</th>
+                <th>owner</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Allen Raymond</td>
+                <td>
+                  <a
+                    href="mailto:nulla.ante@vestibul.co.uk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >nulla.ante@vestibul.co.uk</a
+                  >
+                </td>
+                <td>Boris</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Chaim Lewis</td>
+                <td>
+                  <a href="mailto:dui.in@egetlacus.ca" target="_blank" rel="noopener noreferrer"
+                    >dui.in@egetlacus.ca</a
+                  >
+                </td>
+                <td>Boris</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Kennedy Lane</td>
+                <td>
+                  <a
+                    href="mailto:mattis.Cras@nonenimMauris.net"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >mattis.Cras@nonenimMauris.net</a
+                  >
+                </td>
+                <td>Alina</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Wylie Pope</td>
+                <td>
+                  <a href="mailto:est@utquamvel.net" target="_blank" rel="noopener noreferrer"
+                    >est@utquamvel.net</a
+                  >
+                </td>
+                <td>Alina</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Cyrus Jackson</td>
+                <td>
+                  <a href="mailto:nibh@semsempererat.com" target="_blank" rel="noopener noreferrer"
+                    >nibh@semsempererat.com</a
+                  >
+                </td>
+                <td>NULL</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+        <article id="1.9">
+          <h3>1.9 UPDATE: Zmiana danych</h3>
+          <p>Zmiana danych w tabeli SQL, robi się to przy pomocy polecenia UPDATE.</p>
+          <p>
+            Wykorzystanie UPDATE zawiera: po pierwsze wybór tabeli, w której znajduje się pole,
+            które chcemy zmienić, po drugie ustawienie w zapisie nowej wartości przy pomocy SET i po
+            trzecie - wykorzystanie WHERE, aby oznaczyć konkretne miejsce w tabeli.
+          </p>
+          <p>
+            W tabeli contacts jest u nas zapis z id = 5, w którym nie ma wartości pola user_id.
+            Ustawmy, że właścicielem tego kontaktu będzie użytkownik Maksim z id = 3 w tabeli users.
+          </p>
+          <pre>
+            UPDATE contacts SET user_id = 3 WHERE id = 5;
+          </pre>
+        </article>
+        <article id="1.10">
+          <h3>1.10 DELETE: Usuwanie zapisów z tabeli</h3>
+          <p>
+            Usuwanie zapisów z tabeli przez SQL jest również prostą operacją. Najważniejsze, aby
+            zaznaczyć przy pomocy WHERE, co dokładnie chcemy usunąć. W przeciwnym razie usuniemy
+            wszystkie zapisy z tabeli, czego chcielibyśmy uniknąć.
+          </p>
+          <pre>
+            DELETE FROM contacts WHERE id = 4;
+          </pre>
+        </article>
+        <article id="1.11">
+          <h3>1.11 Usuwanie tabel</h3>
+          <p>
+            eżeli chcemy usunąć wszystkie dane z tabeli, a jednocześnie zostawić samą tabelę, to
+            musimy użyć polecenia TRUNCATE:
+          </p>
+          <pre>
+            TRUNCATE TABLE contacts;
+          </pre>
+          <p>Gdy chcemy usunąć samą tabelę, musimy użyć polecenia DROP:</p>
+          <pre>
+            DROP TABLE contacts;
+          </pre>
+        </article>
+      </section>
+      <!-- section1 -->
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Relacyjne bazy danych</h2>
+        </article>
+        <article id="2.2">
+          <h3>2.2 Podstawy</h3>
+          <p>
+            Baza danych (BD), to zbiór z jednej i więcej tabel z danymi. Każda tabela zawiera
+            informację w jednej i więcej kolumnach (polach). Jeden element danych (zapis) — to jeden
+            łańcuch w tabeli.
+          </p>
+          <p>Klucz to unikalne pole, które jednoznacznie identyfikuje zapis.</p>
+          <p>Primary key to unikalny klucz, który nie powtarza się w tabeli.</p>
+          <p>
+            Foreign key to odnośnik do unikalnego klucza, który NIE POWTARZA SIĘ w swojej tabeli.
+          </p>
+          <p>Relacje:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              jeden do jednego — tabele są związane jeden do jednego wtedy, gdy jednemu łańcuchowi
+              (zapisowi) tabeli A odpowiada jeden łańcuch tabeli B i jednemu zapisowi tabeli B
+              odpowiada jeden zapis tabeli A;
+            </li>
+            <li>
+              jeden do wielu — to połączenie w relacyjnych bazach danych realizuje się wtedy, gdy do
+              jednego łańcucha tabeli A może należeć lub odpowiadać mu kilka zapisów w tabeli B, ale
+              zapisowi z tabeli B może odpowiadać tylko jeden zapis tabeli A. Przykład: u
+              użytkownika może być kilka numerów telefonicznych;
+            </li>
+            <li>
+              wielu do wielu — realizuje się w tym przypadku, gdy kilku zapisom z tabeli A może
+              odpowiadać kilka zapisów z tabeli B i w tym czasie kilku zapisom z tabeli B odpowiada
+              kilka zapisów z tabeli A;
+            </li>
+            <li>
+              wiele do jednego — odwrotna sytuacja jeden do wielu, ale teraz tabele A i B można
+              zamienić miejscami.
+            </li>
+          </ul>
+          <p>
+            Normalizacja — proces doprowadzenia struktury BD do postaci zapewniającej minimalną
+            logiczną redundancję i nie ma na celu zmniejszenia lub zwiększenia wydajności pracy lub
+            zmniejszenia albo zwiększenia fizycznej objętości bazy danych. Ostatecznym celem
+            normalizacji jest zmniejszenie potencjalnej niezgodności przechowywanych w bazie danych
+            informacji.
+          </p>
+          <p>
+            Podstawowy instrument komunikacji z relacyjnymi BD — SQL (Structured Query Language).
+          </p>
+          <p>SQL — język strukturyzowanych zapytań.</p>
+        </article>
+        <article id="2.3">
+          <h3>2.3 Podstawowe operatory SQL:</h3>
+          <ol class="numbered-list-container">
+            <li>
+              operatory definicji danych (Data Definition Language, DDL):
+              <ul class="unnumbered-list-container">
+                <li>CREATE tworzy obiekt BD (samą bazę, tabelę, widok, użytkownika itd.);</li>
+                <li>ALTER zmienia obiekt;</li>
+                <li>DROP usuwa obiekt.</li>
+              </ul>
+            </li>
+            <li>
+              operatory manipulacji danymi (Data Manipulation Language, DML):
+              <ul class="unnumbered-list-container">
+                <li>SELECT wybiera dane, spełniające określone warunki;</li>
+                <li>INSERT dodaje nowe dane;</li>
+                <li>UPDATE zmienia istniejące dane;</li>
+                <li>DELETE usuwa dane.</li>
+              </ul>
+            </li>
+            <li>
+              operatory określania dostępu do danych (Data Control Language, DCL):
+              <ul class="unnumbered-list-container">
+                <li>
+                  GRANT dostarcza użytkownikowi (grupie) pozwolenia na określone operacje z
+                  obiektem;
+                </li>
+                <li>REVOKE odwołuje wcześniej wydane pozwolenia.</li>
+              </ul>
+            </li>
+            <li>
+              operatory zarządzania transakcjami (Transaction Control Language, TCL):
+              <ul class="unnumbered-list-container">
+                <li>COMMIT przyjmuje transakcję;</li>
+                <li>
+                  ROLLBACK odkrywa wszystkie zmiany wprowadzone w kontekście obecnej transakcji;
+                </li>
+                <li>SAVEPOINT dzieli transakcję na mniejsze części.</li>
+              </ul>
+            </li>
+          </ol>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-logo">
+        <img src="../images/footer/konikMaly24x24Squoosh.png" alt="logoImage" width="24" />
+        <img src="../images/footer/3KLogo.png" alt="logoText" />
+      </div>
+      <div id="footer-title">
+        <p></p>
+      </div>
+      <div class="footer-date">
+        <p>28.12.2024r.</p>
+      </div>
+    </footer>
+    <!-- SKRYPTY JS -->
+    <script defer src="../scripts/menuNode.mjs"></script>
+  </body>
+</html>

@@ -215,6 +215,71 @@
               <td>MemoryStorage</td>
             </tr>
           </table>
+          <p>Tworzymy opcje przestrzeni dyskowej DiskStorage w której przechowywane będą pliki:</p>
+          <pre>
+            const storage = multer.diskStorage({
+              destination: (req, file, cb) => {
+                cb(null, uploadDir);
+              },
+              filename: (req, file, cb) => {
+                cb(null, file.originalname);
+              },
+              limits: {
+                fileSize: 1048576,
+              },
+            });
+          </pre>
+          <p>
+            Przy pomocy opcji, definiujemy funkcje dla miejsca docelowego pliku destination i nazwy
+            pliku filename i określamy, gdzie będzie znajdował się plik po ładowaniu:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>
+              destination wykorzystuje się, aby określić katalog, w którym będą umieszczone pliki;
+            </li>
+            <li>
+              filename wykorzystuje się, aby określić, jak będzie nazwany plik wewnątrz katalogu.
+              Jeśli nazwa pliku filename nie jest określona, to do każdego pliku będzie przypisana
+              losowa nazwa bez rozszerzenia pliku.
+            </li>
+          </ul>
+          <p>
+            W parametrach każdej funkcji jest zapytanie (req) i zbiór informacji o pliku (file) np:
+          </p>
+          <pre>
+            {
+              fieldname: 'picture',
+              originalname: 'nazwa_pliku.jpg',
+              encoding: '7bit',
+              mimetype: 'image/jpeg'
+            }
+          </pre>
+          <p>
+            Istnieje również obiekt limits ustanawiający ograniczenia rozmiaru pliku. W pełni
+            pokrywa się on z metodami pakietu busboy, a
+            <a href="https://github.com/mscdex/busboy#busboy-methods">tutaj</a> możesz zobaczyć
+            pełną listę metod.
+          </p>
+          <p>
+            W naszym przykładzie ustawiliśmy maksymalny rozmiar pliku na 1 MB (1024 * 1024 bajty =
+            1048576 = 1MB).
+          </p>
+          <p>Tworzymy egzemplarz multer:</p>
+          <pre>
+            const upload = multer({
+              storage: storage,
+            });
+          </pre>
+          <p>Dalej wykorzystujemy program pośredniczący:</p>
+          <pre>
+            upload.single('picture');
+          </pre>
+          <p>
+            Ładuje on jeden plik o nazwie picture do tymczasowego folderu uploads, a informacja o
+            pliku będzie zapisana w req.file.
+          </p>
+          <p>Wewnątrz middleware przenosimy plik do folderu stałego zapisu images.</p>
+          <p>Pełny kod przykładu znajduje się na <a href="">Github Gist</a></p>
         </article>
       </section>
     </main>

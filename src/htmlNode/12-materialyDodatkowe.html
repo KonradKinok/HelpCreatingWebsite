@@ -17,7 +17,7 @@
     />
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
-    <link rel="stylesheet" href="../styles/nodeStyles.scss" />
+    <link rel="stylesheet" href="../styles/nodeStyles/nodeStylest.scss" />
     <title>Materiały dodatkowe</title>
   </head>
   <body class="body-container">
@@ -33,10 +33,1758 @@
       <section id="1" class="text">
         <h1>Moduł 7 - Zajęcia 12 - Materiały dodatkowe</h1>
         <article id="1.1">
-          <h2>1.1 Zarządzanie statusem</h2>
+          <h2>1.1 Prosty serwer HTTP</h2>
+          <p>
+            Dzisiaj Node.js wykorzystywany jest na wielu polach, ale jego pierwotnym celem było
+            dostarczanie usług serwera webowego.
+          </p>
+          <p>
+            W porównaniu z ustawieniami serwera Apache, NGINX lub dowolnego innego serwera webowego,
+            skonfigurowanie serwera w Node jest bardzo proste. Wbudowany moduł HTTP (i jego analog,
+            moduł HTTPS dla bezpiecznego połączenia) dostarcza metodę createServer, która tworzy
+            prosty serwer webowy.
+          </p>
+          <p>
+            Warto zauważyć, że NGINX to reverse proxy serwer i zazwyczaj wykorzystywany jest razem z
+            aplikacją Node.js, a nie jako jego alternatywa.
+          </p>
+          <p>
+            Wszystko, co należy zrobić, to wskazać funkcję powtórnego wywołania, która będzie
+            opracowywać przychodzące zapytania. Serwer uruchamia się przez wywołanie metody listen i
+            wskazanie numeru portu, na którym serwer będzie oczekiwał zapytania:
+          </p>
+          <pre>
+            const http = require('docs/additional_materials/simple-web-server/http');
+            const port = 3000;
+
+            const server = http.createServer((req, res) => {
+              res.end('Hello world!');
+            });
+
+            server.listen(port, () => {
+              console.log(`Serwer oczekuje połączenia na porcie ${port}`);
+            });
+          </pre>
+          <p>
+            Ze względów bezpieczeństwa i debugowania zazwyczaj wykorzystuje się porty powyżej 1024 i
+            wybiera takie numery, jak 3000, 8000, 3030 i 8080, ponieważ łatwiej je zapamiętać.
+            Jeżeli zapiszesz ten kod w pliku server.js i uruchomisz skrypt na konsoli:
+          </p>
+          <pre>
+            node server.js
+          </pre>
+          <p>
+            to wpisując w wierszu adresowym adres przeglądarki http://localhost:3000/, zobaczysz
+            tekst 'Hello world!'. Wykonanie skryptu można zatrzymać kombinacją Ctrl+C w terminalu.
+            Jak widzimy, u podstaw serwera webowego Node znajduje się funkcja powtórnego wywołania i
+            to ona opracowuje wszystkie przychodzące zapytania. Przekazywane są do niej dwa
+            argumenty: obiekt IncomingMessage - zmienna req i obiekt ServerResponse - zmienna res.
+            Obiekt IncomingMessage zawiera wszystkie informacje o zapytaniu HTTP: jaki URL jest
+            potrzebny, wszystkie wysłane nagłówki, wszystkie przesłane w ciele dane i tak dalej.
+            Obiekt ServerResponse zawiera właściwości i metody do zarządzania odpowiedzią, która
+            odsyłana jest z powrotem do klienta (zazwyczaj przeglądarki). Obiekt ServerResponse
+            realizuje interfejs strumienia zapisu, określający to, jak dokładnie dane przesyłane są
+            do klienta.
+          </p>
         </article>
       </section>
       <!-- section2 -->
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Serwer web na Node.js</h2>
+          <p>
+            Teraz tworzymy prosty serwer webowy, dla wyświetlenia strony statycznej. Struktura
+            strony będzie wyglądać następująco:
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/52-serwer-web-1.png" alt="" />
+          </div>
+          <p>Plik index.html zawiera następujący układ:</p>
+          <pre>
+            &lt!DOCTYPE html>
+            &lthtml lang="en">
+              &lthead>
+                &ltmeta charset="UTF-8" />
+                &ltmeta name="viewport" content="width=device-width, initial-scale=1.0" />
+                &ltlink rel="stylesheet" href="/css/main.css" />
+                &lttitle>Simple site&lt/title>
+              &lt/head>
+              &ltbody>
+                &lth3>Przykład prostej strony&lt/h3>
+                &ltimg
+                  src="/img/photo.jpg"
+                  alt="photo of turned on laptop computer"
+                  class="picture"
+                />
+                &ltdiv class="js-class">&lt/div>
+                &ltscript src="/js/main.js">&lt/script>
+              &lt/body>
+            &lt/html>
+          </pre>
+          <p>
+            W nim podłączamy style z pliku main.css i javascript, kod z pliku main.js. Także u nas w
+            HTML wyświetla się obraz. Robi się to po to, aby nasz serwer zwracał dowolny plik,
+            którego zażąda od niego przeglądarka, style, kod lub widoki. Aby sprawdzić, czy main.js
+            podłączył się prawidłowo, wyprowadzamy odpowiednią wiadomość do index.html.
+          </p>
+          <pre>
+            const container = document.querySelector('.js-class');
+            container.textContent = 'javaScript jest podłączony na stronie';
+          </pre>
+          <p>
+            Tworzymy plik server.js i umieszczamy w nim następujący kod, aby nasza strona prawidłowo
+            wyświetlała się po uruchomieniu:
+          </p>
+          <pre>
+            const http = require('docs/additional_materials/simple-web-server/http');
+            const fs = require('fs').promises;
+            const url = require('url');
+            const path = require('path');
+
+            const contentType = {
+              '.html': 'text/html',
+              '.js': 'text/javascript',
+              '.css': 'text/css',
+              '.jpg': 'image/jpeg',
+              '.ico': 'image/x-icon',
+            };
+
+            http
+                    .createServer(async (req, res) => {
+                      const { pathname } = url.parse(req.url);
+                      let filename = pathname.substring(1);
+                      if (pathname === '/') {
+                        filename = 'index.html';
+                      }
+                      const type = contentType[path.extname(filename)];
+                      res.writeHead(200, { 'Content-Type': type });
+                      if (type.includes('image')) {
+                        const img = await fs.readFile(filename);
+                        res.write(img, 'hex');
+                      } else {
+                        const content = await fs.readFile(filename, 'utf8');
+                        res.write(content);
+                      }
+                      res.end();
+                    })
+                    .listen(3000, () => console.log('Listen server on port 3000'));
+          </pre>
+          <p>Wykonamy nasz kod poprzez następujące polecenie:</p>
+          <pre>
+            $ node server.js
+          </pre>
+          <p>
+            Po wykonaniu zobaczymy wiadomość - Listen server on port 3000. Oznacza to, że serwer
+            jest włączony i gotowy do pracy. Otwieramy przeglądarkę i przechodzimy po przejściu na
+            adres http://localhost:3000/, zobaczymy następujące okno:
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/53-serwer-web-2.png" alt="" />
+          </div>
+          <p>
+            Widzimy, że nagłówek jest niebieski, co znaczy, że style są podłączone, także widać
+            wiadomość z main.js. Przeanalizujmy bardziej szczegółowo kod i to, co się dzieje. Na
+            początku podłączamy moduły, które potrzebne są nam do pracy. Dalej widzimy obiekt z
+            typami MIME, który pozwoli nam oddawać różnorodny kontent - co to oznacza? Nagłówek
+            obiekt Content-Type przy odpowiedzi przeglądarki wykorzystuje się po to, aby określić
+            typ zasobu MIME. W odpowiedziach serwera nagłówek Content-Type powiadamia klienta, jaki
+            będzie typ przekazywanego kontentu. W niektórych przypadkach przeglądarki starają się
+            same określić MIME typ przekazywanego kontentu, ale ich reakcja może być nieadekwatna. Z
+            tego względu, gdy będziemy oddawać plik klientowi, znając rozszerzenie pliku, możemy
+            podstawiać odpowiadający MIME typ do nagłówka Content-Type:
+          </p>
+          <pre>
+            const contentType = {
+              '.html': 'text/html',
+              '.js': 'text/javascript',
+              '.css': 'text/css',
+              '.jpg': 'image/jpeg',
+              '.ico': 'image/x-icon',
+            };
+          </pre>
+          <p>
+            Moduł path odpowiada za liczne operacje ze ścieżkami plików. Tak jak w zapytaniach GET,
+            parametry przekazywane są przez url. Dla ich opracowywania powinniśmy przeanalizować ten
+            łańcuch. Wygodnie będzie zrobić to przy pomocy standardowego modułu url i jego funkcji
+            parse:
+          </p>
+          <pre>
+            const { pathname } = url.parse(req.url);
+          </pre>
+          <p>Dalej znajdujemy nazwę pliku, o który poprosił klient przez zapytanie HTTP:</p>
+          <pre>
+            let filename = pathname.substring(1);
+          </pre>
+          <p>
+            Tutaj wyrzucamy znak '/', od którego zaczyna się ścieżka do pliku. Jedynym wyjątkiem
+            jest zwrócenie się do root strony i wtedy niezbędne jest oddanie pliku index.html:
+          </p>
+          <pre>
+            if (pathname === '/') {
+              filename = 'index.html';
+            }
+          </pre>
+          <p>
+            Określamy rozszerzenie pliku, do którego trafiło zapytanie od klienta i wybieramy
+            wymagany typ MIME w zmiennej type. Ustanawiamy nagłówek odpowiedzi:
+          </p>
+          <pre>
+            const type = contentType[path.extname(filename)];
+            res.writeHead(200, { 'Content-Type': type });
+          </pre>
+          <p>
+            Z powodu tego, że oddanie obrazów i plików tekstowych różni się, sprawdzamy, czy od
+            klienta nie przyszło zapytanie o obraz. Tak jak widok - to binarne pliki. Odczytujemy
+            plik i przekazujemy odczytany bufer w metodzie write, gdzie jako drugi parametr
+            ustanawiamy kodowanie 'hex'.
+          </p>
+          <pre>
+            if (type.includes('image')) {
+              const img = await fs.readFile(filename);
+              res.write(img, 'hex');
+            } else {
+              const content = await fs.readFile(filename, 'utf8');
+              res.write(content);
+            }
+            res.end();
+          </pre>
+          <p>
+            Jeśli to plik tekstowy, wtedy w trakcie odczytu wskazujemy kodowanie utf8. Odpowiedź na
+            zapytanie kończymy poleceniem res.end():
+          </p>
+          <p><a href="https://glitch.com/~simple-http-server">Example of a simple website</a></p>
+          <p>
+            Przeanalizowaliśmy minimalny możliwy serwer internetowy, ale dla obsługiwania stron
+            internetowych wykorzystuje się frameworki, takie jak Express, które biorą na siebie
+            pracę budowania serwera internetowego od zera.
+          </p>
+        </article>
+      </section>
+      <!-- section3 -->
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Zasoby statystyczne</h2>
+          <p>
+            Wróćmy do naszego serwera webowego. Mamy przykład statycznej strony, dla której
+            napisaliśmy prosty serwer webowy na samym Node.js. Przeanalizujmy, jak w Express można
+            wysyłać do użytkownika pliki statyczne. Do przedstawienia plików statycznych w Express
+            wykorzystywana jest funkcja opracowywania pośredniczącego express.static.
+          </p>
+          <p>
+            Aby zacząć bezpośrednie dostarczanie plików, należy przekazać nazwę katalogu, w którym
+            znajdują się statyczne zasoby, w funkcję opracowywania pośredniczącego express.static.
+          </p>
+          <p>
+            Utworzymy dla statycznych plików w projekcie katalog public, w którym dodamy naszą
+            stronę z podstroną index.html.
+          </p>
+          <p>Główny plik naszej aplikacji app.js będzie wyglądał następująco:</p>
+          <pre>
+            const express = require('express');
+            const path = require('path');
+            const app = express();
+
+            app.use(express.static(path.join(__dirname, 'public')));
+
+            app.listen(3000, () => {
+              console.log('Example app listening on port 3000!');
+            });
+          </pre>
+          <p>
+            Jeżeli teraz uruchomimy nasz serwer, to pod adresem http://localhost:3000/ zobaczymy to,
+            co pokazano na rysunku 4 z rozdziału "Web serwer na Node.js" w pierwszej lekcji. Express
+            w pełni wziął na siebie widok naszej strony.
+          </p>
+          <p>
+            Aby wstawić komponent express.static do procesu opracowywania zapytania, wywoływana jest
+            funkcja app.use(). Ta funkcja express pozwala dodawać liczne komponenty, które mogą się
+            jeszcze nazywać middleware lub oprogramowanie pośredniczące, do konwejera opracowywania
+            zapytania:
+          </p>
+          <pre>
+            app.use(express.static(path.join(__dirname + '/public')));
+          </pre>
+          <p>
+            Przy czym dane wywołanie powinno rozciągać się na wszystkie pozostałe wywołania funkcji
+            app.get(), app.post() i tak dalej. W pierwszej kolejności opracowujemy zasoby statyczne.
+            Do samej funkcji express.static() przekazuje się ścieżka w folderze z plikami
+            statycznymi. Specjalna zmienna Node.js __dirname pozwala otrzymać pełną ścieżkę w
+            folderze.
+          </p>
+        </article>
+      </section>
+      <!-- section4 -->
+      <section id="4" class="text">
+        <article id="4.1">
+          <h2>4.1 Systemy szablonów EJS</h2>
+        </article>
+        <article id="4.2">
+          <h3>4.2 MVC i systemy szablonów</h3>
+          <p>
+            Systemy szablonów są ściśle związane z koncepcją MVC, która polega na rozdzieleniu
+            logiki, danych i widoku. W aplikacjach MVC użytkownik pyta serwer o potrzebny zasób, a
+            kontroler lub router zapytuje o dane aplikacji w modelu (bazie danych) i przekazuje te
+            dane do widoku (szablonu), który realizuje ostateczne formatowanie danych dla końcowego
+            użytkownika. Widoki MVC realizowane są przy pomocy języków szablonizacji. Widok
+            przekazuje wartości otrzymane z modelu do szablonu i pokazuje plik szablonu określający
+            sposób wyświetlania tych wartości.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/54-szablony-ejs-1.jpeg" alt="" />
+          </div>
+        </article>
+        <article id="4.3">
+          <h3>4.3 Szablony EJS</h3>
+          <p>
+            System szablonów EJS jest dość popularny i wyróżnia się szybką kompilacją i
+            renderowaniem. Wykorzystuje proste tagi szablonu: &lt% %> do podstawiania danych. Można
+            używać także swoich separatorów, na przykład wstaw [? ?] zamiast &lt% %>. Istnieje
+            możliwość rozbicia większego szablonu na podszablony. Dostarczane jest z CLI. Wsparcie
+            szablonizacji zachodzi zarówno po stronie serwera, jak i po stronie przeglądarki. Obecne
+            jest statystyczne cachowanie szablonów i najważniejsze - koresponduje z systemem Express
+            View i łatwo go podłączyć do frameworku Express.
+          </p>
+          <p>
+            W procesie renderowania EJS ekranuje (escapes) wszystkie symbole specjalne w wartościach
+            kontekstowych i zamienia je na kody HTML. Zapobiega to atakom skryptu wykonania między
+            witrynami (Cross-Site Scripting, XSS), czyli gdy haker próbuje wysłać pod postacią
+            danych szkodliwy kod JavaScript, mając na celu to, że kod będzie wykonany przy
+            wyprowadzaniu danych do przeglądarki innego użytkownika. Na przykład wprowadzamy
+            szkodliwy kod do czatu i zostaje on wykonany u wszystkich użytkowników czatu.
+          </p>
+          <p>
+            EJS wykorzystuje specjalne tagi w szablonach, w których chcemy podstawić dane lub kod:
+          </p>
+          <table class="table-metody-odpowiedzi">
+            <tr>
+              <th>Tag</th>
+              <th>Opis</th>
+            </tr>
+            <tr>
+              <td>&lt%</td>
+              <td>
+                dla przepływu sterowania, bez wyprowadzania, w zasadzie to kod pomocniczy
+                JavaScript;
+              </td>
+            </tr>
+            <tr>
+              <td>&lt%_</td>
+              <td>Whitespace Slurping usuwa wszystkie spacje przed nim;</td>
+            </tr>
+            <tr>
+              <td>&lt%=</td>
+              <td>Wyprowadza wartość do szablonu (ekranowany HTML);</td>
+            </tr>
+            <tr>
+              <td>&lt%-</td>
+              <td>
+                Wyprowadza nieekranowaną wartość do szablonu, niebezpieczna operacja, korzystaj z
+                niej ostrożnie;
+              </td>
+            </tr>
+            <tr>
+              <td>&lt%#</td>
+              <td>Tag komentarza, bez wykonania, bez wyprowadzania;</td>
+            </tr>
+            <tr>
+              <td>&lt%%</td>
+              <td>Wyprowadza literał <%;</td>
+            </tr>
+            <tr>
+              <td>%></td>
+              <td>Prosty końcowy tag, którym zamykamy wszystkie poprzednie tagi;</td>
+            </tr>
+            <tr>
+              <td>_%></td>
+              <td>Końcowy tag Whitespace Slurping, usuwa wszystkie spacje za sobą.</td>
+            </tr>
+          </table>
+        </article>
+        <article id="4.4">
+          <h3>4.4 Przykład</h3>
+          <p>Dla tego przykładu należy zainstalować dwa pakiety:</p>
+          <pre>
+            npm i express ejs
+          </pre>
+          <p>
+            Niech wymagane będzie wyprowadzenie tabeli na stronę w przeglądarce. Kod aplikacji
+            będzie wyglądał następująco:
+          </p>
+          <pre>
+            // ejs template example
+
+            const express = require('express');
+            const app = express();
+
+            app.set('views', './views');
+            app.set('view engine', 'ejs');
+
+            const users = [
+              {
+                name: 'Tedy',
+                age: 20,
+                species: 'student',
+              },
+              {
+                name: 'Adam',
+                age: 32,
+                species: 'worker',
+              },
+            ];
+
+            app.get('/', (req, res) => {
+              res.render('index', { users });
+            });
+
+            app.listen(3000, () => console.log('Example app listening on port 3000!'));
+          </pre>
+          <p>
+            Tutaj wszystko jest dość proste. Wskazujemy wykorzystywany przez Express system
+            szablonów, następnie pojawia się tablica użytkowników, których należy zrenderować na
+            stronie. Przykładowo może być ona długa na kilkaset linijek i załóżmy, że paginacja nie
+            została przewidziana.
+          </p>
+          <p>
+            W programie obsługi trasy root renderujemy szablon funkcji render, która przyjmuje dwa
+            parametry. Pierwszy parametr to nazwa szablonu, który należy zrenderować. Drugi parametr
+            to obiekt z danymi, którymi przerzucamy do szablonu naszą listę użytkowników. Sam
+            szablon index.ejs powinien wyglądać następująco:
+          </p>
+          <pre>
+            &lt!DOCTYPE html>
+            &lthtml>
+              &lthead>
+                &lttitle>EJS compilation demo&lt/title>
+                &ltstyle>&lt/style>
+              &lt/head>
+              &ltbody>
+                &lt% function userView(user, i) { %>
+                &lttr>
+                  &lttd>&lt%= i %>&lt/td>
+                  &lttd>&lt%= user.name %>&lt/td>
+                  &lttd>&lt%= user.age %>&lt/td>
+                  &lttd>&lt%= user.species %>&lt/td>
+                &lt/tr>
+                &lt% } %>
+                &lttable border="1">
+                  &lttr>
+                    &lttd>#&lt/td>
+                    &lttd>Name&lt/td>
+                    &lttd>Age&lt/td>
+                    &lttd>Species&lt/td>
+                  &lt/tr>
+                  &lt% users.map(userView) %>
+                &lt/table>
+              &lt/body>
+            &lt/html>
+          </pre>
+          <p>Kod, który wyprowadza tabelę, wygląda u nas następująco:</p>
+          <pre>
+            &lttable border="1">
+              &lttr>
+                &lttd>#&lt/td>
+                &lttd>Name&lt/td>
+                &lttd>Age&lt/td>
+                &lttd>Species&lt/td>
+              &lt/tr>
+              &lt% users.map(userView) %>
+            &lt/table>
+          </pre>
+          <p>
+            Tu wszystko jest dość proste - tworzymy tabelę z nagłówkiem, a za wyprowadzanie linii
+            tabeli odpowiada maping tablicy users, który przerzuciliśmy do szablonu. Funkcja map
+            przyjmuje funkcję userView, którą opisaliśmy kawałek wyżej. W zasadzie jest to
+            JavaScript i widzimy, że EJS łatwo pozwala nam łączyć go ze swoimi tagami.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/55-szablony-ejs-2.png" alt="" />
+          </div>
+          <p>
+            System szablonów był szeroko wykorzystywany przed pojawieniem się współczesnych
+            frontendowych frameworków typu React, Angular i tak dalej, jednakże system pozostaje
+            wciąż potężnym narzędziem do serwerowego renderowania.
+          </p>
+        </article>
+      </section>
+      <!-- section5 -->
+      <section id="5" class="text">
+        <article id="5.1">
+          <h2>5.1 Praca z cookies</h2>
+          <p>
+            Protokół HTTP nie zapisuje stanu zapytania i gdy poruszasz się po podstronach strony
+            internetowej, serwer nie wie, że to ten sam użytkownik. Tutaj również pojawia się
+            określony problem - nie można zalogować się na stronę, czy zapisać ustawienia strony
+            przy przechodzeniu między podstronami i tak dalej.
+          </p>
+          <p>
+            W tym celu istnieją pliki cookies, które pozwalają zapisywać stan użytkownika nad
+            protokołem HTTP. Sens plików cookies jest dość prosty. Serwer przesyła jakiś fragment
+            informacji do 4 Kb, a przeglądarka zapisuje go po stronie klienta jako plik. Istnieje
+            określony czas przechowywania tego pliku. Jeśli chodzi o przechowywaną informację,
+            często jest to po prostu jakiś unikalny identyfikator dla użytkownika.
+          </p>
+          <p>
+            Do pracy z plikami cookies istnieje moduł
+            <a href="https://github.com/expressjs/cookie-parser#readme">cookie-parser</a>. Pozwala
+            otrzymać dane pliku cookie, które przeglądarka zapisuje u użytkownika strony. Domyślnie
+            wykorzystuje się zwykłe, niepodpisane cookies, do których dostęp na serwerze otrzymujemy
+            przez obiekt req.cookies. Do pracy z podpisanymi cookies przy podłączeniu modułu trzeba
+            przekazać tajny łańcuch.
+          </p>
+          <p>Przy instalacji pliku cookie można wybrać następujące opcje:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              httpOnly - prawie zawsze wartość tego parametru ustawia się w true. Mówi on o tym, że
+              plik cookie będzie zmieniał się tylko przez serwer. W ten sposób zapobiegamy atakom
+              XSS z JavaScript ze strony klienta;
+            </li>
+            <li>
+              path - ścieżka, na którą rozprzestrzenia się działanie danego pliku cookie. Domyślnie
+              wykorzystuje się ścieżkę /, która rozprzestrzenia się na wszystkie podstrony;
+            </li>
+            <li>
+              domain - pozwala przypisać pliki cookie do konkretnych poddomen. Możemy zainstalować
+              plik cookie tylko dla domeny, na której pracuje twój serwer;
+            </li>
+            <li>
+              maxAge - określa, ile czasu, w milisekundach, klient powinien zapisywać plik cookie do
+              jego usunięcia. Jeśli opcja nie jest wskazana, plik cookie zostanie usunięty przy
+              zamknięciu przeglądarki;
+            </li>
+            <li>
+              secure - praca z plikiem cookie następuje tylko przez zabezpieczone połączenie
+              (HTTPS);
+            </li>
+            <li>
+              signed - należy wybrać true, aby podpisać dany plik cookie. Po tym staje się on
+              dostępny w res.signedCookies zamiast res.cookies. Podrobione pliki cookies nie zostaną
+              przyjęte przez serwer.
+            </li>
+          </ul>
+          <p>
+            Dodajmy pracę z cookies do poprzedniego przykładu. Wcześniej trzeba jednak dowiedzieć
+            się, jak sprawdzać cookies w przeglądarce. Większość przeglądarek daje możliwość
+            przeglądania plików cookies i przechowywanych przez nie wartości. W związku z tym wiemy,
+            że dowolny użytkownik w trybie manualnym może sprawdzić nasze cookies, zmienić je lub
+            usunąć. Otwórz w Chromie narzędzia programisty i wybierz zakładkę Application. W menu po
+            lewej stronie zobaczysz punkt Cookies. Po rozwinięciu go zobaczysz na liście stronę,
+            którą przeglądamy w obecnej zakładce. Kliknij na URL wskazanej strony - zobaczysz
+            wszystkie związane z tą stroną pliki cookies.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/56-cookies-1.png" alt="" />
+          </div>
+          <p>W moim przypdku lista jest na razie pusta.</p>
+          <p>
+            W aplikacji, którą utworzył dla nas express-generator, praca z cookie-parser została już
+            dodana. Pozostał nam tylko jeden krok - podłączenie pracy ze zmiennymi środowiskowymi:
+          </p>
+          <pre>
+            require('dotenv').config();
+          </pre>
+          <p>i dodanie tajnego słowa przy podłączeniu parsera.</p>
+          <pre>
+            app.use(cookieParser(process.env.SECRET_KEY));
+          </pre>
+          <p>Do pliku szablonu index.ejs dodamy następujący kod:</p>
+          <pre>
+            &ltp>
+              &lta href="/setcookie">Utworzyć cookie&lt/a>
+            &lt/p>
+            &ltp>
+              &lta href="/clearcookie">Usunąć cookie&lt/a>
+            &lt/p>
+          </pre>
+          <p>
+            Są to dwa odnośniki. Tymi dwiema ścieżkami będziemy dodawać cookies i usuwać je dla
+            obecnego klienta. Dodajmy program do przetwarzania tych ścieżek.
+          </p>
+          <pre>
+            router.get('/setcookie', (req, res, next) => {
+              res.cookie('my_cookie', 'hello world!');
+              res.cookie('my_signed_cookie', 'hello world!', { signed: true });
+              res.redirect('/');
+            });
+
+            router.get('/clearcookie', (req, res, next) => {
+              console.log(req.cookies['my_cookie']);
+              console.log(req.signedCookies['my_signed_cookie']);
+              res.clearCookie('my_cookie');
+              res.clearCookie('my_signed_cookie');
+              res.redirect('/');
+            });
+          </pre>
+          <p>
+            Utworzenie cookies jest dość proste. Przez obiekt res wywołujemy metodę cookie, dokąd
+            przekazujemy nazwę cookie, jego wartość i obiekt z opcjami, które przeanalizowaliśmy
+            wyżej. Gdy klikniemy na odnośnik, zobaczymy cookies, które po utworzeniu przez nas
+            pojawiły się w panelu programisty.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/57-cookies-2.png" alt="" />
+          </div>
+          <p>
+            Zwróć uwagę, że podpisany cookie jest zaszyfrowany. Wyczyszczenie cookies zachodzi
+            metodą res.clearCookie, do której przekazujemy nazwę cookie. W celu odczytania cookies,
+            które przyszły od klienta, wykorzystujemy metodę obiektu req. Dla zwykłych cookies:
+          </p>
+          <pre>
+            req.cookies['nazwa cookies'];
+          </pre>
+          <p>a dla podpisanych:</p>
+          <pre>
+            req.signedCookies['nazwa cookies'];
+          </pre>
+          <p>Pełny kod aplikacji:</p>
+          <p>
+            Aby aplikacja działała poprawnie, należy obowiązkowo otworzyć ją w nowym oknie. Teraz
+            działa ona jako frame na stronie.
+          </p>
+          <p><a href="https://glitch.com/~nodebook-cookie-parser">nodebook-cookie-parser</a></p>
+          <p>
+            Cookie - małych fragment danych wysyłany przez serwer i przechowywany na komputerze
+            użytkownika. Klient web (zazwyczaj przeglądarka internetowa) za każdym razem przy próbie
+            otwarcia zakładki odpowiadającej strony przesyła ten fragment danych serwera
+            internetowego wchodzącego w skład zapytania HTTP. Stosuje się je do przechowywania
+            danych po stronie użytkownika. W praktyce są zazwyczaj wykorzystywane do:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>uwierzytelniania użytkownika;</li>
+            <li>zapisywania indywidualnych wyborów i ustawień użytkownika;</li>
+            <li>śledzenia stanu sesji dostępu użytkownika;</li>
+            <li>danych statystycznych o użytkownikach.</li>
+          </ul>
+        </article>
+      </section>
+      <!-- section6 -->
+      <section id="6" class="text">
+        <article id="6.1">
+          <h2>6.1 Praca z sesją</h2>
+          <p>
+            Sesja to wygodniejszy sposób zapisywania stanu dla serwera. Aby realizować sesję, należy
+            zapisywać jakiś znacznik po stronie klienta, w przeciwnym razie serwer nie zrozumie, że
+            zapytania pochodzą od tego samego klienta. Oznacza to, że plik cookie z unikalnym
+            identyfikatorem nam pasuje i serwer, wykorzystując identyfikator, będzie mógł
+            zrealizować sesję.
+          </p>
+          <p>
+            <a href="https://www.npmjs.com/package/express-session">Moduł express-session</a>
+            dostarcza nam API do realizacji sesji. Przeanalizujemy ustawienia tego modułu. Przyjmuje
+            on konfigurowalny obiekt z następującymi opcjami:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>
+              resave - zazwyczaj ustawia się go w pozycji false. Parametr odpowiada za zapisanie i
+              przechowywanie sesji, nawet jeśli zapytanie się nie zmieniło;
+            </li>
+            <li>
+              saveUninitialized - także zazwyczaj ustawiane jest w pozycji false, ponieważ pyta
+              użytkownika o pozwolenie na utworzenie pliku cookie. Parametr ustawiony w true
+              prowadzi do zapisania nowych sesji w magazynie, nawet jeśli się one nie zmieniały.
+            </li>
+            <li>secret - tajny klucz do podpisania pliku cookie identyfikatora sesji;</li>
+            <li>
+              key - nazwa pliku cookie, domyślnie connect.sid, w którym zapisuje się unikalny
+              identyfikator sesji;
+            </li>
+            <li>
+              store - to egzemplarz magazynu sesji. Domyślnie sesja przechowywana jest w pamięci -
+              egzemplarz MemoryStore, co w pełni wystarcza do projektowania i nauki - naszych
+              obecnych celów. Na produkcji wykorzystujemy jednak jako magazyn bazę danych,
+              najczęściej jest to Redis (możliwe, że również MongoDb lub inna baza). Robi się to po
+              to, abyśmy przy ponownym uruchomieniu serwera nie tracili obecnych sesji użytkownika;
+            </li>
+            <li>cookie - te same ustawienia, których używaliśmy dla modelu cookie-parser.</li>
+          </ul>
+          <p>
+            Dodajmy do naszej aplikacji sesję. Będzie wyprowadzała licznik odwiedzin strony dla
+            obecnego użytkownika.
+          </p>
+          <p>
+            Na początku inicjujemy pośredni komponent sesji z obowiązkowymi parametrami: secret,
+            resave i saveUninitialized.
+          </p>
+          <pre>
+            app.use(
+              require('express-session')({
+                resave: false,
+                saveUninitialized: false,
+                secret: process.env.SECRET_KEY,
+              }),
+            );
+          </pre>
+          <p>
+            Zarządzanie danymi w express-session realizowane jest dość prosto. Przyswajamy obiektowi
+            req.session potrzebne nam właściwości. Zapisują się one po wykonaniu zapytania.
+            Właściwości te będą się ładować przy otrzymaniu kolejnych zapytań od tego samego
+            użytkownika.
+          </p>
+          <p>
+            W celu zapisania ilości wejść na stronę, należy określić dla req.session.views wymagane
+            wartości. Przy zwróceniu się do właściwości req.session.views w kolejnych zapytaniach,
+            dostępna jest poprzednia wartość i będziemy ją po prostu za każdym razem zwiększać.
+          </p>
+          <p>Do pliku szablonu dodajemy następujący łańcuch:</p>
+          <pre>
+            &ltp>Ilość wejść na tę stronę: &lt%= views %>&lt/p>
+          </pre>
+          <p>Przeformułujemy program opracowywania danych routera dla strony głównej:</p>
+          <pre>
+            router.get('/', (req, res, next) => {
+            req.session.views = req.session.views === void 0 ? 0 : ++req.session.views;
+            res.render('index', {
+              title: 'Simple express app',
+              views: req.session.views,
+            });
+          });
+          </pre>
+          <p>Teraz za każdym razem po odświeżeniu strony licznik będzie zwiększał się o jeden.</p>
+          <p>Jeżeli w jakimkolwiek celu będziesz musiał zamknąć sesję, należy wywołać:</p>
+          <pre>
+            req.session.destroy(function (err) {
+              // cannot access session here
+            });
+          </pre>
+          <p>Przykład aplikacji:</p>
+          <p>
+            Aby aplikacja działała poprawnie, należy otworzyć ją w oddzielnym oknie. W tej chwili
+            działa jako frame na stronie.
+          </p>
+          <p><a href="https://glitch.com/~nodebook-express-session">nodebook-express-session</a></p>
+        </article>
+      </section>
+      <!-- section7 -->
+      <section id="7" class="text">
+        <article id="7.1">
+          <h2>7.1 Praca z tablicami</h2>
+          <p>
+            Operator $in określa tablicę możliwych wyrażeń i szuka tych kluczy, których wartości są
+            w tablicy:
+          </p>
+          <pre>
+            db.cats.find({ age: { $in: [2, 10] } });
+          </pre>
+          <p>Wynik:</p>
+          <pre>
+            {
+                "_id" : ObjectId("5f8382425ba83a4f1829ca5c"),
+                "name" : "Lama",
+                "age" : 2.0,
+                "features" : [
+                    "korzysta z kuwety",
+                    "nie pozwala sie głaskać",
+                    "szary"
+                ]
+            }
+
+            {
+                "_id" : ObjectId("5f838b225ba83a4f1829ca60"),
+                "name" : "Dariy",
+                "age" : 10.0,
+                "features" : [
+                    "korzysta z kuwety",
+                    "nie pozwala się głaskać",
+                    "szary"
+                ],
+                "owners" : {
+                    "name" : "Nata",
+                    "age" : 23.0,
+                    "address" : "Poltava"
+                }
+            }
+          </pre>
+          <p>
+            Odwrotnie działa operator $nin - określa tablicę możliwych wyrażeń i szuka tych kluczy,
+            których wartości w tej tablicy:
+          </p>
+          <pre>
+            db.cats.find({ age: { $nin: [2, 10] } });
+          </pre>
+          <p>
+            Operator $all jest podobny do $in: również określa tablicę możliwych wyrażeń, wymaga
+            jednak, aby dokumenty miały cały możliwy do określenia zbiór wyrażeń.
+          </p>
+          <pre>
+            db.cats.find({ features: { $all: ['korzysta z kuwety', 'pozwala się głaskać'] } });
+          </pre>
+          <p>Wynik:</p>
+          <pre>
+            {
+                "_id" : ObjectId("5f8382425ba83a4f1829ca5d"),
+                "name" : "Liza",
+                "age" : 4.0,
+                "features" : [
+                    "korzysta z kuwety",
+                    "pozwala się głaskać",
+                    "biały"
+                ]
+            }
+
+            {
+                "_id" : ObjectId("5f8383025ba83a4f1829ca5f"),
+                "name" : "Murzik",
+                "age" : 1.0,
+                "features" : [
+                    "korzysta z kuwety",
+                    "pozwala się głaskać",
+                    "czarny"
+                ]
+            }
+          </pre>
+          <p>
+            Operator $size wykorzystywany jest do wyszukiwania dokumentów, w których tablice
+            posiadają liczbę elementów równą wartości $size.
+          </p>
+          <pre>
+            db.cats.find({ features: { $size: 3 } });
+          </pre>
+          <p>Operator $push dodaje wartości do tablicy:</p>
+          <pre>
+            db.cats.updateOne({ name: 'Tom' }, { $push: { features: 'cuchnie' } });
+          </pre>
+          <p>Jeżeli trzeba dodać od razu kilka wartości:</p>
+          <pre>
+            db.cats.updateOne(
+              { name: 'Tom' },
+              { $push: { features: { $each: ['prycha', 'zły'] } } },
+            );
+          </pre>
+          <p>
+            Operator $addToSet jest podobny do operatora $push. Dodaje obiekty do tablicy. Różnica
+            polega na tym, że $addToSet dodaje dane, jeżeli nie ma ich jeszcze na tablicy:
+          </p>
+          <pre>
+            db.cats.update({ name: 'Lama' }, { $addToSet: { features: 'szalony' } });
+          </pre>
+          <p>Operator $pop pozwala usuwać elementy z tablicy:</p>
+          <pre>
+            db.cats.update({ name: 'Tom' }, { $pop: { features: 1 } });
+          </pre>
+          <p>1 koniec tablicy -1 początek tablicy</p>
+          <p>Operator $pull usuwa zgodnie z wartością:</p>
+          <pre>
+            db.cats.update({ name: 'Tom' }, { $pull: { features: 'szary' } });
+          </pre>
+          <p>
+            Jeśli chcemy usunąć nie jedną wartość, a od razu kilka, wtedy możemy zastosować operator
+            $pullAll:
+          </p>
+          <pre>
+            db.cats.update(
+              { name: 'Tom' },
+              { $pullAll: { features: ['nie pozwala się głaskać', 'cuchnie', 'prycha'] } },
+            );
+          </pre>
+        </article>
+      </section>
+      <!-- section8 -->
+      <section id="8" class="text">
+        <article id="8.1">
+          <h2>8.1 Sterownik MongoDB</h2>
+          <p>
+            Sterownik MongoDB Node.js pozwala współpracować z bazami danych MongoDB z aplikacji
+            Node.js. Sterownik jest nam potrzebny do podłączenia się do bazy danych i wykonania
+            zapytań. Jeżeli nie masz zainstalowanego sterownika MongoDB Node.js, możesz zainstalować
+            go w projekcie przy pomocy następującej polecenia.
+          </p>
+          <pre>
+            npm install mongodb
+          </pre>
+          <p>
+            Moduł MongoDB eksportuje MongoClient. Wykorzystywany jest do podłączenia do bazy danych
+            MongoDB, wykonania operacji i zamknięcia połączenia z tym klasterem. Eksportujemy
+            ObjectId, który przyda się nam, aby przekształcić łańcuch w obiekt _id MongoDB.
+          </p>
+          <pre>
+            const { MongoClient, ObjectId } = require('mongodb');
+          </pre>
+          <p>
+            Pierwsze, co musimy zrobić, to umieścić konstant podłączenia URI do zmiennej
+            środowiskowej DB_HOST. Podłączenie URI to łańcuch podłączenia, który kopiujemy z Atlas w
+            poprzednim rozdziale. Umieścimy go w pliku .env.
+          </p>
+          <pre>
+            DB_HOST=mongodb+srv://&ltusername>:&ltpassword>@&ltyour-cluster-url>/test?retryWrites=true&w=majority
+          </pre>
+          <p>W samym programie otrzymujemy dostęp do URI:</p>
+          <pre>
+            require('dotenv').config();
+            const uriDb = process.env.DB_HOST;
+          </pre>
+          <p>Teraz, gdy mamy URI, możemy utworzyć egzemplarz MongoClient.</p>
+          <pre>
+            const client = await new MongoClient(uriDb, {
+              useUnifiedTopology: true,
+            }).connect();
+          </pre>
+          <p>
+            Można wykorzystać egzemplarz MongoClient do podłączenia do naszego klasteru po wykonaniu
+            connect(). Funkcja zwróci nam promise. Wstawiamy await, aby poczekać na egzemplarz
+            podłączenia, następnie jesteśmy gotowi współpracować z naszą bazą danych.
+          </p>
+          <p>
+            Wywołanie funkcji, które współpracują z bazą danych umieścimy w operatorach try/catch,
+            aby opracowywać wszelkie nieoczekiwane błędy.
+          </p>
+          <pre>
+            try {
+              // praca z bazą danych
+            } catch (e) {
+              console.error(e);
+            }
+          </pre>
+          <p>Na końcu zamykamy połączenie z bazą, dlatego kończymy try/catch operatorem finally.</p>
+          <pre>
+            finally {
+              await client.close();
+            }
+          </pre>
+        </article>
+        <article id="8.2">
+          <h2>8.2 REST API</h2>
+          <p>
+            Przepisujemy na aplikację z rozdziału REST API z wykorzystaniem bazy danych MongoDB.
+            Pełny kod aplikacji:
+          </p>
+          <p><a href="https://glitch.com/~nodebook-api-mongodb">nodebook-api-mongodb</a></p>
+          <p>
+            Modyfikacji poddany został plik routingu api/index.js. Rozpatrzmy bardziej szczegółowo
+            zmiany i zacznijmy od programu opracowywania routingu /tasks:
+          </p>
+          <pre>
+            router.get('/tasks', async (req, res, next) => {
+              const client = await new MongoClient(uriDb, {
+                useUnifiedTopology: true,
+              }).connect();
+              try {
+                const results = await client.db().collection('todos').find().toArray();
+                res.json({
+                  status: 'success',
+                  code: 200,
+                  data: {
+                    tasks: results,
+                  },
+                });
+              } catch (e) {
+                console.error(e);
+                next(e);
+              } finally {
+                await client.close();
+              }
+            });
+          </pre>
+          <p>
+            Tworzymy egzemplarz podłączenia do bazy danych MongoDB. Całą logikę współpracy
+            umieszczamy w operatorze try/catch. Znajdujemy wszystkie możliwe zadania:
+          </p>
+          <pre>
+            const results = await client.db().collection('todos').find().toArray();
+          </pre>
+          <p>
+            Tutaj należy zwrócić uwagę na to, że operator find oddaje nam kursor i należy
+            przekształcić go w tablicę metodą toArray. Następnie wysyłamy, jak wcześniej, rezultat w
+            postaci JSON.
+          </p>
+          <p>
+            W zasadzie praca pozostałych programów opracowywania danych jest podobna i mają one
+            ogólny schemat z różnymi wyjątkami.
+          </p>
+          <p>Przy otrzymaniu zadania z id, przekształcamy łańcuch id w obiekt ObjectId.</p>
+          <pre>
+            const objectId = new ObjectId(id);
+          </pre>
+          <p>Później wykonujemy destrukturyzację jedynego obiektu zadania:</p>
+          <pre>
+            const [result] = await client
+            .db()
+            .collection('todos')
+            .find({ _id: objectId })
+            .toArray();
+          </pre>
+          <p>
+            W zmiennej result będzie znajdował się poszukiwany obiekt wyglądający mniej więcej tak:
+          </p>
+          <pre>
+            {
+              "_id": "5f8644b9cf20df3314f5b7b7",
+              "title": "My work",
+              "text": "The best",
+              "isDone": false
+            }
+          </pre>
+          <p>
+            Utworzenie nowego zadania wykonujemy przy pomocy następującego polecenia. Rout żąda
+            obiektu w postaci:
+          </p>
+          <pre>
+            {
+              "title": "My work",
+              "text": "The best"
+            }
+          </pre>
+          <p>Zapisanie w bazie zachodzi przy pomocy funkcji insertOne:</p>
+          <pre>
+            const result = await client
+            .db()
+            .collection('todos')
+            .insertOne({ title, text, isDone: false });
+          </pre>
+          <p>Wstawiamy nowy dokument do bazy i rezultatem będzie obiekt zawierający:</p>
+          <pre>
+            {
+              "acknowledged": true,
+              "insertedId": "61264cb97361c8156dbf793c"
+            }
+          </pre>
+          <p>
+            Właściwość insertedId zawiera ObjectId z wstawionym dokumentem. Wysyłamy JSON z
+            otrzymanym wynikiem.
+          </p>
+          <pre>
+            res.status(201).json({
+              status: 'success',
+              code: 201,
+              data: { task: result },
+            });
+          </pre>
+          <p>Aktualizacje PUT i PATCH są niemal identyczne:</p>
+          <pre>
+            const { value: result } = await client
+            .db()
+            .collection('todos')
+            .findOneAndUpdate(
+              { _id: objectId },
+              { $set: { title, text } },
+              { returnDocument: 'after' },
+            );
+          </pre>
+          <p>
+            Rezultatem operacji jest obiekt z właściwością value, gdzie sterownik umieści
+            zaktualizowany dokument. Pierwszym parametrem dla funkcji findOneAndUpdate będą kryteria
+            wyszukiwania { _id: objectId }. Drugi parametr to obiekt aktualizacji { $set: { title,
+            text } }, gdzie wykorzystujemy modyfikator $set, aby zaszła aktualizacja tylko
+            wskazanych pól, a nie pełna zamiana dokumentu na te pola. Trzeci parametr {
+            returnDocument: 'after' } mówi o tym, że chcemy otrzymać nie źródłowy dokument, ale już
+            zaktualizowany.
+          </p>
+          <p>Usunięcie przeprowadzamy przy pomocy funkcji findOneAndDelete:</p>
+          <pre>
+            const { value: result } = await client
+            .db()
+            .collection('todos')
+            .findOneAndDelete({ _id: objectId });
+          </pre>
+          <p>
+            Tutaj postępujemy trochę inaczej. Poprzednim razem zwróciliśmy status 204, tym razem
+            zwracamy 200 i usunięty dokument.
+          </p>
+          <p>
+            Należy zauważyć, że to uproszczony przykład na potrzeby nauki. Pokazuje podłączenie do
+            bazy MongoDB i wykonanie prostszych zapytań. Na przykład całą logikę pracy umieściliśmy
+            w routach, ale "poprawnie" byłoby pracę z bazę przenieść do oddzielnego serwisu, a
+            logikę pracy programów do przetwarzania danych przenieść do sterowników. Nie
+            opracowujemy również błędów braku poszukiwanych dokumentów w bazie i nie zwracamy przy
+            tym błędu 404 (Not found). Te elementy zostały specjalnie pominięte, aby pokazać
+            dokładnie pracę ze sterownikiem MongoDB, jednak dalej przy analizowaniu ODM Mongoose
+            przyjrzymy się naszej aplikacji bardziej "poprawnie".
+          </p>
+          <p>
+            API dostępne pod URL:
+            <a href="https://nodebook-api-mongodb.glitch.me/api/tasks/"
+              >https://nodebook-api-mongodb.glitch.me/api/tasks/</a
+            >.
+          </p>
+          <p>Znów możesz przy pomocy Postman wykonać wszystkie operacje CRUD.</p>
+        </article>
+      </section>
+      <!-- section9 -->
+      <section id="9" class="text">
+        <article id="9.1">
+          <h2>9.1 Uwierzytelnienie z loginem i hasłem</h2>
+          <p>
+            Na początku poznajmy terminologię. Uwierzytelnienie i autoryzacja - co to takiego? Wiele
+            osób używa tych terminów zamiennie, jednak nie jest to do końca poprawne.
+            Uwierzytelnienie dotyczy sprawdzenia autentyczności użytkownika: kim jest, za kogo się
+            podaje. Autoryzacja dotyczy określenia tego, do czego użytkownik może otrzymać dostęp w
+            twojej aplikacji. Typowym przykładem są zwykli użytkownicy i administrator, który
+            również jest autoryzowany, ale posiada dostęp nie tylko do swojego konta, lecz także do
+            kont innych użytkowników. Logicznie staje się zrozumiałe, że na początku zachodzi
+            uwierzytelnienie, a później autoryzacja.
+          </p>
+          <p>
+            W tym rozdziale przeanalizujemy aplikację Node.js i wykorzystamy popularne
+            oprogramowanie pośredniczące do uwierzytelnienia - Passport. Na początku przerobimy
+            klasyczny sposób - wykorzystanie hasła i nazwy użytkownika. To tak zwana strategia
+            lokalna.
+          </p>
+          <p>
+            Będąc programem pośredniczącym, Passport łatwo skonfigurować w dowolnej aplikacji
+            webowej na podstawie Express tak samo, jak byśmy konfigurowali dowolne inne
+            pośredniczące oprogramowanie Express, takie jak: body parser, praca z cookies,
+            przetwarzanie sesji i tak dalej.
+          </p>
+        </article>
+        <article id="9.2">
+          <h3>9.2 Strategie uwierzytelniania</h3>
+          <p>
+            Passport daje do wyboru ponad 500 mechanizmów uwierzytelniania, zaczynając od prostych
+            login-hasło, do wykorzystywania dostawców uwierzytelniania sieci społecznościowych.
+          </p>
+          <p>
+            Wszystkie te strategie są od siebie niezależne i zapakowane jako oddzielne moduły
+            węzłowe, które nie są ustawione jako domyślne przy instalacji programu pośredniczącego
+            Passport:
+          </p>
+          <pre>
+            npm install passport
+          </pre>
+          <p>
+            Dane naszych użytkowników będziemy przechowywać w bazie danych MongoDB. W celu
+            wykorzystania lokalnej strategii uwierzytelniania, należy zainstalować niezbędny moduł:
+          </p>
+          <pre>
+            npm install passport-local
+          </pre>
+        </article>
+        <article id="9.2">
+          <h3>9.2 Konfiguracja aplikacji</h3>
+          <p>
+            Będziemy wykorzystywać w naszym projekcie następujące zależności, które trzeba
+            skonfigurować:
+          </p>
+          <pre>
+            npm i bcryptjs connect-flash dotenv ejs express express-session mongoose passport passport-local
+          </pre>
+        </article>
+        <article id="9.3">
+          <h3>9.3 Utworzenie modelu Mongoose</h3>
+          <p>Gdy będziemy zapisywać dane użytkownika w MongoDB, wykorzystamy Mongoose jako ODM.</p>
+          <p>
+            Model użytkownika w Mongoose będzie wyglądał następująco i zapiszemy go w pliku
+            schemas/user.js naszej aplikacji:
+          </p>
+          <pre>
+            const mongoose = require('mongoose');
+            const bCrypt = require('bcryptjs');
+
+            const Schema = mongoose.Schema;
+
+            const userSchema = new Schema({
+              username: String,
+              email: {
+                type: String,
+                required: [true, 'Email required'],
+                unique: true,
+              },
+              password: {
+                type: String,
+                required: [true, 'Password required'],
+              },
+            });
+
+            userSchema.methods.setPassword = function (password) {
+              this.password = bCrypt.hashSync(password, bCrypt.genSaltSync(6));
+            };
+
+            userSchema.methods.validPassword = function (password) {
+              return bCrypt.compareSync(password, this.password);
+            };
+
+            const User = mongoose.model('user', userSchema);
+
+            module.exports = User;
+          </pre>
+          <p>
+            W celu zapisania użytkownika w bazie danych i jednoczesnego porównania hasła, które
+            wprowadza, musimy zaszyfrować hasło, ponieważ niebezpieczne jest zapisywanie go w bazie
+            danych bez szyfrowania. Zgodnie z Wikipedią - bcrypt to adaptacyjna, kryptograficzna
+            funkcja skrótu do tworzenia klucza, wykorzystywana w celu chronionego zapisywania haseł.
+            Jej deweloperzy to Niels Provos i David Mazières. Funkcja opiera się na szyfrze Blowfish
+            i został przedstawiona po raz pierwszy na USENIX w 1999 roku. Do zabezpieczenia przed
+            atakami przy pomocy tęczowych tablic bcrypt wykorzystuje się sól (salt); poza tym
+            funkcja ta jest adaptatywna, czas jej pracy można łatwo skonfigurować i można ją
+            spowolnić, aby utrudnić atak słownikowy.
+          </p>
+          <p>
+            W repozytorium npm istnieją dwa popularne pakiety do haszowania haseł bcrypt i bcryptjs.
+            Różnią się tym, że pakiet bcrypt pracuje tylko z wersjami LTS i jest częściej
+            wykorzystywany na produkcji, dlatego bardzo możliwe, że masz ostatnią wersję node.js do
+            nauki i ona po prostu nie będzie działać. Z tego względu wykorzystujemy bcryptjs bez
+            szkody dla bezpieczeństwa naszej aplikacji.
+          </p>
+          <p>
+            Mamy funkcję setPassword, która będzie szyfrować hasło i funkcję validPassword,
+            sprawdzającą ważność naszego hasła.
+          </p>
+          <p>
+            Do połączenia będziemy wykorzystywać bazę danych w chmurze Mongo Atlas. URI
+            (Ujednolicony Identyfikator Zasobów) do połączenia z bazą danych będziemy zapisywać w
+            pliku zmiennych środowiskowych .env w zmiennej DB_HOST.
+          </p>
+          <p>
+            Teraz, wykorzystując tę konfigurację w pliku głównym server.js, łączymy się z nią przy
+            pomocy Mongoose APIs:
+          </p>
+          <pre>
+            const mongoose = require('mongoose');
+            require('dotenv').config();
+            mongoose.Promise = global.Promise;
+            mongoose.connect(process.env.DB_HOST, {
+              useNewUrlParser: true,
+              useCreateIndex: true,
+              useUnifiedTopology: true,
+            });
+          </pre>
+        </article>
+        <article id="9.4">
+          <h3>9.4 Konfiguracja Passport</h3>
+          <p>
+            Passport dostarcza mechanizmów wyłącznie do sprawdzenia autentyczności użytkownika.
+            Odpowiedzialność za realizację spoczywa na samej sesji przetwarzania danych, dlatego w
+            tym celu musimy wykorzystać express-session. Oznacza to, że w pliku server.js należy
+            wstawić następujący kod przed trasowaniem:
+          </p>
+          <pre>
+            app.use(
+              session({
+                secret: 'secret-word',
+                key: 'session-key',
+                cookie: {
+                  path: '/',
+                  httpOnly: true,
+                  maxAge: null,
+                },
+                saveUninitialized: false,
+                resave: false,
+              }),
+            );
+            require('./config/config-passport');
+            app.use(passport.initialize());
+            app.use(passport.session());
+          </pre>
+          <p>Jest to niezbędne, aby sesja naszego użytkownika była stabilna.</p>
+        </article>
+        <article id="9.5">
+          <h3>9.5 Serializacja i deserializacja egzemplarzy użytkowników</h3>
+          <p>
+            Passport powinien również serializować i deserializować egzemplarz użytkownika z
+            magazynu sesji w celu zabezpieczenia wsparcia sesji wejścia do systemu tak, aby każde
+            kolejne zapytanie nie zawierało danych konta użytkownika. Stosuje się do tego dwie
+            metody serializeUser i deserializeUser:
+          </p>
+          <pre>
+            passport.serializeUser((user, done) => {
+              done(null, user.id);
+            });
+
+            passport.deserializeUser((id, done) => {
+              User.findById(id, (err, user) => {
+                done(err, user);
+              });
+            });
+          </pre>
+          <p>
+            Przeniesiemy je do oddzielnego katalogu i oddzielnego pliku config-passport.js. Wewnątrz
+            tych funkcji wykorzystujemy funkcję ponownego wywołania done. Identyfikator użytkownika,
+            który wskazujemy jako drugi argument tej funkcji, przechowywany jest w sesji i
+            wykorzystuje się go później do otrzymania całego obiektu przez funkcję deserializeUser.
+            Funkcja serializeUser określa, jakie dane obiektu użytkownika powinny zapisywać się w
+            sesji. Rezultat metody serializeUser przypisany jest do sesji jako
+            req.session.passport.user. W naszym przypadku w req.session.passport.user przechowywany
+            będzie unikalny identyfikator użytkownika.
+          </p>
+          <p>
+            Ogólnie rzecz biorąc, funkcja serializeUser zapisuje identyfikator użytkownik w sesji, a
+            deserializeUser wydobywa ten identyfikator, wyodrębnia obiekt użytkownika z bazy i
+            zapisuje użytkownika w zapytaniu jako req.user, skąd otrzymujemy do niego dostęp.
+          </p>
+        </article>
+        <article id="9.6">
+          <h3>9.6 Wykorzystanie strategii Passport</h3>
+          <p>
+            Teraz możemy określić strategię Passport do opracowywania autoryzacji. Wykorzystujemy
+            program pośredniczący connect-flash do wyświetlenia użytkownikowi natychmiastowych
+            alertów, jeśli ten popełnił błąd.
+          </p>
+          <p>Strategia autoryzacji wejścia do systemu wygląda następująco:</p>
+          <pre>
+            passport.use(
+              new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+                User.findOne({ email })
+                  .then(user => {
+                    if (!user) {
+                      return done(null, false);
+                    }
+                    if (!user.validPassword(password)) {
+                      return done(null, false);
+                    }
+                    return done(null, user);
+                  })
+                  .catch(err => done(err));
+              }),
+            );
+          </pre>
+          <p>
+            Pierwszy parametr dla passport.use() to nazwa strategii, która będzie wykorzystywana do
+            identyfikacji tej strategii przy jej dalszym zastosowaniu. Opuszczamy ten parametr i
+            będzie on wykorzystywać wartość domyślną jako 'local'. Drugi parametr to typ strategii,
+            którą chcesz utworzyć. Tutaj będziemy wykorzystywać username-password lub LocalStrategy.
+            Warto zauważyć, że domyślnie LocalStrategy żąda znalezienia danych konta użytkownika w
+            parametrze req.body jako username i password, jednakże pozwala ona również wykorzystywać
+            nam dowolne, inaczej nazwane parametry. Dlatego poprzez parametr usernameField zmieniamy
+            wartość username na email. Zmienna konfiguracji passReqToCallback pozwala nam otrzymać
+            dostęp do request obiektu w powrotnym wywołaniu, pozwalając tym samym na wykorzystanie
+            dowolnego parametru związanego z zapytaniem, jednak w naszym wypadku nie będziemy z
+            niego korzystać.
+          </p>
+          <p>
+            Następnie używamy Mongoose API, aby znaleźć użytkownika i sprawdzić, czy jest on
+            rzeczywisty. Ostatni parametr w naszym powtórnym wywołaniu to done. Określa on metodę,
+            którą sygnalizujemy sukces lub niepowodzenie modułu Passport. W celu wskazania
+            niepowodzenia niezbędne jest, aby pierwszy parametr zawierał błąd lub drugi parametr był
+            równy false. W celu wskazania sukcesu, pierwszy parametr powinien mieć null, a drugi
+            wartość true, w wyniku czego będzie dostępny w obiekcie request. W naszym przypadku
+            umieszczamy tam obiekt użytkownika.
+          </p>
+          <p>
+            W celu lepszej prezentacji naszej aplikacji, a nie tylko widoku fragmentu kodu można
+            śledzić jej działanie w całości:
+          </p>
+          <p><a href="https://glitch.com/~nodebook-passport-local">nodebook-passport-local</a></p>
+        </article>
+        <article id="9.7">
+          <h3>9.7 Tworzenie routów</h3>
+          <p>Teraz określamy nasze ścieżki dla aplikacji w module routes/index.js</p>
+          <pre>
+            const express = require('express');
+            const router = express.Router();
+            const passport = require('passport');
+            const User = require('../schemas/user');
+
+            const isLoggedIn = (req, res, next) => {
+              if (req.isAuthenticated()) {
+                return next();
+              }
+              req.flash('message', 'Autoryzacja');
+              res.redirect('/');
+            };
+
+            router.get('/', (req, res, next) => {
+              res.render('index', { message: req.flash('message') });
+            });
+
+            router.post('/login', (req, res, next) => {
+              passport.authenticate('local', (err, user) => {
+                if (err) {
+                  return next(err);
+                }
+                if (!user) {
+                  req.flash('message', 'Pokaż poprawne login i hasło!');
+                  return res.redirect('/');
+                }
+                req.logIn(user, function (err) {
+                  if (err) {
+                    return next(err);
+                  }
+                  return res.redirect('/profile');
+                });
+              })(req, res, next);
+            });
+
+            router.get('/registration', (req, res, next) => {
+              res.render('registration', { message: req.flash('message') });
+            });
+
+            router.post('/registration', async (req, res, next) => {
+              const { username, email, password } = req.body;
+              try {
+                //tworzymy egzemplarz użytkownika i wskazujemy wprowadzone dane
+                const user = await User.findOne({ email });
+                //jeżeli taki użytkownik już istnieje - informujemy o tym
+                if (user) {
+                  req.flash('message', 'Użytkownik z takim adresem e-mail już istnieje.');
+                  return res.redirect('/');
+                }
+                const newUser = new User({ username, email });
+                newUser.setPassword(password);
+                //jeśli nie - dodajemy użytkownika do bazy
+                await newUser.save();
+                req.flash('message', 'Rejestracja zakończona sukcesem.');
+                res.redirect('/');
+              } catch (e) {
+                next(e);
+              }
+            });
+
+            router.get('/profile', isLoggedIn, (req, res, next) => {
+              console.log(req.session.passport);
+              const { username, email } = req.user;
+              res.render('profile', { username, email });
+            });
+
+            router.get('/logout', function (req, res) {
+              req.logout();
+              res.redirect('/');
+            });
+
+            module.exports = router;
+          </pre>
+          <p>
+            Najważniejsza część wskazanego wyżej fragmentu kodu, to wykorzystanie
+            passport.authenticate() dla trasy /login, aby delegować uwierzytelnienie dla strategii
+            local, gdy metoda HTTP POST jest wykonywana dla tej trasy.
+          </p>
+          <p>
+            Do rejestracji użytkownika wykorzystujemy router na trasie /registration. Tutaj ponownie
+            używamy Mongoose API, aby określić, czy użytkownik ze wskazanym adresem e-mail już
+            istnieje. Jeżeli nie, tworzymy nowego użytkownika i zapisujemy informacje o nim w Mongo.
+            W przeciwnym razie zwrócimy błąd przy pomocy natychmiastowych powiadomień. Zwróć uwagę,
+            że wykorzystujemy bcryptjs przez funkcję newUser.setPassword(password)do utworzenia
+            haszu hasła przed zapisaniem.
+          </p>
+        </article>
+        <article id="9.8">
+          <h3>9.8 Tworzenie szablonów EJS</h3>
+          <p>Nasza aplikacja wykorzystuje następujący typ szablonu:</p>
+          <ul class="unnumbered-list-container">
+            <li>index.ejs — zawiera stronę wejścia do systemu z formularzem wejścia</li>
+            <li>registration.ejs — zawiera formularz do rejestracji nowego konta</li>
+            <li>
+              profile.ejs — to nasza tajna strona, na którą możemy się dostać dopiero po zalogowaniu
+            </li>
+            <li>error.ejs — wykorzystywany jest do wyprowadzania błędów</li>
+          </ul>
+          <p>Do stylizacji naszych szablonów częściowo wykorzystujemy Bootstrap.</p>
+          <p>
+            Zwróć uwagę, że w szablonach index.ejs i registration.ejs wykorzystujemy taki fragment
+            kodu:
+          </p>
+          <pre>
+            &lt% if (message) { %>
+            &lth4>&lt%= message %>&lt/h4>
+            &lt% } %>
+          </pre>
+          <p>
+            Wykorzystuje się go, aby pokazywać natychmiastowe powiadomienia dla użytkownika w
+            przypadku błędów. Spróbuj utworzyć dwóch użytkowników z jednakowym adresem e-mail i
+            zobacz rezultat.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/58-szablony-ejs-3.jpeg" alt="" />
+          </div>
+        </article>
+        <article id="9.9">
+          <h3>9.9 Wykonanie funkcji wyjścia z systemu</h3>
+          <p>
+            Passport dodaje określone właściwości i metody do obiektów zapytania i odpowiedzi. W
+            celu wylogowania użytkownika wykorzystujemy metodę request.logout(). Unieważnia ona
+            sesję użytkownika.
+          </p>
+          <pre>
+            router.get('/logout', (req, res) => {
+              req.logout();
+              res.redirect('/');
+            });
+          </pre>
+        </article>
+        <article id="9.10">
+          <h3>9.10 Ochrona ścieżek. Autoryzacja</h3>
+          <p>
+            Najważniejsze dla nas jest to, że Passport daje możliwość zabezpieczenia dostępu do
+            ścieżki, która powinna być niedostępna dla anonimowego użytkownika. Oznacza to, że jeśli
+            jakiś użytkownik spróbuje otrzymać dostęp do /profile bez uwierzytelnienia w aplikacji,
+            zostanie przekierowany na stronę domową z propozycją zalogowania się.
+          </p>
+          <pre>
+            router.get('/profile', isLoggedIn, (req, res, next) => {
+              const { username, email } = req.user;
+              res.render('profile', { username, email });
+            });
+          </pre>
+          <p>
+            Jak widzimy, zanim wykona się przetwarzanie ścieżki /profile, wykonuje się funkcja
+            przetwarzania pośredniego isLoggedIn.
+          </p>
+          <pre>
+            const isLoggedIn = (req, res, next) => {
+              if (req.isAuthenticated()) {
+                return next();
+              }
+              req.flash('message', 'Przejdź autoryzację');
+              res.redirect('/');
+            };
+          </pre>
+          <p>
+            Funkcja ta wykorzystuje jeszcze jedną metodę Passort jako isAuthenticated, która
+            przyjmuje wartość true, jeśli użytkownik przeszedł uwierzytelnienie.
+          </p>
+          <p>
+            Przeanalizowaliśmy podstawowy przykład uwierzytelnienia przy pomocy loginu i hasła,
+            gdzie jako login występuje e-mail użytkownika.
+          </p>
+        </article>
+      </section>
+      <!-- section10 -->
+      <section id="10" class="text">
+        <article id="10.1">
+          <h2>10.1 Formidable</h2>
+          <p>Zacznijmy od sprawdzonego weterana. Instalacja pakietu wygląda następująco:</p>
+          <pre>
+            npm install formidable
+          </pre>
+          <p>
+            Przeanalizujmy prosty przykład ładowania pliku. Załóżmy, że zainstalowaliśmy już
+            wszystkie pakiety npm i, które wykorzystujemy. Na początku podłączmy te pakiety:
+          </p>
+          <pre>
+            const createError = require('http-errors');
+            const express = require('express');
+            const path = require('path');
+            const fs = require('fs').promises;
+            const formidable = require('docs/additional_materials/additional-work-with-files/formidable');
+            const app = express();
+          </pre>
+          <p>
+            Następnie określmy dwie zmienne do przechowywania ścieżek. W pierwszej zmiennej
+            uploadDir przechowujemy ścieżkę, w której zapisany jest plik przy początkowym ładowaniu.
+            W drugiej storeImage ścieżkę, w której przechowywany jest plik ostatecznie.
+          </p>
+          <pre>
+            const uploadDir = path.join(process.cwd(), 'uploads');
+            const storeImage = path.join(process.cwd(), 'images');
+          </pre>
+          <p>Dlaczego wykorzystujemy dwie ścieżki do przechowywania pliku?</p>
+          <p>
+            Pierwsza przyczyna, to po załadowaniu może przydać się nam uzupełniające opracowywanie
+            pliku. Na przykład musimy zmniejszyć lub odwrotnie zwiększyć rozmiar obrazu, przerobić
+            go na kwadratowy i tak dalej. Oznacza to, że po opracowaniu przeniesiemy go w nowe
+            miejsce.
+          </p>
+          <p>
+            Drugą przyczyną jest to, że w trakcie ładowania lub opracowywania pliku może pojawić się
+            nieuwzględniony przez nas błąd. Dodatkowo pakiety na początku często zapisują plik pod
+            jakąś tymczasową nazwą bez rozszerzenia i dopiero po ostatecznym ładowaniu możemy go
+            zmienić. W ten sposób w ścieżce uploadDir znajduje się u nas tymczasowy magazyn i jeżeli
+            będą tam zostawać pliki, oznacza to, że pojawił się u nas jakiś błąd w trakcie ładowania
+            lub opracowywania i należy je koniecznie poprawić, jeśli to możliwe.
+          </p>
+          <p>
+            Plus tego podejścia polega na tym, że ostateczne pliki można będzie spokojnie usuwać z
+            folderu bez groźby usunięcia czegoś ważnego.
+          </p>
+          <p>Aby opracować ładowanie plików, musimy utworzyć egzemplarz formidable:</p>
+          <pre>
+            const form = formidable(options);
+          </pre>
+          <p>I rozparserować dane metodą form.parse:</p>
+          <pre>
+            form.parse(req, (err, fields, files) => {
+              // ...
+            });
+          </pre>
+          <p>
+            Metoda wywołuje funkcję callback, do której przekazywane są trzy parametry: err błąd,
+            jeśli się pojawił, fields obiekt, który zawiera zwykłe pola formularza i ostatni
+            parametr - files, który może być tablicą, jeśli może ładować się wiele plików lub
+            obiekt, jeśli ładuje się jeden plik.
+          </p>
+          <p>
+            Powinniśmy pozbyć się funkcji callback. Napiszemy specjalne opakowanie, które będzie
+            zwracało promise z rezultatem parsingu formularza.
+          </p>
+          <pre>
+            const parseFrom = (form, req) => {
+              return new Promise((resolve, reject) => {
+                form.parse(req, (err, fields, files) => {
+                  if (err) {
+                    return reject(err);
+                  }
+                  resolve({ fields, files });
+                });
+              });
+            };
+          </pre>
+          <p>Następnie opiszemy program opracowywania trasy /upload dla HTTP metody POST:</p>
+          <pre>
+            app.post('/upload', async (req, res, next) => {
+              const form = formidable({ uploadDir, maxFileSize: 2 * 1024 * 1024 });
+              const { fields, files } = await parseFrom(form, req);
+              const { path: temporaryName, name } = files.picture;
+              const { description } = fields;
+
+              const fileName = path.join(storeImage, name);
+              try {
+                await fs.rename(temporaryName, fileName);
+              } catch (err) {
+                await fs.unlink(temporaryName);
+                return next(err);
+              }
+              res.json({ description, message: 'Plik załadowany pomyślnie', status: 200 });
+            });
+          </pre>
+          <p>W nim tworzymy egzemplarz formidable:</p>
+          <pre>
+            const form = formidable({ uploadDir, maxFileSize: 2 * 1024 * 1024 });
+          </pre>
+          <p>gdzie w opcjach pokazujemy:</p>
+          <ul class="unnumbered-list-container">
+            <li>uploadDir ścieżkę, w której należy zapisać plik;</li>
+            <li>
+              maxFileSize maksymalny rozmiar załadowanych plików to 2 Mb. Zawsze należy sprawdzać
+              rozmiar załadowanych plików.
+            </li>
+          </ul>
+          <p>
+            Następnie parsujemy formularz przy pomocy naszej funkcji parseFrom i otrzymujemy pola
+            tekstowe fields i obiekt z plikiem files.
+          </p>
+          <p>
+            W naszym przykładzie zakładamy, że nazwa pola z plikiem równa się picture. Przy pomocy
+            destrukturyzacji otrzymujemy ścieżkę, w której znajduje się plik temporaryName i jego
+            oryginalna nazwa name.
+          </p>
+          <pre>
+            const { path: temporaryName, name } = files.picture;
+          </pre>
+          <p>
+            Później nadajemy plikowi nową nazwę. W naszym przypadku zostawiamy go w tym samym
+            miejscu, ale dobrą praktyką jest przypisywanie nowej nazwy do daty lub randomowego
+            hashu, aby przypadkiem jednakowe pliki nie zapisały się jeden na drugim.
+          </p>
+          <pre>
+            const fileName = path.join(storeImage, name);
+          </pre>
+          <p>Przenosimy plik do stałego magazynu:</p>
+          <pre>
+            try {
+              await fs.rename(temporaryName, fileName);
+            } catch (err) {
+              await fs.unlink(temporaryName);
+              return next(err);
+            }
+          </pre>
+          <p>Jeśli pojawił się błąd przy przenoszeniu, nie zapomnijmy usunąć pliku tymczasowego.</p>
+          <pre>
+            await fs.unlink(temporaryName);
+          </pre>
+          <p>
+            Jeżeli wszystko zakończyło się sukcesem, na końcu wysyłamy odpowiedź w postaci JSON:
+          </p>
+          <pre>
+            res.json({ description, message: 'Plik załadowany pomyślnie', status: 200 });
+          </pre>
+          <p>Pełen kod naszej aplikacji jest następujący:</p>
+          <pre>
+            const createError = require('http-errors');
+            const express = require('express');
+            const path = require('path');
+            const fs = require('fs').promises;
+            const formidable = require('docs/additional_materials/additional-work-with-files/formidable');
+            const app = express();
+
+            const uploadDir = path.join(process.cwd(), 'uploads');
+            const storeImage = path.join(process.cwd(), 'images');
+
+            const parseFrom = (form, req) => {
+              return new Promise((resolve, reject) => {
+                form.parse(req, (err, fields, files) => {
+                  if (err) {
+                    return reject(err);
+                  }
+                  resolve({ fields, files });
+                });
+              });
+            };
+
+            app.post('/upload', async (req, res, next) => {
+              const form = formidable({ uploadDir, maxFileSize: 2 * 1024 * 1024 });
+              const { fields, files } = await parseFrom(form, req);
+              const { path: temporaryName, name } = files.picture;
+              const { description } = fields;
+
+              const fileName = path.join(storeImage, name);
+              try {
+                await fs.rename(temporaryName, fileName);
+              } catch (err) {
+                await fs.unlink(temporaryName);
+                return next(err);
+              }
+              res.json({ description, message: 'Plik załadowany pomyślnie', status: 200 });
+            });
+
+            const isAccessible = path => {
+              return fs
+                .access(path)
+                .then(() => true)
+                .catch(() => false);
+            };
+
+            const createFolderIsNotExist = async folder => {
+              if (!(await isAccessible(folder))) {
+                await fs.mkdir(folder);
+              }
+            };
+
+            // catch 404 and forward to error handler
+            app.use(function(req, res, next) {
+              next(createError(404));
+            });
+
+            // error handler
+            app.use((err, req, res, next) => {
+              res.status(err.status || 500);
+              res.json({ message: err.message, status: err.status });
+            });
+
+            const PORT = process.env.PORT || 3000;
+            app.listen(PORT, async () => {
+              createFolderIsNotExist(uploadDir);
+              createFolderIsNotExist(storeImage);
+              console.log(`Server running. Use on port:${PORT}`);
+            });
+          </pre>
+          <p>
+            Są tutaj dwie funkcje, które zasługują na naszą uwagę. Funkcja isAccessible zwraca
+            logiczne wyrażenie w zależności od tego, czy istnieje folder, a funkcja
+            createFolderIsNotExist tworzy folder, jeżeli on nie istnieje. Gdy otwieramy naszą
+            aplikację, sprawdzamy, czy istnieją foldery uploadDir i storeImage, a jeżeli nie,
+            tworzymy je.
+          </p>
+          <pre>
+            app.listen(PORT, async () => {
+              createFolderIsNotExist(uploadDir);
+              createFolderIsNotExist(storeImage);
+              console.log(`Server running. Use on port:${PORT}`);
+            });
+          </pre>
+          <p>
+            Spróbujmy teraz załadować plik przy pomocy Postman, naśladując pracę formularza w trybie
+            multipart/form-data.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/59-formidable-1.png" alt="" />
+          </div>
+          <p>
+            Należy wybrać przy wysyłaniu kodowanie form-data, jak zaznaczono na rysunku.
+            Najważniejsze, aby załadować plik do wysłania go na serwer. W tym trybie klucz należy
+            przekonwertować z typu tekstowego do plikowego.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/60-formidable-2.jpg" alt="" />
+          </div>
+          <p>
+            Jeżeli wszystko zostało wykonane poprawnie, przy wysyłaniu powiadomienia plik będzie
+            ładował się na serwerze i zapisywał w folderze images, a z serwera otrzymamy odpowiedź,
+            jak na obrazku.
+          </p>
+          <p>
+            Pełen kod przykładu na:
+            <a href="https://gist.github.com/Krabaton/7610adc2bbf613e5f6e8ee0022b3e815"
+              >Github Gist</a
+            >
+          </p>
+        </article>
+      </section>
     </main>
     <footer class="footer">
       <div class="footer-logo">
