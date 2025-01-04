@@ -72,6 +72,10 @@ const menuItem = [
     name: '16. Portale',
     link: '../htmlReact/16-portale.html',
   },
+  {
+    name: '17. Tworzenie projektu',
+    link: '../htmlReact/17-tworzenieProjektu.html',
+  },
 ];
 
 menuItem.forEach(element => {

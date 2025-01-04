@@ -1036,7 +1036,7 @@
           </pre>
         </article>
       </section>
-      <!-- section1 -->
+      <!-- section2 -->
       <section id="2" class="text">
         <article id="2.1">
           <h2>2.1 Relacyjne bazy danych</h2>
@@ -1129,6 +1129,340 @@
               </ul>
             </li>
           </ol>
+        </article>
+        <article id="2.4">
+          <h3>2.4 ER (Entity - relationship) - diagramy.</h3>
+          <p>
+            Modl ER — model danych, pozwalający opisywać konceptualne schematy danej dziedziny.
+            Model ER wykorzystywany jest przy wysokopoziomowym (konceptualnym) projektowaniu baz
+            danych. Z jego pomocą można wydzielić kluczowe podmioty i oznaczyć związki, które mogą
+            utworzyć się między tymi podmiotami.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/63-baza-sql-3.png" alt="" />
+          </div>
+        </article>
+        <article id="2.5">
+          <h2>2.5 Podłączenie</h2>
+          <p>
+            Programów do pracy z bazami SQL jest dość dużo, ale rekomendujemy dwa:
+            <a href="https://www.heidisql.com/">HeidiSQL</a> i
+            <a href="https://dbeaver.io/">DBeaver</a>
+            .
+          </p>
+          <p>
+            Jako objaśnienie po podłączeniu będziemy wykorzystywać DBeaver, który pracuje z
+            większością słynnych baz danych.
+          </p>
+          <p>
+            Ściągamy ze strony sterowniki
+            <a href="https://dbeaver.io/download/">https://dbeaver.io/download/</a> .
+          </p>
+          <p>
+            Do uruchomienia bazy danych
+            <a href="https://hub.docker.com/_/postgres">postgres</a> wykorzystujemy Docker. W
+            łańcuchu polecenia należy wykonać takie polecenie:
+          </p>
+          <pre>
+            docker run --name some-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+          </pre>
+          <p>
+            Zamiast some-postgres wybierz swoją nazwę kontenera, a zamiast mysecretpassword wymyśl
+            swoje hasło do podłączenia do bazy danych.
+          </p>
+          <p>Teraz możemy podłączyć się do naszej bazy.</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/64-baza-sql-4.png" alt="" />
+          </div>
+          <p>
+            Początkowe ustawienia powinny już być prawidłowe, w polu password wpisz hasło, które
+            ustawiłeś.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/65-baza-sql-5.png" alt="" />
+          </div>
+          <p>Klikamy Test łączności... powinna wyskoczyć następująca wiadomość.</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/66-baza-sql-6.png" alt="" />
+          </div>
+          <p>
+            Jeżeli wszystko w porządku, na twojej liście pojawi się serwer, otwórz go, będzie to
+            wyglądać jak na screenie poniżej:
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/67-baza-sql-7.png" alt="" />
+          </div>
+          <p>Teraz mamy gotową bazę danych o nazwie postgres.</p>
+          <p>
+            Podłączenie do bazy danych SQLite jest jeszcze łatwiejsze. W gruncie rzeczy to plik
+            lokalny, który należy utworzyć.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/68-baza-sql-8.png" alt="" />
+          </div>
+          <p>
+            Zapisz ścieżkę i nazwę pliku tam, gdzie chcesz, aby zapisywał się nasz plik z bazą
+            danych:
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/69-baza-sql-9.png" alt="" />
+          </div>
+          <p>
+            Jeżeli wszystko w porządku, na twojej liście pojawi się baza danych SQLite, otwórz ją,
+            będzie to wyglądało jak na screenie poniżej:
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/node/70-baza-sql-10.png" alt="" />
+          </div>
+        </article>
+      </section>
+      <!-- section3 -->
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Typy danych</h2>
+        </article>
+        <article id="3.2">
+          <h3>3.2 Liczbowe typy danych</h3>
+          <p>Liczby dzielą się na całkowite i rzeczywiste (liczba z kropką).</p>
+        </article>
+        <article id="3.3">
+          <h3>3.3 Liczby całkowite</h3>
+          <p>Liczby dzielą się na całkowite i rzeczywiste (liczba z kropką).</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>Typy</th>
+                <th>Bajt</th>
+                <th>Od</th>
+                <th>Do</th>
+                <th>Jeśli UNSIGNED</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TINYINT</td>
+                <td>1</td>
+                <td>-128</td>
+                <td>127</td>
+                <td>255</td>
+              </tr>
+              <tr>
+                <td>SMALLINT</td>
+                <td>2</td>
+                <td>-32768</td>
+                <td>32767</td>
+                <td>65535</td>
+              </tr>
+              <tr>
+                <td>MEDIUMINT</td>
+                <td>3</td>
+                <td>-8388698</td>
+                <td>8388607</td>
+                <td>16777215</td>
+              </tr>
+              <tr>
+                <td>INT</td>
+                <td>4</td>
+                <td>-2137483648</td>
+                <td>2147483647</td>
+                <td>4294967295</td>
+              </tr>
+              <tr>
+                <td>BIGINT</td>
+                <td>8</td>
+                <td>-9223372036854775808</td>
+                <td>9223372036854775807</td>
+                <td>18446744073709551615</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Liczby całkowite dzieli się na typy:</p>
+          <ul>
+            <li>SIGNED - znakowe (jeden bit odchodzi na znak plus albo minus);</li>
+            <li>
+              UNSIGNED - bez znaków, jeżeli wartości są tylko dodatnie, na przykład odległość,
+              powierzchnia i tak dalej. Zwiększyć dodatnią wartość dla typu dwa razy, to znaczy
+              TINYINT UNSIGNED będzie 0 do 255.
+            </li>
+          </ul>
+        </article>
+        <article id="3.4">
+          <h3>3.4 Liczby ułamkowe</h3>
+          <p>Wszystkie liczby rzeczywiste w SQL mają ściśle określoną dokładność.</p>
+          <p>Pseudonimy typu:</p>
+          <ul>
+            <li>REAL(10,2)</li>
+            <li>DECIMAL(10,2)</li>
+            <li>FIXED(10,2)</li>
+            <li>FLOAT(10,2)</li>
+          </ul>
+          <p>
+            Wszystkie te 4 funkcje to pseudonimy i nie ma zasadniczej różnicy między nimi w SQL, ale
+            realizacje lepiej uściślić w dokumentacji.
+          </p>
+        </article>
+        <article id="3.5">
+          <h3>3.5 Typy danych: data i czas</h3>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>Typy</th>
+                <th>Wartość</th>
+                <th>Bajt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>DATETIME</td>
+                <td>0000-00-00 00:00:00</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <td>TIMESTAMP</td>
+                <td>00000000000000</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>DATE</td>
+                <td>0000-00-00</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>TIME</td>
+                <td>00:00:00</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>YEAR</td>
+                <td>0</td>
+                <td>1</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Bardziej szczegółowo:</p>
+          <ul>
+            <li>
+              DATETIME - dla pełnowymiarowej daty i czasu o dużej objętości, w przybliżeniu 4-8
+              bajtów. Zapisuje się w postaci łańcucha i zawsze od większej wartości do mniejszej:
+              rok, miesiąc, dzień, godziny, minuty, sekundy. Wspierany jest zakres od '1000-01-01
+              00:00:00' do '9999-12-31 23:59:59'. Jeżeli potrzeba niżej, zapisujemy po prostu minus
+              '-500-01-09 00:00:00'.
+            </li>
+            <li>
+              TIMESTAMP - znacznik czasu, zakres ery Unixa 1970-01-01 00:00:00 — 2038-12-31
+              00:00:00;
+            </li>
+            <li>DATE - to tylko data bez czasu;</li>
+            <li>TIME - tylko czas;</li>
+            <li>YEAR - tylko rok.</li>
+          </ul>
+        </article>
+        <article id="3.6">
+          <h2>3.6 Znakowe typy danych</h2>
+        </article>
+        <article id="3.7">
+          <h3>3.7 Typy CHAR i VARCHAR</h3>
+          <p>Te typy danych zapisują łańcuch określonej długości.</p>
+          <p>
+            CHAR - zapisuje symbole zawsze jednakowej długości, w ten sposób dla CHAR(10) zawsze
+            będzie zapisane 10 znaków (nie bajtów). Jeżeli wprowadzona granica typu to 10, zawsze
+            zapisane będzie 10. Jeżeli w łańcuchu nie wystarczy znaków, zostanie to uzupełnione
+            spacjami, jeżeli znaków jest wiele, to zostaną ucięte.
+          </p>
+          <p>
+            VARCHAR - to zmienny CHAR, u którego jest uzupełniający bajt symbolizujący koniec,
+            innymi słowy znacznik końca. W ten sposób znaków będzie równo tyle, ile wprowadziliśmy
+            plus 1 bajt. Znaczy to, że w przypadku CHAR(4) pusty łańcuch waży 4 bajty, a przy
+            VARCHAR(4) waży 1 bajt, waga samego znacznika. W przypadku przepełnienia łańcuch także
+            zostanie ucięty.
+          </p>
+          <p>Tabela porównująca:</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>Wielkość</th>
+                <th>CHAR(4)</th>
+                <th>Potrzebna pamięć</th>
+                <th>VARCHAR(4)</th>
+                <th>Potrzebna pamięć</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>''</td>
+                <td>'                '</td>
+                <td>4 bajty</td>
+                <td>''</td>
+                <td>1 bajt</td>
+              </tr>
+              <tr>
+                <td>'ab'</td>
+                <td>'ab        '</td>
+                <td>4 bajty</td>
+                <td>'ab'</td>
+                <td>3 bajty</td>
+              </tr>
+              <tr>
+                <td>'abcd'</td>
+                <td>'abcd'</td>
+                <td>4 bajty</td>
+                <td>'abcd'</td>
+                <td>5 bajtów</td>
+              </tr>
+              <tr>
+                <td>'abcdefgh'</td>
+                <td>'abcd'</td>
+                <td>4 bajty</td>
+                <td>'abcd'</td>
+                <td>5 bajtów</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Jaki jest powód korzystania z CHAR, jeśli VARCHAR jest dużo wygodniejszy? Problem nie
+            polega na oszczędzaniu miejsca, 1 bajt w milionowych tabelach da wiele miejsca.
+            Najważniejsze, że wyszukiwanie po CHAR działa dużo szybciej. Jeżeli nasza wartość jest
+            jawna i nie może być większa, jak np. numer telefonu, paszportu itd., nie ma sensu
+            wykorzystywanie typu VARCHAR, ponieważ spowolnimy bazę i stracimy po bajcie na zapis.
+          </p>
+          <p>Załóżmy, że istnieją łańcuchy CHAR(3), które zapiszemy w bazie.</p>
+          <table class="table-metody-odpowiedzi">
+            <thead>
+              <tr>
+                <th>code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>abc</td>
+              </tr>
+              <tr>
+                <td>bac</td>
+              </tr>
+              <tr>
+                <td>cab</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>W bazie będą one przechowywane mniej więcej tak:</p>
+          <pre>
+            abc bac cab
+          </pre>
+          <p>
+            Jeżeli chcemy otrzymać trzeci zapis, to baza dokładnie wie, że ilość znaków w bazie
+            wynosi po 3 i po prostu zacznie czytać od siódmego znaku. Jeżeli byłby to VARCHAR(3), w
+            tej strukturze baza musiałaby przejrzeć wszystkie zapisu, aby wyszukać ich znaczniki
+            końca zapisu. Nie może ona już przejrzeć 6 symboli, ponieważ łańcuchy mogą nie być pełne
+            i mieć różną długość.
+          </p>
+        </article>
+        <article id="3.8">
+          <h3>3.8 Typy danych TEXT</h3>
+          <p>
+            To typy do przechowywania dużego tekstu oprócz TINYTEXT - to synonim VARCHAR. Jeżeli
+            potrzebujemy zapisać opis, odpowiedzi lub nawet książki, to jest to potrzebny typ.
+          </p>
+          <p>TEXT - wykorzystywany jest najczęściej z tych typów.</p>
         </article>
       </section>
     </main>
