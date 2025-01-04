@@ -77,22 +77,24 @@ const menuItem = [
     link: '../htmlReact/17-tworzenieProjektu.html',
   },
 ];
-
+console.log(title);
 menuItem.forEach(element => {
   const listItem = document.createElement('li');
   const linkItem = document.createElement('a');
 
   linkItem.href = element.link;
   linkItem.textContent = element.name;
+
   // linkItem.classList.add('link');
   if (title.textContent === element.name.slice(4)) {
     linkItem.classList.add('current-page');
     const footerTitle = document.querySelector('div#footer-title');
+
     if (footerTitle) {
       footerTitle.textContent = element.name;
     }
   }
-
+  console.log('jakiś tekst', { linkItem });
   listItem.appendChild(linkItem);
   if (list) {
     list.appendChild(listItem);
