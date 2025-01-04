@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.066807ea.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.a7417870.css"><title>Tworzenie projektu</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="main-container">  <section id="1" class="text"> <article id="1.1"> <h2>1.1 Tworzenie projektu</h2> <p>Aby utworzyć projekt, należy wykonać kilka kroków:</p> <ul class="unnumbered-list-container"> <li>Utwórz puste repozytorium (projekt) na GitHub.</li> <li>Sklonuj to repozytorium na swój komputer.</li> <li> Otwórz terminal i przejdź do folderu, w którym znajduje się sklonowane repozytorium. </li> <li>Rozpocznij tworzenie projektu React.</li> </ul> <p>Aby utworzyć projekt, użyjemy zestawu <a href="https://vite.dev/">📖 Vite</a></p> <ul class="unnumbered-list-container"> <li> Automatyzuje całą konfigurację projektu, pozwalając Ci skupić się na pisaniu kodu. </li> <li>Zawiera niezbędne narzędzia, takie jak ESLint.</li> <li>Umożliwia rozszerzenia o dodatkowe pakiety z ekosystemu React.</li> </ul> <p>Umożliwia rozszerzenia o dodatkowe pakiety z ekosystemu React.</p> <p> Aby utworzyć nowy projekt, z folderu projektu w terminalu uruchom polecenie i postępuj zgodnie z instrukcjami. Użyj klawiszy w górę / w dół, aby poruszać się po opcjach i Enter, aby potwierdzić wybór. </p> <pre>
+            npm create vite@latest
+          </pre> <p> Gdy zostaniesz poproszony o podanie nazwy projektu, wpisz kropkę i naciśnij Enter. Oznacza to, że chcemy utworzyć projekt w bieżącym folderze. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/01-tworzenie-projektu-1.905f794e.png" alt=""> </div> <p>Po utworzeniu projektu postępuj zgodnie z instrukcjami.</p> <ul> <li>Zainstaluj zależności projektu za pomocą polecenia npm install;</li> <li>Uruchom projekt za pomocą polecenia npm run dev;</li> </ul> <p>Obejrzyj film na temat tworzenia projektu React za pomocą Vite.</p> <p> Jeśli masz już skonfigurowane automatyczne formatowanie za pomocą Prettier w edytorze, wystarczy dodać jego plik ustawień do katalogu głównego projektu. </p> </article> <article id="1.2"> <h2>1.2 Konfiguracja ESLint</h2> <p> Projekt utworzony za pomocą Vite ma już skonfigurowany linting do sprawdzania jakości kodu. Aby uzyskać wizualną informację zwrotną od lintera w edytorze VSCode, należy dodać <a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint">rozszerzenie ESLint</a>. </p> <p> Części kodu, które nie spełniają standardów jakości, zostaną podświetlone żółtymi (ostrzeżenie) lub czerwonymi (błąd) przerywanymi liniami. Gdy najedziesz myszką na przerywaną linię, pojawi się podpowiedź z opisem problemu. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/02-tworzenie-projektu-2.5188507c.png" alt=""> </div> <p> Ostatnim krokiem jest wprowadzenie niewielkiej zmiany w ustawieniach lintera ESLint. W pliku konfiguracyjnym .eslintrc.cjs musimy wyłączyć jedną niepotrzebną regułę. W szczególności musimy dodać do bloku rules właściwość react/prop-types z wartością 0. </p> <p> Możesz po prostu skopiować poniższy kod, który zawiera niezbędne ustawienia i zastąpić nim zawartość .eslintrc.cjs. </p> <pre>
+            module.exports = {
+              root: true,
+              env: { browser: true, es2020: true },
+              extends: [
+                "eslint:recommended",
+                "plugin:react/recommended",
+                "plugin:react/jsx-runtime",
+                "plugin:react-hooks/recommended",
+              ],
+              ignorePatterns: ["dist", ".eslintrc.cjs"],
+              parserOptions: { ecmaVersion: "latest", sourceType: "module" },
+              settings: { react: { version: "18.2" } },
+              plugins: ["react-refresh"],
+              rules: {
+                "react/prop-types": 0,
+                "react-refresh/only-export-components": [
+                  "warn",
+                  { allowConstantExport: true },
+                ],
+              },
+            };
+          </pre> </article> <article id="1.3"> <h2>1.3 Konfiguracja Vite</h2> <p> Kod projektu jest domyślnie zminimalizowany i zaciemniony w produkcji, aby zoptymalizować ładowanie aplikacji. Może to jednak utrudniać mentorowi przeglądanie kodu podczas oceniania pracy domowej na stronie na żywo. </p> <p> Source Map — to narzędzie, które umożliwia mapowanie przetłumaczonego lub zminimalizowanego kodu na kod źródłowy, który jest łatwy do przeglądania w narzędziach programistycznych przeglądarki. Zapewnia możliwość przeglądania czytelnego kodu nawet po kompilacji. </p> <p> Dodaj opcję generowania map źródłowych do pliku ustawień Vite znajdującego się w folderze głównym projektu. Otwórz plik vite.config.js i zastąp jego zawartość następującym kodem: </p> <pre>
+            import { defineConfig } from "vite";
+            import react from "@vitejs/plugin-react";
+
+            // <https: vitejs.dev="" config="">
+            export default defineConfig({
+              plugins: [react()],
+              build: {
+                sourcemap: true,
+              },
+            });
+
+          </https:></pre> </article> <article id="1.4"> <h2>1.4 Wdrożenie na Vercel</h2> <p> Aby po wdrożeniu na Vercel aplikacja z routingiem działała poprawnie należy dodać plik konfiguracyjny vercel.json do głównego folderu projektu. </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/03-tworzenie-projektu-3.55b00096.png" alt=""> </div> <p>Zawartość pliku vercel.json powinna wyglądać następująco:</p> <pre>
+            {
+              "rewrites":  [
+                {"source": "/(.*)", "destination": "/"}
+              ]
+            }
+          </pre> <p> Można to zrobić zarówno podczas początkowej konfiguracji projektu, jak i później, na przykład przed pierwszym wdrożeniem. W każdym przypadku, po utworzeniu i wypełnieniu pliku vercel.json, należy wykonać zatwierdzenie Git i wysłać zmiany do repozytorium GitHub, aby Vercel rozpoczął proces kompilacji projektu z już dodanym plikiem konfiguracyjnym. </p> <h3>Dlaczego jest to potrzebne?</h3> <p> Domyślnie, gdy otwierasz stronę aplikacji internetowej w przeglądarce, serwer Vercel (hosting) próbuje znaleźć plik HTML odpowiadający ścieżce. </p> <p>Czyli jeśli wejdziemy na adres:</p> <ul class="unnumbered-list-container"> <li>my-app.com — hosting spróbuje zwrócić index.html;</li> <li>my-app.com/about — hosting spróbuje zwrócić about.html;</li> <li>my-app.com/profile — hosting spróbuje zwrócić profile.html i tak dalej.</li> </ul> <p> W naszej aplikacji React mamy tylko plik index.html, a kiedy nawigujemy do adresu, adres URL zmienia się, a zawartość pliku index.html jest aktualizowana, co oznacza, że inne komponenty w tym samym pliku HTML są renderowane. Potrzebujemy, aby serwer zawsze zwracał plik index.html, po czym React Router przejmował kontrolę i rozpoczynał renderowanie komponentów strony dla bieżącego adresu URL. </p> <p> Z tego powodu dodaliśmy plik vercel.json, aby poinformować Vercel, że mamy SPA (Single Page Application) z routingiem, a każdy adres URL powinien zwracać index.html. </p> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footerAnimationIcon"> <img src="/HelpCreatingWebsite/konikCzarnyKolorZoltyOkrag.34135fd5.ico" alt="logoImage" width="24"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>04.01.2025r.</p> </div> </footer>  <script defer src="/HelpCreatingWebsite/htmlReact/01-wprowadzenieDoReact.c0eaeeea.js"></script>  </body></html>
