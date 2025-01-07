@@ -342,7 +342,7 @@
                 },
               });
             });
-          </pre> <p> Tu wszystko jest dość proste, wysyłamy obiekt ze statusem 'success', kodem 200 i właściwością data. To nasz payload, w którym umieścimy tablicę zadań. Wykorzystamy program Postman i wyślemy nasze pierwsze zapytanie: </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/10-postman-api-1.dd8d311c.png" alt=""> </div> <p>Funkcja do otrzymania zadania po konkretnym ID</p> <pre>
+          </pre> <p> Tu wszystko jest dość proste, wysyłamy obiekt ze statusem 'success', kodem 200 i właściwością data. To nasz payload, w którym umieścimy tablicę zadań. Wykorzystamy program Postman i wyślemy nasze pierwsze zapytanie: </p> <div class="grow_up-img-bigger img-container"> <img src="/HelpCreatingWebsite/10-postman-api-1.dd8d311c.png" alt=""> </div> <p>Funkcja do otrzymania zadania po konkretnym ID</p> <pre>
             router.get('/tasks/:id', (req, res, next) => {
               const { id } = req.params;
               const [task] = tasks.filter(el => el.id === id);
