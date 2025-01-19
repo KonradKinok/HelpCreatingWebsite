@@ -34,7 +34,7 @@
           </pre> <p>otrzymamy mniej więcej taką wartość:</p> <pre>
             eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
             eyJpZCI6MTIzNDU2LCJ1c2VybmFtZSI6IkxhcnNvbiIsImlhdCI6MTYwMjQ2NDkxNX0.73IZBwNckdPPr0j813BBfFMU0ooitR5UrmaQwLaK6AI
-          </pre> <p> To token podobny do tego, który wzięliśmy ze strony <a href="https://jwt.io/">https://jwt.io/</a> . Zawiera on te same trzy części (header, payload i signature). Jeżeli wstawimy nasz token do sekcji Encoded to zobaczymy jego zawartość </p> <div class="grow_up-img img-container"> <img src="/HelpCreatingWebsite/39-jwt-1.51de3eaf.png" alt=""> </div> <p> Dodajmy do pliku app.js dekodowanie tokenu i również wypiszmy informacje o nim do konsoli: </p> <pre>
+          </pre> <p> To token podobny do tego, który wzięliśmy ze strony <a href="https://jwt.io/">https://jwt.io/</a> . Zawiera on te same trzy części (header, payload i signature). Jeżeli wstawimy nasz token do sekcji Encoded to zobaczymy jego zawartość </p> <div class="grow_up-img-bigger img-container"> <img src="/HelpCreatingWebsite/39-jwt-1.51de3eaf.png" alt=""> </div> <p> Dodajmy do pliku app.js dekodowanie tokenu i również wypiszmy informacje o nim do konsoli: </p> <pre>
             const decode = jwt.decode(token);
 
             console.log(decode);
