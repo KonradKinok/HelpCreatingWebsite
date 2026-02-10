@@ -188,6 +188,7 @@
   .flex-grow-container_2-3 {
     display: flex;
     background-color: rosybrown;
+    // min-height: 100vh;
     min-height: 100px;
 
     .flex-grow-sidebar_2-3 {
@@ -220,6 +221,82 @@
     .footer-container_2-3 {
       background-color: rgb(86, 0, 88);
       padding: 20px;
+    }
+  }
+
+  //2.4
+  .flex-shrink-main-container_2-4 {
+    display: flex;
+    gap: 10px;
+
+    .flex-shrink-container_2-4 {
+      display: flex;
+      gap: 10px;
+      width: 300px;
+      border: 1px solid black;
+      padding: 10px;
+
+      .flex-shrink-icon_2-4 {
+        width: 40px;
+        height: 40px;
+        background-color: rgb(0, 36, 155);
+      }
+
+      .use-flex-shrink-icon_2-4 {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        background-color: rgb(0, 36, 155);
+      }
+    }
+  }
+
+  .align-self-container_2-5 {
+    display: flex;
+    border: 2px solid black;
+
+    min-height: 200px;
+
+    .align-self-list_2-5 {
+      display: flex;
+      flex-direction: column;
+
+      &.box-1_2-5 {
+        align-self: auto;
+        background-color: rgb(77, 116, 6);
+        font-size: 2rem;
+        padding: 10px 0;
+      }
+
+      &.box-2_2-5 {
+        align-self: flex-start;
+        background-color: rgb(5, 88, 88);
+        font-size: 1.1rem;
+      }
+
+      &.box-3_2-5 {
+        align-self: flex-end;
+        background-color: rgb(0, 36, 155);
+        font-size: 1.8rem;
+      }
+
+      &.box-4_2-5 {
+        align-self: center;
+        background-color: rgb(86, 0, 88);
+        font-size: 1.3rem;
+      }
+
+      &.box-5_2-5 {
+        align-self: baseline;
+        background-color: rgb(131, 20, 0);
+        font-size: .4rem;
+      }
+
+      &.box-6_2-5 {
+        align-self: stretch;
+        background-color: rgb(85, 131, 0);
+        font-size: .6rem;
+      }
     }
   }
 }

@@ -890,6 +890,171 @@
             <div class="footer-container_2-3">Page footer</div>
           </div>
         </article>
+        <article id="2.4">
+          <h3>2.4 Właściwość flex-shrink</h3>
+          <p>
+            W przeciwieństwie do właściwości flex-grow, flex-shrink definiuje zdolność elementu do
+            zajmowania mniej miejsca (kompresowania) niż jego pierwotny rozmiar, tj. wpływa na
+            ostateczny rozmiar elementu.
+          </p>
+          <pre>
+            flex-shrink: wartość;
+          </pre>
+          <p>Wartość jest określana jako proporcja (ułamek, współczynnik).</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Domyślnie, wszystkie elementy są ustawione na 1, tzn. elementy będą się zmniejszać
+              zgodnie z potrzebami.
+            </li>
+            <li>
+              Wartość 0 zapobiegnie kompresji elementu. Wartości ujemne nie mogą być ustawione.
+            </li>
+          </ul>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/flex-shrink-m3z4.webp" alt="" />
+          </div>
+          <p>
+            W praktyce flex-shrink jest zwykle używany do zapobiegania kompresowaniu elementu.
+            Rozważmy standardowy problem. Mamy kontener z dwoma elementami: elementem dekoracyjnym,
+            takim jak ikona z obrazkiem w tle i tekstem.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/flex-shrink-icon-m3z4.png" alt="" />
+          </div>
+          <pre>
+            &ltdiv class="card">
+              &ltspan class="icon">&lt/span>
+              &ltp>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet earum odio
+                harum! Nulla aliquid quasi facere atque, corrupti voluptatum cupiditate
+                placeat delectus, velit alias dicta praesentium iste amet eos vero.
+              &lt/p>
+            &lt/div>
+            .card {
+              display: flex;
+              gap: 10px;
+              width: 300px;
+              border: 1px solid black;
+              padding: 10px;
+            }
+
+            .icon {
+              width: 40px;
+              height: 40px;
+            }
+          </pre>
+          <p>Ikona ma określoną wysokość i szerokość w CSS</p>
+          <p>
+            Ale spójrzmy na wynik w przeglądarce — element ikony jest skompresowany przez tekst po
+            prawej stronie, ponieważ jest domyślnie ustawiony na flex-shrink: 1 i element z tekstem
+            zajmuje więcej miejsca w wierszu, kompresując ikonę.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/flex-shrink-icon1-m3z4.png" alt="" />
+          </div>
+          <p>
+            Aby element ikony zajmował wymagane 40px szerokości, można zablokować jego kompresję,
+            ustawiając flex-shrink: 0. W ten sposób kontener przydzieli dokładnie 40px dla ikony, a
+            reszta miejsca w wierszu zostanie zajęta przez akapit tekstowy.
+          </p>
+          <pre>
+            .icon {
+              flex-shrink: 0;
+              width: 40px;
+              height: 40px;
+            }
+          </pre>
+          <div class="flex-shrink-main-container_2-4">
+            <div class="flex-shrink-container_2-4">
+              <span class="flex-shrink-icon_2-4"></span>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet earum odio harum!
+                Nulla aliquid quasi facere atque, corrupti voluptatum cupiditate placeat delectus,
+                velit alias dicta praesentium iste amet eos vero.
+              </p>
+            </div>
+            <div class="flex-shrink-container_2-4">
+              <span class="use-flex-shrink-icon_2-4"></span>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet earum odio harum!
+                Nulla aliquid quasi facere atque, corrupti voluptatum cupiditate placeat delectus,
+                velit alias dicta praesentium iste amet eos vero.
+              </p>
+            </div>
+          </div>
+        </article>
+        <article id="2.5">
+          <h3>2.5 Właściwość align-self</h3>
+          <p>
+            Właściwość align-self pozwala elementowi na zmianę jego pozycji na cross axis poprzez
+            nadpisanie wartości właściwości align-items z kontenera.
+          </p>
+          <pre>
+            align-self: auto | flex-start | flex-end | center | baseline | stretch
+          </pre>
+          <p>
+            Dla main axis nie ma odpowiednika, a element może przesuwać się tylko na osi
+            poprzecznej.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/align-self-m3z4.jpg" alt="" />
+          </div>
+          <p>Wróćmy do przykładu karty graficznej z treścią tekstową.</p>
+          <p>
+            Aby rozwiązać problem rozciągnięcia obrazka w pionie, użyliśmy właściwości kontenera
+            align-items. Właściwość align-self pozwala na bardziej precyzyjne rozwiązanie tego
+            problemu poprzez nadpisanie wartości align-items tylko dla obrazka.
+          </p>
+          <pre>
+            .card img {
+             align-self: flex-start;
+            }
+          </pre>
+          <div class="align-self-container_2-5">
+            <ul class="align-self-list_2-5 box-1_2-5">
+              <li>auto</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+            <ul class="align-self-list_2-5 box-2_2-5">
+              <li>flex-start</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+            <ul class="align-self-list_2-5 box-3_2-5">
+              <li>flex-end</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+            <ul class="align-self-list_2-5 box-4_2-5">
+              <li>center</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+            <ul class="align-self-list_2-5 box-5_2-5">
+              <li>baseline</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+            <ul class="align-self-list_2-5 box-6_2-5">
+              <li>stretch</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+          </div>
+        </article>
       </section>
     </main>
     <footer class="footer">
