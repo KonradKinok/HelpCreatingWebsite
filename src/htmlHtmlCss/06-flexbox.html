@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
     <link rel="stylesheet" href="../styles/htmlCssStyles.scss" />
     <link rel="stylesheet" href="../styles/htmlCssStyles/02-html2.scss" />
+    <link rel="stylesheet" href="../styles/htmlCssStyles/06-flexbox.scss" />
 
     <title>Flexbox</title>
   </head>
@@ -30,12 +31,864 @@
         <ul id="this-page-menu" class="this-page-menu"></ul>
       </nav>
     </header>
-    <main class="main-container">
+    <main class="main-container flexbox-main-container_m3z4">
       <!-- section1 -->
       <section id="1" class="text">
-        <h1>Moduł 1 - Zajęcia 2 - Flexbox</h1>
+        <h1>Moduł 3 - Zajęcia 4 - Flexbox</h1>
         <article id="1.1">
-          <h2>1.1 Tabele</h2>
+          <h2>1.1 Flex</h2>
+          <p>
+            Flexible Box Layout (Flexbox) — to moduł CSS, który definiuje zestaw właściwości do
+            umieszczania, wyrównywania i dystrybucji przestrzeni między elementami w kontenerze,
+            nawet jeśli ich rozmiar jest nieznany lub dynamiczny. Główną ideą jest podzielenie
+            elementów na kontener blokowy (flex-container) i jego dzieci (flex-elements).
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/flex-m3z4.png" alt="" />
+          </div>
+          <p>Elastyczny kontener może:</p>
+          <ul class="unnumbered-list-container">
+            <li>zmieniać szerokość i wysokość swoich dzieci;</li>
+            <li>zmienić kierunek swoich dzieci (wyrównanie w kolumnie lub wierszu);</li>
+            <li>zmieniać kolejność wyświetlania elementów i odległość między nimi;</li>
+            <li>rozszerzać elementy, aby optymalnie wypełnić dostępną przestrzeń;</li>
+            <li>kompresować elementy, aby zapobiec ich przepełnieniu.</li>
+          </ul>
+          <p>
+            W elastycznym kontenerze większość zasad rozmieszczania elementów zgodnie z ich typem i
+            przepływem dokumentu zostaje anulowana. Elementy tracą swój "typ", nie są już elementami
+            liniowymi lub blokowymi, stają się elementami elastycznymi. Elementy blokowe nie są już
+            umieszczone pionowo jeden pod drugim. Marginesy zewnętrzne elementów na krawędzi
+            elementu nadrzędnego nie wypadają. Pionowe marginesy zewnętrzne nie zwijają się.
+            Działają automatyczne odstępy pionowe.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/flexKontener.jpg" alt="" />
+          </div>
+        </article>
+        <article id="1.2">
+          <h2>1.2 Osie prowadzące flex kontenera</h2>
+          <p>
+            Normalna kolejność elementów jest określona przez przepływ dokumentu i ich typ (blokowy
+            lub liniowy). Jednak jak już wiesz, w przypadku Flexbox tak nie jest. W modelu Flexbox
+            kierunek elementów jest określany przez osie kontenera, wzdłuż których ustawiane są
+            elementy.
+          </p>
+          <p>
+            Spójrzmy na główne osie kontenera. Jest to absolutnie konieczne, aby zrozumieć, na co
+            będą miały wpływ właściwości, które przeanalizujemy w następnej sekcji.
+          </p>
+          <h3>Main axis</h3>
+          <p>
+            main axis — to główna oś kontenera elastycznego, wzdłuż której umieszczane są elementy.
+            Kierunek głównej osi jest kontrolowany przez właściwość flex-direction i może być
+            poziomy (sample A) oraz pionowy (sample B).
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/main-axis-m3z4.png" alt="" />
+          </div>
+          <h3>Cross axis</h3>
+          <p>
+            cross axis — oś poprzeczna, która jest zawsze prostopadła do osi głównej (main axis).
+            Jej kierunek nie jest wyraźnie określony, ponieważ zawsze zależy od main axis:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>jeśli main axis jest pozioma, cross axis jest pionowa (sample A)</li>
+            <li>jeśli main axis jest pionowa, cross axis jest pozioma (sample B)</li>
+          </ul>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/cross-axis-m3z4.png" alt="" />
+          </div>
+          <p>
+            Model Flexbox ma punkty "start" i "end", które definiują kolejność elementów wewnątrz
+            kontenera elastycznego.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Osie (main axis, cross axis) definiują linie, wzdłuż których umieszczane są elementy.
+            </li>
+            <li>
+              Punkty "start" i "end" są dosłownie punktami początkowymi i końcowymi na osi głównej
+              lub poprzecznej. Określają one, gdzie będzie znajdował się pierwszy i ostatni element
+              na osi.
+            </li>
+          </ul>
+          <p>Spójrzmy na początek i koniec main axis.</p>
+          <p>
+            main-start i main-end — elementy w kontenerze zawsze są umieszczane od main-start
+            (początek głównej osi) do main-end (koniec głównej osi).
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/main-axis1-m3z4.jpg" alt="" />
+          </div>
+          <p>
+            cross-start i cross-end są początkiem i końcem osi poprzecznej cross axis, wzdłuż której
+            znajdują się rzędy elementów.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/main-axis2-m3z4.jpg" alt="" />
+          </div>
+          <p>
+            Nie oczekuj, że start będzie zawsze w lewym górnym rogu, a end w prawym dolnym rogu.
+            Możesz skonfigurować dowolną kolejność elementów — od lewej do prawej lub od prawej do
+            lewej, od góry do dołu lub od dołu do góry. Punkty start i end są bezpośrednio zależne
+            od kierunku osi.
+          </p>
+        </article>
+        <article id="1.3">
+          <h2>1.3 Właściwości kontenera</h2>
+          <h3>Kontener elastyczny</h3>
+          <p>
+            Kontener elastyczny (zwany dalej kontenerem) — to element nadrzędny grupy elementów,
+            który umożliwia zmianę kolejności elementów wewnątrz. To właściwości kontenera
+            kontrolują:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>kierunek osi;</li>
+            <li>wielowierszowość;</li>
+            <li>pozycjonowanie elementów w rzędzie.</li>
+          </ul>
+          <p>Właściwość display tworzy blokowy lub liniowo-blokowy kontener elastyczny.</p>
+          <pre>
+            display: flex | inline-flex
+          </pre>
+          <p>
+            W zależności od określonej wartości właściwość ustawia elastyczny kontekst dla
+            wszystkich dzieci (nie potomków) kontenera, przekształcając je w elementy elastyczne.
+          </p>
+          <pre>
+            &ltul class="menu">
+              &ltli class="item">&lta href="" class="link">Main page&lt/a>&lt/li>
+              &ltli class="item">&lta href="" class="link">Blog&lt/a>&lt/li>
+              &ltli class="item">&lta href="" class="link">Podcasts&lt/a>&lt/li>
+              &ltli class="item">&lta href="" class="link">Contact&lt/a>&lt/li>
+            &lt/ul>
+          </pre>
+          <p>
+            Utwórzmy menu poziome, konwertując ul.menu na kontener elastyczny. Następnie jego
+            dzieci, elementy li.item, zostaną ułożone wzdłuż głównej osi, która domyślnie przebiega
+            od lewej do prawej.
+          </p>
+          <pre>
+            .menu {
+              display: flex;
+            }
+          </pre>
+          <ul class="menu_1-3">
+            <li class="item"><a href="" class="link">Main page</a></li>
+            <li class="item"><a href="" class="link">Blog</a></li>
+            <li class="item"><a href="" class="link">Podcasts</a></li>
+            <li class="item"><a href="" class="link">Contact</a></li>
+          </ul>
+          <p>
+            W poprzednim kroku do elementów menu została dodana właściwość display: flex;. Teraz są
+            one ułożone poziomo w jednej linii, a także przyciśnięte do siebie.
+          </p>
+          <p>
+            Aby ustawić odstęp między elementami elastycznymi, użyj właściwości gap kontenera
+            elastycznego. W naszym projekcie będzie to 8px. W przypadku kolekcji elementów
+            właściwość gap zastępuje zewnętrzne odstępy, więc nie musisz ustawiać je dla każdego
+            elementu osobno.
+          </p>
+          <p>
+            Dodajmy właściwość gap do kontenera, czyli do reguły z selektorem .menu. Teraz między
+            elementami będzie odstęp 8px.
+          </p>
+          <pre>
+            .menu {
+              display: flex;
+              gap: 8px;
+            }
+          </pre>
+          <ul class="menu-gap_1-3">
+            <li class="item"><a href="" class="link">Main page</a></li>
+            <li class="item"><a href="" class="link">Blog</a></li>
+            <li class="item"><a href="" class="link">Podcasts</a></li>
+            <li class="item"><a href="" class="link">Contact</a></li>
+          </ul>
+        </article>
+        <article id="1.4">
+          <h2>1.4 flex-direction</h2>
+          <div>
+            <p>
+              Właściwość: flex-direction - flexbox to system do układania elementów w jednym
+              określonym kierunku - poziomym lub pionowym. Właściwość flex-direction ustala kierunek
+              głównej osi, definiując kierunek elementów w kontenerze.
+            </p>
+            <ul class="unnumbered-list-container">
+              <li>
+                row - oś zaczyna się po lewej stronie i kończy po prawej stronie. To jest wartość
+                domyślna.
+              </li>
+              <li>row-reverse - oś zaczyna się po prawej stronie i kończy po lewej stronie.</li>
+              <li>column - oś zaczyna się u góry i kończy u dołu.</li>
+              <li>column-reverse - oś zaczyna się u dołu i kończy u góry.</li>
+            </ul>
+            <p>
+              Tak więc ta właściwość zamienia main-start i main-end głównej osi. Elementy elastyczne
+              będą zawsze umieszczane wzdłuż głównej osi od początku (main-start) do końca
+              (main-end).
+            </p>
+            <div class="flex-direction_1-2">
+              <ul class="list_1-2">
+                <li>row</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="list_1-2 row-reverse_1-2">
+                <li>row-reverse</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="list_1-2 column_1-2">
+                <li>column</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="list_1-2 column-reverse_1-2">
+                <li>column-reverse</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article id="1.5">
+          <h2>1.5 justify-content</h2>
+          <p>
+            Właściwość: justify-content - Steruje pozycjonowaniem elementów na głównej osi, od
+            main-start do main-end. Prawdopodobnie najczęstszym zastosowaniem jest centrowanie
+            elementów w pionie w wierszu, zwłaszcza jeśli elementy mają różne wysokości.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>flex-start - elementy są dociskane do początku osi. To jest ustawienie domyślne</li>
+            <li>flex-end - elementy są dociskane do końca osi.</li>
+            <li>center - elementy są wyśrodkowane na osi.</li>
+            <li>
+              space-between - elementy są rozłożone równomiernie, pierwszy element przy początku
+              osi, ostatni przy końcu osi.
+            </li>
+            <li>
+              space-around - elementy są rozmieszczone równomiernie, ale lewy i prawy element
+              pozostają w tyle za granicami kontenera o połowę odstępu między innymi elementami
+            </li>
+            <li>
+              space-evenly - elementy są rozmieszczone w taki sposób, aby odległość między
+              elementami i od elementów krawędziowych do granic kontenera była taka sama.
+            </li>
+          </ul>
+          <div class="flex-justify-content_1-3">
+            <ul class="list_1-3 flex-start_1-3">
+              <li>flex-start</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+            <ul class="list_1-3 flex-end_1-3">
+              <li>flex-end</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+            <ul class="list_1-3 center_1-3">
+              <li>center</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+            <ul class="list_1-3 space-between_1-3">
+              <li>space-between</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+            <ul class="list_1-3 space-around_1-3">
+              <li>space-around</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+            <ul class="list_1-3 space-evenly_1-3">
+              <li>space-evenly</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+            </ul>
+          </div>
+        </article>
+        <article id="1.6">
+          <h2>1.6 align-items</h2>
+          <p>
+            Właściwość align-items kontroluje rozmieszczenie elementów wzdłuż cross axis. Jest ona
+            analogiczna do justify-content, ale dla innej osi.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>flex-start - elementy są dociskane do początku osi.</li>
+            <li>flex-end - elementy są dociskane do końca osi.</li>
+            <li>center - elementy są wyśrodkowane na osi.</li>
+            <li>
+              stretch - elementy rozciągają się, aby wypełnić kontener (to jest ustawienie
+              domyślne).
+            </li>
+            <li>baseline - elementy są wyrównane do linii bazowej.</li>
+          </ul>
+          <div class="align-items-main-container_1-6">
+            <div class="align-items-container_1-6 flex-start_1-6">
+              <ul class="align-items-list_1-6 box-1_1-6">
+                <li>flex-start</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-2_1-6">
+                <li>flex-start</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-3_1-6">
+                <li>flex-start</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-4_1-6">
+                <li>flex-start</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-5_1-6">
+                <li>flex-start</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+            </div>
+            <div class="align-items-container_1-6 flex-end_1-6">
+              <ul class="align-items-list_1-6 box-1_1-6">
+                <li>flex-end</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-2_1-6">
+                <li>flex-end</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-3_1-6">
+                <li>flex-end</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-4_1-6">
+                <li>flex-end</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-5_1-6">
+                <li>flex-end</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+            </div>
+            <div class="align-items-container_1-6 center_1-6">
+              <ul class="align-items-list_1-6 box-1_1-6">
+                <li>center</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-2_1-6">
+                <li>center</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-3_1-6">
+                <li>center</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-4_1-6">
+                <li>center</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-5_1-6">
+                <li>center</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+            </div>
+            <div class="align-items-container_1-6 stretch_1-6">
+              <ul class="align-items-list_1-6 box-1_1-6">
+                <li>stretch</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-2_1-6">
+                <li>stretch</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-3_1-6">
+                <li>stretch</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-4_1-6">
+                <li>stretch</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-5_1-6">
+                <li>stretch</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+            </div>
+            <div class="align-items-container_1-6 baseline_1-6">
+              <ul class="align-items-list_1-6 box-1_1-6">
+                <li>baseline</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-2_1-6">
+                <li>baseline</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-3_1-6">
+                <li>baseline</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-4_1-6">
+                <li>baseline</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+              <ul class="align-items-list_1-6 box-5_1-6">
+                <li>baseline</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article id="1.7">
+          <h2>1.7 flex-wrap</h2>
+          <p>
+            Domyślnie display: flex tworzy jednowierszowy kontener, z elementami umieszczonymi w
+            jednej linii i skompresowanymi w razie potrzeby.
+          </p>
+          <p>
+            Właściwość flex-wrap pozwala na przekształcenie kontenera jednowierszowego w kontener
+            wielowierszowy. Elementy będą dodawane do linii, dopóki będzie w niej miejsce, po czym
+            automatycznie zostanie utworzona kolejna linia.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/flex-wrap-m3z4.png" alt="" />
+          </div>
+          <p>Właściwość flex-wrap ma następujące wartości:</p>
+          <pre>
+            flex-wrap: nowrap | wrap | wrap-reverse
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>nowrap — wszystkie elementy będą w tej samej linii. Jest to wartość domyślna.</li>
+            <li>
+              wrap — pozwala elementom przeskakiwać do innych wierszy, które domyślnie są ułożone od
+              góry do dołu (wzdłuż cross axis).
+            </li>
+            <li>
+              wrap-reverse — pozwala elementom przeskakiwać do innych wierszy, które domyślnie są
+              ułożone od dołu do góry (wzdłuż cross axis).
+            </li>
+          </ul>
+        </article>
+        <article id="1.8">
+          <h2>1.8 Siatka elementów</h2>
+          <p>
+            Wielowierszowy kontener elastyczny umożliwia tworzenie "siatki" elementów, takich jak
+            karty produktów w sklepie internetowym, podglądy artykułów na blogu, galeria obrazów
+            itp.
+          </p>
+          <p>
+            Pierwszą rzeczą do zrobienia jest przekonwertowanie ul.card-set na kontener elastyczny i
+            uczynienie go wielorzędowym.
+          </p>
+          <pre>
+            .card-set {
+              display: flex;
+              flex-wrap: wrap;
+            }
+          </pre>
+          <p>
+            Następnie użyjemy właściwości gap, aby ustawić odstęp między kolumnami i wierszami
+            siatki. Powiedzmy, że w naszym wyimaginowanym layoucie jest to 10px.
+          </p>
+          <pre>
+            .card-set {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 10px;
+            }
+          </pre>
+          <p>
+            Właściwość gap łączy w sobie wartości właściwości row-gap i column-gap, które
+            umożliwiają oddzielne ustawianie odstępów między wierszami i kolumnami siatki. Używaj
+            gap, gdy odstępy są takie same, w przeciwnym razie możesz użyć właściwości row-gap i
+            column-gap.
+          </p>
+          <p>
+            Ostatnim krokiem jest ustawienie rozmiaru elementów elastycznych li.item. Szerokość jest
+            określana jako procent całkowitej szerokości elementu nadrzędnego (100%) przy użyciu
+            następującego wzoru:
+          </p>
+          <pre>
+            (100% - liczba_odstępów_w_wierszu * wartość_jednego_odstępu) / liczba_elementów_w_wierszu
+          </pre>
+          <p>
+            Liczba odstępów między elementami w wierszu jest zawsze o jeden mniejsza niż liczba
+            elementów. W naszej siatce na wiersz przypadają trzy elementy, więc na każdy wiersz
+            przypadają dwa odstępy 10px.
+          </p>
+          <pre>
+            .item {
+              width: calc((100% - 20px) / 3);
+            }
+          </pre>
+          <p>
+            Funkcja CSS calc() przyjmuje jako parametr wyrażenie matematyczne, którego wynik może
+            być użyty jako wartość właściwości CSS. Wyrażenie może zawierać operatory +, -, *, /
+            przy użyciu standardowych reguł pierwszeństwa.
+          </p>
+          <p>
+            Czemuż by nie użyć stałych wartości? Procentowe szerokości elementów są skalowalnym
+            rozwiązaniem, ponieważ nie trzeba ponownie obliczać rozmiarów elementów, gdy zmieniasz
+            szerokość kontenera lub odstępy między nimi.
+          </p>
+          <ul class="galery-list_1-6">
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/logoBilancio1.jpg" alt="" />
+            </li>
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/logoBilancio2.jpg" alt="" />
+            </li>
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/logoBilancio3.jpg" alt="" />
+            </li>
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/logoBilancio4.jpg" alt="" />
+            </li>
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/logoBilancio5.jpg" alt="" />
+            </li>
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/logoBilancio6.jpg" alt="" />
+            </li>
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/logoBilancio7.jpg" alt="" />
+            </li>
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/logoBilancio8.jpg" alt="" />
+            </li>
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/scalak1.jpg" alt="" />
+            </li>
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/scalak2.jpg" alt="" />
+            </li>
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/scalak3.jpg" alt="" />
+            </li>
+            <li class="galery-item_1-6">
+              <img class="galery-img_1-6" src="../images/image/scalak4.jpg" alt="" />
+            </li>
+          </ul>
+        </article>
+        <article id="1.9">
+          <h2>1.9 Właściwość align-content</h2>
+          <p>
+            Kontroluje wyrównanie wszystkich wierszy kontenera wielowierszowego wzdłuż cross axis,
+            jeśli jest na to miejsce. Podobnie jak align-items wyrównuje elementy w każdym rzędzie,
+            ale nie działa, gdy jest tylko jeden wiersz elementów lub brak miejsca w pionie w
+            kontenerze (brak jawnie określonej wysokości większej niż treść).
+          </p>
+          <pre>
+            align-content: flex-start | flex-end | center | space-between | space-around | space-evenly | stretch
+          </pre>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/align-content-m3z4.png" alt="" />
+          </div>
+          <ul class="unnumbered-list-container">
+            <li>
+              stretch — wiersze są rozciągane równomiernie, aby zająć całą przestrzeń. Wartość
+              domyślna.
+            </li>
+            <li>flex-start — wiersze są przyciśnięte do początku cross axis.</li>
+            <li>flex-end — wiersze są przyciśnięte do końca cross axis.</li>
+            <li>center — ciągi są wyśrodkowane na cross axis.</li>
+          </ul>
+          <p>
+            Wartości space-between, space-around i space-evenly działają podobnie do właściwości
+            justify-content, tylko dla wierszy i są rzadko używane.
+          </p>
+        </article>
+      </section>
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Elementy elastyczne</h2>
+          <p>
+            Elementy elastyczne są dziećmi kontenera elastycznego, czyli elementami pierwszego
+            poziomu zagnieżdżenia.
+          </p>
+          <p>W modelu Flexbox elementy elastyczne (dalej elementy):</p>
+          <ul class="unnumbered-list-container">
+            <li>nie przestrzegają już standardowego przepływu dokumentów;</li>
+            <li>tracą swój typ (blok, linia itp.)</li>
+            <li>przestrzegają zasad pozycjonowanego modelu Flexbox.</li>
+          </ul>
+        </article>
+        <article id="2.2">
+          <h3>2.2 Właściwość flex-basis</h3>
+          <p>
+            Właściwość flex-basis definiuje początkowy rozmiar elementu elastycznego w kontenerze
+            elastycznym.
+          </p>
+          <p>
+            Początkowy rozmiar jest rozmiarem przed zastosowaniem właściwości flex-grow i
+            flex-shrink, które również wpłyną na rozmiar elementów względem siebie. Przyjrzymy się
+            im później.
+          </p>
+          <p>
+            Wartość właściwości flex-basis może być dowolną prawidłową wartością: px lub %. Dla
+            elementów elastycznych właściwość ta ma taką samą funkcję jak właściwość width. Ale w
+            praktyce używana jest albo width, albo flex-basis, która definiuje początkowy rozmiar
+            elementu w kontenerze.
+          </p>
+          <pre>
+            flex-basis: auto | wartość
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              Jeśli zastosowano właściwości flex-basis i width, właściwość width jest ignorowana.
+            </li>
+            <li>
+              Właściwość flex-basis może definiować wysokość, ale nie szerokość elementu. Dzieje się
+              tak, gdy kierunek głównej osi jest pionowy.
+            </li>
+            <li>
+              Właściwości min-width i max-width działają jako ograniczniki rozmiaru dla elementu,
+              nawet jeśli posiada on właściwość flex-basis.
+            </li>
+            <li>
+              Właściwość flex-basis nie jest ostatecznym rozmiarem elementu, ale rozmiarem przed
+              alokacją wolnej przestrzeni, która jest kontrolowana przez właściwości flex-grow i
+              flex-shrink.
+            </li>
+          </ul>
+        </article>
+        <article id="2.3">
+          <h3>2.3 Właściwość flex-grow</h3>
+          <p>
+            Właściwość flex-grow definiuje zdolność elementu do zajmowania większej przestrzeni
+            (wzrostu) niż jego pierwotny rozmiar. Wartość jest definiowana jako proporcja (udział)
+            wolnej przestrzeni w kontenerze.
+          </p>
+          <pre>
+            flex-grow: udział
+          </pre>
+          <p>
+            Domyślnie wszystkie elementy są ustawione na 0. Oznacza to, że domyślnie elementy nie
+            próbują zajmować dodatkowego wolnego miejsca, nawet jeśli jest ono dostępne. Wartości
+            ujemne nie mogą być ustawione.
+          </p>
+          <p>
+            Ważne jest nie to, jaka jest wartość flex-grow elementu sama w sobie, ale jaka jest w
+            odniesieniu do innych elementów.
+          </p>
+          <p>
+            Jeśli ustawimy każdy element na flex-grow: 1, a następnie zmienimy flex-grow dla
+            trzeciego elementu, zobaczymy zmiany: zajmie on 2, 3 i 6 razy więcej miejsca w wierszu
+            niż inne elementy.
+          </p>
+          <p>
+            Oznacza to, że właściwość flex-grow kontroluje proporcje elementów względem siebie.
+            Jeśli ustawimy każdy element na flex-grow: 4, a trzeci element na flex-grow: 12,
+            otrzymamy taki sam wynik, jak w przypadku wartości odpowiednio 1 i 3.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/flex-grow-m3-z4.webp" alt="" />
+          </div>
+          <h4>Elastyczna treść</h4>
+          <p>
+            Typowym przypadkiem użycia tej właściwości jest pasek boczny o stałej szerokości i
+            elastyczna treść, która zajmuje całą pozostałą przestrzeń w wierszu.
+          </p>
+          <pre>
+            &ltdiv class="container">
+              &ltaside class="sidebar">Sidebar&lt/aside>
+              &ltmain class="content">Main content&lt/main>
+            &lt/div>
+          </pre>
+          <p>
+            Jeśli ustawisz div.container jako kontener elastyczny, pasek boczny będzie mieć stałą
+            szerokość w wierszu, a szerokość main.content będzie określona przez szerokość jego
+            zawartości.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/elastycznaTresc-m3z4.png" alt="" />
+          </div>
+          <p>
+            Wszystko, co musisz zrobić, to ustawić właściwość main.content na flex-grow: 1, aby
+            kontener zajął całą dostępną przestrzeń w wierszu.
+          </p>
+          <div class="flex-grow-container_2-3">
+            <aside class="flex-grow-sidebar_2-3">Sidebar</aside>
+            <main class="flex-grow-content_2-3">Main content</main>
+          </div>
+          <h4>Przyklejona stopka strony</h4>
+          <p>
+            Innym częstym przypadkiem użycia właściwości flex-grow jest sytuacja, w której musisz
+            przycisnąć obramowanie strony do dołu strony, niezależnie od ilości jej głównej
+            zawartości.
+          </p>
+          <pre>
+            &ltheader>Page header&lt/header>
+            &ltmain>Main content&lt/main>
+            &ltfooter>Page footer&lt/footer>
+          </pre>
+          <p>
+            Jeśli zawartość main jest wystarczająca, strona może wyglądać następująco: nagłówek u
+            góry, następnie zawartość główna i stopka u dołu strony.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/flex-grow-main-menu_2-3.png" alt="" />
+          </div>
+          <p>
+            Problem polega na tym, że jeśli nie ma wystarczającej ilości treści głównej, aby
+            rozciągnąć ją w pionie, strona będzie wyglądać tak (patrz poniższy schemat). Trzy
+            elementy w linii są umieszczone jeden pod drugim, w zależności od ustalonej wysokości
+            lub ilości treści, którą zawierają.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/flex-grow-main-menu1-m3z4.png" alt="" />
+          </div>
+          <p>
+            Nawet jeśli ustawimy nagłówek i stopkę na stałą wysokość, nie możemy z góry wiedzieć,
+            jaka będzie wysokość zawartości strony. Dlatego możemy stwierdzić, że wysokość main
+            powinna być zawsze określana przez jej zawartość i nie powinna być ustawiana jawnie.
+          </p>
+          <p>
+            Z pomocą Flexbox możesz upewnić się, że stopka jest zawsze dociśnięta do dołu strony,
+            niezależnie od ilości zawartości main.
+          </p>
+          <p>Do implementacji potrzebujemy dodatkowego elementu — wrappera.</p>
+          <pre>
+            &ltdiv class="page-container">
+              &ltheader>Page header&lt/header>
+              &ltmain>Main content&lt/main>
+              &ltfooter>Page footer&lt/footer>
+            &lt/div>
+          </pre>
+          <p>
+            Najpierw ustawimy jego minimalną wysokość na 100% wysokości zakładki przeglądarki na
+            ekranie użytkownika, używając jednostek vh (viewport height — to procent wysokości
+            obszaru wyświetlania; 5vh = 5% wysokości).
+          </p>
+          <pre>
+            .page-container {
+              min-height: 100vh;
+            }
+          </pre>
+          <p>
+            Następnie przekonwertujemy go na kontener elastyczny i zmienimy kierunek głównej osi na
+            pionowy, tj. od góry do dołu. Wymusi to ułożenie elementów elastycznych w kolumnie.
+          </p>
+          <pre>
+            .page-container {
+              min-height: 100vh;
+              display: flex;
+              flex-direction: column;
+            }
+          </pre>
+          <p>
+            Pozostaje tylko ustawić main właściwość flex-grow, aby umożliwić jej zajęcie całej
+            wolnej przestrzeni na osi głównej, przesuwając stopkę na jej koniec, tj. w dół.
+          </p>
+          <pre>
+            main {
+              flex-grow: 1;
+            }
+          </pre>
+          <p>
+            Teraz, niezależnie od tego, ile treści znajduje się w main, zawsze zajmuje ona całe
+            wolne miejsce na osi głównej po stopce i nagłówku.
+          </p>
+          <div class="page-container_2-3">
+            <div class="header-container_2-3">Page header</div>
+            <div class="main-container_2-3">Main content</div>
+            <div class="footer-container_2-3">Page footer</div>
+          </div>
         </article>
       </section>
     </main>
@@ -53,6 +906,6 @@
     </footer>
     <!-- SKRYPTY JS -->
     <script defer type="module" src="../scripts/menuHtmlCss.mjs"></script>
-    <script defer type="module" src="../scripts/htmlCssScripts/02-html.mjs"></script>
+    <!-- <script defer type="module" src="../scripts/htmlCssScripts/02-html.mjs"></script> -->
   </body>
 </html>

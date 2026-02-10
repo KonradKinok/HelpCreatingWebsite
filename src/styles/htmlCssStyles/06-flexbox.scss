@@ -1,0 +1,225 @@
+.flexbox-main-container_m3z4 {
+
+  //1.1
+  .flex-direction_1-2 {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    color: white;
+
+    .list_1-2 {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      width: 180px;
+      height: 150px;
+      background-color: tomato;
+
+
+      &.row-reverse_1-2 {
+        display: flex;
+        flex-direction: row-reverse;
+        background-color: teal;
+      }
+
+      &.column_1-2 {
+        display: flex;
+        flex-direction: column;
+        background-color: blue;
+      }
+
+      &.column-reverse_1-2 {
+        display: flex;
+        flex-direction: column-reverse;
+        background-color: green;
+      }
+    }
+  }
+
+  .flex-justify-content_1-3 {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    gap: 10px;
+    color: white;
+
+    .list_1-3 {
+      display: flex;
+      flex-direction: row;
+      flex-flow: row wrap;
+      gap: 5px;
+      width: 400px;
+      height: 200px;
+      background-color: tomato;
+
+      &.flex-start_1-3 {
+        justify-content: flex-start;
+        background-color: teal;
+      }
+
+      &.flex-end_1-3 {
+        justify-content: flex-end;
+        background-color: orange;
+      }
+
+      &.center_1-3 {
+        justify-content: center;
+        background-color: purple;
+      }
+
+      &.space-between_1-3 {
+        justify-content: space-between;
+        background-color: red;
+      }
+
+      &.space-around_1-3 {
+        justify-content: space-around;
+        background-color: rgb(219, 104, 27);
+      }
+
+      &.space-evenly_1-3 {
+        justify-content: space-evenly;
+        background-color: pink;
+      }
+    }
+  }
+
+  .menu_1-3 {
+    display: flex;
+  }
+
+  .menu-gap_1-3 {
+    display: flex;
+    gap: 8px;
+  }
+
+  .align-items-main-container_1-6 {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    border: 2px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .align-items-container_1-6 {
+      display: flex;
+      border: 2px solid black;
+
+      &.flex-start_1-6 {
+        align-items: flex-start;
+      }
+
+      &.flex-end_1-6 {
+        align-items: flex-end;
+      }
+
+      &.center_1-6 {
+        align-items: center;
+      }
+
+      &.stretch_1-6 {
+        align-items: stretch;
+      }
+
+      &.baseline_1-6 {
+        align-items: baseline;
+      }
+
+      .align-items-list_1-6 {
+        display: flex;
+
+        &.box-1_1-6 {
+          background-color: rgb(77, 116, 6);
+          font-size: 2rem;
+          padding: 10px 0;
+        }
+
+        &.box-2_1-6 {
+          background-color: rgb(5, 88, 88);
+          font-size: 1.1rem;
+        }
+
+        &.box-3_1-6 {
+          background-color: rgb(0, 36, 155);
+          font-size: 1.8rem;
+        }
+
+        &.box-4_1-6 {
+          background-color: rgb(86, 0, 88);
+          font-size: 1.3rem;
+        }
+
+        &.box-5_1-6 {
+          background-color: rgb(131, 20, 0);
+          font-size: .4rem;
+        }
+      }
+    }
+  }
+
+  //1.8
+  .galery-list_1-6 {
+    --gap: 10px;
+    --countImages: 10;
+    --countSpace: calc(var(--countImages) - 1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+
+    .galery-item_1-6 {
+      display: flex;
+      width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+      border-radius: 4px;
+      overflow: hidden;
+
+      &:hover img {
+        transform: scale(1.2);
+      }
+
+      .galery-img_1-6 {
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+    }
+  }
+
+  //2.3
+  .flex-grow-container_2-3 {
+    display: flex;
+    background-color: rosybrown;
+    min-height: 100px;
+
+    .flex-grow-sidebar_2-3 {
+      background-color: rgb(0, 36, 155);
+    }
+
+    .flex-grow-content_2-3 {
+      background-color: rgb(5, 88, 88);
+      flex-grow: 1
+    }
+  }
+
+  .page-container_2-3 {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    background-color: sandybrown;
+
+    .header-container_2-3 {
+      background-color: rgb(77, 116, 6);
+      padding: 20px;
+    }
+
+    .main-container_2-3 {
+      background-color: rgb(131, 20, 0);
+      flex-grow: 1;
+      padding: 20px;
+    }
+
+    .footer-container_2-3 {
+      background-color: rgb(86, 0, 88);
+      padding: 20px;
+    }
+  }
+}
