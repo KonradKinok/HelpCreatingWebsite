@@ -1055,6 +1055,104 @@
             </ul>
           </div>
         </article>
+        <article id="2.6">
+          <h3>2.6 Właściwość order</h3>
+          <p>
+            Domyślnie elementy są umieszczane w kolejności, w jakiej zostały określone w pliku HTML.
+            Korzystając z właściwości order, możesz wizualnie zmienić kolejność elementów wzdłuż
+            main axis. W tym przypadku w kodzie HTML nic się nie zmieni. Domyślnie wszystkie
+            elementy mają wartość 0.
+          </p>
+          <pre>
+            order: położenie;
+          </pre>
+          <p>
+            Właściwość ta jest rzadko używana, ponieważ narusza połączenie między wizualną
+            kolejnością elementów a tym, jak są one widziane przez przeglądarkę i technologie
+            wspomagające, jednak wiedzieć o niej warto, bo możesz jej potrzebować w przyszłości.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/order-m3z4.jpg" alt="" />
+          </div>
+          <ol class="numbered-list-container order-list_2-6">
+            <li class="order-item_2-6 first_2-6">1 - order:1</li>
+            <li class="order-item_2-6 second_2-6">2 - order:0</li>
+            <li class="order-item_2-6 third_2-6">3 - order:2</li>
+            <li class="order-item_2-6">4 - no order</li>
+            <li class="order-item_2-6 fifth_2-6">5 - order:3</li>
+          </ol>
+        </article>
+      </section>
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Pseudoklasy strukturalne</h2>
+          <h3>Elementy sąsiadujące</h3>
+          <p>
+            Pseudoklasy strukturalne są sposobem na wybranie określonych elementów z kolekcji
+            elementów podrzędnych (sąsiadów) bez przypisywania dodatkowych klas. Elementy podrzędne
+            (sąsiedzi) to elementy posiadające wspólnego rodzica.
+          </p>
+          <pre>
+            &ltul class="list">
+              &ltli class="list-item">
+                &lta class="list-link">Link 1&lt/a>
+              &lt/li>
+              &ltli class="list-item">
+                &lta class="list-link">Link 2&lt/a>
+              &lt/li>
+              &ltli class="list-item">
+                &lta class="list-link">Link 3&lt/a>
+              &lt/li>
+            &lt/ul>
+          </pre>
+          <p>
+            W powyższym przykładzie, elementy li.list-item są sąsiadami i będzie można zastosować do
+            nich pseudoklasy strukturalne.
+          </p>
+          <p>
+            W tym samym czasie, linki a.list-link nie są sąsiadami, nie mają wspólnego rodzica, więc
+            nie możesz użyć pseudoklas do wybrania konkretnego linku lub grupy linków.
+          </p>
+        </article>
+        <article id="3.2">
+          <h3>3.2 Pseudoklasy :first-child i :last-child</h3>
+          <p>
+            Pseudoklasy :first-child i :last-child pozwalają na utworzenie selektora, który odnosi
+            się tylko do pierwszego lub ostatniego elementu w kolekcji sąsiadujących elementów.
+          </p>
+          <pre>
+            &ltul class="list">
+              &ltli class="list-item">HTML&lt/li>
+              &ltli class="list-item">CSS&lt/li>
+              &ltli class="list-item">JavaScript&lt/li>
+              &ltli class="list-item">React&lt/li>
+            &lt/ul>
+
+            .list-item {
+              color: blue;
+            }
+
+            .list-item:first-child {
+              color: red;
+            }
+
+            .list-item:last-child {
+              color: green;
+            }
+          </pre>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/first-last-child-m3z4.png" alt="" />
+          </div>
+          <p>
+            Wyobraź sobie, że zgodnie z layoutem pomiędzy elementami listy powinien znajdować się
+            margines zewnętrzny (pomarańczowy na poniższym schemacie). Każdy element listy musi mieć
+            dolny lub górny margin.
+          </p>
+          <p>
+            Jednak w tym przypadku nie jest potrzebny górny margines zewnętrzny dla pierwszego
+            elementu ani dolny margines zewnętrzny dla ostatniego elementu w kolekcji.
+          </p>
+        </article>
       </section>
     </main>
     <footer class="footer">
