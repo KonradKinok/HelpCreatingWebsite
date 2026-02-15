@@ -1152,6 +1152,201 @@
             Jednak w tym przypadku nie jest potrzebny górny margines zewnętrzny dla pierwszego
             elementu ani dolny margines zewnętrzny dla ostatniego elementu w kolekcji.
           </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/first-last-child1-m3z4.png" alt="" />
+          </div>
+          <p>
+            Skrajne geometrie, czy to pionowe, czy poziome, muszą zostać usunięte, ponieważ takie
+            marginesy nie mogą w oczywisty sposób przedłużać lub rozszerzać elementu nadrzędnego.
+          </p>
+          <pre>
+            .list-item {
+              margin-bottom: 12px;
+            }
+
+            .list-item:last-child {
+              margin-bottom: 0;
+            }
+          </pre>
+          <div class="first-last-child-container_3-2">
+            <ul class="first-last-child-list_3-2">
+              <li class="first-last-child-list-item_3-2">HTML</li>
+              <li class="first-last-child-list-item_3-2">CSS</li>
+              <li class="first-last-child-list-item_3-2">JavaScript</li>
+              <li class="first-last-child-list-item_3-2">React - źle - dolny margines</li>
+            </ul>
+            <ul class="first-last-child-list_3-2">
+              <li class="first-last-child-list-good-item_3-2">HTML</li>
+              <li class="first-last-child-list-good-item_3-2">CSS</li>
+              <li class="first-last-child-list-good-item_3-2">JavaScript</li>
+              <li class="first-last-child-list-good-item_3-2">React - dobrze</li>
+            </ul>
+          </div>
+        </article>
+        <article id="3.3">
+          <h3>3.3 Pseudoklasa :not()</h3>
+          <p>
+            Pseudoklasa :not() pozwala wybrać wszystkie elementy, które nie spełniają kryterium.
+          </p>
+          <p>
+            Kryterium jest podawane w formie prostego selektora zapisanego w nawiasach. Prosty
+            selektor jest selektorem uniwersalnym, selektorem typu, identyfikatorem, atrybutem,
+            klasą lub pseudoklasą.
+          </p>
+          <pre>
+            :not(selector)
+          </pre>
+          <p>
+            Ta pseudoklasa może być użyta do innego rozwiązania problemu czyszczenia marginesu
+            skrajnego pierwszego lub ostatniego elementu.
+          </p>
+          <p>
+            Zamiast ustawiać odstęp dla wszystkich elementów w jednej regule, a następnie pamiętać o
+            zresetowaniu go do zera dla określonego elementu w innej regule, ustawiamy odstęp dla
+            wszystkich elementów z wyjątkiem jednego w jednej regule.
+          </p>
+          <pre>
+            .list-item:not(:last-child) {
+              margin-bottom: 20px;
+            }
+          </pre>
+          <p>
+            Czyta się to następująco: zastosuj style do wszystkich elementów z klasą list-item,
+            które nie są ostatnim elementem w kolekcji sąsiadów. Czyli selektor ten stosuje się do
+            wszystkich elementów w kolekcji z wyjątkiem ostatniego.
+          </p>
+          <div class="not-container_3-3">
+            <ul class="not-list_3-3">
+              <li class="not-list-item-bad_3-3">HTML</li>
+              <li class="not-list-item-bad_3-3">CSS</li>
+              <li class="not-list-item-bad_3-3">JavaScript</li>
+              <li class="not-list-item-bad_3-3">React - źle - dolny margines</li>
+            </ul>
+            <ul class="not-list_3-3">
+              <li class="not-list-item-good_3-3">HTML</li>
+              <li class="not-list-item-good_3-3">CSS</li>
+              <li class="not-list-item-good_3-3">JavaScript</li>
+              <li class="not-list-item-good_3-3">React - dobrze</li>
+            </ul>
+          </div>
+        </article>
+        <article id="3.4">
+          <h3>3.4 Pseudoklasa :nth-child(an + b)</h3>
+          <p>
+            Pseudoklasa :nth-child(an + b) wybiera elementy w kolekcji sąsiadów według liczby
+            określonej w nawiasach za pomocą pętli an + b, która pozwala ustawić regułę dla
+            kolejności elementów.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>a — okres pętli. Dowolna liczba.</li>
+            <li>
+              n — licznik pętli. Zaczyna się od zera i jest zwiększany o jeden przy każdej iteracji.
+            </li>
+            <li>b — przesunięcie. Dowolna liczba.</li>
+          </ul>
+          <p>
+            Na przykład, jeśli a = 2, oraz b = 1, to an + b = 2n +1. Ten wzór wybierze wszystkie
+            nieparzyste elementy.
+          </p>
+          <pre>
+            # Przy n = 0
+            2 * 0 + 1 = 1
+
+            # Przy n = 1
+            2 * 1 + 1 = 3
+
+            # Przy n = 2
+            2 * 2 + 1 = 5
+
+            # I tak dalej dla n = 3, n = 4 ...
+          </pre>
+          <p>
+            W praktyce ta pseudoklasa jest używana do wybierania wszystkich parzystych lub
+            nieparzystych elementów kolekcji. Na przykład, aby wiersze tabeli miały różne kolory co
+            drugi wiersz.
+          </p>
+          <p>Utwórzmy znacznik dla listy dziesięciu elementów i zmieńmy ich kolor tła.</p>
+          <pre>
+            &ltul class="list">
+              &ltli class="list-item">1&lt/li>
+              &ltli class="list-item">2&lt/li>
+              &ltli class="list-item">3&lt/li>
+              &ltli class="list-item">4&lt/li>
+              &ltli class="list-item">5&lt/li>
+              &ltli class="list-item">6&lt/li>
+              &ltli class="list-item">7&lt/li>
+              &ltli class="list-item">8&lt/li>
+              &ltli class="list-item">9&lt/li>
+              &ltli class="list-item">10&lt/li>
+            &lt/ul>
+          </pre>
+          <p>
+            Aby wybrać wszystkie parzyste elementy, możesz użyć wzoru 2n lub jego aliasu - słowa
+            kluczowego even.
+          </p>
+          <pre>
+            .list-item:nth-child(2n) {
+              background-color: orange;
+            }
+
+            /* Analogicznie, używając aliasu */
+            .list-item:nth-child(even) {
+              background-color: orange;
+            }
+          </pre>
+          <ul class="nth-child-even-list_3-4">
+            <li class="nth-child-list-item_3-4">1</li>
+            <li class="nth-child-list-item_3-4">2</li>
+            <li class="nth-child-list-item_3-4">3</li>
+            <li class="nth-child-list-item_3-4">4</li>
+            <li class="nth-child-list-item_3-4">5</li>
+            <li class="nth-child-list-item_3-4">6</li>
+            <li class="nth-child-list-item_3-4">7</li>
+            <li class="nth-child-list-item_3-4">8</li>
+            <li class="nth-child-list-item_3-4">9</li>
+            <li class="nth-child-list-item_3-4">10</li>
+          </ul>
+          <p>
+            Aby wybrać nieparzyste elementy, możesz użyć wzoru 2n + 1 lub jego aliasu — wartości
+            odd, zarezerwowanego słowa.
+          </p>
+          <pre>
+            .list-item:nth-child(2n + 1) {
+             background-color: orange;
+            }
+
+            /* Analogicznie, używając aliasu */
+            .list-item:nth-child(odd) {
+             background-color: orange;
+            }
+          </pre>
+          <ul class="nth-child-odd-list_3-4">
+            <li class="nth-child-list-item_3-4">1</li>
+            <li class="nth-child-list-item_3-4">2</li>
+            <li class="nth-child-list-item_3-4">3</li>
+            <li class="nth-child-list-item_3-4">4</li>
+            <li class="nth-child-list-item_3-4">5</li>
+            <li class="nth-child-list-item_3-4">6</li>
+            <li class="nth-child-list-item_3-4">7</li>
+            <li class="nth-child-list-item_3-4">8</li>
+            <li class="nth-child-list-item_3-4">9</li>
+            <li class="nth-child-list-item_3-4">10</li>
+          </ul>
+        </article>
+      </section>
+      <section id="4" class="text">
+        <article id="4.1">
+          <h2>4.1 Filmy</h2>
+          <p>
+            <a href="https://youtu.be/cFmv6KrGAPg" target="_blank" rel="noopener noreferrer"
+              >Model blokowy. Flexbox</a
+            >
+          </p>
+          <p>
+            <a href="https://youtu.be/p5x_v3M_yjE" target="_blank" rel="noopener noreferrer">
+              Model blokowy. Flexbox 2</a
+            >
+          </p>
         </article>
       </section>
     </main>

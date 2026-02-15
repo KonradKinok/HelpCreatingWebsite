@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -18,7 +18,7 @@
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
     <link rel="stylesheet" href="../styles/htmlCssStyles.scss" />
-    <link rel="stylesheet" href="../styles/htmlCssStyles/02-html2.scss" />
+    <link rel="stylesheet" href="../styles/htmlCssStyles/07-dekoratywneEfektyElementy.scss" />
 
     <title>Dekoratywne efekty i elementy</title>
   </head>
@@ -30,12 +30,538 @@
         <ul id="this-page-menu" class="this-page-menu"></ul>
       </nav>
     </header>
-    <main class="main-container">
+    <main class="main-container background-main-container_m3z5">
       <!-- section1 -->
       <section id="1" class="text">
-        <h1>Moduł 1 - Zajęcia 2 - Dekoratywne efekty i elementy</h1>
+        <h1>Moduł 1 - Zajęcia 5 - Dekoratywne efekty i elementy</h1>
         <article id="1.1">
-          <h2>1.1 Tabele</h2>
+          <h2>1.1 Obrazy treści i obrazy dekoracyjne</h2>
+          <p>
+            Na stronie internetowej zawsze znajdują się obrazy. Pomagają one wyrazić treść strony
+            lub po prostu dodają dekoracyjny akcent. Istnieją więc dwa rodzaje obrazów:
+          </p>
+          <ol class="numbered-list-container order-list_2-6">
+            <li>obrazy treści;</li>
+            <li>obrazy dekoracyjne.</li>
+            <p>Jaka jest różnica między obrazami treści a obrazami dekoracyjnymi?</p>
+          </ol>
+          <p>
+            Obrazy treści mają znaczenie semantyczne, odnoszą się do treści strony i pomagają w
+            przekazywaniu użytkownikowi użytecznych informacji. Są one dodawane do znaczników HTML
+            za pomocą znacznika &ltimg /> z wypełnionym atrybutem alt, który opisuje obraz.
+          </p>
+          <p>Przykłady obrazów treści:</p>
+          <ul class="unnumbered-list-container">
+            <li>zdjęcie produktu na karcie produktu w sklepie internetowym;</li>
+            <li>
+              poster - adres obrazu, który jest używany jako plakat, jeśli wideo nie zostało
+              załadowane lub nie jest jeszcze odtwarzane
+            </li>
+            <li>zdjęcia członków zespołu;</li>
+            <li>logo firmy;</li>
+            <li>banery reklamowe;</li>
+            <li>mapy lokalizacji;</li>
+            <li>obrazy suwaków.</li>
+          </ul>
+          <p>
+            Obrazy dekoracyjne są używane do dodatkowych celów projektowych. Nie zawierają one
+            żadnych użytecznych informacji i są elementami projektu. Są one dodawane za pomocą CSS
+            jako tło elementu lub, w przypadku grafiki wektorowej, oznaczone znacznikiem &ltsvg> w
+            HTML.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>niestandardowe znaczniki listy;</li>
+            <li>ikony pomocnicze;</li>
+            <li>nakładki graficzne;</li>
+            <li>obrazy tła bloków.</li>
+          </ul>
+          <p>
+            Tło to nie tylko efekt dekoracyjny, ale także pomoc w postrzeganiu idei, wskazówka
+            dotycząca zawartości elementu. Na przykład kolor zielony jest kojarzony z udaną
+            operacją, a czerwony z błędem. Obraz tła pomaga również w przekazywaniu zawartości lub
+            wzbogaceniu wyglądu.
+          </p>
+        </article>
+        <article id="1.2">
+          <h3>1.2 Właściwość background-image</h3>
+          <p>
+            Właściwość background-image ustawia obraz tła elementu, którego adres jest określony
+            jako argument funkcji url(). Może to być ścieżka względna lub bezwzględna.
+          </p>
+          <pre>
+            background-image: url(ścieżka do obrazu);
+          </pre>
+          <p>
+            Element tła ma zastosowanie tylko do obszaru zawartości i wewnętrznego marginesu, ale
+            nigdy do marginesu zewnętrznego.
+          </p>
+          <p>
+            Należy od razu ustawić kolor tła i obraz tła, który zawsze będzie umieszczany nad tłem.
+            Na przykład, jeśli obraz nie zostanie załadowany, użytkownik zobaczy przynajmniej kolor
+            tła, który jest podświetlony, a nie puste miejsce. Jest to szczególnie przydatne, jeśli
+            blok zawiera tekst, którego kolor nie kontrastuje z głównym kolorem dokumentu.
+          </p>
+          <pre>
+            .hero {
+              background-color: #2a2a2a;
+              background-image: url(ścieżka do obrazu);
+            }
+          </pre>
+        </article>
+        <article id="1.3">
+          <h3>1.3 Właściwość background-repeat</h3>
+          <p>
+            Właściwość background-repeat kontroluje powtarzanie obrazu tła. Domyślnie jest on
+            powtarzany poziomo (X) i pionowo (Y). Dzieje się tak, jeśli obraz jest mniejszy niż
+            rozmiar elementu.
+          </p>
+          <pre>
+            background-repeat: repeat | repeat-x | repeat-y | no-repeat
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>repeat — powtarzanie X i Y. Wartość domyślna.</li>
+            <li>repeat-x — powtarzanie tylko X, tj. poziomo.</li>
+            <li>repeat-y — powtarzanie tylko Y, tj. pionowo.</li>
+            <li>no-repeat — bez powtarzania.</li>
+          </ul>
+          <p>
+            Nawet jeśli wiesz, że obraz jest większy niż rozmiar elementu, dobrym pomysłem jest
+            ustawienie właściwości background-repeat na no-repeat, aby zapobiec niepożądanemu
+            zachowaniu.
+          </p>
+          <pre>
+            .hero {
+              background-color: #2a2a2a;
+              background-image: url(ścieżka do obrazu);
+              background-repeat: no-repeat;
+            }
+          </pre>
+          <ul class="galery-background-list_1-3">
+            <li class="galery-background-list-item_1-3 background-repeat_1-3">repeat</li>
+            <li class="galery-background-list-item_1-3 background-repeat-x_1-3">repeat-x</li>
+            <li class="galery-background-list-item_1-3 background-repeat-y_1-3">repeat-y</li>
+            <li class="galery-background-list-item_1-3 background-no-repeat_1-3">no-repeat</li>
+          </ul>
+        </article>
+        <article id="1.4">
+          <h3>1.4 Właściwość background-position</h3>
+          <p>
+            Właściwość background-position kontroluje pozycję obrazu tła względem obramowania
+            elementu, używając dwóch współrzędnych — x w poziomie i y w pionie.
+          </p>
+          <pre>
+            background-position: x y;
+          </pre>
+          <p>
+            Jako wartości możesz używać jednostek bezwzględnych (px) lub względnych (%), a nawet
+            słów kluczowych (top, bottom, right, left, center).
+          </p>
+          <p>
+            Domyślną wartością jest left dla x i top dla y, tzn. tło jest pozycjonowane względem
+            lewego górnego rogu elementu.
+          </p>
+          <pre>
+            /* Wyśrodkuje obraz tła */
+            background-position: 50% 50%;
+
+            /* Umieści obraz tła na 100px od lewej krawędzi i 200px od góry */
+            background-position: 100px 200px;
+
+            /* Umieści obraz tła w prawym dolnym rogu */
+            background-position: right bottom;
+
+            /* Umieści obraz tła w lewym górnym rogu */
+            background-position: left top;
+          </pre>
+          <ul class="galery-background-position-list_1-4">
+            <li class="galery-background-position-list-item_1-4 background-percent_1-4">
+              background-position: 50% 50%;
+            </li>
+            <li class="galery-background-position-list-item_1-4 background-pixel_1-4">
+              background-position: 100px 50px;
+            </li>
+            <li class="galery-background-position-list-item_1-4 background-right_1-4">
+              background-position: right bottom;
+            </li>
+            <li class="galery-background-position-list-item_1-4 background-left_1-4">
+              background-position: left top;
+            </li>
+          </ul>
+          <p>
+            Aby uniknąć przywiązania do rozmiaru elementu i nie ustawiać pozycji tła na sztywno,
+            możesz użyć składni pozycji z przesunięciem.
+          </p>
+          <pre>
+            background-position: x przesunięcie-x y przesunięcie-y
+          </pre>
+          <p>
+            Na przykład, jeśli chcesz umieścić tło w prawym dolnym rogu elementu o dowolnych
+            wymiarach tak, aby tło znajdowało się 30px od granicy po prawej stronie i 20px od dołu.
+          </p>
+          <pre>
+            background-position: right 30px bottom 20px;
+          </pre>
+          <ul class="galery-background-position-list_1-4">
+            <li class="galery-background-position-list-item_1-4 background-custom-percent_1-4">
+              background-position: top 50% left 50%;
+            </li>
+            <li class="galery-background-position-list-item_1-4 background-custom-pixel_1-4">
+              background-position: top -30px left 50px;
+            </li>
+            <li class="galery-background-position-list-item_1-4 background-custom-right_1-4">
+              background-position: right 5% bottom 10%;
+            </li>
+            <li class="galery-background-position-list-item_1-4 background-custom-left_1-4">
+              background-position: left 100px top 50px;
+            </li>
+          </ul>
+        </article>
+        <article id="1.5">
+          <h3>1.5 Właściwość background-size</h3>
+          <p>
+            Domyślnie przeglądarka nie zmienia rozmiaru obrazu tła. Jeśli obraz jest większy lub
+            mniejszy niż rozmiar elementu, na ekranie pozostanie puste miejsce niezajmowane przez
+            tło lub odwrotnie, tło będzie widoczne tylko częściowo.
+          </p>
+          <pre>
+            background-size: auto | wartość | cover | contain
+          </pre>
+          <p>
+            Ta właściwość umożliwia dostosowanie wymiarów obrazu poprzez ustawienie wymaganej
+            szerokości i wysokości. Jeśli nie określisz wysokości, zostanie ona obliczona
+            automatycznie przy zachowaniu proporcji.
+          </p>
+          <pre>
+            /* Wymiary obrazu wyjściowego, wartości domyślne */
+            background-size: auto auto;
+
+            /* Szerokość 200px, wysokość będzie proporcjonalna */
+            background-size: 200px;
+
+            /* Szerokość 200px, wysokość 300px */
+            background-size: 200px 300px;
+          </pre>
+          <p>
+            Wartością mogą być również dwa zastrzeżone słowa: cover i contain. Funkcją obu wartości
+            jest maksymalne dopasowanie obrazu tła do elementu, ale na różne sposoby.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/background-size-m3z5.png" alt="" />
+          </div>
+          <ul class="unnumbered-list-container">
+            <li>cover — poprzez przycięcie nadmiaru</li>
+            <li>contain — poprzez utworzenie pustego miejsca w kontenerze.</li>
+          </ul>
+          <p>Wartość cover:</p>
+          <ul class="unnumbered-list-container">
+            <li>Pozwala zachować proporcje obrazu.</li>
+            <li>
+              Obraz jest ustawiany na minimalny rozmiar, przy którym wypełni tło całego elementu.
+            </li>
+            <li>
+              Jeśli proporcje obrazka i elementu są różne, część obrazka w pionie lub poziomie jest
+              wizualnie przycinana.
+            </li>
+          </ul>
+          <p>Wartość contain:</p>
+          <ul class="unnumbered-list-container">
+            <li>Pozwala zachować proporcje obrazu.</li>
+            <li>
+              Obrazek jest ustawiany na maksymalny możliwy rozmiar, przy którym całkowicie pasuje do
+              elementu.
+            </li>
+            <li>
+              Obrazek może nie pokrywać całego tła elementu w pionie lub poziomie, jeśli proporcje
+              bloku i obrazka nie pasują do siebie.
+            </li>
+          </ul>
+          <ul class="galery-background-size-list_1-5">
+            <li class="galery-background-size-list-item_1-5 background-size-auto_1-5">
+              background-size: auto;
+            </li>
+            <li class="galery-background-size-list-item_1-5 background-size-pixel_1-5">
+              background-size: 200px 300px;
+            </li>
+            <li class="galery-background-size-list-item_1-5 background-size-percent_1-5">
+              background-size: 80% 60%;
+            </li>
+            <li class="galery-background-size-list-item_1-5 background-size-custom-left-auto_1-5">
+              background-size: 150px;
+            </li>
+            <li class="galery-background-size-list-item_1-5 background-size-cover_1-5">
+              background-size: cover;
+            </li>
+            <li class="galery-background-size-list-item_1-5 background-size-contain_1-5">
+              background-size: contain;
+            </li>
+          </ul>
+        </article>
+        <article id="1.6">
+          <h3>1.6 Właściwość background-image kilka</h3>
+          <p>
+            Możliwe jest ustawienie kilku obrazów tła dla elementu w tym samym czasie, wystarczy po
+            prostu wymienić je we właściwości background-image, oddzielając przecinkami. Dla każdego
+            obrazu możesz również ustawić wartości innych właściwości tła, również oddzielonych
+            przecinkami w każdej właściwości.
+          </p>
+          <pre>
+            background-image: url(ścieżka do obrazu 1), url(ścieżka do obrazu 2);
+            background-size: 100px, cover;
+            background-position: top right, center;
+            background-repeat: repeat-x, no-repeat;
+          </pre>
+          <p>
+            Jest to swego rodzaju ciasto francuskie składające się z kilku obrazów. Obraz znajdujący
+            z przodu listy zostanie umieszczony wyżej (obraz 1 w powyższym kodzie).
+          </p>
+          <p>
+            Wskazówka W większości przypadków wielowarstwowe tło można zastąpić pojedynczym obrazem,
+            który został połączony ze wszystkimi innymi w specjalnym edytorze. Waga takiego pliku
+            będzie mniejsza niż całkowita waga poszczególnych obrazów, a przeglądarka będzie musiała
+            wykonać tylko jedno żądanie zamiast pięciu, co również zwiększy szybkość ładowania i
+            wyświetlania strony.
+          </p>
+          <ul class="galery-background-image-few-list_1-6">
+            <li class="galery-background-image-few-list-item_1-6 background-image-few-first_1-6">
+              <pre>
+.background-image-few-first_1-6{
+  background-image:
+  url(../../images/image/biurkoStatystyki1_100x94.png),
+  url(../../images/image/biurkoStatystyki1.jpg); background-position: right bottom, center;
+  background-size: auto, cover;
+}
+              </pre>
+            </li>
+            <li class="galery-background-image-few-list-item_1-6 background-image-few-second_1-6">
+              <pre>
+.background-image-few-second_1-6 {
+  background-image: url(../../images/image/biurkoStatystyki2.jpg), url(../../images/image/biurkoStatystyki2.jpg);
+  background-position: top left, center;
+  background-size: contain, cover;
+}
+              </pre>
+            </li>
+            <li class="galery-background-image-few-list-item_1-6 background-image-few-third_1-6">
+              <pre>
+.background-image-few-third_1-6 {
+  background-image: url(../../images/image/biurkoStatystyki3.jpg), url(../../images/image/biurkoStatystyki3.jpg);
+  background-position: top left, center;
+  background-size: contain, cover;
+}
+              </pre>
+            </li>
+            <li class="galery-background-image-few-list-item_1-6 background-image-few-fourth_1-6">
+              <pre>
+.background-image-few-fourth_1-6 {
+  background-image: url(../../images/image/biurkoStatystyki4.jpg), url(../../images/image/biurkoStatystyki4.jpg);
+  background-position: top left, center;
+  background-size: contain, cover;
+}
+              </pre>
+            </li>
+          </ul>
+        </article>
+        <article id="1.7">
+          <h3>1.7 Gradient</h3>
+          <p>
+            Gradient — to przejście od jednego koloru do drugiego. W CSS gradient jest obrazem tła,
+            więc jest ustawiany jako wartość właściwości background-image. Gradient liniowy jest
+            tworzony przy użyciu dwóch lub więcej kolorów, które mają określony kierunek
+            rozchodzenia się.
+          </p>
+          <p>
+            Format wartości koloru może być dowolny: słowa kluczowe, rgb, rgba lub hex i mogą być
+            też mieszane.
+          </p>
+          <pre>
+            background-image: linear-gradient(
+              &ltkierunek>,
+              &ltkolor-1>,
+              &ltkolor-2>,
+              &ltkolor-3>,
+              ...
+            )
+          </pre>
+          <p>
+            Kierunek gradientu jest określany przez słowa kluczowe to top, to right, to bottom, to
+            left i ich kombinacje. Jeśli kierunek nie jest określony, używana jest wartość domyślna
+            — od góry do dołu (to bottom). Jeśli kierunek jest określony przez parę słów kluczowych,
+            na przykład to top left, punkt początkowy gradientu będzie znajdował się w prawym dolnym
+            rogu, tj. przeciwnym.
+          </p>
+          <p>
+            Kierunek może być również określony przez kąt nachylenia w stopniach, jednostką jest
+            deg. Wartość 0deg jest taka sama jak to top. Zwiększenie kąta odwraca kierunek linii
+            gradientu. Linia gradientu jest linią prostą przechodzącą przez środek bloku, która
+            rozprowadza kolory w kierunku zgodnym z ruchem wskazówek zegara.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/gradient-m3z5.gif" alt="" />
+          </div>
+          <p>
+            W tej animacji kąt wzrasta od 0 do 360 stopni w krokach co 10 stopni. Niska
+            rozdzielczość pozwala lepiej zobaczyć, jak różne kolory pojawiają się jako "linie",
+            które są zawsze prostopadłe do linii gradientu.
+          </p>
+          <p>
+            Jako że gradient jest obrazem tła, przyjrzyjmy się technice podwójnego tła, w której
+            warstwa koloru z przezroczystością jest umieszczana nad obrazem.
+          </p>
+          <pre>
+            background-image: linear-gradient(
+              to bottom,
+              rgba(255, 0, 0, 0.3),
+              rgba(255, 0, 0, 0.3)
+              ),
+              url(ścieżka do obrazu);
+          </pre>
+          <p>
+            Pierwszą górną warstwą będzie gradient z przezroczystością i użyjemy tej samej
+            początkowej i końcowej wartości koloru.
+          </p>
+          <ul class="galery-background-gradient-list_1-7">
+            <li
+              class="galery-background-gradient-list-item_1-7 background-gradient-no-gradient1_1-7"
+            >
+              no gradient
+            </li>
+            <li
+              class="galery-background-gradient-list-item_1-7 background-gradient-with-gradient1_1-7"
+            >
+              with gradient
+            </li>
+            <li
+              class="galery-background-gradient-list-item_1-7 background-gradient-no-gradient2_1-7"
+            >
+              no gradient
+            </li>
+            <li
+              class="galery-background-gradient-list-item_1-7 background-gradient-with-gradient2_1-7"
+            >
+              with gradient
+            </li>
+          </ul>
+        </article>
+        <article id="1.8">
+          <h3>1.8 Właściwość background - złożona</h3>
+          <p>
+            Właściwość background jest złożoną właściwością służącą do jednoczesnego ustawiania
+            wartości wszystkich rozważanych właściwości.
+          </p>
+          <pre>
+            background: background-color background-image background-repeat background-position background-attachment
+          </pre>
+          <p>Jeśli komponent nie jest określony, używana jest jego wartość domyślna.</p>
+          <pre>
+            /* Ustawi tylko kolor tła */
+            background: #2a2a2a;
+
+            /* Przezroczysty kolor tła z obrazem powtarzającym się wzdłuż x, zaczynając od lewego górnego rogu.. */
+            background: url(ścieżka do obrazu) repeat-x;
+          </pre>
+          <p>
+            Zaleca się używanie, przynajmniej na początku, oddzielnych właściwości dla każdej
+            wartości, ponieważ w przypadku złożonej właściwości background łatwo o pomyłki.
+          </p>
+        </article>
+      </section>
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Cień elementu</h2>
+          <ul class="galery-shadow-list_2-1">
+            <li class="galery-shadow-list-item_2-1 no-shadow_2-1">no shadow</li>
+            <li class="galery-shadow-list-item_2-1 with-shadow_2-1">with shadow</li>
+          </ul>
+          <p>
+            Istnieją cienie zewnętrzne i wewnętrzne, rozmyte i płaskie, jedno- i wielowarstwowe.
+          </p>
+          <p>
+            Oczywiście projektant, który tworzy layout, doskonale zna wszystkie te niuanse, ale
+            deweloper musi dokładnie przenieść wszystkie efekty layoutu na stronę. Musi więc również
+            rozumieć, z czego składa się cień i jak odtworzyć go w kodzie.
+          </p>
+          <p>
+            Właściwość box-shadow ustawia jeden lub więcej cieni dla elementu. Domyślnie rozmiar
+            cienia jest taki sam jak rozmiar elementu, a jego kolor jest taki sam jak kolor tekstu.
+          </p>
+          <pre>
+            box-shadow: &ltx-offset> &lty-offset> &ltblur> &ltspread> &ltcolor>
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              x-offset - przesunięcie poziome. Wartość dodatnia przesuwa cień w prawo od bloku, a
+              wartość ujemna w lewo. Wymagana wartość.
+            </li>
+            <li>
+              y-offset - przesunięcie pionowe. Wartość dodatnia przesuwa cień w dół od bloku, a
+              wartość ujemna w górę. Wymagana wartość.
+            </li>
+            <li>
+              blur - rozmycie cienia. Wartość zero oznacza brak rozmycia. Wartości dodatnie powodują
+              rozmycie cienia. Wartość opcjonalna.
+            </li>
+            <li>
+              spread - rozszerzenie cienia. Wartość zero oznacza brak rozszerzenia. Wartości
+              dodatnie powodują rozszerzenie cienia. Wartość opcjonalna.
+            </li>
+            <li>color - kolor cienia. Domyślnie kolor tekstu. Wartość opcjonalna.</li>
+          </ul>
+        </article>
+        <article id="2.2">
+          <h3>2.2 Cień elementu - wiele cieni</h3>
+          <pre>
+            box-shadow: &ltx-offset> &lty-offset> &ltblur> &ltspread> &ltcolor>,
+            &ltx-offset> &lty-offset> &ltblur> &ltspread> &ltcolor>,
+            &ltx-offset> &lty-offset> &ltblur> &ltspread> &ltcolor>,
+            ...
+          </pre>
+          <p>
+            Wygląda to jak wielowarstwowy placek. Pierwszy cień na liście jest umieszczony na górze,
+            a ostatni na samym dole. Oznacza to, że każdy poprzedni cień na liście jest umieszczany
+            na wyższej warstwie i wizualnie nakłada się na wszystkie kolejne. Takie podejście
+            pozwala tworzyć bardzo miękkie i piękne cienie.
+          </p>
+          <ul class="galery-multiple-shadow-list_2-2">
+            <li class="galery-multiple-shadow-list-item_2-2 no-multiple-shadow_2-2">
+              no multiple shadow
+            </li>
+            <li class="galery-multiple-shadow-list-item_2-2 with-multiple-shadow_2-2">
+              with multiple shadow
+            </li>
+          </ul>
+        </article>
+        <article id="2.3">
+          <h3>2.3 Cień elementu - inset</h3>
+          <p>
+            Jeśli cień zewnętrzny wizualnie podnosi element, cień wewnętrzny pozwala dodać efekt
+            głębi poprzez wizualne pogłębienie elementu. Składnia deklarowania wewnętrznego cienia
+            jest podobna do składni zwykłego cienia, ale pierwsza wartość musi być inset.
+          </p>
+          <pre>
+            box-shadow: inset &ltx-offset> &lty-offset> &ltblur> &ltspread> &ltcolor>
+          </pre>
+          <p>
+            Przesuwanie, rozmycie i rozprzestrzenianie się cienia odbywa się wewnątrz elementu i
+            jest wizualnie ograniczone przez jego obramowanie.
+          </p>
+          <ul class="galery-shadow-inset-list_2-3">
+            <li class="galery-shadow-inset-list-item_2-3 no-shadow_2-3">no shadow</li>
+            <li class="galery-shadow-inset-list-item_2-3 with-inset-shadow_2-3">
+              with inset shadow
+            </li>
+            <li class="galery-shadow-inset-list-item_2-3 no-shadow_2-3">no shadow</li>
+            <li class="galery-shadow-inset-list-item_2-3 with-inset-shadow_2-3">
+              with inset shadow
+            </li>
+            <li class="galery-shadow-inset-list-item_2-3 no-shadow_2-3">no shadow</li>
+            <li class="galery-shadow-inset-list-item_2-3 with-inset-shadow_2-3">
+              with inset shadow
+            </li>
+            <li class="galery-shadow-inset-list-item_2-3 no-shadow_2-3">no shadow</li>
+            <li class="galery-shadow-inset-list-item_2-3 with-inset-shadow_2-3">
+              with inset shadow
+            </li>
+          </ul>
         </article>
       </section>
       <section id="7" class="text">
@@ -63,7 +589,7 @@
         <p></p>
       </div>
       <div class="footer-date">
-        <p>31.07.2024r.</p>
+        <p>14.02.2026r.</p>
       </div>
     </footer>
     <!-- SKRYPTY JS -->
