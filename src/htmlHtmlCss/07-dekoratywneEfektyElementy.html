@@ -545,23 +545,57 @@
             jest wizualnie ograniczone przez jego obramowanie.
           </p>
           <ul class="galery-shadow-inset-list_2-3">
-            <li class="galery-shadow-inset-list-item_2-3 no-shadow_2-3">no shadow</li>
-            <li class="galery-shadow-inset-list-item_2-3 with-inset-shadow_2-3">
-              with inset shadow
+            <li class="galery-shadow-inset-list-item_2-3 box1_2-3">no shadow</li>
+            <li class="galery-shadow-inset-list-item_2-3 box2_2-3">with inset shadow</li>
+            <li class="galery-shadow-inset-list-item_2-3 box3_2-3">with inset shadow</li>
+            <li class="galery-shadow-inset-list-item_2-3 box4_2-3">with inset shadow</li>
+            <li class="galery-shadow-inset-list-item_2-3 box5_2-3">with shadow</li>
+            <li class="galery-shadow-inset-list-item_2-3 box6_2-3">with shadow</li>
+            <li class="galery-shadow-inset-list-item_2-3 box7_2-3">transition</li>
+            <li class="galery-shadow-inset-list-item_2-3 box8_2-3">with shadow</li>
+          </ul>
+        </article>
+      </section>
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Grafika wektorowa</h2>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/raster-vs-vector-m3z5.png" alt="" />
+          </div>
+          <p>
+            SVG (Scalable Vector Graphics) to format graficzny i język służący do opisywania obrazów
+            wektorowych. Plik nie jest plikiem binarnym, ale zawiera zwykły tekst (XML) opisujący
+            obiekty, ich efekty oraz zachowanie.
+          </p>
+          <p>Grafika wektorowa ma szereg zalet.</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Skalowanie - w przeciwieństwie do grafiki rastrowej, SVG nie traci jakości podczas
+              skalowania.
             </li>
-            <li class="galery-shadow-inset-list-item_2-3 no-shadow_2-3">no shadow</li>
-            <li class="galery-shadow-inset-list-item_2-3 with-inset-shadow_2-3">
-              with inset shadow
+            <li>
+              Rozmiar pliku - obrazy wektorowe ważą znacznie mniej niż obrazy rastrowe, gdy są
+              używane do zapisywania ikon lub innych abstrakcyjnych grafik. Używanie plików
+              wektorowych do zapisywania realistycznych obrazów prowadzi jednak do powstawania
+              plików o dużych rozmiarach.
             </li>
-            <li class="galery-shadow-inset-list-item_2-3 no-shadow_2-3">no shadow</li>
-            <li class="galery-shadow-inset-list-item_2-3 with-inset-shadow_2-3">
-              with inset shadow
-            </li>
-            <li class="galery-shadow-inset-list-item_2-3 no-shadow_2-3">no shadow</li>
-            <li class="galery-shadow-inset-list-item_2-3 with-inset-shadow_2-3">
-              with inset shadow
+            <li>
+              Dynamika - używając CSS i JavaScript, możesz zmienić parametry obrazu wektorowego,
+              takie jak kolor lub obramowanie.
             </li>
           </ul>
+          <p>
+            Wiemy już, że grafika wektorowa, podobnie jak obrazy rastrowe, może być dodawana za
+            pomocą elementu img. Wystarczy określić:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>ścieżkę do obrazu</li>
+            <li>tekst opisu</li>
+            <li>inne atrybuty (jeśli to konieczne).</li>
+          </ul>
+          <pre>
+             &ltimg src="path/to/image.svg" alt="Description" />
+          </pre>
         </article>
       </section>
       <section id="7" class="text">
