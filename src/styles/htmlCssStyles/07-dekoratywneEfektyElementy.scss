@@ -1,4 +1,13 @@
+/* rejestracja zmiennej (WAŻNE!) */
+@property --p {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 40%;
+}
+
 .background-main-container_m3z5 {
+
+
 
   //1.3
   .galery-background-list_1-3 {
@@ -434,4 +443,440 @@
       }
     }
   }
+
+  .galery-gradient-shadow-list_2-3 {
+    --gap: 40px;
+    --countImages: 4;
+    --countSpace: calc(var(--countImages) - 1);
+    --widthSize: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 140px;
+
+    .galery-gradient-shadow-list-item_2-3 {
+      position: relative;
+      display: flex;
+      flex-flow: column nowrap;
+      width: var(--widthSize);
+      aspect-ratio: 1 / 0.66;
+      height: auto;
+      border-radius: 4px;
+      overflow: auto;
+      transition: box-shadow 1.3s ease;
+
+      &:hover {
+        box-shadow: none;
+      }
+
+      .header_2-3 {
+        position: sticky;
+        top: 0;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .text_2-3 {
+        padding: 4px;
+      }
+    }
+
+    .box1_2-3 {
+      box-shadow: 12px 12px 2px 1px rgba(207, 163, 163, 0.2);
+      background-image: repeating-linear-gradient(45deg,
+          #ff758c,
+          #ff758c 10px,
+          #ff7eb3 10px,
+          #ff7eb3 20px);
+
+      .custom-header1_2-3 {
+        background-image: repeating-linear-gradient(-45deg,
+            #606dbc,
+            #606dbc 10px,
+            #465298 10px,
+            #465298 20px);
+      }
+    }
+
+    .box2_2-3 {
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+      background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+
+      .custom-header2_2-3 {
+        background-image: repeating-linear-gradient(to right,
+            #f6ba52,
+            #f6ba52 10px,
+            #ffd180 10px,
+            #ffd180 20px);
+      }
+    }
+
+    .box3_2-3 {
+      box-shadow: inset 20px 20px 60px #adc0d9,
+        inset -20px -20px 60px #ebffff;
+
+      .custom-header3_2-3 {
+        background-image: repeating-radial-gradient(circle,
+            purple,
+            purple 10px,
+            #4b026f 10px,
+            #4b026f 20px);
+      }
+    }
+
+    .box4_2-3 {
+      border-radius: 70px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%), radial-gradient(at top center, rgba(255, 255, 255, 0.40) 0%, rgba(0, 0, 0, 0.40) 120%) #989898;
+      background-blend-mode: multiply, multiply;
+      box-shadow: inset 28px 28px 56px #3f0000,
+        inset -28px -28px 56px #790000;
+
+      &:hover {
+        box-shadow: none;
+      }
+
+      .custom-header4_2-3 {
+        background-image: repeating-radial-gradient(circle,
+            green 9%,
+            lime 10%);
+      }
+    }
+
+    .box5_2-3 {
+      border-radius: 70px;
+      background: #3a1515;
+      box-shadow: 28px 28px 56px #270e0e,
+        -28px -28px 56px #4d1c1c;
+
+      &:hover {
+        box-shadow: none;
+      }
+
+      .custom-header1_2-3 {
+        background-image: repeating-linear-gradient(-45deg,
+            #606dbc,
+            #606dbc 10px,
+            #465298 10px,
+            #465298 20px);
+      }
+    }
+
+    .box6_2-3 {
+      border-radius: 70px;
+      background: linear-gradient(145deg, #341313, #3e1616);
+      box-shadow: 28px 28px 0px #1b0a0a,
+        -28px -28px 0px #592020;
+
+      &:hover {
+        box-shadow: none;
+      }
+
+      .custom-header1_2-3 {
+        background-image: repeating-linear-gradient(-45deg,
+            #606dbc,
+            #606dbc 10px,
+            #465298 10px,
+            #465298 20px);
+      }
+    }
+
+    .box7_2-3 {
+      box-shadow: none;
+      transition: box-shadow 3s ease;
+
+      &:hover {
+        box-shadow:
+          blue 0px 0px 0px 2px inset,
+          rgb(255, 255, 255) 10px -10px 0px -3px,
+          rgb(31, 193, 27) 10px -10px,
+          rgb(255, 255, 255) 20px -20px 0px -3px,
+          rgb(255, 217, 19) 20px -20px,
+          rgb(255, 255, 255) 30px -30px 0px -3px,
+          rgb(255, 156, 85) 30px -30px,
+          rgb(255, 255, 255) 40px -40px 0px -3px,
+          rgb(255, 85, 85) 40px -40px;
+      }
+    }
+
+    .box8_2-3 {
+      box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+      &:hover {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .galery-conic-gradient-list_2-3 {
+    --gap: 40px;
+    --countImages: 4;
+    --countSpace: calc(var(--countImages) - 1);
+    --widthSize: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 140px;
+
+    .galery-conic-gradient-list-item_2-3 {
+      position: relative;
+      display: flex;
+      flex-flow: column nowrap;
+      --p: 40%; //zmienna p
+      width: var(--widthSize);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+
+      transition: --p 1.3s ease;
+      overflow: auto;
+    }
+
+    .box1_2-3 {
+      background: conic-gradient(gold var(--p), #f06 0);
+
+      &:hover {
+        --p: 60%;
+      }
+    }
+
+    .box2_2-3 {
+      --p: 40%;
+      background: conic-gradient(gold var(--p),
+          blue calc(var(--p) + 20%),
+          #f06 0);
+      transition: --p 1s ease;
+
+      &:hover {
+        --p: 60%;
+      }
+    }
+
+    .box3_2-3 {
+      background: conic-gradient(gold 0% var(--p), blue var(--p) 60%, #f06 var(--p) 100%);
+
+      &:hover {
+        --p: 60%;
+      }
+    }
+
+    .box4_2-3 {
+      --p: 0%;
+      background: conic-gradient(gold 0% var(--p), #f06 0);
+
+      &:hover {
+        --p: 100%;
+      }
+    }
+
+    .box4_2-3 {
+      --p: 0%;
+      background: conic-gradient(gold 0% var(--p), #f06 0);
+
+      &:hover {
+        --p: 100%;
+      }
+    }
+
+    .box5_2-3 {
+      --p: 0%;
+      background-image: conic-gradient(from 36deg at 20% 80%,
+          #A100FFFF 0%,
+          #000000 25%,
+          #119CFDFF 30%);
+
+      &:hover {
+        --p: 100%;
+      }
+    }
+
+    .box6_2-3 {
+      --p: 0%;
+      background: conic-gradient(#A100FFFF var(--p), #000000 25%, #119CFDFF 30%);
+
+      &:hover {
+        --p: 100%;
+      }
+    }
+
+    .box7_2-3 {
+      background-image: conic-gradient(from 36deg at 20% 80%, #A100FFFF 0% 25%,
+          #000000 25% 30%,
+          #119CFDFF 30% 50%);
+    }
+
+    .box8_2-3 {
+      background-image: conic-gradient(from 45deg in oklch, white, black, white);
+    }
+  }
+
+  //3.2
+  .svg-container_3-2 {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin-top: 20px;
+
+    .svg-img_3_2 {
+      transition: transform 1.4s ease;
+      transform-origin: center;
+      /* domyślnie, ale warto jawnie */
+
+      &:hover {
+        transform: scale(2.1);
+      }
+    }
+  }
+
+  .pre-container {
+    overflow: auto;
+  }
+
+  .svg-group-icon-container_3-2 {
+    display: flex;
+    align-items: center;
+
+    .svg-group-icon1_3-2 {
+      fill: #1ffd02;
+      transition: all 2s ease;
+      // transition: fill 2s ease;
+
+      &:hover {
+        fill: #fd0202;
+      }
+    }
+
+    .svg-group-icon2_3-2 {
+      fill: #1ffd02;
+      transition: all 2s ease;
+      // transition: fill 2s ease;
+
+      &:hover {
+        fill-opacity: 0.2;
+      }
+    }
+
+    .svg-group-icon3_3-2 {
+      fill: #1ffd02;
+      transition: all 2s ease;
+      // transition: fill 2s ease;
+
+      &:hover {
+        stroke: #0d58e4;
+      }
+    }
+
+    .svg-group-icon4_3-2 {
+      fill: #1ffd02;
+      transition: all 2s ease;
+      // transition: fill 2s ease;
+
+      &:hover {
+        stroke: #0d58e4;
+        stroke-opacity: 0.1;
+      }
+    }
+  }
+
+  //4.1
+  .after-before_4-1 {
+    border: 2px white dotted;
+
+    &::before {
+      content: 'To jest tekst w ::before';
+      font-size: 40px;
+      color: orange;
+    }
+
+    &::after {
+      content: 'To jest tekst w ::after';
+      font-size: 30px;
+      color: teal;
+    }
+  }
+
+  //4.2
+  .after-before_4-2 {
+    border: 2px white dotted;
+
+    &::before {
+      content: 'To jest tekst w ::before';
+      font-size: 40px;
+      color: orange;
+    }
+
+    &::after {
+      content: 'To jest tekst w ::after';
+      font-size: 30px;
+      color: teal;
+    }
+
+    &:hover::after {
+      color: green;
+    }
+
+    &:hover::before {
+      color: tomato;
+    }
+  }
+
+  //4.3
+  .icon-list_4-3 {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 12px;
+    }
+  }
+
+  .list-link_4-3 {
+    text-decoration: none;
+    color: #ecd7d7;
+    font-size: 18px;
+    position: relative;
+
+    /* wspólne cechy pseudo-elementów */
+    &::before,
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    /* ikona PRZED linkiem - zawsze widoczna */
+    &::before {
+      margin-right: 8px;
+      background-color: yellow;
+      mask-image: url('../../images/svg/only-tree.svg');
+      mask-size: contain;
+      mask-repeat: no-repeat;
+    }
+
+    /* ikona PO linku - tylko na hover */
+    &::after {
+      margin-left: 8px;
+      opacity: 0;
+      background-image: url('../../images/svg/save.svg');
+      transition: opacity 1.3s ease;
+    }
+
+    /* pokazujemy ::after przy hover */
+    &:hover::after {
+      opacity: 1;
+    }
+
+    &:hover::before {
+      background-color: red;
+    }
+  }
+
 }
