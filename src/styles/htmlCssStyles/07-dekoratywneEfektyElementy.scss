@@ -879,4 +879,180 @@
     }
   }
 
+  //5.1
+  .galery-relative-list_5-1 {
+    --gap: 10px;
+    --countImages: 3;
+    --countSpace: calc(var(--countImages) - 1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    font-size: 1rem;
+    margin: 20px 0 150px 0;
+
+    .galery-relative-list-item_5-1 {
+      display: flex;
+      width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+      height: 200px;
+      border-radius: 4px;
+      overflow: hidden;
+
+      &.box1_5-1 {
+        background-color: #35f805;
+      }
+
+      &.box2_5-1 {
+        position: relative;
+        top: 120px;
+        left: 120px;
+        color: black;
+        background-color: #fbff03;
+      }
+
+      &.box3_5-1 {
+        background-color: #00c6f8;
+      }
+    }
+  }
+
+  //5.3
+  .galery-absolute-list_5-3 {
+    --gap: 10px;
+    --countImages: 3;
+    --countSpace: calc(var(--countImages) - 1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    font-size: 1rem;
+    margin: 20px 0 150px 0;
+    position: relative;
+
+    .galery-absolute-list-item_5-3 {
+
+      display: flex;
+      width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+      height: 200px;
+      border-radius: 4px;
+      overflow: hidden;
+
+      &.box1_5-3 {
+        background-color: #35f805;
+      }
+
+      &.box2_5-3 {
+        position: absolute;
+        top: 120px;
+        left: 120px;
+        color: black;
+        background-color: #fbff03;
+      }
+
+      &.box3_5-3 {
+        background-color: #00c6f8;
+      }
+    }
+
+  }
+
+  //5.3
+  .galery-absolute-img-list_5-3 {
+    --gap: 10px;
+    --countImages: 4;
+    --countSpace: calc(var(--countImages) - 1);
+    --widthImage: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+
+    .galery-absolute-img-item_5-3 {
+      display: flex;
+      width: var(--widthImage);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+
+      &:hover {
+        .galery-absolute-img_5-3 {
+          transform: scale(1.2);
+        }
+
+        .galery-absolute-text_5-3.text1_5-3 {
+          top: calc(100% - 31px);
+          left: calc(100% - 149px);
+          background-color: rgb(255, 0, 0);
+        }
+
+        .galery-absolute-text_5-3.text2_5-3 {
+          top: calc(100% - 31px);
+          right: calc(100% - 105px);
+          background-color: rgba(0, 0, 0, 1)
+        }
+
+        .galery-absolute-text_5-3.text3_5-3 {
+          transform: translate(0, 0);
+          background-color: rgba(0, 0, 0, 1)
+        }
+
+        .galery-absolute-text_5-3.text4_5-3 {
+          transform: translate(100%, 0);
+          background-color: rgba(0, 0, 0, 1)
+        }
+      }
+
+      .galery-absolute-img_5-3 {
+        // width: 100%;
+        object-fit: cover;
+        transition: transform 1.4s ease; //animacja obrazu
+      }
+
+      .galery-absolute-text_5-3 {
+        position: absolute;
+        padding: 2px;
+        transition: left 1.4s ease-in-out, top 1.4s ease, right 1.4s ease, transform 1.4s ease, background-color 2.4s ease; //animacja tekstu
+
+        &.text1_5-3 {
+          top: 0;
+          left: 0;
+          background-color: rgba(0, 0, 0, 0.2);
+          white-space: nowrap;
+        }
+
+        &.text2_5-3 {
+          top: 0;
+          right: 0;
+          background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        &.text3_5-3 {
+          transform: translate(-100%, -100%);
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        &.text4_5-3 {
+          transform: translate(0, 0);
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+  }
+
+  .position-fixed-container_5-4 {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    width: 128px;
+    height: 128px;
+    border: 1px solid white;
+    background-color: black;
+    cursor: pointer;
+  }
+
+  .position-fixed-container_5-4 {
+    position: relative;
+  }
+
+
 }

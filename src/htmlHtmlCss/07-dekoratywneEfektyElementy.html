@@ -941,6 +941,9 @@
             kolejnych sekcjach. Aby określić pozycję elementu, należy użyć właściwości top, left,
             bottom lub right, których nie stosuje się do elementów bez position.
           </p>
+        </article>
+        <article id="5.2">
+          <h3>5.2 Pozycjonowanie względne: relative</h3>
           <p>
             W przypadku pozycjonowania względnego element pozostaje nieruchomo na ekranie, co
             oznacza, że sąsiednie elementy nie zajmują jego miejsca. Jednak wizualnie, element może
@@ -953,6 +956,182 @@
             Właściwości top, left, bottom i right pozwalają określić wizualne przesunięcie elementu
             względem pierwotnej pozycji. Mogą mieć też wartość ujemną.
           </p>
+          <p>
+            Pozycjonowanie względne nie jest używane samodzielnie, ponieważ element nie jest usuwany
+            ze strony i nadal znajduje się na swoim miejscu. Dlatego pozycjonowanie względne jest
+            używane tylko w połączeniu z pozycjonowaniem bezwzględnym.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/pozycjonowanie-wzgledne1-m3z4.png" alt="" />
+          </div>
+          <ul class="galery-relative-list_5-1">
+            <li class="galery-relative-list-item_5-1 box1_5-1"></li>
+            <li class="galery-relative-list-item_5-1 box2_5-1">
+              <pre>
+  &.box2_5-1 {
+    position: relative;
+    top: 120px;
+    left: 120px;
+  }
+              </pre>
+            </li>
+            <li class="galery-relative-list-item_5-1 box3_5-1"></li>
+          </ul>
+        </article>
+        <article id="5.3">
+          <h3>5.3 Pozycjonowanie bezwzględne: absolute</h3>
+          <p>Pozycjonowanie bezwzględne daje zupełnie inne wyniki niż pozycjonowanie względne.</p>
+          <ol class="numbered-list-container order-list_2-6">
+            <li>
+              W przypadku pozycjonowania bezwzględnego element jest usuwany ze strony, tzn. jego
+              miejsce zajmują sąsiednie elementy.
+            </li>
+            <li>
+              Możesz ustawić pozycję elementu za pomocą właściwości top, left, bottom i right, ale
+              pamiętaj, aby uwzględnić, skąd pochodzą wartości tych właściwości.
+            </li>
+            <li>
+              Aby określić punkt początkowy, przeglądarka szuka najbliższego elementu przodka, który
+              ma jakąkolwiek wartość inną niż static dla właściwości position. Jeśli taki przodek
+              nie zostanie znaleziony, wartości będą liczone od obramowania elementu &ltbody>.
+            </li>
+          </ol>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/pozycjonowanie-absolutne-m3z4.png" alt="" />
+          </div>
+          <p>
+            Pozycjonowanie bezwzględne samo w sobie nie jest zbyt użyteczne. Zwykle jest używane w
+            połączeniu z pozycjonowaniem względnym do pozycjonowania elementów. Oznacza to, że
+            element jest pozycjonowany bezwzględnie względem jakiegoś przodka, który znajduje się na
+            stronie.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/pozycjonowanie-absolutne1-m3z4.png" alt="" />
+          </div>
+          <p>
+            W tym przypadku wartości top, left, bottom i right dla elementu pozycjonowanego
+            bezwzględnie są liczone od ramki przodka, a nie od &ltbody>. Dlatego używamy position:
+            relative przodka tylko po to, aby bezwzględnie pozycjonowany element znajdował się w
+            położeniu względnym wobec niego.
+          </p>
+          <p>
+            Zapis bottom: 20px oznacza odległość między dolną częścią względnie pozycjonowanego
+            przodka a dolną częścią bezwzględnie pozycjonowanego elementu. right, left i top
+            działają w ten sam sposób — określają odległość pomiędzy przodkiem a krawędzią elementu
+            o tej samej nazwie.
+          </p>
+          <ul class="galery-absolute-list_5-3">
+            <li class="galery-absolute-list-item_5-3 box1_5-3"></li>
+            <li class="galery-absolute-list-item_5-3 box2_5-3">
+              <pre>
+  &.box2_5-1 {
+    position: absolute;
+    top: 120px;
+    left: 120px;
+  }
+              </pre>
+            </li>
+            <li class="galery-absolute-list-item_5-3 box3_5-3"></li>
+          </ul>
+          <ul class="galery-absolute-img-list_5-3">
+            <li class="galery-absolute-img-item_5-3">
+              <img
+                class="galery-absolute-img_5-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <p class="galery-absolute-text_5-3 text1_5-3">Samochód tekst 1</p>
+            </li>
+            <li class="galery-absolute-img-item_5-3">
+              <img
+                class="galery-absolute-img_5-3"
+                src="../images/image/samochodStatystyki2.jpg"
+                alt=""
+              />
+              <p class="galery-absolute-text_5-3 text2_5-3">Samochód 2</p>
+            </li>
+            <li class="galery-absolute-img-item_5-3">
+              <img
+                class="galery-absolute-img_5-3"
+                src="../images/image/samochodStatystyki3.jpg"
+                alt=""
+              />
+              <p class="galery-absolute-text_5-3 text3_5-3">Samochód 3</p>
+            </li>
+            <li class="galery-absolute-img-item_5-3">
+              <img
+                class="galery-absolute-img_5-3"
+                src="../images/image/samochodStatystyki4.jpg"
+                alt=""
+              />
+              <p class="galery-absolute-text_5-3 text4_5-3">Samochód 4</p>
+            </li>
+          </ul>
+        </article>
+        <article id="5.4">
+          <h3>5.4 Pozycjonowanie stałe: fixed</h3>
+          <p>
+            Przy pozycjonowaniu stałym element ma wartość position: fixed. Taki element jest
+            pozycjonowany względem obszaru wyświetlania. Daje to efekt umocowania elementu w
+            określonym miejscu ekranu podczas przewijania strony.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/fixed-m3z4.png" alt="" />
+          </div>
+          <p>
+            Pozycjonowanie stałe jest używane do nieruchomych nagłówków z nawigacją, okien, czatów z
+            menedżerem na stronach sklepów internetowych itp.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/fixed2-m3z4.gif" alt="" />
+          </div>
+          <p>
+            Utwórzmy przycisk czatu z menedżerem button.chat-button i umieśćmy go w prawym dolnym
+            rogu obszaru wyświetlania. Podczas przewijania strony przycisk pozostaje na swoim
+            miejscu, ponieważ ma stałą pozycję.
+          </p>
+          <div class="position-fixed-container_5-4">
+            <a href="#5.4"> Przejdź do 5.4 </a>
+            <p>5.4 Pozycjonowanie stałe: fixed</p>
+          </div>
+        </article>
+        <article id="5.5">
+          <h3>5.5 Pozycjonowanie lepkie: fixed</h3>
+          <p>
+            Pozycjonowanie lepkie (position: sticky) to połączenie właściwości relative i fixed.
+            Spójrz na gif, gdzie pozycjonowanie lepkie jest ustawione dla elementów z literami A i B
+            i od razu wszystko zrozumiesz.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/sticky-m3z4.gif" alt="" />
+          </div>
+          <ol class="numbered-list-container order-list_2-6">
+            <li>
+              Dopóki element znajduje się w swoim kontenerze, a kontener nie znika z obszaru
+              wyświetlania podczas przewijania w pionie, element zachowuje się jak element
+              pozycjonowany względnie (relative).
+            </li>
+            <li>
+              Gdy część kontenera nadrzędnego opuści obszar, element pozostanie zamocowany na
+              stronie tak długo, jak przynajmniej część kontenera będzie znajdować się na ekranie.
+            </li>
+            <li>
+              Jeśli cały kontener znajdzie się poza obszarem, zostanie ponownie włączone zachowanie,
+              jak w przypadku pozycjonowania względnego — element zniknie z ekranu wraz z
+              kontenerem.
+            </li>
+          </ol>
+          <p>Aby zaimplementować pozycjonowanie lepkie, wymagane są tylko trzy warunki:</p>
+          <ul class="unnumbered-list-container">
+            <li>Element lepki musi być ustawiony na position: sticky.</li>
+            <li>Element sticky musi mieć określoną pozycję, na przykład top: 0.</li>
+            <li>Element kontenera musi być wyższy (wyżej zagnieżdżony) niż element lepki.</li>
+          </ul>
+          <p>
+            Nagłówki sekcji w przykładzie są lepkie, więc gdy przewiniesz stronę, "przykleją się" do
+            górnej części obszaru wyświetlania, dopóki część ich sekcji nie będzie widoczna.
+          </p>
+          <div></div>
         </article>
       </section>
       <section id="7" class="text">
