@@ -153,7 +153,99 @@
   }
 
   //1.6
-  .galery-background-image-few-list_1-6 {
+  .galery-background-attachment-list_1-6 {
+    --gap: 10px;
+    --countImages: 3;
+    --countSpace: calc(var(--countImages) - 1);
+    --widthImage: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    margin: 20px 0;
+    position: relative;
+
+    .galery-background-attachment-list-item_1-6 {
+      display: flex;
+      flex-flow: column;
+      width: var(--widthImage);
+      border-radius: 4px;
+      overflow: auto;
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url(../../images/image/gory.jpg);
+      background-size: cover;
+      background-position: center;
+      height: 50vh;
+
+      &.background-attachment-scroll_1-6 {
+        background-attachment: scroll;
+
+      }
+
+      &.background-attachment-fixed_1-6 {
+        background-attachment: fixed;
+      }
+
+      &.background-attachment-local_1-6 {
+        background-attachment: local;
+      }
+
+      .background-attachment-header_1-6 {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px;
+        text-align: center;
+      }
+    }
+  }
+
+  .background-attachment-main-container_1-6 {
+    position: relative;
+    height: 70vh;
+    margin: 40px 0;
+    overflow: auto;
+
+    .background-attachment-container_1-6 {
+      position: relative;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        url(../../images/image/gory.jpg);
+      background-color: rgba(0, 0, 0, 1);
+      background-size: cover;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+        transition: opacity 1.4s ease, background-color 1.4s ease;
+      }
+
+      &:hover::before {
+        // opacity: 0.4;
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+    }
+
+    .background-attachment-text-container_1-6 {
+      position: relative;
+
+      .background-attachment-header_1-6 {
+        position: sticky;
+        top: 0;
+        text-align: center;
+        background-image: linear-gradient(to bottom, #6a11cb 0%, #2575fc 100%);
+      }
+
+      .background-attachment-text_1-6 {
+        color: white;
+      }
+    }
+  }
+
+  //1.7
+  .galery-background-image-few-list_1-7 {
     --gap: 10px;
     --countImages: 2;
     --countSpace: calc(var(--countImages) - 1);
@@ -164,7 +256,7 @@
     font-size: 0.5rem;
     font-weight: bold;
 
-    .galery-background-image-few-list-item_1-6 {
+    .galery-background-image-few-list-item_1-7 {
       display: flex;
       width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
       height: 200px;
@@ -174,33 +266,33 @@
       background-repeat: no-repeat;
     }
 
-    .background-image-few-first_1-6 {
+    .background-image-few-first_1-7 {
       background-image: url(../../images/image/biurkoStatystyki1_100x94.png), url(../../images/image/biurkoStatystyki1.jpg);
       background-position: right bottom, center;
       background-size: auto, cover;
     }
 
-    .background-image-few-second_1-6 {
+    .background-image-few-second_1-7 {
       background-image: url(../../images/image/biurkoStatystyki2.jpg), url(../../images/image/biurkoStatystyki2.jpg);
       background-position: top left, center;
       background-size: contain, cover;
     }
 
-    .background-image-few-third_1-6 {
+    .background-image-few-third_1-7 {
       background-image: url(../../images/image/biurkoStatystyki3.jpg), url(../../images/image/biurkoStatystyki3.jpg);
       background-position: top left, center;
       background-size: contain, cover;
     }
 
-    .background-image-few-fourth_1-6 {
+    .background-image-few-fourth_1-7 {
       background-image: url(../../images/image/biurkoStatystyki4.jpg), url(../../images/image/biurkoStatystyki4.jpg);
       background-position: center, center;
       background-size: 100px 100px, cover;
     }
   }
 
-  //1.7
-  .galery-background-gradient-list_1-7 {
+  //1.8
+  .galery-background-gradient-list_1-8 {
     --gap: 10px;
     --countImages: 2;
     --countSpace: calc(var(--countImages) - 1);
@@ -208,26 +300,26 @@
     flex-wrap: wrap;
     gap: var(--gap);
     color: black;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
 
-    .galery-background-gradient-list-item_1-7 {
+    .galery-background-gradient-list-item_1-8 {
       display: flex;
       width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
       height: 200px;
       border-radius: 4px;
-      overflow: hidden;
+      overflow: auto;
       background-color: #2a2a2a;
       background-repeat: no-repeat;
     }
 
-    .background-gradient-no-gradient1_1-7 {
+    .background-gradient-no-gradient1_1-8 {
       background-image: url(../../images/image/biurkoKluczyki1.jpg);
       background-position: center;
       background-size: cover;
     }
 
-    .background-gradient-with-gradient1_1-7 {
+    .background-gradient-with-gradient1_1-8 {
       background-image: linear-gradient(to bottom,
           rgba(255, 0, 0, 0.3),
           rgba(255, 0, 0, 0.3)), url(../../images/image/biurkoKluczyki1.jpg);
@@ -235,16 +327,327 @@
       background-size: contain, cover;
     }
 
-    .background-gradient-no-gradient2_1-7 {
+    .background-gradient-no-gradient2_1-8 {
       background-image: url(../../images/image/biurkoKluczyki2.jpg);
       background-position: center;
       background-size: cover;
     }
 
-    .background-gradient-with-gradient2_1-7 {
+    .background-gradient-with-gradient2_1-8 {
       background-image: linear-gradient(90deg, rgba(42, 123, 155, 0.5) 0%, rgba(87, 199, 133, 0.5) 50%, rgba(237, 221, 83, 0.5) 100%), url(../../images/image/biurkoKluczyki2.jpg);
       background-position: center, center;
       background-size: cover;
+    }
+  }
+
+  //1.10
+  .galery-background-blend-mode-list_1-10 {
+    --gap: 10px;
+    --countImages: 4;
+    --countSpace: calc(var(--countImages) - 1);
+    --widthImage: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    margin: 20px 0;
+    position: relative;
+
+    .galery-background-blend-mode-list-item_1-10 {
+      position: relative;
+      display: flex;
+      flex-flow: column;
+      width: var(--widthImage);
+      border-radius: 4px;
+      overflow: auto;
+      background-image:
+        linear-gradient(rgba(4, 29, 250, 0.5),
+          rgba(4, 29, 250, 0.5)),
+        url(../../images/image/gory.jpg);
+      background-size: cover;
+      background-position: top;
+      height: 40vh;
+
+      &.background-blend-mode-normal_1-10 {
+        background-blend-mode: normal;
+        font-size: 0.5rem;
+      }
+
+      &.background-blend-mode-multiply_1-10 {
+        background-blend-mode: multiply;
+
+        &:hover {
+          background-blend-mode: normal;
+        }
+      }
+
+      &.background-blend-mode-overlay_1-10 {
+        background-blend-mode: overlay;
+
+        &:hover {
+          background-blend-mode: normal;
+        }
+      }
+
+      &.background-blend-mode-screen_1-10 {
+        background-blend-mode: screen;
+
+        &:hover {
+          background-blend-mode: normal;
+        }
+      }
+
+      &.background-blend-mode-darken_1-10 {
+        background-blend-mode: darken;
+
+        &:hover {
+          background-blend-mode: normal;
+        }
+      }
+
+      &.background-blend-mode-lighten_1-10 {
+        background-blend-mode: lighten;
+
+        &:hover {
+          background-blend-mode: normal;
+        }
+      }
+
+      &.background-blend-mode-color_1-10 {
+        background-blend-mode: color;
+
+        &:hover {
+          background-blend-mode: normal;
+        }
+      }
+
+      &.background-blend-mode-luminosity_1-10 {
+        background-blend-mode: luminosity;
+
+        &:hover {
+          background-blend-mode: normal;
+        }
+      }
+
+      .background-blend-mode-header_1-10 {
+        position: sticky;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px;
+        text-align: center;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  //1.11
+  .galery-background-origin-list_1-11 {
+    --gap: 10px;
+    --countImages: 3;
+    --countSpace: calc(var(--countImages) - 1);
+    --widthImage: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    margin: 20px 0;
+    position: relative;
+
+    .galery-background-origin-list-item_1-11 {
+      position: relative;
+      display: flex;
+      flex-flow: column;
+      width: var(--widthImage);
+      border-radius: 4px;
+      overflow: auto;
+
+      background-image: linear-gradient(rgba(4, 29, 250, 0.1),
+          rgba(4, 29, 250, 0.1)),
+        url(../../images/image/gory.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 40vh;
+      border: 15px solid blue;
+      padding: 10px;
+
+      &.background-origin-padding-box_1-11 {
+        background-origin: padding-box;
+
+      }
+
+      &.background-origin-content-box_1-11 {
+        background-origin: content-box;
+
+        &:hover {
+          background-origin: padding-box;
+        }
+      }
+
+      &.background-origin-border-box_1-11 {
+        background-origin: border-box;
+
+        &:hover {
+          background-origin: padding-box;
+        }
+      }
+
+      .background-origin-header_1-11 {
+        position: sticky;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px;
+        text-align: center;
+        font-size: 1rem;
+      }
+    }
+  }
+
+
+  //1.12
+  .galery-background-clip-list_1-12 {
+    --gap: 10px;
+    --countImages: 3;
+    --countSpace: calc(var(--countImages) - 1);
+    --widthImage: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    margin: 20px 0;
+    position: relative;
+
+    .galery-background-clip-list-item_1-12 {
+      position: relative;
+      display: flex;
+      flex-flow: column;
+      width: var(--widthImage);
+      border-radius: 4px;
+      overflow: auto;
+
+      background-image: linear-gradient(rgba(4, 29, 250, 0.1),
+          rgba(4, 29, 250, 0.1)),
+        url(../../images/image/gory.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 40vh;
+      border: 15px solid blue;
+      padding: 10px;
+
+      &.background-clip-padding-box_1-12 {
+        background-clip: padding-box;
+      }
+
+      &.background-clip-content-box_1-12 {
+        background-clip: content-box;
+
+        &:hover {
+          background-clip: padding-box;
+        }
+      }
+
+      &.background-clip-border-box_1-12 {
+        background-clip: border-box;
+
+        &:hover {
+          background-clip: padding-box;
+        }
+      }
+
+      .background-clip-header_1-12 {
+        position: sticky;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px;
+        text-align: center;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  //1.12a
+  .galery-background-clip-list_1-12a {
+    --gap: 10px;
+    --countImages: 3;
+    --countSpace: calc(var(--countImages) - 1);
+    --widthImage: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    margin: 20px 0;
+    position: relative;
+
+    .galery-background-clip-list-item_1-12a {
+      position: relative;
+      display: flex;
+      flex-flow: column;
+      width: var(--widthImage);
+      border-radius: 4px;
+      overflow: auto;
+
+
+      height: 40vh;
+      border: 15px solid blue;
+      padding: 10px;
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1.1;
+
+      &:hover .background-clip-text_1-12a.text1_1-12a {
+        color: white;
+      }
+
+      &:hover .background-clip-text_1-12a.text2_1-12a {
+        top: calc(70%);
+      }
+
+      &:hover .background-clip-text_1-12a.text3_1-12a {
+        background-position: left top;
+
+      }
+
+      .background-clip-header_1-12a {
+        position: sticky;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px;
+        text-align: center;
+        font-size: 1rem;
+      }
+
+      .background-clip-text_1-12a {
+        background-size: cover;
+        background-position: center;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+
+        &.text1_1-12a {
+          background-image: linear-gradient(rgba(4, 29, 250, 0.0),
+              rgba(4, 29, 250, 0.0)),
+            url(../../images/image/gory.jpg);
+          transition: color 2.5s ease;
+
+        }
+
+        &.text2_1-12a {
+          position: absolute;
+          top: 30px;
+          background-image: url(../../images/image/gory.jpg);
+          transition: top 1.4s ease-in-out;
+          background-attachment: fixed;
+          font-size: 2rem;
+        }
+
+        &.text3_1-12a {
+          background-image: repeating-conic-gradient(#000 0 25%, #fff 0 50%);
+          background-image: linear-gradient(90deg in hsl longer hue, red 0 100%);
+          background-size: 200% 200%;
+          transition: background-position 1.4s ease-in-out;
+        }
+      }
     }
   }
 
@@ -453,9 +856,8 @@
     flex-wrap: wrap;
     gap: var(--gap);
     color: black;
-    font-size: 1.5rem;
-    font-weight: bold;
     margin-top: 140px;
+    font-size: 1rem;
 
     .galery-gradient-shadow-list-item_2-3 {
       position: relative;
@@ -1039,6 +1441,7 @@
     }
   }
 
+  //5.4
   .position-fixed-container_5-4 {
     position: fixed;
     right: 30px;
@@ -1050,9 +1453,28 @@
     cursor: pointer;
   }
 
-  .position-fixed-container_5-4 {
+  //5.5
+  .sticky-main-container_5-5 {
     position: relative;
+
+
+    .sticky-background_5-5 {
+      background-image:
+        url(../../images/image/gory.jpg);
+      background-size: cover;
+    }
+
+    .sticky-text-container_5-5 {
+      position: relative;
+    }
+
+    .sticky-header_5-5 {
+      position: sticky;
+    }
+
+    .sticky-text_5-5 {
+      color: white;
+    }
+
   }
-
-
 }

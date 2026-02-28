@@ -297,7 +297,371 @@
           </ul>
         </article>
         <article id="1.6">
-          <h3>1.6 Właściwość background-image kilka</h3>
+          <h3>1.6 Właściwość background-attachment</h3>
+          <p>
+            Właściwość background-attachment określa jak zachowuje się obraz tła elementu podczas
+            przewijania strony.
+          </p>
+          <pre>
+            background-attachment: scroll|fixed|local|initial|inherit;
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>scroll (domyślna) - tło przewija się razem z elementem.</li>
+            <li>
+              fixed - tło jest przytwierdzone do okna przeglądarki i nie przesuwa się podczas
+              scrollowania strony. Często używane do efektu parallax.
+            </li>
+            <li>
+              local - tło przewija się razem z zawartością elementu, a nie z całą stroną. Działa
+              tylko, gdy element ma np. overflow: auto lub scroll.
+            </li>
+          </ul>
+          <ul class="galery-background-attachment-list_1-6">
+            <li class="galery-background-attachment-list-item_1-6 background-attachment-scroll_1-6">
+              <h5 class="background-attachment-header_1-6">background-attachment: scroll</h5>
+              <pre class="">
+  //1.6
+.galery-background-attachment-list_1-6 {
+  --gap: 10px;
+  --countImages: 3;
+  --countSpace: calc(var(--countImages) - 1);
+  --widthImage: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  margin: 20px 0;
+  position: relative;
+  text-align: center;
+
+  .galery-background-attachment-list-item_1-6 {
+    display: flex;
+    flex-flow: column;
+    width: var(--widthImage);
+    border-radius: 4px;
+    overflow: auto;
+     background-image:
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url(../../images/image/gory.jpg);
+    background-size: cover;
+    height: 50vh;
+
+    &.background-attachment-scroll_1-6 {
+      background-attachment: scroll;
+    }
+
+    &.background-attachment-fixed_1-6 {
+      background-attachment: fixed;
+    }
+
+    &.background-attachment-local_1-6 {
+      background-attachment: local;
+    }
+
+    .background-attachment-header_1-6 {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 5px;
+    }
+  }
+}
+              </pre>
+            </li>
+            <li class="galery-background-attachment-list-item_1-6 background-attachment-fixed_1-6">
+              <h5 class="background-attachment-header_1-6">background-attachment: fixed</h5>
+              <pre class="">
+  //1.6
+.galery-background-attachment-list_1-6 {
+  --gap: 10px;
+  --countImages: 3;
+  --countSpace: calc(var(--countImages) - 1);
+  --widthImage: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  margin: 20px 0;
+  position: relative;
+  text-align: center;
+
+  .galery-background-attachment-list-item_1-6 {
+    display: flex;
+    flex-flow: column;
+    width: var(--widthImage);
+    border-radius: 4px;
+    overflow: auto;
+     background-image:
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url(../../images/image/gory.jpg);
+    background-size: cover;
+    height: 50vh;
+
+    &.background-attachment-scroll_1-6 {
+      background-attachment: scroll;
+    }
+
+    &.background-attachment-fixed_1-6 {
+      background-attachment: fixed;
+    }
+
+    &.background-attachment-local_1-6 {
+      background-attachment: local;
+    }
+
+    .background-attachment-header_1-6 {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 5px;
+    }
+  }
+}
+              </pre>
+            </li>
+            <li class="galery-background-attachment-list-item_1-6 background-attachment-local_1-6">
+              <h5 class="background-attachment-header_1-6">background-attachment: local</h5>
+              <pre class="">
+  //1.6
+.galery-background-attachment-list_1-6 {
+  --gap: 10px;
+  --countImages: 3;
+  --countSpace: calc(var(--countImages) - 1);
+  --widthImage: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  margin: 20px 0;
+  position: relative;
+  text-align: center;
+
+  .galery-background-attachment-list-item_1-6 {
+    display: flex;
+    flex-flow: column;
+    width: var(--widthImage);
+    border-radius: 4px;
+    overflow: auto;
+     background-image:
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url(../../images/image/gory.jpg);
+    background-size: cover;
+    height: 50vh;
+
+    &.background-attachment-scroll_1-6 {
+      background-attachment: scroll;
+    }
+
+    &.background-attachment-fixed_1-6 {
+      background-attachment: fixed;
+    }
+
+    &.background-attachment-local_1-6 {
+      background-attachment: local;
+    }
+
+    .background-attachment-header_1-6 {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 5px;
+    }
+  }
+}
+              </pre>
+            </li>
+          </ul>
+          <div class="background-attachment-main-container_1-6">
+            <div class="background-attachment-container_1-6">
+              <div class="background-attachment-text-container_1-6">
+                <h4 class="background-attachment-header_1-6">Cały kod SCSS</h4>
+                <pre class="background-attachment-text_1-6">
+.background-attachment-main-container_1-6 {
+  position: relative;
+  height: 50vh;
+  margin: 40px 0;
+  overflow: auto;
+
+  .background-attachment-container_1-6 {
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+      url(../../images/image/gory.jpg);
+    background-color: rgba(0, 0, 0, 1);
+    background-size: cover;
+    background-attachment: fixed;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.1);
+      transition: opacity 1.4s ease, background-color 1.4s ease;
+    }
+
+    &:hover::before {
+      // opacity: 0.4;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  .background-attachment-text-container_1-6 {
+    position: relative;
+
+    .background-attachment-header_1-6 {
+      position: sticky;
+      top: 0;
+      text-align: center;
+      background-image: linear-gradient(to bottom, #6a11cb 0%, #2575fc 100%);
+    }
+
+    .background-attachment-text_1-6 {
+      color: white;
+    }
+  }
+}
+                </pre>
+              </div>
+              <div class="background-attachment-text-container_1-6">
+                <h4 class="background-attachment-header_1-6">inset</h4>
+                <div class="background-attachment-text_1-6">
+                  <p>
+                    inset w CSS to skrót (shorthand), który jednocześnie ustawia pozycję elementu od
+                    czterech krawędzi: top, right, bottom, left.
+                  </p>
+                  <p>Działa tylko dla elementów pozycjonowanych, czyli z:</p>
+                  <pre>
+                    position: absolute | relative | fixed | sticky.
+                  </pre>
+                  <p>inset to odpowiednik:</p>
+                  <pre>
+                    top: ...;
+                    right: ...;
+                    bottom: ...;
+                    left: ...;
+                  </pre>
+                  <p>czyli:</p>
+                  <pre>
+                    inset: top right bottom left;
+                  </pre>
+                  <p>Składnia: Cztery wartości</p>
+                  <pre>
+                    inset: 10px 20px 30px 40px;
+                  </pre>
+                  <p>Odpowiada:</p>
+                  <pre>
+                    top: 10px;
+                    right: 20px;
+                    bottom: 30px;
+                    left: 40px;
+                  </pre>
+                  <p>Jedna wartość</p>
+                  <pre>
+                    inset: 0;
+                  </pre>
+                  <p>to:</p>
+                  <pre>
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                  </pre>
+                  <p>Najczęstsze użycie - element wypełnia cały kontener.</p>
+                  <pre>
+                    .overlay {
+                      position: absolute;
+                      inset: 0;
+                    }
+                  </pre>
+                  <p>Element idealnie dopasowany do rodzica</p>
+                  <p>(lepsze niż 4 linijki top/right/bottom/left).</p>
+                  <p>Odsunięcie od krawędzi - Równa ramka 20px z każdej strony.</p>
+                  <pre>
+                    .box {
+                      position: absolute;
+                      inset: 20px;
+                    }
+                  </pre>
+                </div>
+              </div>
+              <div class="background-attachment-text-container_1-6">
+                <h4 class="background-attachment-header_1-6">Nagłowek</h4>
+                <p class="background-attachment-text_1-6">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id, distinctio fugiat
+                  facere enim voluptatem quisquam eius aspernatur, laudantium odit quos, architecto
+                  cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis
+                  quasi repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione
+                  veniam assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor, sit amet
+                  consectetur adipisicing elit. Id, distinctio fugiat facere enim voluptatem
+                  quisquam eius aspernatur, laudantium odit quos, architecto cumque expedita dolore
+                  sit harum ex eaque! Placeat, odit ducimus totam facilis quasi repellendus? Iste
+                  nam exercitationem eum vero voluptatum possimus ratione veniam assumenda magnam
+                  non? Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                  distinctio fugiat facere enim voluptatem quisquam eius aspernatur, laudantium odit
+                  quos, architecto cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus
+                  totam facilis quasi repellendus? Iste nam exercitationem eum vero voluptatum
+                  possimus ratione veniam assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor,
+                  sit amet consectetur adipisicing elit. Id, distinctio fugiat facere enim
+                  voluptatem quisquam eius aspernatur, laudantium odit quos, architecto cumque
+                  expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis quasi
+                  repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione veniam
+                  assumenda magnam non? Aut, sit nulla.Lorem ipsum dolor, sit amet consectetur
+                  adipisicing elit. Id, distinctio fugiat facere enim voluptatem quisquam eius
+                  aspernatur, laudantium odit quos, architecto cumque expedita dolore sit harum ex
+                  eaque! Placeat, odit ducimus totam facilis quasi repellendus? Iste nam
+                  exercitationem eum vero voluptatum possimus ratione veniam assumenda magnam non?
+                  Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                  distinctio fugiat facere enim voluptatem quisquam eius aspernatur, laudantium odit
+                  quos, architecto cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus
+                  totam facilis quasi repellendus? Iste nam exercitationem eum vero voluptatum
+                  possimus ratione veniam assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor,
+                  sit amet consectetur adipisicing elit. Id, distinctio fugiat facere enim
+                  voluptatem quisquam eius aspernatur, laudantium odit quos, architecto cumque
+                  expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis quasi
+                  repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione veniam
+                  assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur
+                  adipisicing elit. Id, distinctio fugiat facere enim voluptatem quisquam eius
+                  aspernatur, laudantium odit quos, architecto cumque expedita dolore sit harum ex
+                  eaque! Placeat, odit ducimus totam facilis quasi repellendus? Iste nam
+                  exercitationem eum vero voluptatum possimus ratione veniam assumenda magnam non?
+                  Aut, sit nulla.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                  distinctio fugiat facere enim voluptatem quisquam eius aspernatur, laudantium odit
+                  quos, architecto cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus
+                  totam facilis quasi repellendus? Iste nam exercitationem eum vero voluptatum
+                  possimus ratione veniam assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor,
+                  sit amet consectetur adipisicing elit. Id, distinctio fugiat facere enim
+                  voluptatem quisquam eius aspernatur, laudantium odit quos, architecto cumque
+                  expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis quasi
+                  repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione veniam
+                  assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur
+                  adipisicing elit. Id, distinctio fugiat facere enim voluptatem quisquam eius
+                  aspernatur, laudantium odit quos, architecto cumque expedita dolore sit harum ex
+                  eaque! Placeat, odit ducimus totam facilis quasi repellendus? Iste nam
+                  exercitationem eum vero voluptatum possimus ratione veniam assumenda magnam non?
+                  Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                  distinctio fugiat facere enim voluptatem quisquam eius aspernatur, laudantium odit
+                  quos, architecto cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus
+                  totam facilis quasi repellendus? Iste nam exercitationem eum vero voluptatum
+                  possimus ratione veniam assumenda magnam non? Aut, sit nulla.Lorem ipsum dolor,
+                  sit amet consectetur adipisicing elit. Id, distinctio fugiat facere enim
+                  voluptatem quisquam eius aspernatur, laudantium odit quos, architecto cumque
+                  expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis quasi
+                  repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione veniam
+                  assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur
+                  adipisicing elit. Id, distinctio fugiat facere enim voluptatem quisquam eius
+                  aspernatur, laudantium odit quos, architecto cumque expedita dolore sit harum ex
+                  eaque! Placeat, odit ducimus totam facilis quasi repellendus? Iste nam
+                  exercitationem eum vero voluptatum possimus ratione veniam assumenda magnam non?
+                  Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                  distinctio fugiat facere enim voluptatem quisquam eius aspernatur, laudantium odit
+                  quos, architecto cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus
+                  totam facilis quasi repellendus? Iste nam exercitationem eum vero voluptatum
+                  possimus ratione veniam assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor,
+                  sit amet consectetur adipisicing elit. Id, distinctio fugiat facere enim
+                  voluptatem quisquam eius aspernatur, laudantium odit quos, architecto cumque
+                  expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis quasi
+                  repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione veniam
+                  assumenda magnam non? Aut, sit nulla.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="1.7">
+          <h3>1.7 Właściwość background-image kilka</h3>
           <p>
             Możliwe jest ustawienie kilku obrazów tła dla elementu w tym samym czasie, wystarczy po
             prostu wymienić je we właściwości background-image, oddzielając przecinkami. Dla każdego
@@ -321,10 +685,10 @@
             wykonać tylko jedno żądanie zamiast pięciu, co również zwiększy szybkość ładowania i
             wyświetlania strony.
           </p>
-          <ul class="galery-background-image-few-list_1-6">
-            <li class="galery-background-image-few-list-item_1-6 background-image-few-first_1-6">
+          <ul class="galery-background-image-few-list_1-7">
+            <li class="galery-background-image-few-list-item_1-7 background-image-few-first_1-7">
               <pre>
-.background-image-few-first_1-6{
+.background-image-few-first_1-7{
   background-image:
   url(../../images/image/biurkoStatystyki1_100x94.png),
   url(../../images/image/biurkoStatystyki1.jpg); background-position: right bottom, center;
@@ -332,27 +696,27 @@
 }
               </pre>
             </li>
-            <li class="galery-background-image-few-list-item_1-6 background-image-few-second_1-6">
+            <li class="galery-background-image-few-list-item_1-7 background-image-few-second_1-7">
               <pre>
-.background-image-few-second_1-6 {
+.background-image-few-second_1-7 {
   background-image: url(../../images/image/biurkoStatystyki2.jpg), url(../../images/image/biurkoStatystyki2.jpg);
   background-position: top left, center;
   background-size: contain, cover;
 }
               </pre>
             </li>
-            <li class="galery-background-image-few-list-item_1-6 background-image-few-third_1-6">
+            <li class="galery-background-image-few-list-item_1-7 background-image-few-third_1-7">
               <pre>
-.background-image-few-third_1-6 {
+.background-image-few-third_1-7 {
   background-image: url(../../images/image/biurkoStatystyki3.jpg), url(../../images/image/biurkoStatystyki3.jpg);
   background-position: top left, center;
   background-size: contain, cover;
 }
               </pre>
             </li>
-            <li class="galery-background-image-few-list-item_1-6 background-image-few-fourth_1-6">
+            <li class="galery-background-image-few-list-item_1-7 background-image-few-fourth_1-7">
               <pre>
-.background-image-few-fourth_1-6 {
+.background-image-few-fourth_1-7 {
   background-image: url(../../images/image/biurkoStatystyki4.jpg), url(../../images/image/biurkoStatystyki4.jpg);
   background-position: top left, center;
   background-size: contain, cover;
@@ -361,8 +725,8 @@
             </li>
           </ul>
         </article>
-        <article id="1.7">
-          <h3>1.7 Gradient</h3>
+        <article id="1.8">
+          <h3>1.8 Gradient</h3>
           <p>
             Gradient — to przejście od jednego koloru do drugiego. W CSS gradient jest obrazem tła,
             więc jest ustawiany jako wartość właściwości background-image. Gradient liniowy jest
@@ -419,31 +783,63 @@
             Pierwszą górną warstwą będzie gradient z przezroczystością i użyjemy tej samej
             początkowej i końcowej wartości koloru.
           </p>
-          <ul class="galery-background-gradient-list_1-7">
+          <ul class="galery-background-gradient-list_1-8">
             <li
-              class="galery-background-gradient-list-item_1-7 background-gradient-no-gradient1_1-7"
+              class="galery-background-gradient-list-item_1-8 background-gradient-no-gradient1_1-8"
             >
-              no gradient
+              <pre>
+.background-gradient-no-gradient1_1-8 {
+  background-image: url(../../images/image/biurkoKluczyki1.jpg);
+  background-position: center;
+  background-size: cover;
+}
+              </pre>
             </li>
             <li
-              class="galery-background-gradient-list-item_1-7 background-gradient-with-gradient1_1-7"
+              class="galery-background-gradient-list-item_1-8 background-gradient-with-gradient1_1-8"
             >
-              with gradient
+              <pre>
+.background-gradient-with-gradient1_1-8 {
+  background-image: linear-gradient(to bottom,
+      rgba(255, 0, 0, 0.3),
+      rgba(255, 0, 0, 0.3)),
+      url(../../images/image/biurkoKluczyki1.jpg);
+  background-position: top left, center;
+  background-size: contain, cover;
+}
+             </pre
+              >
             </li>
             <li
-              class="galery-background-gradient-list-item_1-7 background-gradient-no-gradient2_1-7"
+              class="galery-background-gradient-list-item_1-8 background-gradient-no-gradient2_1-8"
             >
-              no gradient
+              <pre>
+.background-gradient-no-gradient2_1-8 {
+  background-image: url(../../images/image/biurkoKluczyki2.jpg);
+  background-position: center;
+  background-size: cover;
+}
+              </pre>
             </li>
             <li
-              class="galery-background-gradient-list-item_1-7 background-gradient-with-gradient2_1-7"
+              class="galery-background-gradient-list-item_1-8 background-gradient-with-gradient2_1-8"
             >
-              with gradient
+              <pre>
+.background-gradient-with-gradient2_1-8 {
+  background-image: linear-gradient(90deg,
+  rgba(42, 123, 155, 0.5) 0%,
+  rgba(87, 199, 133, 0.5) 50%,
+  rgba(237, 221, 83, 0.5) 100%),
+  url(../../images/image/biurkoKluczyki2.jpg);
+  background-position: center, center;
+  background-size: cover;
+}
+              </pre>
             </li>
           </ul>
         </article>
-        <article id="1.8">
-          <h3>1.8 Właściwość background - złożona</h3>
+        <article id="1.9">
+          <h3>1.9 Właściwość background - złożona</h3>
           <p>
             Właściwość background jest złożoną właściwością służącą do jednoczesnego ustawiania
             wartości wszystkich rozważanych właściwości.
@@ -463,6 +859,303 @@
             Zaleca się używanie, przynajmniej na początku, oddzielnych właściwości dla każdej
             wartości, ponieważ w przypadku złożonej właściwości background łatwo o pomyłki.
           </p>
+        </article>
+        <article id="1.10">
+          <h3>1.10 Właściwość background-blend-mode</h3>
+          <p>
+            Właściwość background-blend-mode w CSS określa w jaki sposób wiele warstw tła (kolory,
+            gradienty, obrazy) są ze sobą mieszane (blendowane) - bardzo podobnie jak tryby
+            mieszania w Photoshopie.
+          </p>
+          <p>Do czego służy background-blend-mode</p>
+          <p>Gdy masz więcej niż jedno tło:</p>
+          <pre>
+            background-image:
+              linear-gradient(...),
+              url(image.jpg);
+          </pre>
+          <p>to background-blend-mode decyduje jak te warstwy na siebie wpływają.</p>
+          <p>Podstawowa składnia:</p>
+          <pre>
+            background-blend-mode: multiply;
+          </pre>
+          <p>lub dla wielu teł:</p>
+          <pre>
+            background-blend-mode: multiply, overlay;
+          </pre>
+          <p>Kolejność odpowiada kolejności background-image.</p>
+          <p>Najczęściej używane tryby</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              normal (domyślny) [background-blend-mode: normal] : Brak mieszania - warstwa jest po
+              prostu nałożona.
+            </li>
+            <li>
+              multiply (najczęściej używany) [background-blend-mode: multiply] : przyciemnia obraz
+              czarny → czarny biały → brak wpływu. Idealny do: przyciemniania zdjęć overlay pod
+              tekst
+            </li>
+            <li>
+              overlay [background-blend-mode: overlay] : wzmacnia kontrast, jasne robi jaśniejsze,
+              ciemne ciemniejsze
+            </li>
+            <li>screen [background-blend-mode: screen] : rozjaśnia obraz, czarny nie ma wpływu</li>
+            <li>darken [background-blend-mode: darken] : zostawia ciemniejsze piksele.</li>
+            <li>lighten [background-blend-mode: lighten] : zostawia jaśniejsze piksele.</li>
+            <li>
+              color [background-blend-mode: color] : zachowuje jasność obrazu, zmienia tylko kolor
+            </li>
+            <li>
+              luminosity [background-blend-mode: luminosity] : zachowuje kolor, miesza jasność
+            </li>
+          </ul>
+          <p>Obsługiwane wartości (pełna lista)</p>
+          <pre>
+            normal | multiply | screen | overlay | darken | lighten |
+            color-dodge | color-burn |
+            hard-light | soft-light |
+            difference | exclusion |
+            hue | saturation | color | luminosity
+          </pre>
+          <p>Kiedy używać?</p>
+          <ul class="unnumbered-list-container">
+            <li>przyciemnianie zdjęć pod tekst</li>
+            <li>kolorowanie zdjęć gradientem</li>
+            <li>efekty wizualne bez JS</li>
+            <li>zamiast ::before + opacity</li>
+          </ul>
+          <ul class="galery-background-blend-mode-list_1-10">
+            <li
+              class="galery-background-blend-mode-list-item_1-10 background-blend-mode-normal_1-10"
+            >
+              <h5 class="background-blend-mode-header_1-10">background-blend-mode: normal</h5>
+              <pre class="">
+  .galery-background-blend-mode-list-item_1-10 {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    width: var(--widthImage);
+    border-radius: 4px;
+    overflow: auto;
+    background-image:
+      linear-gradient(rgba(4, 29, 250, 0.5),
+        rgba(4, 29, 250, 0.5)),
+      url(../../images/image/gory.jpg);
+    background-size: cover;
+    background-position: top;
+    height: 40vh;
+
+    &.background-blend-mode-normal_1-10 {
+      background-blend-mode: normal;
+      font-size: 0.5rem;
+    }
+
+    &.background-blend-mode-multiply_1-10 {
+      background-blend-mode: multiply;
+
+      &:hover {
+        background-blend-mode: normal;
+      }
+    }
+
+    &.background-blend-mode-overlay_1-10 {
+      background-blend-mode: overlay;
+
+      &:hover {
+        background-blend-mode: normal;
+      }
+    }
+
+    &.background-blend-mode-screen_1-10 {
+      background-blend-mode: screen;
+
+      &:hover {
+        background-blend-mode: normal;
+      }
+    }
+
+    &.background-blend-mode-darken_1-10 {
+      background-blend-mode: darken;
+
+      &:hover {
+        background-blend-mode: normal;
+      }
+    }
+
+    &.background-blend-mode-lighten_1-10 {
+      background-blend-mode: lighten;
+
+      &:hover {
+        background-blend-mode: normal;
+      }
+    }
+
+    &.background-blend-mode-color_1-10 {
+      background-blend-mode: color;
+
+      &:hover {
+        background-blend-mode: normal;
+      }
+    }
+
+    &.background-blend-mode-luminosity_1-10 {
+      background-blend-mode: luminosity;
+
+      &:hover {
+        background-blend-mode: normal;
+      }
+    }
+
+    .background-blend-mode-header_1-10 {
+      position: sticky;
+      top: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 5px;
+      text-align: center;
+    }
+  }
+}
+              </pre>
+            </li>
+            <li
+              class="galery-background-blend-mode-list-item_1-10 background-blend-mode-multiply_1-10"
+            >
+              <h5 class="background-blend-mode-header_1-10">background-blend-mode: multiply</h5>
+              <p>
+                multiply (najczęściej używany) [background-blend-mode: multiply] : przyciemnia obraz
+                czarny → czarny biały → brak wpływu. Idealny do: przyciemniania zdjęć overlay pod
+                tekst
+              </p>
+            </li>
+            <li
+              class="galery-background-blend-mode-list-item_1-10 background-blend-mode-overlay_1-10"
+            >
+              <h5 class="background-blend-mode-header_1-10">background-blend-mode: overlay</h5>
+              <p>
+                overlay [background-blend-mode: overlay] : wzmacnia kontrast, jasne robi jaśniejsze,
+                ciemne ciemniejsze
+              </p>
+            </li>
+            <li
+              class="galery-background-blend-mode-list-item_1-10 background-blend-mode-screen_1-10"
+            >
+              <h5 class="background-blend-mode-header_1-10">background-blend-mode: screen</h5>
+              <p>screen [background-blend-mode: screen] : rozjaśnia obraz, czarny nie ma wpływu</p>
+            </li>
+            <li
+              class="galery-background-blend-mode-list-item_1-10 background-blend-mode-darken_1-10"
+            >
+              <h5 class="background-blend-mode-header_1-10">background-blend-mode: darken</h5>
+              <p>darken [background-blend-mode: darken] : zostawia ciemniejsze piksele.</p>
+            </li>
+            <li
+              class="galery-background-blend-mode-list-item_1-10 background-blend-mode-lighten_1-10"
+            >
+              <h5 class="background-blend-mode-header_1-10">background-blend-mode: lighten</h5>
+              <p>lighten [background-blend-mode: lighten] : zostawia jaśniejsze piksele.</p>
+            </li>
+            <li
+              class="galery-background-blend-mode-list-item_1-10 background-blend-mode-color_1-10"
+            >
+              <h5 class="background-blend-mode-header_1-10">background-blend-mode: color</h5>
+              <p>
+                color [background-blend-mode: color] : zachowuje jasność obrazu, zmienia tylko kolor
+              </p>
+            </li>
+            <li
+              class="galery-background-blend-mode-list-item_1-10 background-blend-mode-luminosity_1-10"
+            >
+              <h5 class="background-blend-mode-header_1-10">background-blend-mode: luminosity</h5>
+              <p>
+                luminosity [background-blend-mode: luminosity] : zachowuje kolor, miesza jasność
+              </p>
+            </li>
+          </ul>
+        </article>
+        <article id="1.11">
+          <h3>1.11 Właściwość background-origin</h3>
+          <p>
+            Właściwość background-origin mówi przeglądarce od którego obszaru elementu ma się
+            zaczynać tło (background-image). Czyli skąd liczyć pozycję i rozmiar tła.
+          </p>
+          <p>Każdy element ma (od środka na zewnątrz):</p>
+          <ol class="numbered-list-container">
+            <li>padding-box (domyślna) - treść + padding</li>
+            <li>content-box - treść (tekst, obrazki)</li>
+            <li>border-box - treść + padding + border</li>
+          </ol>
+          <p>
+            Co dokładnie robi background-origin: background-origin określa punkt startowy tła: gdzie
+            zaczyna się rysowanie tła i od jakiego obszaru liczona jest pozycja background-position
+            ⚠️ Dotyczy tylko obrazów tła, nie kolorów (background-color).
+          </p>
+          <ul class="galery-background-origin-list_1-11">
+            <li class="galery-background-origin-list-item_1-11 background-origin-padding-box_1-11">
+              <h5 class="background-origin-header_1-11">
+                background-origin: padding-box (domyślne)
+              </h5>
+              <p>
+                tło zaczyna się od wewnętrznej krawędzi bordera border nie jest wypełniany obrazem
+                najczęściej używane
+              </p>
+              <p>[border ❌][padding ✅][content ✅]</p>
+            </li>
+            <li class="galery-background-origin-list-item_1-11 background-origin-content-box_1-11">
+              <h5 class="background-origin-header_1-11">background-origin: content-box</h5>
+              <p>tło zaczyna się dopiero od treści, padding i border są "puste"</p>
+              <p>[border ❌][padding ❌][content ✅]</p>
+            </li>
+            <li class="galery-background-origin-list-item_1-11 background-origin-border-box_1-11">
+              <h5 class="background-origin-header_1-11">background-origin: border-box</h5>
+              <p>tło wchodzi pod border obraz rysowany od zewnętrznej krawędzi</p>
+              <p>[border ✅][padding ✅][content ✅]</p>
+            </li>
+          </ul>
+        </article>
+        <article id="1.12">
+          <h2>1.12 Właściwość background-clip</h2>
+          <p>
+            Właściwość background-clip mówi przeglądarce do jakiego obszaru elementu tło ma być
+            przycięte (czyli gdzie ma być widoczne).
+          </p>
+          <ul class="galery-background-clip-list_1-12">
+            <li class="galery-background-clip-list-item_1-12 background-clip-padding-box_1-12">
+              <h5 class="background-clip-header_1-12">background-clip: padding-box</h5>
+              <p>Tło jest widoczne w obszarze paddingu i treści, ale nie w ramce.</p>
+              <p>[border ❌][padding ✅][content ✅]</p>
+            </li>
+            <li class="galery-background-clip-list-item_1-12 background-clip-content-box_1-12">
+              <h5 class="background-clip-header_1-12">background-clip: content-box</h5>
+              <p>Tło jest ograniczone wyłącznie do obszaru treści.</p>
+              <p>[border ❌][padding ❌][content ✅]</p>
+            </li>
+            <li class="galery-background-clip-list-item_1-12 background-clip-border-box_1-12">
+              <h5 class="background-clip-header_1-12">background-clip: border-box (domyślne)</h5>
+              <p>Tło obejmuje ramkę, padding oraz treść elementu.</p>
+              <p>[border ✅][padding ✅][content ✅]</p>
+            </li>
+          </ul>
+          <!--  -->
+          <ul class="galery-background-clip-list_1-12a">
+            <li class="galery-background-clip-list-item_1-12a">
+              <h5 class="background-clip-header_1-12a">Obraz - emotikony</h5>
+              <p class="background-clip-text_1-12a text1_1-12a">
+                📊 📉 📈 📅 📆 🗓️ 📅 📄 ⛔ ⚠️ 🖨️ 🖥️ 💽 💾 💿 📀 📔 📕 📖 📗 📘 📚 📓 📒 📃 📜 📄 📄
+                📑 📝 🖊️ 📧 📫 🎫 0️⃣ 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣ 🔟 🟡 🟢 🟠 🔵 🟣 🟤 ⚫ ⚪ 📏 🛠️ 📐
+                ⚙️ ↕️ 🔁 🧍🧍‍♂️
+              </p>
+            </li>
+            <li class="galery-background-clip-list-item_1-12a">
+              <h5 class="background-clip-header_1-12a">Tekst</h5>
+              <p class="background-clip-text_1-12a text2_1-12a">
+                🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡
+              </p>
+            </li>
+            <li class="galery-background-clip-list-item_1-12a">
+              <h5 class="background-clip-header_1-12a">background-clip: border-box</h5>
+              <p class="background-clip-text_1-12a text3_1-12a">Do gradientu tekstu</p>
+            </li>
+          </ul>
         </article>
       </section>
       <section id="2" class="text">
@@ -558,24 +1251,49 @@
           <ul class="galery-gradient-shadow-list_2-3">
             <li class="galery-gradient-shadow-list-item_2-3 box1_2-3">
               <h4 class="header_2-3 custom-header1_2-3">Nagłówek 1: dłuższy</h4>
-              <p class="text_2-3">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, facilis quis?
-                Consequuntur, est omnis provident blanditiis earum voluptatem repudiandae tempore.
-              </p>
+              <pre>
+.galery-gradient-shadow-list_2-3 {
+  --gap: 40px;
+  --countImages: 4;
+  --countSpace: calc(var(--countImages) - 1);
+  --widthSize: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  color: black;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 140px;
+  font-size: 1rem;
+}
+              </pre>
             </li>
             <li class="galery-gradient-shadow-list-item_2-3 box2_2-3">
               <h4 class="header_2-3 custom-header2_2-3">Nagłówek 2: krótszy</h4>
-              <p class="text_2-3">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, facilis quis?
-                Consequuntur, est omnis provident blanditiis earum voluptatem repudiandae tempore.
-              </p>
+              <pre>
+.galery-gradient-shadow-list-item_2-3 {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  width: var(--widthSize);
+  aspect-ratio: 1 / 0.66;
+  height: auto;
+  border-radius: 4px;
+  overflow: auto;
+  transition: box-shadow 1.3s ease;
+}
+              </pre>
             </li>
             <li class="galery-gradient-shadow-list-item_2-3 box3_2-3">
               <h4 class="header_2-3 custom-header3_2-3">Nagłówek 3: dłuższy dwa razy</h4>
-              <p class="text_2-3">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, facilis quis?
-                Consequuntur, est omnis provident blanditiis earum voluptatem repudiandae tempore.
-              </p>
+              <pre>
+.header_2-3 {
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  text-align: center;
+}
+              </pre>
             </li>
             <li class="galery-gradient-shadow-list-item_2-3 box4_2-3">
               <h4 class="header_2-3 custom-header4_2-3">Nagłówek 4</h4>
@@ -1096,7 +1814,7 @@
           </div>
         </article>
         <article id="5.5">
-          <h3>5.5 Pozycjonowanie lepkie: fixed</h3>
+          <h3>5.5 Pozycjonowanie lepkie: sticky</h3>
           <p>
             Pozycjonowanie lepkie (position: sticky) to połączenie właściwości relative i fixed.
             Spójrz na gif, gdzie pozycjonowanie lepkie jest ustawione dla elementów z literami A i B
@@ -1131,7 +1849,28 @@
             Nagłówki sekcji w przykładzie są lepkie, więc gdy przewiniesz stronę, "przykleją się" do
             górnej części obszaru wyświetlania, dopóki część ich sekcji nie będzie widoczna.
           </p>
-          <div></div>
+          <div class="sticky-main-container_5-5">
+            <div class="sticky-background_5-5">
+              <div class="sticky-text-container_5-5">
+                <h4 class="sticky-header_5-5">Nagłowek</h4>
+                <p class="sticky-text_5-5">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id, distinctio fugiat
+                  facere enim voluptatem quisquam eius aspernatur, laudantium odit quos, architecto
+                  cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis
+                  quasi repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione
+                  veniam assumenda magnam non? Aut, sit nulla.
+                </p>
+              </div>
+              <div class="sticky-text-container_5-5">
+                <h4 class="sticky-header_5-5">Nagłowek</h4>
+                <p class="sticky-text_5-5">text</p>
+              </div>
+              <div class="sticky-text-container_5-5">
+                <h4 class="sticky-header_5-5">Nagłowek</h4>
+                <p class="sticky-text_5-5">text</p>
+              </div>
+            </div>
+          </div>
         </article>
       </section>
       <section id="7" class="text">
