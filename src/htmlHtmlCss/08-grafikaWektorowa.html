@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -18,7 +18,7 @@
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
     <link rel="stylesheet" href="../styles/htmlCssStyles.scss" />
-    <link rel="stylesheet" href="../styles/htmlCssStyles/02-html2.scss" />
+    <link rel="stylesheet" href="../styles/htmlCssStyles/08-grafikaWektorowa.scss" />
 
     <title>Grafika wektorowa</title>
   </head>
@@ -33,9 +33,184 @@
     <main class="main-container">
       <!-- section1 -->
       <section id="1" class="text">
-        <h1>Moduł 1 - Zajęcia 2 - Grafika wektorowa</h1>
+        <h1>Moduł 4 - Zajęcia 6 - Grafika wektorowa</h1>
         <article id="1.1">
-          <h2>1.1 Tabele</h2>
+          <h2>1.1 Grafika wektorowa</h2>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/raster-vs-vector-m3z5.png" alt="" />
+          </div>
+          <p>
+            SVG (Scalable Vector Graphics) to format graficzny i język służący do opisywania obrazów
+            wektorowych. Plik nie jest plikiem binarnym, ale zawiera zwykły tekst (XML) opisujący
+            obiekty, ich efekty oraz zachowanie.
+          </p>
+          <p>Grafika wektorowa ma szereg zalet.</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Skalowanie - w przeciwieństwie do grafiki rastrowej, SVG nie traci jakości podczas
+              skalowania.
+            </li>
+            <li>
+              Rozmiar pliku - obrazy wektorowe ważą znacznie mniej niż obrazy rastrowe, gdy są
+              używane do zapisywania ikon lub innych abstrakcyjnych grafik. Używanie plików
+              wektorowych do zapisywania realistycznych obrazów prowadzi jednak do powstawania
+              plików o dużych rozmiarach.
+            </li>
+            <li>
+              Dynamika - używając CSS i JavaScript, możesz zmienić parametry obrazu wektorowego,
+              takie jak kolor lub obramowanie.
+            </li>
+          </ul>
+          <p>
+            Wiemy już, że grafika wektorowa, podobnie jak obrazy rastrowe, może być dodawana za
+            pomocą elementu img. Wystarczy określić:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>ścieżkę do obrazu</li>
+            <li>tekst opisu</li>
+            <li>inne atrybuty (jeśli to konieczne).</li>
+          </ul>
+          <pre>
+             &ltimg src="path/to/image.svg" alt="Description" />
+          </pre>
+        </article>
+        <article id="1.2">
+          <h3>1.2 Wbudowany SVG</h3>
+          <p>
+            W przypadku statycznych grafik, takich jak abstrakcyjne tła lub ikony, do których nie
+            trzeba dodawać efektu po najechaniu kursorem lub fokusu, najczęściej stosuje się
+            dodawanie obrazów wektorowych za pomocą elementu &ltimg> lub jako tła za pomocą elementu
+            background-image.
+          </p>
+          <p>
+            Metody te mają jedną istotną wadę: nie pozwalają na dynamiczną zmianę koloru oraz innych
+            cech obrazu wektorowego z poziomu CSS. Obrazy SVG mogą być dodawane w HTML. Otwierasz po
+            prostu plik SVG w edytorze tekstu, kopiujesz jego zawartość i wklejasz ją do dokumentu
+            HTML. Nazywa się to "wbudowanym SVG" (inline SVG).
+          </p>
+          <p>Podejście to ma jednak szereg ograniczeń.</p>
+          <ul class="unnumbered-list-container">
+            <li>Wbudowany kod SVG zwiększa wielkość pliku HTML.</li>
+            <li>Niemożliwe jest ponowne użycie tego samego obrazu bez powielania kodu.</li>
+            <li>
+              Utrzymywanie i naprawianie wbudowanego SVG jest czasochłonne i trzeba szukać go w
+              kodzie HTML.
+            </li>
+            <li>
+              Przeglądarka nie może buforować takich obrazów, w przeciwieństwie do zewnętrznych
+              plików SVG.
+            </li>
+          </ul>
+          <div class="svg-container_1-2">
+            <img class="svg-img_1_2" src="../images/svg/save.svg" width="30px" />
+            <img class="svg-img_1_2" src="../images/svg/save.svg" width="60px" />
+            <img class="svg-img_1_2" src="../images/svg/save.svg" width="90px" />
+          </div>
+          <p>
+            W CSS możesz dynamicznie zmieniać niektóre parametry wbudowanego obrazu wektorowego,
+            takie jak kolor. Właściwość fill kontroluje kolor wypełnienia. Możesz ustawić kolor w
+            dowolnym, wygodnym formacie.
+          </p>
+          <pre>
+            /* Ustawiamy kolor wypełnienia w spokojnym stanie. */
+            .icon {
+              fill: #2a2a2a;
+            }
+
+            /* Zmieniamy kolor wypełnienia po najechaniu kursorem. */
+            .icon:hover {
+              fill: #03a9f4;
+            }
+          </pre>
+          <p>
+            Jeśli nie określono koloru wypełnienia, kształt zostanie wypełniony bieżącym kolorem
+            tekstu (domyślnie czarnym).
+          </p>
+          <p>
+            Możesz usunąć wypełnienie za pomocą wartości none, co spowoduje, że kształt będzie
+            całkowicie przezroczysty.
+          </p>
+          <div class="svg-container_1-2">
+            <img class="svg-img_1_2" src="../images/svg/save.svg" width="30px" />
+          </div>
+          <p>SVG Sprites to technika używana najczęściej podczas pracy z grafiką wektorową.</p>
+          <ul class="unnumbered-list-container">
+            <li>Wszystkie ikony wektorowe są gromadzone w jednym pliku.</li>
+            <li>
+              Plik sprite jest buforowany przez przeglądarkę i nie będzie ponownie ładowany, przy
+              ponownych odwiedzinach strony.
+            </li>
+            <li>Możesz zmienić kolor i inne cechy ikon sprite za pomocą CSS.</li>
+          </ul>
+          <p>Algorytm tworzenia SVG Sprites</p>
+          <ol class="numbered-list-container">
+            <li>
+              Otwórz layout w programie Figma, wybierz wszystkie ikony i wyeksportuj je w formacie
+              SVG na swój komputer.
+            </li>
+            <li>
+              Wejdź na stronę <a href="https://icomoon.io/app/">icomoon.io</a> , kliknij przycisk
+              Import Icons w lewym górnym rogu i dodaj wszystkie ikony.
+            </li>
+            <li>Kliknij Generate SVG & More w lewym dolnym rogu.</li>
+            <li>Kliknij Download w lewym dolnym rogu.</li>
+          </ol>
+          <p>Na Twoim komputerze pojawi się plik .svg. Jest to właśnie SVG sprite.</p>
+          <p>
+            Dokument SVG to po prostu plik tekstowy, który - w przeciwieństwie do grafiki rastrowej
+            - opisuje kształty, które będa renderowane przez przeglądarkę. W jednym pliku za pomocą
+            elementu &ltsymbol> możesz opisać wiele różnych grup kształtów, a następnie, nadając
+            każdemu symbolowi unikalny id, możesz uzyskać dostęp do dowolnego z nich z poziomu
+            dokumentu HTML.
+          </p>
+          <pre class="pre-container">
+    &ltsvg aria-hidden="true" style="position:absolute;width:0;height:0" xmlns="&lthttp://www.w3.org/2000/svg>" overflow="hidden">
+    &ltdefs>
+      &lt!-- Trash can icon -->
+      &ltsymbol id="delete" viewBox="0 0 32 32">
+        &ltpath d="M8 25.333C8 26.8 9.2 28 10.667 28h10.667c1.467 0 2.667-1.2 2.667-2.667v-16h-16v16zm17.333-20h-4.667L19.333 4h-6.667l-1.333 1.333H6.666V8h18.667V5.333z" />
+      &lt/symbol>
+      &lt!-- Camera icon -->
+      &ltsymbol id="camera" viewBox="0 0 32 32">
+        &ltpath d="M20.267 16a4.267 4.267 0 11-8.534 0 4.267 4.267 0 018.534 0z" />
+        &ltpath d="M12 2.667L9.56 5.334H5.333a2.675 2.675 0 00-2.667 2.667v16c0 1.467 1.2 2.667 2.667 2.667h21.333c1.467 0 2.667-1.2 2.667-2.667v-16c0-1.467-1.2-2.667-2.667-2.667h-4.227l-2.44-2.667h-8zm4 20c-3.68 0-6.667-2.987-6.667-6.667S12.32 9.333 16 9.333 22.667 12.32 22.667 16 19.68 22.667 16 22.667z" />
+      &lt/symbol>
+      &lt!-- Portfolio icon -->
+      &ltsymbol id="work" viewBox="0 0 32 32">
+        &ltpath d="M26.667 8h-5.333V5.333a2.658 2.658 0 00-2.667-2.667h-5.333a2.658 2.658 0 00-2.667 2.667V8H5.334a2.646 2.646 0 00-2.653 2.667l-.013 14.667a2.658 2.658 0 002.667 2.667h21.333a2.658 2.658 0 002.667-2.667V10.667A2.658 2.658 0 0026.668 8zm-8 0h-5.333V5.333h5.333V8z" />
+      &lt/symbol>
+    &lt/defs>
+  &lt/svg>
+          </pre>
+          <p>
+            Wewnątrz SVG sprite, znajduje się zestaw elementów &ltsvg> i &ltsymbol>, które opisują
+            cały SVG sprite i każdy kształt osobno. Każdy &ltsymbol> ma unikalny identyfikator.
+          </p>
+          <p>
+            Aby użyć ikony ze sprite'a w dokumencie HTML, musisz dodać znaczniki elementu &ltsvg> i
+            zagnieżdżonego elementu &ltuse> z atrybutem href, który zawiera ścieżkę do ikony.
+            Ścieżkę należy określić jak ścieżkę do zwykłego pliku, ale na końcu dodać kotwicę z
+            identyfikatorem symbolu w sprite.
+          </p>
+          <pre>
+            &ltsvg>
+              &ltuse href="./ścieżka-do-svg-sprite/imię-sprite˙a.svg#identyfikator-symbolu">&lt/use>
+            &lt/svg>
+          </pre>
+          <div class="svg-group-icon-container_1-2">
+            <svg class="svg-group-icon1_1-2">
+              <use href="../images/svg/svgsIcons.svg#icon-tree"></use>
+            </svg>
+            <svg class="svg-group-icon2_1-2">
+              <use href="../images/svg/svgsIcons.svg#icon-tree"></use>
+            </svg>
+            <svg class="svg-group-icon3_1-2">
+              <use href="../images/svg/svgsIcons.svg#icon-tree"></use>
+            </svg>
+            <svg class="svg-group-icon4_1-2">
+              <use href="../images/svg/svgsIcons.svg#icon-tree"></use>
+            </svg>
+          </div>
         </article>
       </section>
     </main>
@@ -53,6 +228,5 @@
     </footer>
     <!-- SKRYPTY JS -->
     <script defer type="module" src="../scripts/menuHtmlCss.mjs"></script>
-    <script defer type="module" src="../scripts/htmlCssScripts/02-html.mjs"></script>
   </body>
 </html>

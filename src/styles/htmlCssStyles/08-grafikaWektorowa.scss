@@ -1,0 +1,67 @@
+//3.2
+.svg-container_1-2 {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin-top: 20px;
+
+  .svg-img_1_2 {
+    transition: transform 1.4s ease;
+    transform-origin: center;
+    /* domyślnie, ale warto jawnie */
+
+    &:hover {
+      transform: scale(2.1);
+    }
+  }
+}
+
+.pre-container {
+  overflow: auto;
+}
+
+.svg-group-icon-container_1-2 {
+  display: flex;
+  align-items: center;
+
+  .svg-group-icon1_1-2 {
+    fill: #1ffd02;
+    transition: all 2s ease;
+    // transition: fill 2s ease;
+
+    &:hover {
+      fill: #fd0202;
+    }
+  }
+
+  .svg-group-icon2_1-2 {
+    fill: #1ffd02;
+    transition: all 2s ease;
+    // transition: fill 2s ease;
+
+    &:hover {
+      fill-opacity: 0.2;
+    }
+  }
+
+  .svg-group-icon3_1-2 {
+    fill: #1ffd02;
+    transition: all 2s ease;
+    // transition: fill 2s ease;
+
+    &:hover {
+      stroke: #0d58e4;
+    }
+  }
+
+  .svg-group-icon4_1-2 {
+    fill: #1ffd02;
+    transition: all 2s ease;
+    // transition: fill 2s ease;
+
+    &:hover {
+      stroke: #0d58e4;
+      stroke-opacity: 0.1;
+    }
+  }
+}

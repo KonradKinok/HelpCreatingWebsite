@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -18,7 +18,7 @@
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
     <link rel="stylesheet" href="../styles/htmlCssStyles.scss" />
-    <link rel="stylesheet" href="../styles/htmlCssStyles/02-html2.scss" />
+    <link rel="stylesheet" href="../styles/htmlCssStyles/09-pozycjonowanieElementow.scss" />
 
     <title>Pozycjonowanie elementów</title>
   </head>
@@ -30,12 +30,605 @@
         <ul id="this-page-menu" class="this-page-menu"></ul>
       </nav>
     </header>
-    <main class="main-container">
+    <main class="main-container pozycjonowanie-elementow">
       <!-- section1 -->
-      <section id="1" class="text">
-        <h1>Moduł 1 - Zajęcia 2 - Pozycjonowanie elementów</h1>
-        <article id="1.1">
-          <h2>1.1 Tabele</h2>
+
+      <section id="4" class="text">
+        <h1>Moduł 4 - Zajęcia 7 - Pozycjonowanie elementów</h1>
+        <article id="4.1">
+          <h2>4.1 Pseudoelementy</h2>
+          <p>
+            Pseudoelementy ::before i ::after służą do dodawania efektów dekoracyjnych (ikon,
+            tabliczek, nakładek) bez konieczności tworzenia dodatkowych pustych tagów w znacznikach.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/pseudoelementy-m3z4.png" alt="" />
+          </div>
+          <ul class="unnumbered-list-container">
+            <li>::before - tworzy pseudoelement przed całą zawartością elementu (na początku).</li>
+            <li>::after - tworzy pseudoelement po całej zawartości elementu (na końcu).</li>
+          </ul>
+          <pre>
+            .box {
+              /* style elementów */
+            }
+
+            .box::before {
+              /* style pseudoelement before */
+            }
+
+            .box::after {
+              /* style pseudoelement after */
+            }
+          </pre>
+          <p>
+            Ta wymagana właściwość umożliwia dodawanie treści tekstowej do pseudoelementu. Nawet
+            jeśli treść tekstowa nie jest potrzebna, jej wartość musi być ustawiona na pusty wiersz,
+            w przeciwnym razie przeglądarka po prostu nie utworzy pseudoelementu.
+          </p>
+          <pre>
+            &ltdiv class="box">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia itaque quia
+              nobis fugit amet adipisci, corrupti animi, iusto eius a sed totam voluptas
+              porro. Dolorem aliquid rerum magnam eligendi aspernatur.
+            &lt/div>
+          </pre>
+          <p>
+            W selektorze można użyć tylko jednego pseudoelementu, który należy dodać po prostym
+            selektorze (po tagu, klasie, identyfikatorze).
+          </p>
+          <pre>
+            .box::before {
+              content: 'To jest tekst w ::before';
+              font-size: 40px;
+              color: orange;
+            }
+
+            .box::after {
+              content: 'To jest tekst w ::after';
+              font-size: 30px;
+              color: teal;
+            }
+          </pre>
+          <div class="after-before_4-1">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia itaque quia nobis
+            fugit amet adipisci, corrupti animi, iusto eius a sed totam voluptas porro. Dolorem
+            aliquid rerum magnam eligendi aspernatur.
+          </div>
+          <p>
+            UWAGA!: Nie używaj pseudoelementów do dodawania treści tekstowych, jest to naruszenie
+            specyfikacji, służą one wyłącznie do dekoracji. Tekst wewnątrz pseudoelementu nie jest
+            postrzegany przez technologie wspomagające i indeksatory, a także będzie niedostępny dla
+            użytkownika, jeśli arkusz stylów nie jest załadowany.
+          </p>
+        </article>
+        <article id="4.2">
+          <h3>4.2 Pseudoklasa :hover</h3>
+          <p>
+            Aby zmienić style pseudoelementu, gdy na elemencie rodzicielskim wystąpi zdarzenie, na
+            przykład najechanie kursorem, musisz użyć następującego selektora.
+          </p>
+          <pre>
+            /* Zastosuj style do pseudoelementu .box::before podczas najechania kursorem na element .box */
+            .box:hover::before {
+              color: green;
+            }
+
+            /* Zastosuj style do pseudoelementu .box::after podczas najechania kursorem na element .box */
+            .box:hover::after {
+              color: tomato;
+            }
+          </pre>
+          <div class="after-before_4-2">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia itaque quia nobis
+            fugit amet adipisci, corrupti animi, iusto eius a sed totam voluptas porro. Dolorem
+            aliquid rerum magnam eligendi aspernatur.
+          </div>
+        </article>
+        <article id="4.3">
+          <h3>4.3 Pseudoelement ikona</h3>
+          <p>
+            Używając pseudoelementów, dodamy ikony przed i po linkach na liście. Niech ::before
+            będzie zawsze widoczne, a ::after tylko przy najechaniu kursorem na link.
+          </p>
+          <p>
+            Najważniejsze znajduje się w tej regule CSS. Zmieniamy typ elementu na liniowo-blokowy i
+            ustawiamy stałą wysokość i szerokość. Nie zapomnijmy również określić właściwości
+            content z pustym wierszem, aby przeglądarka utworzyła pseudoelement.
+          </p>
+          <pre>
+            .list-link::before,
+            .list-link::after {
+              content: '';
+              display: inline-block
+              width: 24px;
+              height: 24px;
+            }
+          </pre>
+          <ul class="icon-list_4-3">
+            <li>
+              <a href="#" class="list-link_4-3">Strona główna</a>
+            </li>
+            <li>
+              <a href="#" class="list-link_4-3">O nas</a>
+            </li>
+            <li>
+              <a href="#" class="list-link_4-3">Kontakt</a>
+            </li>
+          </ul>
+        </article>
+      </section>
+      <section id="5" class="text">
+        <article id="5.1">
+          <h2>5.1 Elementy pozycjonowane</h2>
+          <p>
+            Elementy na stronie są domyślnie ułożone od lewej do prawej i od góry do dołu. Jeśli
+            chcesz umieścić jeden element na drugim, użyj właściwości position. Pozwala ona
+            dosłownie umieścić element na dowolnym innym elemencie. Właściwość position zmienia typ
+            pozycjonowania elementu.
+          </p>
+          <p>Istnieje kilka podstawowych wartości właściwości position:</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/elementy-pozycjonowania-m3z4.png" alt="" />
+          </div>
+          <p>Wartością domyślną jest static.</p>
+          <p>
+            Pozycjonowanie statyczne (static) jest początkowym stanem wszystkich elementów strony
+            internetowej. Model blokowy i flexbox wykorzystują na stronie właśnie elementy
+            statyczne.
+          </p>
+          <p>
+            Zdecydowana większość elementów na stronie powinna być elementami statycznymi. Inne
+            rodzaje pozycjonowania są używane dla efektów graficznych, gdy nie jest możliwe
+            pozycjonowanie ich w inny sposób.
+          </p>
+          <p>
+            Element, którego wartość właściwości position jest inna niż static jest nazywany
+            "elementem pozycjonowanym".
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/elementy-pozycjonowania1-m3z4.png" alt="" />
+          </div>
+          <p>
+            Pozycjonowanie względne (relative), bezwzględne (absolute) i stałe (fixed) elementu
+            umożliwiają ręczne pozycjonowanie go przy użyciu układu współrzędnych. Dziedziczenie
+            układu współrzędnych zależy od typu pozycjonowania. Przeanalizujemy każdy typ osobno w
+            kolejnych sekcjach. Aby określić pozycję elementu, należy użyć właściwości top, left,
+            bottom lub right, których nie stosuje się do elementów bez position.
+          </p>
+        </article>
+        <article id="5.2">
+          <h3>5.2 Pozycjonowanie względne: relative</h3>
+          <p>
+            W przypadku pozycjonowania względnego element pozostaje nieruchomo na ekranie, co
+            oznacza, że sąsiednie elementy nie zajmują jego miejsca. Jednak wizualnie, element może
+            zostać przesunięty z pierwotnej pozycji i może nachodzić na swoich sąsiadów.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/pozycjonowanie-wzgledne-m3z4.png" alt="" />
+          </div>
+          <p>
+            Właściwości top, left, bottom i right pozwalają określić wizualne przesunięcie elementu
+            względem pierwotnej pozycji. Mogą mieć też wartość ujemną.
+          </p>
+          <p>
+            Pozycjonowanie względne nie jest używane samodzielnie, ponieważ element nie jest usuwany
+            ze strony i nadal znajduje się na swoim miejscu. Dlatego pozycjonowanie względne jest
+            używane tylko w połączeniu z pozycjonowaniem bezwzględnym.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/pozycjonowanie-wzgledne1-m3z4.png" alt="" />
+          </div>
+          <ul class="galery-relative-list_5-1">
+            <li class="galery-relative-list-item_5-1 box1_5-1"></li>
+            <li class="galery-relative-list-item_5-1 box2_5-1">
+              <pre>
+  &.box2_5-1 {
+    position: relative;
+    top: 120px;
+    left: 120px;
+  }
+              </pre>
+            </li>
+            <li class="galery-relative-list-item_5-1 box3_5-1"></li>
+          </ul>
+        </article>
+        <article id="5.3">
+          <h3>5.3 Pozycjonowanie bezwzględne: absolute</h3>
+          <p>Pozycjonowanie bezwzględne daje zupełnie inne wyniki niż pozycjonowanie względne.</p>
+          <ol class="numbered-list-container order-list_2-6">
+            <li>
+              W przypadku pozycjonowania bezwzględnego element jest usuwany ze strony, tzn. jego
+              miejsce zajmują sąsiednie elementy.
+            </li>
+            <li>
+              Możesz ustawić pozycję elementu za pomocą właściwości top, left, bottom i right, ale
+              pamiętaj, aby uwzględnić, skąd pochodzą wartości tych właściwości.
+            </li>
+            <li>
+              Aby określić punkt początkowy, przeglądarka szuka najbliższego elementu przodka, który
+              ma jakąkolwiek wartość inną niż static dla właściwości position. Jeśli taki przodek
+              nie zostanie znaleziony, wartości będą liczone od obramowania elementu &ltbody>.
+            </li>
+          </ol>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/pozycjonowanie-absolutne-m3z4.png" alt="" />
+          </div>
+          <p>
+            Pozycjonowanie bezwzględne samo w sobie nie jest zbyt użyteczne. Zwykle jest używane w
+            połączeniu z pozycjonowaniem względnym do pozycjonowania elementów. Oznacza to, że
+            element jest pozycjonowany bezwzględnie względem jakiegoś przodka, który znajduje się na
+            stronie.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/pozycjonowanie-absolutne1-m3z4.png" alt="" />
+          </div>
+          <p>
+            W tym przypadku wartości top, left, bottom i right dla elementu pozycjonowanego
+            bezwzględnie są liczone od ramki przodka, a nie od &ltbody>. Dlatego używamy position:
+            relative przodka tylko po to, aby bezwzględnie pozycjonowany element znajdował się w
+            położeniu względnym wobec niego.
+          </p>
+          <p>
+            Zapis bottom: 20px oznacza odległość między dolną częścią względnie pozycjonowanego
+            przodka a dolną częścią bezwzględnie pozycjonowanego elementu. right, left i top
+            działają w ten sam sposób — określają odległość pomiędzy przodkiem a krawędzią elementu
+            o tej samej nazwie.
+          </p>
+          <ul class="galery-absolute-list_5-3">
+            <li class="galery-absolute-list-item_5-3 box1_5-3"></li>
+            <li class="galery-absolute-list-item_5-3 box2_5-3">
+              <pre>
+  &.box2_5-1 {
+    position: absolute;
+    top: 120px;
+    left: 120px;
+  }
+              </pre>
+            </li>
+            <li class="galery-absolute-list-item_5-3 box3_5-3"></li>
+          </ul>
+          <ul class="galery-absolute-img-list_5-3">
+            <li class="galery-absolute-img-item_5-3">
+              <img
+                class="galery-absolute-img_5-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <p class="galery-absolute-text_5-3 text1_5-3">Samochód tekst 1</p>
+            </li>
+            <li class="galery-absolute-img-item_5-3">
+              <img
+                class="galery-absolute-img_5-3"
+                src="../images/image/samochodStatystyki2.jpg"
+                alt=""
+              />
+              <p class="galery-absolute-text_5-3 text2_5-3">Samochód 2</p>
+            </li>
+            <li class="galery-absolute-img-item_5-3">
+              <img
+                class="galery-absolute-img_5-3"
+                src="../images/image/samochodStatystyki3.jpg"
+                alt=""
+              />
+              <p class="galery-absolute-text_5-3 text3_5-3">Samochód 3</p>
+            </li>
+            <li class="galery-absolute-img-item_5-3">
+              <img
+                class="galery-absolute-img_5-3"
+                src="../images/image/samochodStatystyki4.jpg"
+                alt=""
+              />
+              <p class="galery-absolute-text_5-3 text4_5-3">Samochód 4</p>
+            </li>
+          </ul>
+        </article>
+        <article id="5.4">
+          <h3>5.4 Pozycjonowanie stałe: fixed</h3>
+          <p>
+            Przy pozycjonowaniu stałym element ma wartość position: fixed. Taki element jest
+            pozycjonowany względem obszaru wyświetlania. Daje to efekt umocowania elementu w
+            określonym miejscu ekranu podczas przewijania strony.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/fixed-m3z4.png" alt="" />
+          </div>
+          <p>
+            Pozycjonowanie stałe jest używane do nieruchomych nagłówków z nawigacją, okien, czatów z
+            menedżerem na stronach sklepów internetowych itp.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/fixed2-m3z4.gif" alt="" />
+          </div>
+          <p>
+            Utwórzmy przycisk czatu z menedżerem button.chat-button i umieśćmy go w prawym dolnym
+            rogu obszaru wyświetlania. Podczas przewijania strony przycisk pozostaje na swoim
+            miejscu, ponieważ ma stałą pozycję.
+          </p>
+          <div class="position-fixed-container_5-4">
+            <a href="#5.4"> Przejdź do 5.4 </a>
+            <p>5.4 Pozycjonowanie stałe: fixed</p>
+          </div>
+        </article>
+        <article id="5.5">
+          <h3>5.5 Pozycjonowanie lepkie: sticky</h3>
+          <p>
+            Pozycjonowanie lepkie (position: sticky) to połączenie właściwości relative i fixed.
+            Spójrz na gif, gdzie pozycjonowanie lepkie jest ustawione dla elementów z literami A i B
+            i od razu wszystko zrozumiesz.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/sticky-m3z4.gif" alt="" />
+          </div>
+          <ol class="numbered-list-container order-list_2-6">
+            <li>
+              Dopóki element znajduje się w swoim kontenerze, a kontener nie znika z obszaru
+              wyświetlania podczas przewijania w pionie, element zachowuje się jak element
+              pozycjonowany względnie (relative).
+            </li>
+            <li>
+              Gdy część kontenera nadrzędnego opuści obszar, element pozostanie zamocowany na
+              stronie tak długo, jak przynajmniej część kontenera będzie znajdować się na ekranie.
+            </li>
+            <li>
+              Jeśli cały kontener znajdzie się poza obszarem, zostanie ponownie włączone zachowanie,
+              jak w przypadku pozycjonowania względnego — element zniknie z ekranu wraz z
+              kontenerem.
+            </li>
+          </ol>
+          <p>Aby zaimplementować pozycjonowanie lepkie, wymagane są tylko trzy warunki:</p>
+          <ul class="unnumbered-list-container">
+            <li>Element lepki musi być ustawiony na position: sticky.</li>
+            <li>Element sticky musi mieć określoną pozycję, na przykład top: 0.</li>
+            <li>Element kontenera musi być wyższy (wyżej zagnieżdżony) niż element lepki.</li>
+          </ul>
+          <p>
+            Nagłówki sekcji w przykładzie są lepkie, więc gdy przewiniesz stronę, "przykleją się" do
+            górnej części obszaru wyświetlania, dopóki część ich sekcji nie będzie widoczna.
+          </p>
+
+          <div class="sticky-main-container_5-5">
+            <div class="sticky-container_5-5">
+              <div class="sticky-text-container_5-5">
+                <h4 class="sticky-header_5-5">Cały kod SCSS</h4>
+                <pre class="sticky-text_5-5">
+.background-attachment-main-container_1-6 {
+  position: relative;
+  height: 50vh;
+  margin: 40px 0;
+  overflow: auto;
+
+  .background-attachment-container_1-6 {
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+      url(../../images/image/gory.jpg);
+    background-color: rgba(0, 0, 0, 1);
+    background-size: cover;
+    background-attachment: fixed;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.1);
+      transition: opacity 1.4s ease, background-color 1.4s ease;
+    }
+
+    &:hover::before {
+      // opacity: 0.4;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  .background-attachment-text-container_1-6 {
+    position: relative;
+
+    .background-attachment-header_1-6 {
+      position: sticky;
+      top: 0;
+      text-align: center;
+      background-image: linear-gradient(to bottom, #6a11cb 0%, #2575fc 100%);
+    }
+
+    .background-attachment-text_1-6 {
+      color: white;
+    }
+  }
+}
+                </pre>
+              </div>
+              <div class="sticky-text-container_5-5">
+                <h4 class="sticky-header_5-5">inset</h4>
+                <div class="sticky-text_5-5">
+                  <p>
+                    inset w CSS to skrót (shorthand), który jednocześnie ustawia pozycję elementu od
+                    czterech krawędzi: top, right, bottom, left.
+                  </p>
+                  <p>Działa tylko dla elementów pozycjonowanych, czyli z:</p>
+                  <pre>
+                    position: absolute | relative | fixed | sticky.
+                  </pre>
+                  <p>inset to odpowiednik:</p>
+                  <pre>
+                    top: ...;
+                    right: ...;
+                    bottom: ...;
+                    left: ...;
+                  </pre>
+                  <p>czyli:</p>
+                  <pre>
+                    inset: top right bottom left;
+                  </pre>
+                  <p>Składnia: Cztery wartości</p>
+                  <pre>
+                    inset: 10px 20px 30px 40px;
+                  </pre>
+                  <p>Odpowiada:</p>
+                  <pre>
+                    top: 10px;
+                    right: 20px;
+                    bottom: 30px;
+                    left: 40px;
+                  </pre>
+                  <p>Jedna wartość</p>
+                  <pre>
+                    inset: 0;
+                  </pre>
+                  <p>to:</p>
+                  <pre>
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                  </pre>
+                  <p>Najczęstsze użycie - element wypełnia cały kontener.</p>
+                  <pre>
+                    .overlay {
+                      position: absolute;
+                      inset: 0;
+                    }
+                  </pre>
+                  <p>Element idealnie dopasowany do rodzica</p>
+                  <p>(lepsze niż 4 linijki top/right/bottom/left).</p>
+                  <p>Odsunięcie od krawędzi - Równa ramka 20px z każdej strony.</p>
+                  <pre>
+                    .box {
+                      position: absolute;
+                      inset: 20px;
+                    }
+                  </pre>
+                </div>
+              </div>
+              <div class="sticky-text-container_5-5">
+                <h4 class="sticky-header_5-5">Nagłowek</h4>
+                <p class="sticky-text_5-5">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id, distinctio fugiat
+                  facere enim voluptatem quisquam eius aspernatur, laudantium odit quos, architecto
+                  cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis
+                  quasi repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione
+                  veniam assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor, sit amet
+                  consectetur adipisicing elit. Id, distinctio fugiat facere enim voluptatem
+                  quisquam eius aspernatur, laudantium odit quos, architecto cumque expedita dolore
+                  sit harum ex eaque! Placeat, odit ducimus totam facilis quasi repellendus? Iste
+                  nam exercitationem eum vero voluptatum possimus ratione veniam assumenda magnam
+                  non? Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                  distinctio fugiat facere enim voluptatem quisquam eius aspernatur, laudantium odit
+                  quos, architecto cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus
+                  totam facilis quasi repellendus? Iste nam exercitationem eum vero voluptatum
+                  possimus ratione veniam assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor,
+                  sit amet consectetur adipisicing elit. Id, distinctio fugiat facere enim
+                  voluptatem quisquam eius aspernatur, laudantium odit quos, architecto cumque
+                  expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis quasi
+                  repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione veniam
+                  assumenda magnam non? Aut, sit nulla.Lorem ipsum dolor, sit amet consectetur
+                  adipisicing elit. Id, distinctio fugiat facere enim voluptatem quisquam eius
+                  aspernatur, laudantium odit quos, architecto cumque expedita dolore sit harum ex
+                  eaque! Placeat, odit ducimus totam facilis quasi repellendus? Iste nam
+                  exercitationem eum vero voluptatum possimus ratione veniam assumenda magnam non?
+                  Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                  distinctio fugiat facere enim voluptatem quisquam eius aspernatur, laudantium odit
+                  quos, architecto cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus
+                  totam facilis quasi repellendus? Iste nam exercitationem eum vero voluptatum
+                  possimus ratione veniam assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor,
+                  sit amet consectetur adipisicing elit. Id, distinctio fugiat facere enim
+                  voluptatem quisquam eius aspernatur, laudantium odit quos, architecto cumque
+                  expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis quasi
+                  repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione veniam
+                  assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur
+                  adipisicing elit. Id, distinctio fugiat facere enim voluptatem quisquam eius
+                  aspernatur, laudantium odit quos, architecto cumque expedita dolore sit harum ex
+                  eaque! Placeat, odit ducimus totam facilis quasi repellendus? Iste nam
+                  exercitationem eum vero voluptatum possimus ratione veniam assumenda magnam non?
+                  Aut, sit nulla.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                  distinctio fugiat facere enim voluptatem quisquam eius aspernatur, laudantium odit
+                  quos, architecto cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus
+                  totam facilis quasi repellendus? Iste nam exercitationem eum vero voluptatum
+                  possimus ratione veniam assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor,
+                  sit amet consectetur adipisicing elit. Id, distinctio fugiat facere enim
+                  voluptatem quisquam eius aspernatur, laudantium odit quos, architecto cumque
+                  expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis quasi
+                  repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione veniam
+                  assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur
+                  adipisicing elit. Id, distinctio fugiat facere enim voluptatem quisquam eius
+                  aspernatur, laudantium odit quos, architecto cumque expedita dolore sit harum ex
+                  eaque! Placeat, odit ducimus totam facilis quasi repellendus? Iste nam
+                  exercitationem eum vero voluptatum possimus ratione veniam assumenda magnam non?
+                  Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                  distinctio fugiat facere enim voluptatem quisquam eius aspernatur, laudantium odit
+                  quos, architecto cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus
+                  totam facilis quasi repellendus? Iste nam exercitationem eum vero voluptatum
+                  possimus ratione veniam assumenda magnam non? Aut, sit nulla.Lorem ipsum dolor,
+                  sit amet consectetur adipisicing elit. Id, distinctio fugiat facere enim
+                  voluptatem quisquam eius aspernatur, laudantium odit quos, architecto cumque
+                  expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis quasi
+                  repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione veniam
+                  assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur
+                  adipisicing elit. Id, distinctio fugiat facere enim voluptatem quisquam eius
+                  aspernatur, laudantium odit quos, architecto cumque expedita dolore sit harum ex
+                  eaque! Placeat, odit ducimus totam facilis quasi repellendus? Iste nam
+                  exercitationem eum vero voluptatum possimus ratione veniam assumenda magnam non?
+                  Aut, sit nulla. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                  distinctio fugiat facere enim voluptatem quisquam eius aspernatur, laudantium odit
+                  quos, architecto cumque expedita dolore sit harum ex eaque! Placeat, odit ducimus
+                  totam facilis quasi repellendus? Iste nam exercitationem eum vero voluptatum
+                  possimus ratione veniam assumenda magnam non? Aut, sit nulla. Lorem ipsum dolor,
+                  sit amet consectetur adipisicing elit. Id, distinctio fugiat facere enim
+                  voluptatem quisquam eius aspernatur, laudantium odit quos, architecto cumque
+                  expedita dolore sit harum ex eaque! Placeat, odit ducimus totam facilis quasi
+                  repellendus? Iste nam exercitationem eum vero voluptatum possimus ratione veniam
+                  assumenda magnam non? Aut, sit nulla.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="5.6">
+          <h3>5.6 Właściwość: z-index</h3>
+          <p>
+            Zanim nie zaczęliśmy uczyć się pozycjonowania elementów, nie mieliśmy do czynienia z
+            kwestiami dotyczącymi głębokości. Umieszczaliśmy elementy w dwuwymiarowym układzie
+            współrzędnych — x poziomo i y pionowo. Kolejność wyświetlania była ustalana wyłącznie
+            przez zagnieżdżenie elementów: przodek znajdował się na dole, a potomek po prostu — na
+            górze.
+          </p>
+          <p>
+            Elementy pozycjonowane zachowują się inaczej — potrzebują reguły określającej, który
+            element znajduje się powyżej lub poniżej na osi z (oś prostopadła do płaszczyzny
+            ekranu).
+          </p>
+          <p>
+            Tę regułę ustawia właściwość z-index, która kontroluje głębokość (kolejność)
+            pozycjonowanych elementów na stronie wzdłuż osi z. Wartość może być dowolną liczbą
+            całkowitą, w tym ujemną.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/z-index_m3z4.png" alt="" />
+          </div>
+          <p>
+            Wspólny przodek pozycjonowanych elementów tworzy kontekst (stacking context) — obszar, w
+            którym właściwość z-index elementu wpływa na inne elementy z-index.
+          </p>
+          <p>Co musisz wiedzieć używając z-index:</p>
+          <ul class="unnumbered-list-container">
+            <li>Im wyższa wartość z-index wewnątrz kontekstu, tym wyżej znajduje się element.</li>
+            <li>
+              Minimalna (nawet ujemna) wartość z-index oznacza, że inne elementy będą znajdować się
+              powyżej tego elementu.
+            </li>
+            <li>
+              Jeśli dwa elementy mają taką samą wartość z-index, element zadeklarowany jako ostatni
+              w kodzie HTML będzie wyżej.
+            </li>
+          </ul>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/z-index2_m3z4.png" alt="" />
+          </div>
+          <ul class="z-index-list_5-6">
+            <li class="z-index-item_5-6 box1_5-6">z-index 1</li>
+            <li class="z-index-item_5-6 box2_5-6">z-index 2</li>
+            <li class="z-index-item_5-6 box3_5-6">z-index 3</li>
+            <li class="z-index-item_5-6 box4_5-6">z-index 4</li>
+          </ul>
         </article>
       </section>
     </main>
@@ -53,6 +646,5 @@
     </footer>
     <!-- SKRYPTY JS -->
     <script defer type="module" src="../scripts/menuHtmlCss.mjs"></script>
-    <script defer type="module" src="../scripts/htmlCssScripts/02-html.mjs"></script>
   </body>
 </html>
