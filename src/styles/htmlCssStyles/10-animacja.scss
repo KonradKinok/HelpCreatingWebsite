@@ -1,8 +1,163 @@
 .animacja_m4z8 {
   color: white;
 
-  //1.2
-  .galery-transition-list_1-2 {
+  //1.3
+  .galery-translate-list_1-3 {
+    --gap: 40px;
+    --countImages: 4;
+    --countSpace: calc(var(--countImages) - 1);
+    --width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: white;
+    border: 2px dashed black;
+    padding: 20px;
+    margin: 20px 0;
+
+
+    &:hover {
+      .galery-translate-item_1-3 {
+        background-color: rgb(224, 187, 19);
+        transform: rotate(360deg);
+        color: white;
+      }
+    }
+
+    .galery-translate-item_1-3 {
+      display: flex;
+      width: var(--width);
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgb(76, 0, 255);
+
+      position: relative;
+
+      transition-property: background-color, transform, color;
+      transition-duration: 2500ms;
+      transition-timing-function: ease;
+      transition-delay: 0;
+    }
+
+    .galery-translate-img_1-3 {
+      // width: 100%;
+      object-fit: cover;
+      transition: transform 1.4s ease; //animacja obrazu
+    }
+
+    .galery-translate-text_1-3 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .box1_1-3 {
+      transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .box2_1-3 {
+      transition-timing-function: ease;
+    }
+
+    .box3_1-3 {
+      transition-timing-function: ease-in;
+    }
+
+    .box4_1-3 {
+      transition-timing-function: ease-in-out;
+    }
+
+    .box5_1-3 {
+      transition-timing-function: ease-out;
+    }
+
+    .box6_1-3 {
+      transition-timing-function: linear;
+    }
+
+    .box7_1-3 {
+      transition-timing-function: steps(10, start);
+    }
+
+    .box8_1-3 {
+      transition-timing-function: steps(10, end);
+    }
+  }
+
+  //1.4
+  .galery-transition-duration-list_1-4 {
+    --gap: 40px;
+    --countImages: 8;
+    --countSpace: calc(var(--countImages) - 1);
+    --width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    border: 2px dashed black;
+    padding: 20px;
+    margin: 20px 0;
+
+    &:hover {
+      .galery-transition-duration-item_1-4 {
+        background-color: rgb(224, 187, 19);
+        color: white;
+      }
+    }
+
+    .galery-transition-duration-item_1-4 {
+      display: flex;
+      width: var(--width);
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgb(76, 0, 255);
+
+      transition-property: background-color, color;
+      transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      transition-delay: 0;
+    }
+
+    .box1_1-4 {
+      transition-duration: 0.1s;
+    }
+
+    .box2_1-4 {
+      transition-duration: 0.2s;
+    }
+
+    .box3_1-4 {
+      transition-duration: 0.4s;
+    }
+
+    .box4_1-4 {
+      transition-duration: 0.8s;
+    }
+
+    .box5_1-4 {
+      transition-duration: 1.6s;
+    }
+
+    .box6_1-4 {
+      transition-duration: 3.2s;
+    }
+
+    .box7_1-4 {
+      transition-duration: 6.4s;
+    }
+
+    .box8_1-4 {
+      transition-duration: 12.8s;
+    }
+  }
+
+  //1.5
+  .galery-transition-list_1-5 {
     --gap: 40px;
     --countImages: 4;
     --countSpace: calc(var(--countImages) - 1);
@@ -15,15 +170,16 @@
     padding: 20px;
     margin: 20px 0;
 
+
     &:hover {
-      .galery-transition-item_1-2 {
+      .galery-transition-item_1-5 {
         background-color: rgb(224, 187, 19);
         transform: rotate(360deg);
         color: white;
       }
     }
 
-    .galery-transition-item_1-2 {
+    .galery-transition-item_1-5 {
       display: flex;
       width: var(--width);
       aspect-ratio: 1/1;
@@ -37,36 +193,271 @@
       transition-delay: 0;
     }
 
-    .box1_1-2 {
+    .box1_1-5 {
       transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .box2_1-2 {
+    .box2_1-5 {
       transition-timing-function: ease;
     }
 
-    .box3_1-2 {
+    .box3_1-5 {
       transition-timing-function: ease-in;
     }
 
-    .box4_1-2 {
+    .box4_1-5 {
       transition-timing-function: ease-in-out;
     }
 
-    .box5_1-2 {
+    .box5_1-5 {
       transition-timing-function: ease-out;
     }
 
-    .box6_1-2 {
+    .box6_1-5 {
       transition-timing-function: linear;
     }
 
-    .box7_1-2 {
+    .box7_1-5 {
       transition-timing-function: steps(10, start);
     }
 
-    .box8_1-2 {
+    .box8_1-5 {
       transition-timing-function: steps(10, end);
+    }
+  }
+
+  //1.5 circle
+  .galery-transition-timing-function-list_1-5 {
+    --gap: 5px;
+    --countImages: 16;
+    --countSpace: calc(var(--countImages) - 1);
+    --width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-flow: column nowrap;
+    gap: var(--gap);
+    color: black;
+    border: 2px dashed black;
+
+    padding: 20px;
+    margin: 20px 0;
+    font-size: 0.8rem;
+
+    &:hover {
+      .galery-transition-timing-function-item_1-5 {
+        background-color: rgb(224, 187, 19);
+        transform: translatex(calc(1240px - 90px));
+        color: white;
+      }
+    }
+
+    .galery-transition-timing-function-item_1-5 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: var(--width);
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgb(76, 0, 255);
+      transform: translatex(0);
+      transition-property: background-color, transform, color;
+      transition-duration: 5000ms;
+      transition-delay: 0;
+    }
+
+    .box1_1-5 {
+      transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .box2_1-5 {
+      transition-timing-function: ease;
+    }
+
+    .box3_1-5 {
+      transition-timing-function: ease-in;
+    }
+
+    .box4_1-5 {
+      transition-timing-function: ease-in-out;
+    }
+
+    .box5_1-5 {
+      transition-timing-function: ease-out;
+    }
+
+    .box6_1-5 {
+      transition-timing-function: linear;
+    }
+
+    .box7_1-5 {
+      transition-timing-function: steps(10, start);
+    }
+
+    .box8_1-5 {
+      transition-timing-function: steps(10, end);
+    }
+  }
+
+  //1.6
+  .galery-transition-delay-list_1-6 {
+    --gap: 40px;
+    --countImages: 8;
+    --countSpace: calc(var(--countImages) - 1);
+    --width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    border: 2px dashed black;
+    padding: 20px;
+    margin: 20px 0;
+
+    &:hover {
+      .galery-transition-delay-item_1-6 {
+        background-color: rgb(224, 187, 19);
+        color: white;
+      }
+    }
+
+    .galery-transition-delay-item_1-6 {
+      display: flex;
+      width: var(--width);
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgb(76, 0, 255);
+
+      transition-property: background-color, color;
+      transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition-duration: 3s;
+      transition-delay: 0;
+    }
+
+    .box1_1-6 {
+      transition-delay: 0.1s;
+    }
+
+    .box2_1-6 {
+      transition-delay: 0.2s;
+    }
+
+    .box3_1-6 {
+      transition-delay: 0.4s;
+    }
+
+    .box4_1-6 {
+      transition-delay: 0.8s;
+    }
+
+    .box5_1-6 {
+      transition-delay: 1.6s;
+    }
+
+    .box6_1-6 {
+      transition-delay: 3.2s;
+    }
+
+    .box7_1-6 {
+      transition-delay: 6.4s;
+    }
+
+    .box8_1-6 {
+      transition-delay: 12.8s;
+    }
+  }
+
+  //Animacja
+  @keyframes changeBgColor {
+    0% {
+      background-color: teal;
+    }
+
+    20% {
+      background-color: orange;
+    }
+
+    60% {
+      background-color: orange;
+    }
+
+    80% {
+      background-color: orange;
+    }
+
+    100% {
+      background-color: deepskyblue;
+    }
+  }
+
+  //2.5
+  .galery-transition-delay-list_1-4 {
+    --gap: 40px;
+    --countImages: 8;
+    --countSpace: calc(var(--countImages) - 1);
+    --width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    border: 2px dashed black;
+    padding: 20px;
+    margin: 20px 0;
+
+    &:hover {
+      .galery-transition-delay-item_1-4 {
+        background-color: rgb(224, 187, 19);
+        color: white;
+      }
+    }
+
+    .galery-transition-delay-item_1-4 {
+      display: flex;
+      width: var(--width);
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgb(76, 0, 255);
+
+      transition-property: background-color, color;
+      transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition-duration: 3s;
+      transition-delay: 0;
+    }
+
+    .box1_1-4 {
+      transition-delay: 0.1s;
+    }
+
+    .box2_1-4 {
+      transition-delay: 0.2s;
+    }
+
+    .box3_1-4 {
+      transition-delay: 0.4s;
+    }
+
+    .box4_1-4 {
+      transition-delay: 0.8s;
+    }
+
+    .box5_1-4 {
+      transition-delay: 1.6s;
+    }
+
+    .box6_1-4 {
+      transition-delay: 3.2s;
+    }
+
+    .box7_1-4 {
+      transition-delay: 6.4s;
+    }
+
+    .box8_1-4 {
+      transition-delay: 12.8s;
     }
   }
 }
