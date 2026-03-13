@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.066807ea.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/01-html1.fbf00cce.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/10-animacja.54fc325a.css"><title>Animacja</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="animacja_m4z8 main-container">  <section id="1" class="text"> <h1>Moduł 4 - Zajęcia 8 - Animacja</h1> <article id="1.1"> <h2>1.1 CSS przejścia</h2> <p> Nowoczesne strony muszą być nie tylko ładne, ale też przyjazne dla użytkownika. Na przykład, po najechaniu myszką na przycisk następuje zmiana koloru pozwalająca przykuć uwagę użytkownika. Istnieje kilka sposobów na osiągnięcie tego efektu. Zacznijmy od najprostszego — od przejść CSS. </p> <p> Jest jednak pewien niuans. Nie wystarczy, że deweloper zrozumie, jaki efekt tworzy przejście CSS. Musi jeszcze zrozumieć mechanikę tego procesu i jego ograniczenia. </p> </article> <article id="1.2"> <h3>1.2 Czym jest przejście CSS?</h3> <p> Przejścia CSS pozwalają animować zmianę wartości właściwości, ustawiać czas i kontrolować szybkość tego przejścia. Zmiana właściwości następuje po wystąpieniu określonego zdarzenia, na przykład :hover. </p> <p> Przejście zawsze ma tylko dwa stany: 1) początkową i 2) końcową wartość właściwości i może zmieniać tę wartość A > B i B > A przez określony czas. W przypadku animacji z więcej niż 2 stanami, należy użyć animacji CSS. </p> <p>Poniższe cztery właściwości kontrolują różne parametry przejścia.</p> <pre>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.066807ea.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/01-html1.fbf00cce.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/10-animacja.0e325edd.css"><title>Animacja</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="animacja_m4z8 main-container">  <section id="1" class="text"> <h1>Moduł 4 - Zajęcia 8 - Animacja</h1> <article id="1.1"> <h2>1.1 CSS przejścia</h2> <p> Nowoczesne strony muszą być nie tylko ładne, ale też przyjazne dla użytkownika. Na przykład, po najechaniu myszką na przycisk następuje zmiana koloru pozwalająca przykuć uwagę użytkownika. Istnieje kilka sposobów na osiągnięcie tego efektu. Zacznijmy od najprostszego — od przejść CSS. </p> <p> Jest jednak pewien niuans. Nie wystarczy, że deweloper zrozumie, jaki efekt tworzy przejście CSS. Musi jeszcze zrozumieć mechanikę tego procesu i jego ograniczenia. </p> </article> <article id="1.2"> <h3>1.2 Czym jest przejście CSS?</h3> <p> Przejścia CSS pozwalają animować zmianę wartości właściwości, ustawiać czas i kontrolować szybkość tego przejścia. Zmiana właściwości następuje po wystąpieniu określonego zdarzenia, na przykład :hover. </p> <p> Przejście zawsze ma tylko dwa stany: 1) początkową i 2) końcową wartość właściwości i może zmieniać tę wartość A > B i B > A przez określony czas. W przypadku animacji z więcej niż 2 stanami, należy użyć animacji CSS. </p> <p>Poniższe cztery właściwości kontrolują różne parametry przejścia.</p> <pre>
             transition-property: &ltwłaściwość>
             transition-duration: &ltczas>
             transition-timing-function: &ltfunkcja przydziału czasu>
@@ -23,7 +23,180 @@
               background-color: orange;
               color: white;
             }
-          </pre> <p>Lista transition-property:</p> <ul class="unnumbered-list-container"> <li>background-color, background-position, background-size</li> <li> border, border-bottom-color, border-bottom-width, border-color, border-left-color, border-left-width, border-radius, border-right-color, border-right-width, border-top-color, border-top-width, border-width </li> <li>box-shadow</li> <li>clip-path</li> <li>color</li> <li>filter</li> <li>flex, flex-basis, flex-grow, flex-shrink</li> <li>font-size, font-stretch, font-variation-settings, font-weight</li> <li>gap</li> <li>letter-spacing</li> <li>line-height</li> <li>margin, margin-bottom, margin-left, margin-right, margin-top</li> <li>height, max-height, min-height</li> <li>width, max-width, min-width</li> <li>opacity</li> <li>outline-color, outline-offset, outline-width</li> <li>padding, padding-bottom, padding-left, padding-right, padding-top</li> <li>rotate</li> <li>scale</li> <li>text-decoration-color, text-indent, text-shadow</li> <li>transform, transform-origin</li> <li>translate</li> <li>vertical-align</li> <li>word-spacing</li> </ul> <p>Alfabetyczna lista najważniejszych funkcji transform</p> <ul class="unnumbered-list-container"> <li> <strong>matrix()</strong> - wykonuje transformację 2D za pomocą macierzy (połączenie translate, rotate, scale i skew w jednej funkcji). </li> <li> <strong>matrix3d()</strong> - wykonuje transformację 3D za pomocą macierzy 4x4, pozwala łączyć wszystkie transformacje 3D w jednej funkcji. </li> <li> <strong>perspective()</strong> - ustawia perspektywę widoku 3D, czyli odległość obserwatora od elementu (im mniejsza wartość, tym silniejszy efekt głębi). </li> <li> <strong>rotate()</strong> - obraca element w płaszczyźnie 2D wokół osi Z (czyli w płaszczyźnie ekranu). </li> <li> <strong>rotate3d()</strong> - obraca element wokół dowolnej osi w przestrzeni 3D określonej przez trzy współrzędne. </li> <li> <strong>rotateX()</strong> - obraca element wokół osi X (efekt przechylania do przodu lub do tyłu). </li> <li> <strong>rotateY()</strong> - obraca element wokół osi Y (efekt obracania w lewo lub w prawo jak karta). </li> <li> <strong>rotateZ()</strong> - obraca element wokół osi Z (to samo co rotate, czyli obrót w płaszczyźnie ekranu). </li> <li> <strong>scale()</strong> - skaluje element w poziomie i pionie jednocześnie (powiększa lub pomniejsza). </li> <li><strong>scale3d()</strong> - skaluje element w trzech wymiarach (X, Y, Z).</li> <li> <strong>scaleX()</strong> - zmienia szerokość elementu (skalowanie w osi poziomej). </li> <li> <strong>scaleY()</strong> - zmienia wysokość elementu (skalowanie w osi pionowej). </li> <li> <strong>scaleZ()</strong> - skaluje element w osi głębokości (używane w transformacjach 3D). </li> <li> <strong>skew()</strong> - pochyla element w osi poziomej i pionowej jednocześnie. </li> <li> <strong>skewX()</strong> - pochyla element w poziomie (góra i dół elementu przesuwają się względem siebie). </li> <li> <strong>skewY()</strong> - pochyla element w pionie (lewa i prawa krawędź przesuwają się względem siebie). </li> <li> <strong>translate()</strong> - przesuwa element w poziomie i pionie bez zmiany jego rozmiaru. </li> <li> <strong>translate3d()</strong> - przesuwa element w przestrzeni 3D (oś X, Y oraz Z - głębokość). </li> <li><strong>translateX()</strong> - przesuwa element w poziomie (lewo lub prawo).</li> <li><strong>translateY()</strong> - przesuwa element w pionie (góra lub dół).</li> <li> <strong>translateZ()</strong> - przesuwa element w osi głębokości (bliżej lub dalej obserwatora). </li> </ul> <p>Część funkcji ma też osobne właściwości CSS:</p> <ul class="unnumbered-list-container"> <li>translate: 100px 50px;</li> <li>rotate: 45deg;</li> <li>scale: 1.2;</li> </ul> <ul class="galery-translate-list_1-3"> <li class="box1_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <p class="galery-translate-text_1-3">Samochód tekst 1</p> </li> <li class="box2_1-3 galery-translate-item_1-3">transition-timing-function: ease;</li> <li class="box3_1-3 galery-translate-item_1-3">transition-timing-function: ease-in;</li> <li class="box4_1-3 galery-translate-item_1-3"> transition-timing-function: ease-in-out; </li> <li class="box5_1-3 galery-translate-item_1-3"> transition-timing-function: ease-out; </li> <li class="box6_1-3 galery-translate-item_1-3">transition-timing-function: linear;</li> <li class="box7_1-3 galery-translate-item_1-3"> transition-timing-function: steps(10, start); </li> <li class="box8_1-3 galery-translate-item_1-3"> transition-timing-function: steps(10, end); </li> </ul> </article> <article id="1.4"> <h3>1.4 Właściwość transition-duration</h3> <p> Jeśli nie zostanie określony czas trwania przejścia, wartości zmienią się natychmiast, bez animacji. Właściwość transition-duration określa czas, w którym powinno nastąpić przejście. </p> <p>Wartość właściwości jest określana w:</p> <ul class="unnumbered-list-container"> <li>sekundach: 2s lub 0.5s</li> <li>milisekundach: 2000ms lub 500ms</li> </ul> <p> Jeśli różne właściwości mają różne wartości czasu przejścia, należy je oddzielić przecinkami. </p> <pre>
+          </pre> <p>Lista transition-property:</p> <ul class="unnumbered-list-container"> <li>background-color, background-position, background-size</li> <li> border, border-bottom-color, border-bottom-width, border-color, border-left-color, border-left-width, border-radius, border-right-color, border-right-width, border-top-color, border-top-width, border-width </li> <li>box-shadow</li> <li>clip-path</li> <li>color</li> <li>filter</li> <li>flex, flex-basis, flex-grow, flex-shrink</li> <li>font-size, font-stretch, font-variation-settings, font-weight</li> <li>gap</li> <li>letter-spacing</li> <li>line-height</li> <li>margin, margin-bottom, margin-left, margin-right, margin-top</li> <li>height, max-height, min-height</li> <li>width, max-width, min-width</li> <li>opacity</li> <li>outline-color, outline-offset, outline-width</li> <li>padding, padding-bottom, padding-left, padding-right, padding-top</li> <li>rotate</li> <li>scale</li> <li>text-decoration-color, text-indent, text-shadow</li> <li>transform, transform-origin</li> <li>translate</li> <li>vertical-align</li> <li>word-spacing</li> </ul> <p>Alfabetyczna lista najważniejszych funkcji transform</p> <ul class="unnumbered-list-container"> <li> <strong>matrix()</strong> - wykonuje transformację 2D za pomocą macierzy (połączenie translate, rotate, scale i skew w jednej funkcji). <p> matrix() jest rzadko używane ręcznie, ale można dzięki niemu zrobić bardzo efektowne animacje, bo pozwala w jednej funkcji połączyć: scale rotate skew translate </p> <p>np. transform: matrix(1.1, 0.15, -0.15, 1.1, 0, 0);</p> <p>matrix(a, b, c, d, tx, ty)</p> <ul> <li>a - skalowanie X</li> <li>b - pochylanie Y</li> <li>c - pochylanie X</li> <li>d - skalowanie Y</li> <li>tx - przesunięcie X</li> <li>ty - przesunięcie Y</li> </ul> <p> czyli robi jednocześnie: powiększenie obrazu (scale), lekkie przechylenie (skew), efekt perspektywy </p> <p>Dlaczego matrix() jest rzadkie</p> <p>Bo to samo można zapisać czytelniej:</p> <pre>
+                transform: scale(1.1) skewX(-8deg) skewY(8deg);
+              </pre> <p> matrix() jest bardziej używane przez: biblioteki animacji, generatory CSS, silniki 3D </p> </li> <li> <strong>matrix3d()</strong> - wykonuje transformację 3D za pomocą macierzy 4x4, pozwala łączyć wszystkie transformacje 3D w jednej funkcji. </li> <li> <strong>perspective()</strong> - ustawia perspektywę widoku 3D, czyli odległość obserwatora od elementu (im mniejsza wartość, tym silniejszy efekt głębi). </li> <li> <strong>rotate()</strong> - obraca element w płaszczyźnie 2D wokół osi Z (czyli w płaszczyźnie ekranu). </li> <li> <strong>rotate3d()</strong> - obraca element wokół dowolnej osi w przestrzeni 3D określonej przez trzy współrzędne. </li> <li> <strong>rotateX()</strong> - obraca element wokół osi X (efekt przechylania do przodu lub do tyłu). </li> <li> <strong>rotateY()</strong> - obraca element wokół osi Y (efekt obracania w lewo lub w prawo jak karta). </li> <li> <strong>rotateZ()</strong> - obraca element wokół osi Z (to samo co rotate, czyli obrót w płaszczyźnie ekranu). </li> <li> <strong>scale()</strong> - skaluje element w poziomie i pionie jednocześnie (powiększa lub pomniejsza). </li> <li><strong>scale3d()</strong> - skaluje element w trzech wymiarach (X, Y, Z).</li> <li> <strong>scaleX()</strong> - zmienia szerokość elementu (skalowanie w osi poziomej). </li> <li> <strong>scaleY()</strong> - zmienia wysokość elementu (skalowanie w osi pionowej). </li> <li> <strong>scaleZ()</strong> - skaluje element w osi głębokości (używane w transformacjach 3D). </li> <li> <strong>skew()</strong> - pochyla element w osi poziomej i pionowej jednocześnie. </li> <li> <strong>skewX()</strong> - pochyla element w poziomie (góra i dół elementu przesuwają się względem siebie). </li> <li> <strong>skewY()</strong> - pochyla element w pionie (lewa i prawa krawędź przesuwają się względem siebie). </li> <li> <strong>translate()</strong> - przesuwa element w poziomie i pionie bez zmiany jego rozmiaru. </li> <li> <strong>translate3d()</strong> - przesuwa element w przestrzeni 3D (oś X, Y oraz Z - głębokość). </li> <li><strong>translateX()</strong> - przesuwa element w poziomie (lewo lub prawo).</li> <li><strong>translateY()</strong> - przesuwa element w pionie (góra lub dół).</li> <li> <strong>translateZ()</strong> - przesuwa element w osi głębokości (bliżej lub dalej obserwatora). </li> </ul> <p>Część funkcji ma też osobne właściwości CSS:</p> <ul class="unnumbered-list-container"> <li>translate: 100px 50px;</li> <li>rotate: 45deg;</li> <li>scale: 1.2;</li> </ul> <ul class="galery-translate-list_1-3"> <li class="box1_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box1_1-3 {
+  transform: matrix3d(
+      1, 0, 0, 0,
+      0.2, 1, 0, 0,
+      0, 0, 1, 0,
+      0, -40, 0, 1);
+}
+              </pre> </li> <li class="box2_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box2_1-3 {
+  transform: matrix3d(1.1, 0.2, 0, 0,
+      -0.2, 1.1, 0, 0,
+      0, 0, 1, 0,
+      20, -20, 0, 1);
+}
+              </pre> </li> <li class="box3_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box3_1-3 {
+  transform: matrix3d(-1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, -1, 0,
+      0, 0, 0, 1);
+}
+              </pre> </li> <li class="box4_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box4_1-3 {
+  transform: matrix3d(1, 0.2, 0, 0,
+      -0.2, 1, 0, 0,
+      0, 0, 1, 0,
+      0, -20, 0, 1);
+}
+              </pre> </li> <li class="box5_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box5_1-3 {
+  transform: rotateX(180deg);
+}
+              </pre> </li> <li class="box6_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box6_1-3 {
+  transform-origin: top;
+}
+
+.box6_1-3 {
+  transform: rotateX(270deg);
+}
+              </pre> </li> <li class="box7_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box7_1-3 {
+  transform: rotateY(180deg);
+}
+              </pre> </li> <li class="box8_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box8_1-3 {
+  transform: rotateY(-45deg);
+}
+              </pre> </li> <li class="box9_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box9_1-3 {
+  transform: rotateZ(360deg);
+}
+              </pre> </li> <li class="box10_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box10_1-3 {
+  transform: rotateZ(8deg)
+}
+              </pre> </li> <li class="box11_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box11_1-3 {
+  transform: scale(1.5);
+}
+              </pre> </li> <li class="box12_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box12_1-3 {
+  transform: scale(0.5);
+}
+              </pre> </li> <li class="box13_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box13_1-3 {
+  transform: scale3d(1.4, 1.8, 1.6);
+}
+              </pre> </li> <li class="box14_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box14_1-3 {
+  transform: scale3d(0.8, 0.4, 0.2);
+}
+              </pre> </li> <li class="box15_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box15_1-3 {
+  transform: scaleX(2);
+}
+              </pre> </li> <li class="box16_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box16_1-3 {
+  transform-origin: center;
+  transform: scaleX(0);
+}
+
+.box16_1-3 {
+  transform: scaleX(1.2);
+}
+              </pre> </li> <li class="box17_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box17_1-3 {
+  transform: scaleY(2);
+}
+              </pre> </li> <li class="box18_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box18_1-3 {
+  transform-origin: left;
+  transform: scaleY(0.5);
+}
+
+.box18_1-3 {
+  transform: scaleY(1.2);
+}
+              </pre> </li> <li class="box19_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box19_1-3 {
+  transform: scaleZ(16);
+}
+              </pre> </li> <li class="box20_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box20_1-3 {
+  transform: scaleZ(0.5);
+}
+              </pre> </li> <li class="box21_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box21_1-3 {
+  transform: skew(-15deg, -15deg);
+}
+              </pre> </li> <li class="box22_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box22_1-3 {
+  transform: skew(15deg, 15deg);
+}
+              </pre> </li> <li class="box23_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box23_1-3 {
+  transform: skewX(-15deg);
+}
+              </pre> </li> <li class="box24_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box24_1-3 {
+  transform: skewX(15deg);
+}
+              </pre> </li> <li class="box25_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box25_1-3 {
+  transform: skewY(-15deg);
+}
+              </pre> </li> <li class="box26_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box26_1-3 {
+  transform: skewY(15deg);
+}
+              </pre> </li> <li class="box27_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box27_1-3 {
+  transform: translate(50%, 100%);
+}
+              </pre> </li> <li class="box28_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box28_1-3 {
+  transform: translate(-50%, 100%);
+}
+              </pre> </li> <li class="box29_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box29_1-3 {
+  transform: translate3d(10%, 50%, 150px);
+}
+              </pre> </li> <li class="box30_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box30_1-3 {
+  transform: translate3d(100%, 50%, 50px);
+}
+              </pre> </li> <li class="box31_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box31_1-3 {
+  transform: translateX(50%);
+}
+              </pre> </li> <li class="box32_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box32_1-3 {
+  transform: translateX(-50%);
+}
+              </pre> </li> <li class="box33_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box33_1-3 {
+  transform: translateY(50%);
+}
+              </pre> </li> <li class="box34_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box34_1-3 {
+  transform: translateY(-50%);
+}
+              </pre> </li> <li class="box35_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box35_1-3 {
+  transform: translateZ(50%);
+}
+              </pre> </li> <li class="box36_1-3 galery-translate-item_1-3"> <img class="galery-translate-img_1-3" src="/HelpCreatingWebsite/samochodStatystyki1.4e43b304.jpg" alt=""> <pre class="galery-translate-text_1-3">
+.box36_1-3 {
+  transform: translateZ(-50%);
+}
+              </pre> </li> </ul> </article> <article id="1.4"> <h3>1.4 Właściwość transition-duration</h3> <p> Jeśli nie zostanie określony czas trwania przejścia, wartości zmienią się natychmiast, bez animacji. Właściwość transition-duration określa czas, w którym powinno nastąpić przejście. </p> <p>Wartość właściwości jest określana w:</p> <ul class="unnumbered-list-container"> <li>sekundach: 2s lub 0.5s</li> <li>milisekundach: 2000ms lub 500ms</li> </ul> <p> Jeśli różne właściwości mają różne wartości czasu przejścia, należy je oddzielić przecinkami. </p> <pre>
             .box {
               background-color: teal;
               transition-property: background-color;
@@ -151,4 +324,10 @@
             @keyframes magic {
               /* ... */
             }
-          </pre> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>31.07.2024r.</p> </div> </footer>  <script defer type="module" src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.09e385f1.js"></script><script defer src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.106d34b9.js" nomodule=""></script> </body></html>
+          </pre> </article> </section> <section id="3" class="text"> <article id="3.1"> <h2>3.1 Transformacje 2D</h2> <p> Transformacje CSS umożliwiają przesuwanie, obracanie i skalowanie elementów, tj. dodawanie efektów graficznych. Transformacje pozwalają zmienić kształt i położenie elementu bez wpływu na inne elementy na stronie. Domyślnie transformacja jest wykonywana względem środka elementu. </p> <p> Właściwość transform jest odpowiedzialna za zastosowanie jednej lub większej liczby transformacji elementu. </p> <pre>
+            transform: none | &ltrodzaj transformacji> &ltrodzaj transformacji> ...
+          </pre> <p> Element przekształcony jest elementem, który ma dowolną wartość właściwości transform oprócz none. </p> </article> <article id="3.2"> <h3>3.2 Funkcje scaleX(tx), scaleY(ty) i scale(tx, ty)</h3> <p> Funkcje scaleX(tx), scaleY(ty) i scale(tx, ty) pozwalają skalować szerokość i/lub wysokość bloku bez wpływu na geometrię otaczających go elementów. Jeśli dla scale() podano jedną wartość, druga będzie taka sama. </p> <pre>
+            .box {
+              transform: scale(1.15);
+            }
+          </pre> <p>Początkowa wielkość elementu to — 1.</p> <p> Wartości pomiędzy 1 i 0 pozwalają zmniejszyć element. Wartości większe niż 1 umożliwiają powiększenie elementu. </p> <p> Na przykład, wartość scale(1.25) — to 125% oryginalnego rozmiaru, a scale(0.75) — 75%. </p> <ul class="galery-scale-list_3-2"> <li class="box1_3-2 galery-scale-item_3-2">scale: 0.1s;</li> <li class="box2_3-2 galery-scale-item_3-2">scale: 0.2s;</li> <li class="box3_3-2 galery-scale-item_3-2">scale: 0.4s;</li> <li class="box4_3-2 galery-scale-item_3-2">scale: 0.8s;</li> <li class="box5_3-2 galery-scale-item_3-2">scale: 1.6s;</li> <li class="box6_3-2 galery-scale-item_3-2">scale: 3.2s;</li> <li class="box7_3-2 galery-scale-item_3-2">scale: 6.4s;</li> <li class="box8_3-2 galery-scale-item_3-2">scale: 12.8s;</li> </ul> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>31.07.2024r.</p> </div> </footer>  <script defer type="module" src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.09e385f1.js"></script><script defer src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.106d34b9.js" nomodule=""></script> </body></html>
