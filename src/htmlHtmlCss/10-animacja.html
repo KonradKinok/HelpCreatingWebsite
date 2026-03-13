@@ -134,6 +134,33 @@
             <li>
               <strong>matrix()</strong> - wykonuje transformację 2D za pomocą macierzy (połączenie
               translate, rotate, scale i skew w jednej funkcji).
+              <p>
+                matrix() jest rzadko używane ręcznie, ale można dzięki niemu zrobić bardzo efektowne
+                animacje, bo pozwala w jednej funkcji połączyć: scale rotate skew translate
+              </p>
+              <p>np. transform: matrix(1.1, 0.15, -0.15, 1.1, 0, 0);</p>
+              <p>matrix(a, b, c, d, tx, ty)</p>
+              <ul>
+                <li>a - skalowanie X</li>
+                <li>b - pochylanie Y</li>
+                <li>c - pochylanie X</li>
+                <li>d - skalowanie Y</li>
+                <li>tx - przesunięcie X</li>
+                <li>ty - przesunięcie Y</li>
+              </ul>
+              <p>
+                czyli robi jednocześnie: powiększenie obrazu (scale), lekkie przechylenie (skew),
+                efekt perspektywy
+              </p>
+              <p>Dlaczego matrix() jest rzadkie</p>
+              <p>Bo to samo można zapisać czytelniej:</p>
+              <pre>
+                transform: scale(1.1) skewX(-8deg) skewY(8deg);
+              </pre>
+              <p>
+                matrix() jest bardziej używane przez: biblioteki animacji, generatory CSS, silniki
+                3D
+              </p>
             </li>
             <li>
               <strong>matrix3d()</strong> - wykonuje transformację 3D za pomocą macierzy 4x4,
@@ -217,22 +244,458 @@
                 src="../images/image/samochodStatystyki1.jpg"
                 alt=""
               />
-              <p class="galery-translate-text_1-3">Samochód tekst 1</p>
+              <pre class="galery-translate-text_1-3">
+.box1_1-3 {
+  transform: matrix3d(
+      1, 0, 0, 0,
+      0.2, 1, 0, 0,
+      0, 0, 1, 0,
+      0, -40, 0, 1);
+}
+              </pre>
             </li>
-            <li class="galery-translate-item_1-3 box2_1-3">transition-timing-function: ease;</li>
-            <li class="galery-translate-item_1-3 box3_1-3">transition-timing-function: ease-in;</li>
+            <li class="galery-translate-item_1-3 box2_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box2_1-3 {
+  transform: matrix3d(1.1, 0.2, 0, 0,
+      -0.2, 1.1, 0, 0,
+      0, 0, 1, 0,
+      20, -20, 0, 1);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box3_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box3_1-3 {
+  transform: matrix3d(-1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, -1, 0,
+      0, 0, 0, 1);
+}
+              </pre>
+            </li>
             <li class="galery-translate-item_1-3 box4_1-3">
-              transition-timing-function: ease-in-out;
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box4_1-3 {
+  transform: matrix3d(1, 0.2, 0, 0,
+      -0.2, 1, 0, 0,
+      0, 0, 1, 0,
+      0, -20, 0, 1);
+}
+              </pre>
             </li>
             <li class="galery-translate-item_1-3 box5_1-3">
-              transition-timing-function: ease-out;
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box5_1-3 {
+  transform: rotateX(180deg);
+}
+              </pre>
             </li>
-            <li class="galery-translate-item_1-3 box6_1-3">transition-timing-function: linear;</li>
+            <li class="galery-translate-item_1-3 box6_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box6_1-3 {
+  transform-origin: top;
+}
+
+.box6_1-3 {
+  transform: rotateX(270deg);
+}
+              </pre>
+            </li>
             <li class="galery-translate-item_1-3 box7_1-3">
-              transition-timing-function: steps(10, start);
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box7_1-3 {
+  transform: rotateY(180deg);
+}
+              </pre>
             </li>
             <li class="galery-translate-item_1-3 box8_1-3">
-              transition-timing-function: steps(10, end);
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box8_1-3 {
+  transform: rotateY(-45deg);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box9_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box9_1-3 {
+  transform: rotateZ(360deg);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box10_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box10_1-3 {
+  transform: rotateZ(8deg)
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box11_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box11_1-3 {
+  transform: scale(1.5);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box12_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box12_1-3 {
+  transform: scale(0.5);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box13_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box13_1-3 {
+  transform: scale3d(1.4, 1.8, 1.6);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box14_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box14_1-3 {
+  transform: scale3d(0.8, 0.4, 0.2);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box15_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box15_1-3 {
+  transform: scaleX(2);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box16_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box16_1-3 {
+  transform-origin: center;
+  transform: scaleX(0);
+}
+
+.box16_1-3 {
+  transform: scaleX(1.2);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box17_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box17_1-3 {
+  transform: scaleY(2);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box18_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box18_1-3 {
+  transform-origin: left;
+  transform: scaleY(0.5);
+}
+
+.box18_1-3 {
+  transform: scaleY(1.2);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box19_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box19_1-3 {
+  transform: scaleZ(16);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box20_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box20_1-3 {
+  transform: scaleZ(0.5);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box21_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box21_1-3 {
+  transform: skew(-15deg, -15deg);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box22_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box22_1-3 {
+  transform: skew(15deg, 15deg);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box23_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box23_1-3 {
+  transform: skewX(-15deg);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box24_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box24_1-3 {
+  transform: skewX(15deg);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box25_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box25_1-3 {
+  transform: skewY(-15deg);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box26_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box26_1-3 {
+  transform: skewY(15deg);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box27_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box27_1-3 {
+  transform: translate(50%, 100%);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box28_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box28_1-3 {
+  transform: translate(-50%, 100%);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box29_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box29_1-3 {
+  transform: translate3d(10%, 50%, 150px);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box30_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box30_1-3 {
+  transform: translate3d(100%, 50%, 50px);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box31_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box31_1-3 {
+  transform: translateX(50%);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box32_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box32_1-3 {
+  transform: translateX(-50%);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box33_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box33_1-3 {
+  transform: translateY(50%);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box34_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box34_1-3 {
+  transform: translateY(-50%);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box35_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box35_1-3 {
+  transform: translateZ(50%);
+}
+              </pre>
+            </li>
+            <li class="galery-translate-item_1-3 box36_1-3">
+              <img
+                class="galery-translate-img_1-3"
+                src="../images/image/samochodStatystyki1.jpg"
+                alt=""
+              />
+              <pre class="galery-translate-text_1-3">
+.box36_1-3 {
+  transform: translateZ(-50%);
+}
+              </pre>
             </li>
           </ul>
         </article>
@@ -707,6 +1170,59 @@
               /* ... */
             }
           </pre>
+        </article>
+      </section>
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Transformacje 2D</h2>
+          <p>
+            Transformacje CSS umożliwiają przesuwanie, obracanie i skalowanie elementów, tj.
+            dodawanie efektów graficznych. Transformacje pozwalają zmienić kształt i położenie
+            elementu bez wpływu na inne elementy na stronie. Domyślnie transformacja jest wykonywana
+            względem środka elementu.
+          </p>
+          <p>
+            Właściwość transform jest odpowiedzialna za zastosowanie jednej lub większej liczby
+            transformacji elementu.
+          </p>
+          <pre>
+            transform: none | &ltrodzaj transformacji> &ltrodzaj transformacji> ...
+          </pre>
+          <p>
+            Element przekształcony jest elementem, który ma dowolną wartość właściwości transform
+            oprócz none.
+          </p>
+        </article>
+        <article id="3.2">
+          <h3>3.2 Funkcje scaleX(tx), scaleY(ty) i scale(tx, ty)</h3>
+          <p>
+            Funkcje scaleX(tx), scaleY(ty) i scale(tx, ty) pozwalają skalować szerokość i/lub
+            wysokość bloku bez wpływu na geometrię otaczających go elementów. Jeśli dla scale()
+            podano jedną wartość, druga będzie taka sama.
+          </p>
+          <pre>
+            .box {
+              transform: scale(1.15);
+            }
+          </pre>
+          <p>Początkowa wielkość elementu to — 1.</p>
+          <p>
+            Wartości pomiędzy 1 i 0 pozwalają zmniejszyć element. Wartości większe niż 1 umożliwiają
+            powiększenie elementu.
+          </p>
+          <p>
+            Na przykład, wartość scale(1.25) — to 125% oryginalnego rozmiaru, a scale(0.75) — 75%.
+          </p>
+          <ul class="galery-scale-list_3-2">
+            <li class="galery-scale-item_3-2 box1_3-2">scale: 0.1s;</li>
+            <li class="galery-scale-item_3-2 box2_3-2">scale: 0.2s;</li>
+            <li class="galery-scale-item_3-2 box3_3-2">scale: 0.4s;</li>
+            <li class="galery-scale-item_3-2 box4_3-2">scale: 0.8s;</li>
+            <li class="galery-scale-item_3-2 box5_3-2">scale: 1.6s;</li>
+            <li class="galery-scale-item_3-2 box6_3-2">scale: 3.2s;</li>
+            <li class="galery-scale-item_3-2 box7_3-2">scale: 6.4s;</li>
+            <li class="galery-scale-item_3-2 box8_3-2">scale: 12.8s;</li>
+          </ul>
         </article>
       </section>
     </main>
