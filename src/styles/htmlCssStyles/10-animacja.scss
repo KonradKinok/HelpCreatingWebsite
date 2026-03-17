@@ -527,9 +527,9 @@
   }
 
   //2.5
-  .galery-transition-delay-list_1-4 {
+  .galery-animation-iteration-count-list_2-5 {
     --gap: 40px;
-    --countImages: 8;
+    --countImages: 4;
     --countSpace: calc(var(--countImages) - 1);
     --width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
     display: flex;
@@ -540,14 +540,9 @@
     padding: 20px;
     margin: 20px 0;
 
-    &:hover {
-      .galery-transition-delay-item_1-4 {
-        background-color: rgb(224, 187, 19);
-        color: white;
-      }
-    }
 
-    .galery-transition-delay-item_1-4 {
+
+    .galery-animation-iteration-count-item_2-5 {
       display: flex;
       width: var(--width);
       aspect-ratio: 1/1;
@@ -556,47 +551,95 @@
         0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
       background-color: rgb(76, 0, 255);
 
-      transition-property: background-color, color;
-      transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-      transition-duration: 3s;
-      transition-delay: 0;
+      animation-name: changeBgColor;
+      animation-duration: 3000ms;
+      animation-timing-function: linear;
     }
 
-    .box1_1-4 {
-      transition-delay: 0.1s;
+    .box1_2-5 {
+      font-size: 0.5rem;
+      animation-iteration-count: 1;
     }
 
-    .box2_1-4 {
-      transition-delay: 0.2s;
+    .box2_2-5 {
+      animation-iteration-count: 2;
     }
 
-    .box3_1-4 {
-      transition-delay: 0.4s;
+    .box3_2-5 {
+      animation-iteration-count: 4;
     }
 
-    .box4_1-4 {
-      transition-delay: 0.8s;
+    .box4_2-5 {
+      animation-iteration-count: infinite;
     }
 
-    .box5_1-4 {
-      transition-delay: 1.6s;
-    }
 
-    .box6_1-4 {
-      transition-delay: 3.2s;
-    }
+    @keyframes changeBgColor {
+      0% {
+        background-color: teal;
+      }
 
-    .box7_1-4 {
-      transition-delay: 6.4s;
-    }
+      50% {
+        background-color: orange;
+      }
 
-    .box8_1-4 {
-      transition-delay: 12.8s;
+      100% {
+        background-color: deepskyblue;
+      }
     }
   }
 
-  //3.2
-  .galery-scale-list_3-2 {
+
+  //2.6
+  .galery-animation-play-state-list_2-6 {
+    --gap: 240px;
+    --countImages: 2;
+    --countSpace: calc(var(--countImages) - 1);
+    --width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    border: 2px dashed black;
+    padding: 20px;
+    margin: 20px 0;
+
+    .galery-animation-play-state-item_2-6 {
+      display: flex;
+      width: var(--width);
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgb(76, 0, 255);
+      font-size: 0.8rem;
+      animation-name: changeBgColor;
+      animation-duration: 3000ms;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+
+    @keyframes changeBgColor {
+      0% {
+        background-color: teal;
+      }
+
+      50% {
+        background-color: orange;
+      }
+
+      100% {
+        background-color: deepskyblue;
+      }
+    }
+  }
+
+  //2.7
+  .galery-animation-delay-list_2-7 {
     --gap: 40px;
     --countImages: 8;
     --countSpace: calc(var(--countImages) - 1);
@@ -610,9 +653,222 @@
     margin: 20px 0;
 
     &:hover {
-      .galery-scale-item_3-2 {
+      .galery-animation-delay-item_2-7 {
         background-color: rgb(224, 187, 19);
         color: white;
+      }
+    }
+
+    .galery-animation-delay-item_2-7 {
+      display: flex;
+      width: var(--width);
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgb(76, 0, 255);
+
+      animation-name: changeBgColor;
+      animation-duration: 3000ms;
+      animation-timing-function: linear;
+      animation-iteration-count: 2;
+    }
+
+    .box1_2-7 {
+      animation-delay: 0.1s;
+    }
+
+    .box2_2-7 {
+      animation-delay: 0.2s;
+    }
+
+    .box3_2-7 {
+      animation-delay: 0.4s;
+    }
+
+    .box4_2-7 {
+      animation-delay: 0.8s;
+    }
+
+    .box5_2-7 {
+      animation-delay: 1.6s;
+    }
+
+    .box6_2-7 {
+      animation-delay: 3.2s;
+    }
+
+    .box7_2-7 {
+      animation-delay: 6.4s;
+    }
+
+    .box8_2-7 {
+      animation-delay: 12.8s;
+    }
+
+    @keyframes changeBgColor {
+      0% {
+        background-color: teal;
+      }
+
+      50% {
+        background-color: orange;
+      }
+
+      100% {
+        background-color: deepskyblue;
+      }
+    }
+  }
+
+  //2.8
+  .galery-animation-fill-mode-list_2-8 {
+    --gap: 40px;
+    --countImages: 4;
+    --countSpace: calc(var(--countImages) - 1);
+    --width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    border: 2px dashed black;
+    padding: 20px;
+    margin: 20px 0;
+
+    .galery-animation-fill-mode-item_2-8 {
+      display: flex;
+      width: var(--width);
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgb(76, 0, 255);
+      font-size: 0.8rem;
+      animation-name: changeBgColor;
+      animation-duration: 3000ms;
+      animation-timing-function: linear;
+      animation-iteration-count: 1;
+      animation-delay: 3s;
+    }
+
+    .box1_2-8 {
+      animation-fill-mode: none;
+    }
+
+    .box2_2-8 {
+      animation-fill-mode: forwards;
+    }
+
+    .box3_2-8 {
+      animation-fill-mode: backwards;
+    }
+
+    .box4_2-8 {
+      animation-fill-mode: both;
+    }
+
+    @keyframes changeBgColor {
+      0% {
+        background-color: teal;
+      }
+
+      50% {
+        background-color: orange;
+      }
+
+      100% {
+        background-color: rgb(247, 8, 227);
+      }
+    }
+  }
+
+
+  //2.9
+  .galery-animation-direction-list_2-9 {
+    --gap: 40px;
+    --countImages: 4;
+    --countSpace: calc(var(--countImages) - 1);
+    --width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    border: 2px dashed black;
+    padding: 20px;
+    margin: 20px 0;
+
+    .galery-animation-direction-item_2-9 {
+      display: flex;
+      width: var(--width);
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgb(76, 0, 255);
+      font-size: 0.8rem;
+      animation-name: changeBgColor;
+      animation-duration: 3000ms;
+      animation-timing-function: linear;
+      animation-iteration-count: 2;
+      animation-delay: 3s;
+    }
+
+    .box1_2-9 {
+      animation-direction: normal;
+    }
+
+    .box2_2-9 {
+      animation-direction: reverse;
+    }
+
+    .box3_2-9 {
+      animation-direction: alternate;
+    }
+
+    .box4_2-9 {
+      animation-direction: alternate-reverse;
+    }
+
+    @keyframes changeBgColor {
+      0% {
+        background-color: teal;
+      }
+
+      50% {
+        background-color: orange;
+      }
+
+      100% {
+        background-color: rgb(247, 8, 227);
+      }
+    }
+  }
+
+  //3.2
+  .galery-scale-list_3-2 {
+    --gap: 140px;
+    --countImages: 3;
+    --countSpace: calc(var(--countImages) - 1);
+    --width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    border: 2px dashed black;
+    padding: 20px;
+    margin: 20px 0;
+
+    &:hover {
+      .box1_3-2 {
+        transform: scale(1.15);
+      }
+
+      .box2_3-2 {
+        transform: scale(1);
+      }
+
+      .box3_3-2 {
+        transform: scale(0.75);
       }
     }
 
@@ -625,42 +881,10 @@
         0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
       background-color: rgb(76, 0, 255);
 
-      transition-property: background-color, color;
+      transition-property: background-color, color, transform;
       transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
       transition-duration: 3s;
       transition-delay: 0;
-    }
-
-    .box1_3-2 {
-      transition-delay: 0.1s;
-    }
-
-    .box2_3-2 {
-      transition-delay: 0.2s;
-    }
-
-    .box3_3-2 {
-      transition-delay: 0.4s;
-    }
-
-    .box4_3-2 {
-      transition-delay: 0.8s;
-    }
-
-    .box5_3-2 {
-      transition-delay: 1.6s;
-    }
-
-    .box6_3-2 {
-      transition-delay: 3.2s;
-    }
-
-    .box7_3-2 {
-      transition-delay: 6.4s;
-    }
-
-    .box8_3-2 {
-      transition-delay: 12.8s;
     }
   }
 }

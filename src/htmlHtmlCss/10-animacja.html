@@ -1035,15 +1035,39 @@
               liczbę razy.
             </li>
           </ul>
-          <ul class="galery-transition-delay-list_1-4">
-            <li class="galery-transition-delay-item_1-4 box1_1-4">transition-delay: 0.1s;</li>
-            <li class="galery-transition-delay-item_1-4 box2_1-4">transition-delay: 0.2s;</li>
-            <li class="galery-transition-delay-item_1-4 box3_1-4">transition-delay: 0.4s;</li>
-            <li class="galery-transition-delay-item_1-4 box4_1-4">transition-delay: 0.8s;</li>
-            <li class="galery-transition-delay-item_1-4 box5_1-4">transition-delay: 1.6s;</li>
-            <li class="galery-transition-delay-item_1-4 box6_1-4">transition-delay: 3.2s;</li>
-            <li class="galery-transition-delay-item_1-4 box7_1-4">transition-delay: 6.4s;</li>
-            <li class="galery-transition-delay-item_1-4 box8_1-4">transition-delay: 12.8s;</li>
+          <ul class="galery-animation-iteration-count-list_2-5">
+            <li class="galery-animation-iteration-count-item_2-5 box1_2-5">
+              <pre>
+.galery-animation-iteration-count-item_2-5 {
+  display: flex;
+  width: var(--width);
+  aspect-ratio: 1/1;
+  border-radius: 4px;
+  box-shadow:
+    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  background-color: rgb(76, 0, 255);
+
+  animation-name: changeBgColor;
+  animation-duration: 3000ms;
+  animation-timing-function: linear;
+}
+
+.box1_2-5 {
+  animation-iteration-count: 1;
+}
+              </pre>
+            </li>
+            <li class="galery-animation-iteration-count-item_2-5 box2_2-5">
+              animation-iteration-count: 2;
+            </li>
+            <li class="galery-animation-iteration-count-item_2-5 box3_2-5">
+              animation-iteration-count: 4;
+            </li>
+            <li class="galery-animation-iteration-count-item_2-5 box4_2-5">
+              animation-iteration-count: infinite;
+            </li>
           </ul>
         </article>
         <article id="2.6">
@@ -1054,6 +1078,49 @@
             Jeśli ustawisz ją na paused, na przykład przy :hover, animacja nie uruchomi się, gdy
             kursor myszy znajdzie się nad elementem.
           </p>
+          <ul class="galery-animation-play-state-list_2-6">
+            <li class="galery-animation-play-state-item_2-6 box1_2-6">
+              <pre>
+.galery-animation-play-state-item_2-6 {
+  display: flex;
+  width: var(--width);
+  aspect-ratio: 1/1;
+  border-radius: 4px;
+  box-shadow:
+    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  background-color: rgb(76, 0, 255);
+
+  animation-name: changeBgColor;
+  animation-duration: 3000ms;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+              </pre>
+            </li>
+            <li class="galery-animation-play-state-item_2-6 box2_2-6">
+              <pre>
+@keyframes changeBgColor {
+  0% {
+    background-color: teal;
+  }
+
+  50% {
+    background-color: orange;
+  }
+
+  100% {
+    background-color: deepskyblue;
+  }
+}
+              </pre>
+            </li>
+          </ul>
         </article>
         <article id="2.7">
           <h3>2.7 Właściwość animation-delay</h3>
@@ -1069,6 +1136,16 @@
               animation-delay: 1s;
             }
           </pre>
+          <ul class="galery-animation-delay-list_2-7">
+            <li class="galery-animation-delay-item_2-7 box1_2-7">animation-delay: 0.1s;</li>
+            <li class="galery-animation-delay-item_2-7 box2_2-7">animation-delay: 0.2s;</li>
+            <li class="galery-animation-delay-item_2-7 box3_2-7">animation-delay: 0.4s;</li>
+            <li class="galery-animation-delay-item_2-7 box4_2-7">animation-delay: 0.8s;</li>
+            <li class="galery-animation-delay-item_2-7 box5_2-7">animation-delay: 1.6s;</li>
+            <li class="galery-animation-delay-item_2-7 box6_2-7">animation-delay: 3.2s;</li>
+            <li class="galery-animation-delay-item_2-7 box7_2-7">animation-delay: 6.4s;</li>
+            <li class="galery-animation-delay-item_2-7 box8_2-7">animation-delay: 12.8s;</li>
+          </ul>
         </article>
         <article id="2.8">
           <h3>2.8 Właściwość animation-fill-mode</h3>
@@ -1095,6 +1172,48 @@
               animacji.
             </li>
             <li>both — łączy forwards i backwards, stosując je przed i po animacji.</li>
+          </ul>
+          <ul class="galery-animation-fill-mode-list_2-8">
+            <li class="galery-animation-fill-mode-item_2-8 box1_2-8">
+              <pre>
+animation-fill-mode: none;
+
+.galery-animation-fill-mode-item_2-8 {
+  display: flex;
+  width: var(--width);
+  aspect-ratio: 1/1;
+  border-radius: 4px;
+  background-color: rgb(76, 0, 255);
+  animation-name: changeBgColor;
+  animation-duration: 3000ms;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-delay: 3s;
+}
+              </pre>
+            </li>
+            <li class="galery-animation-fill-mode-item_2-8 box2_2-8">
+              <pre>
+animation-fill-mode: forwards;
+@keyframes changeBgColor {
+  0% {
+    background-color: teal;
+  }
+
+  50% {
+    background-color: orange;
+  }
+
+  100% {
+    background-color: rgb(247, 8, 227);
+  }
+}
+              </pre>
+            </li>
+            <li class="galery-animation-fill-mode-item_2-8 box3_2-8">
+              animation-fill-mode: backwards;
+            </li>
+            <li class="galery-animation-fill-mode-item_2-8 box4_2-8">animation-fill-mode: both;</li>
           </ul>
         </article>
         <article id="2.9">
@@ -1135,6 +1254,51 @@
               alternate-reverse — najpierw animacja odtwarzana jest od klatki końcowej do klatki
               początkowej, a następnie kierunek odtwarzania jest zmieniany przy każdym kolejnym
               powtórzeniu.
+            </li>
+          </ul>
+          <ul class="galery-animation-direction-list_2-9">
+            <li class="galery-animation-direction-item_2-9 box1_2-9">
+              <pre>
+animation-direction: normal;
+
+.galery-animation-direction-item_2-9 {
+  display: flex;
+  width: var(--width);
+  aspect-ratio: 1/1;
+  border-radius: 4px;
+  background-color: rgb(76, 0, 255);
+  font-size: 0.8rem;
+  animation-name: changeBgColor;
+  animation-duration: 3000ms;
+  animation-timing-function: linear;
+  animation-iteration-count: 2;
+  animation-delay: 3s;
+}
+              </pre>
+            </li>
+            <li class="galery-animation-direction-item_2-9 box2_2-9">
+              <pre>
+animation-direction: reverse;
+@keyframes changeBgColor {
+  0% {
+    background-color: teal;
+  }
+
+  50% {
+    background-color: orange;
+  }
+
+  100% {
+    background-color: rgb(247, 8, 227);
+  }
+}
+              </pre>
+            </li>
+            <li class="galery-animation-direction-item_2-9 box3_2-9">
+              animation-direction: alternate;
+            </li>
+            <li class="galery-animation-direction-item_2-9 box4_2-9">
+              animation-direction: alternate-reverse;
             </li>
           </ul>
         </article>
@@ -1214,14 +1378,26 @@
             Na przykład, wartość scale(1.25) — to 125% oryginalnego rozmiaru, a scale(0.75) — 75%.
           </p>
           <ul class="galery-scale-list_3-2">
-            <li class="galery-scale-item_3-2 box1_3-2">scale: 0.1s;</li>
+            <li class="galery-scale-item_3-2 box1_3-2">
+              <pre>
+.galery-scale-list_3-2 {
+&:hover {
+  .box1_3-2 {
+    transform: scale(1.15);
+  }
+
+  .box2_3-2 {
+    transform: scale(1);
+  }
+
+  .box3_3-2 {
+    transform: scale(0.75);
+  }
+}
+              </pre>
+            </li>
             <li class="galery-scale-item_3-2 box2_3-2">scale: 0.2s;</li>
             <li class="galery-scale-item_3-2 box3_3-2">scale: 0.4s;</li>
-            <li class="galery-scale-item_3-2 box4_3-2">scale: 0.8s;</li>
-            <li class="galery-scale-item_3-2 box5_3-2">scale: 1.6s;</li>
-            <li class="galery-scale-item_3-2 box6_3-2">scale: 3.2s;</li>
-            <li class="galery-scale-item_3-2 box7_3-2">scale: 6.4s;</li>
-            <li class="galery-scale-item_3-2 box8_3-2">scale: 12.8s;</li>
           </ul>
         </article>
       </section>
