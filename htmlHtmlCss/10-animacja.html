@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.066807ea.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/01-html1.fbf00cce.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/10-animacja.0e325edd.css"><title>Animacja</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="animacja_m4z8 main-container">  <section id="1" class="text"> <h1>Moduł 4 - Zajęcia 8 - Animacja</h1> <article id="1.1"> <h2>1.1 CSS przejścia</h2> <p> Nowoczesne strony muszą być nie tylko ładne, ale też przyjazne dla użytkownika. Na przykład, po najechaniu myszką na przycisk następuje zmiana koloru pozwalająca przykuć uwagę użytkownika. Istnieje kilka sposobów na osiągnięcie tego efektu. Zacznijmy od najprostszego — od przejść CSS. </p> <p> Jest jednak pewien niuans. Nie wystarczy, że deweloper zrozumie, jaki efekt tworzy przejście CSS. Musi jeszcze zrozumieć mechanikę tego procesu i jego ograniczenia. </p> </article> <article id="1.2"> <h3>1.2 Czym jest przejście CSS?</h3> <p> Przejścia CSS pozwalają animować zmianę wartości właściwości, ustawiać czas i kontrolować szybkość tego przejścia. Zmiana właściwości następuje po wystąpieniu określonego zdarzenia, na przykład :hover. </p> <p> Przejście zawsze ma tylko dwa stany: 1) początkową i 2) końcową wartość właściwości i może zmieniać tę wartość A > B i B > A przez określony czas. W przypadku animacji z więcej niż 2 stanami, należy użyć animacji CSS. </p> <p>Poniższe cztery właściwości kontrolują różne parametry przejścia.</p> <pre>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"><link rel="stylesheet" href="/HelpCreatingWebsite/index.066807ea.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/01-html1.fbf00cce.css"><link rel="stylesheet" href="/HelpCreatingWebsite/htmlHtmlCss/10-animacja.5deac1ee.css"><title>Animacja</title></head><body class="body-container"> <header class="menu-sticky"> <nav class="nav-container">  <ul id="main-menu" class="nav-list-container"></ul> <ul id="this-page-menu" class="this-page-menu"></ul> </nav> </header> <main class="animacja_m4z8 main-container">  <section id="1" class="text"> <h1>Moduł 4 - Zajęcia 8 - Animacja</h1> <article id="1.1"> <h2>1.1 CSS przejścia</h2> <p> Nowoczesne strony muszą być nie tylko ładne, ale też przyjazne dla użytkownika. Na przykład, po najechaniu myszką na przycisk następuje zmiana koloru pozwalająca przykuć uwagę użytkownika. Istnieje kilka sposobów na osiągnięcie tego efektu. Zacznijmy od najprostszego — od przejść CSS. </p> <p> Jest jednak pewien niuans. Nie wystarczy, że deweloper zrozumie, jaki efekt tworzy przejście CSS. Musi jeszcze zrozumieć mechanikę tego procesu i jego ograniczenia. </p> </article> <article id="1.2"> <h3>1.2 Czym jest przejście CSS?</h3> <p> Przejścia CSS pozwalają animować zmianę wartości właściwości, ustawiać czas i kontrolować szybkość tego przejścia. Zmiana właściwości następuje po wystąpieniu określonego zdarzenia, na przykład :hover. </p> <p> Przejście zawsze ma tylko dwa stany: 1) początkową i 2) końcową wartość właściwości i może zmieniać tę wartość A > B i B > A przez określony czas. W przypadku animacji z więcej niż 2 stanami, należy użyć animacji CSS. </p> <p>Poniższe cztery właściwości kontrolują różne parametry przejścia.</p> <pre>
             transition-property: &ltwłaściwość>
             transition-duration: &ltczas>
             transition-timing-function: &ltfunkcja przydziału czasu>
@@ -285,16 +285,101 @@
               animation-timing-function: linear;
               animation-iteration-count: 5;
             }
-          </pre> <p>Wartość może być:</p> <ul class="unnumbered-list-container"> <li>dodatnią liczbą całkowitą;</li> <li> słowem kluczowym infinite — to sprawi, że animacja zostanie odtworzona nieskończoną liczbę razy. </li> </ul> <ul class="galery-transition-delay-list_1-4"> <li class="box1_1-4 galery-transition-delay-item_1-4">transition-delay: 0.1s;</li> <li class="box2_1-4 galery-transition-delay-item_1-4">transition-delay: 0.2s;</li> <li class="box3_1-4 galery-transition-delay-item_1-4">transition-delay: 0.4s;</li> <li class="box4_1-4 galery-transition-delay-item_1-4">transition-delay: 0.8s;</li> <li class="box5_1-4 galery-transition-delay-item_1-4">transition-delay: 1.6s;</li> <li class="box6_1-4 galery-transition-delay-item_1-4">transition-delay: 3.2s;</li> <li class="box7_1-4 galery-transition-delay-item_1-4">transition-delay: 6.4s;</li> <li class="box8_1-4 galery-transition-delay-item_1-4">transition-delay: 12.8s;</li> </ul> </article> <article id="2.6"> <h3>2.6 Właściwość animation-play-state</h3> <p>Właściwość animation-play-state pozwala na zatrzymanie animacji.</p> <p>Domyślną wartością jest running.</p> <p> Jeśli ustawisz ją na paused, na przykład przy :hover, animacja nie uruchomi się, gdy kursor myszy znajdzie się nad elementem. </p> </article> <article id="2.7"> <h3>2.7 Właściwość animation-delay</h3> <p> Właściwość animation-delay ustawia opóźnienie przed rozpoczęciem animacji w sekundach lub milisekundach, podobnie jak w przypadku przejść. </p> <pre>
+          </pre> <p>Wartość może być:</p> <ul class="unnumbered-list-container"> <li>dodatnią liczbą całkowitą;</li> <li> słowem kluczowym infinite — to sprawi, że animacja zostanie odtworzona nieskończoną liczbę razy. </li> </ul> <ul class="galery-animation-iteration-count-list_2-5"> <li class="box1_2-5 galery-animation-iteration-count-item_2-5"> <pre>
+.galery-animation-iteration-count-item_2-5 {
+  display: flex;
+  width: var(--width);
+  aspect-ratio: 1/1;
+  border-radius: 4px;
+  box-shadow:
+    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  background-color: rgb(76, 0, 255);
+
+  animation-name: changeBgColor;
+  animation-duration: 3000ms;
+  animation-timing-function: linear;
+}
+
+.box1_2-5 {
+  animation-iteration-count: 1;
+}
+              </pre> </li> <li class="box2_2-5 galery-animation-iteration-count-item_2-5"> animation-iteration-count: 2; </li> <li class="box3_2-5 galery-animation-iteration-count-item_2-5"> animation-iteration-count: 4; </li> <li class="box4_2-5 galery-animation-iteration-count-item_2-5"> animation-iteration-count: infinite; </li> </ul> </article> <article id="2.6"> <h3>2.6 Właściwość animation-play-state</h3> <p>Właściwość animation-play-state pozwala na zatrzymanie animacji.</p> <p>Domyślną wartością jest running.</p> <p> Jeśli ustawisz ją na paused, na przykład przy :hover, animacja nie uruchomi się, gdy kursor myszy znajdzie się nad elementem. </p> <ul class="galery-animation-play-state-list_2-6"> <li class="box1_2-6 galery-animation-play-state-item_2-6"> <pre>
+.galery-animation-play-state-item_2-6 {
+  display: flex;
+  width: var(--width);
+  aspect-ratio: 1/1;
+  border-radius: 4px;
+  box-shadow:
+    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  background-color: rgb(76, 0, 255);
+
+  animation-name: changeBgColor;
+  animation-duration: 3000ms;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+              </pre> </li> <li class="box2_2-6 galery-animation-play-state-item_2-6"> <pre>
+@keyframes changeBgColor {
+  0% {
+    background-color: teal;
+  }
+
+  50% {
+    background-color: orange;
+  }
+
+  100% {
+    background-color: deepskyblue;
+  }
+}
+              </pre> </li> </ul> </article> <article id="2.7"> <h3>2.7 Właściwość animation-delay</h3> <p> Właściwość animation-delay ustawia opóźnienie przed rozpoczęciem animacji w sekundach lub milisekundach, podobnie jak w przypadku przejść. </p> <pre>
             .box:hover {
               animation-name: changeBgColor;
               animation-duration: 3000ms;
               animation-timing-function: linear;
               animation-delay: 1s;
             }
-          </pre> </article> <article id="2.8"> <h3>2.8 Właściwość animation-fill-mode</h3> <p> Właściwość animation-fill-mode określa, co dzieje się ze stylami elementu przed rozpoczęciem animacji i po jej zakończeniu. Innymi słowy, właściwość ta pozwala określić, czy style animacji powinny być stosowane do elementu, gdy animacja nie jest włączona. </p> <pre>
+          </pre> <ul class="galery-animation-delay-list_2-7"> <li class="box1_2-7 galery-animation-delay-item_2-7">animation-delay: 0.1s;</li> <li class="box2_2-7 galery-animation-delay-item_2-7">animation-delay: 0.2s;</li> <li class="box3_2-7 galery-animation-delay-item_2-7">animation-delay: 0.4s;</li> <li class="box4_2-7 galery-animation-delay-item_2-7">animation-delay: 0.8s;</li> <li class="box5_2-7 galery-animation-delay-item_2-7">animation-delay: 1.6s;</li> <li class="box6_2-7 galery-animation-delay-item_2-7">animation-delay: 3.2s;</li> <li class="box7_2-7 galery-animation-delay-item_2-7">animation-delay: 6.4s;</li> <li class="box8_2-7 galery-animation-delay-item_2-7">animation-delay: 12.8s;</li> </ul> </article> <article id="2.8"> <h3>2.8 Właściwość animation-fill-mode</h3> <p> Właściwość animation-fill-mode określa, co dzieje się ze stylami elementu przed rozpoczęciem animacji i po jej zakończeniu. Innymi słowy, właściwość ta pozwala określić, czy style animacji powinny być stosowane do elementu, gdy animacja nie jest włączona. </p> <pre>
             animation-fill-mode: none | forwards | backwards | both
-          </pre> <ul class="unnumbered-list-container"> <li> none — style animacji stosowane są tylko podczas animacji. Przed i po animacji element jest w stanie podstawowym. Jest to wartość domyślna. </li> <li> forwards — po zakończeniu animacji do elementu stosowane są style użyte na końcu animacji. </li> <li> backwards — przed rozpoczęciem animacji do elementu stosowane są podstawowe style animacji. </li> <li>both — łączy forwards i backwards, stosując je przed i po animacji.</li> </ul> </article> <article id="2.9"> <h3>2.9 Właściwość animation-direction</h3> <p>Właściwość animation-direction:</p> <ul class="unnumbered-list-container"> <li> kontroluje kierunek odtwarzania animacji od klatki początkowej do końcowej. Lub odwrotnie: od klatki końcowej do klatki początkowej. </li> <li>ustawia kolejność klatek na przemian przy każdym powtórzeniu.</li> </ul> <pre>
+          </pre> <ul class="unnumbered-list-container"> <li> none — style animacji stosowane są tylko podczas animacji. Przed i po animacji element jest w stanie podstawowym. Jest to wartość domyślna. </li> <li> forwards — po zakończeniu animacji do elementu stosowane są style użyte na końcu animacji. </li> <li> backwards — przed rozpoczęciem animacji do elementu stosowane są podstawowe style animacji. </li> <li>both — łączy forwards i backwards, stosując je przed i po animacji.</li> </ul> <ul class="galery-animation-fill-mode-list_2-8"> <li class="box1_2-8 galery-animation-fill-mode-item_2-8"> <pre>
+animation-fill-mode: none;
+
+.galery-animation-fill-mode-item_2-8 {
+  display: flex;
+  width: var(--width);
+  aspect-ratio: 1/1;
+  border-radius: 4px;
+  background-color: rgb(76, 0, 255);
+  animation-name: changeBgColor;
+  animation-duration: 3000ms;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-delay: 3s;
+}
+              </pre> </li> <li class="box2_2-8 galery-animation-fill-mode-item_2-8"> <pre>
+animation-fill-mode: forwards;
+@keyframes changeBgColor {
+  0% {
+    background-color: teal;
+  }
+
+  50% {
+    background-color: orange;
+  }
+
+  100% {
+    background-color: rgb(247, 8, 227);
+  }
+}
+              </pre> </li> <li class="box3_2-8 galery-animation-fill-mode-item_2-8"> animation-fill-mode: backwards; </li> <li class="box4_2-8 galery-animation-fill-mode-item_2-8">animation-fill-mode: both;</li> </ul> </article> <article id="2.9"> <h3>2.9 Właściwość animation-direction</h3> <p>Właściwość animation-direction:</p> <ul class="unnumbered-list-container"> <li> kontroluje kierunek odtwarzania animacji od klatki początkowej do końcowej. Lub odwrotnie: od klatki końcowej do klatki początkowej. </li> <li>ustawia kolejność klatek na przemian przy każdym powtórzeniu.</li> </ul> <pre>
             .box:hover {
               animation-name: changeBgColor;
               animation-duration: 3000ms;
@@ -302,7 +387,38 @@
               animation-iteration-count: infinite;
               animation-direction: alternate;
             }
-          </pre> <ul class="unnumbered-list-container"> <li> normal — animacja odtwarzana jest od klatki początkowej do końcowej, a następnie powraca do klatki początkowej przed kolejnym powtórzeniem (resetuje się do stanu początkowego). Ta wartość jest używana domyślnie. </li> <li> reverse — animacja odtwarzana jest w przeciwnym kierunku, zaczynając od klatki końcowej do klatki początkowej, a następnie powraca do klatki końcowej przed kolejnym powtórzeniem. </li> <li> alternate — animacja jest odtwarzana od klatki początkowej do końcowej, a następnie kierunek odtwarzania jest zmieniany przy każdym kolejnym powtórzeniu. </li> <li> alternate-reverse — najpierw animacja odtwarzana jest od klatki końcowej do klatki początkowej, a następnie kierunek odtwarzania jest zmieniany przy każdym kolejnym powtórzeniu. </li> </ul> </article> <article id="2.10"> <h3>2.10 Właściwość składowa animation</h3> <p>Właściwość składowa animation umożliwia skrócony zapis właściwości animacji.</p> <pre>
+          </pre> <ul class="unnumbered-list-container"> <li> normal — animacja odtwarzana jest od klatki początkowej do końcowej, a następnie powraca do klatki początkowej przed kolejnym powtórzeniem (resetuje się do stanu początkowego). Ta wartość jest używana domyślnie. </li> <li> reverse — animacja odtwarzana jest w przeciwnym kierunku, zaczynając od klatki końcowej do klatki początkowej, a następnie powraca do klatki końcowej przed kolejnym powtórzeniem. </li> <li> alternate — animacja jest odtwarzana od klatki początkowej do końcowej, a następnie kierunek odtwarzania jest zmieniany przy każdym kolejnym powtórzeniu. </li> <li> alternate-reverse — najpierw animacja odtwarzana jest od klatki końcowej do klatki początkowej, a następnie kierunek odtwarzania jest zmieniany przy każdym kolejnym powtórzeniu. </li> </ul> <ul class="galery-animation-direction-list_2-9"> <li class="box1_2-9 galery-animation-direction-item_2-9"> <pre>
+animation-direction: normal;
+
+.galery-animation-direction-item_2-9 {
+  display: flex;
+  width: var(--width);
+  aspect-ratio: 1/1;
+  border-radius: 4px;
+  background-color: rgb(76, 0, 255);
+  font-size: 0.8rem;
+  animation-name: changeBgColor;
+  animation-duration: 3000ms;
+  animation-timing-function: linear;
+  animation-iteration-count: 2;
+  animation-delay: 3s;
+}
+              </pre> </li> <li class="box2_2-9 galery-animation-direction-item_2-9"> <pre>
+animation-direction: reverse;
+@keyframes changeBgColor {
+  0% {
+    background-color: teal;
+  }
+
+  50% {
+    background-color: orange;
+  }
+
+  100% {
+    background-color: rgb(247, 8, 227);
+  }
+}
+              </pre> </li> <li class="box3_2-9 galery-animation-direction-item_2-9"> animation-direction: alternate; </li> <li class="box4_2-9 galery-animation-direction-item_2-9"> animation-direction: alternate-reverse; </li> </ul> </article> <article id="2.10"> <h3>2.10 Właściwość składowa animation</h3> <p>Właściwość składowa animation umożliwia skrócony zapis właściwości animacji.</p> <pre>
             animation: [name] [duration] [timing-function] [delay] [iteration-count] [direction] [fill-mode] [play-state]
           </pre> <p>Opcjonalne wartości właściwości mogą zostać pominięte lub zamienione.</p> <p> Jedynymi wyjątkami są właściwości duration i delay — wartość czasu trwania animacji musi zostać zawsze określona przed wartością opóźnienia. </p> <pre>
             .box {
@@ -330,4 +446,19 @@
             .box {
               transform: scale(1.15);
             }
-          </pre> <p>Początkowa wielkość elementu to — 1.</p> <p> Wartości pomiędzy 1 i 0 pozwalają zmniejszyć element. Wartości większe niż 1 umożliwiają powiększenie elementu. </p> <p> Na przykład, wartość scale(1.25) — to 125% oryginalnego rozmiaru, a scale(0.75) — 75%. </p> <ul class="galery-scale-list_3-2"> <li class="box1_3-2 galery-scale-item_3-2">scale: 0.1s;</li> <li class="box2_3-2 galery-scale-item_3-2">scale: 0.2s;</li> <li class="box3_3-2 galery-scale-item_3-2">scale: 0.4s;</li> <li class="box4_3-2 galery-scale-item_3-2">scale: 0.8s;</li> <li class="box5_3-2 galery-scale-item_3-2">scale: 1.6s;</li> <li class="box6_3-2 galery-scale-item_3-2">scale: 3.2s;</li> <li class="box7_3-2 galery-scale-item_3-2">scale: 6.4s;</li> <li class="box8_3-2 galery-scale-item_3-2">scale: 12.8s;</li> </ul> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>31.07.2024r.</p> </div> </footer>  <script defer type="module" src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.09e385f1.js"></script><script defer src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.106d34b9.js" nomodule=""></script> </body></html>
+          </pre> <p>Początkowa wielkość elementu to — 1.</p> <p> Wartości pomiędzy 1 i 0 pozwalają zmniejszyć element. Wartości większe niż 1 umożliwiają powiększenie elementu. </p> <p> Na przykład, wartość scale(1.25) — to 125% oryginalnego rozmiaru, a scale(0.75) — 75%. </p> <ul class="galery-scale-list_3-2"> <li class="box1_3-2 galery-scale-item_3-2"> <pre>
+.galery-scale-list_3-2 {
+&:hover {
+  .box1_3-2 {
+    transform: scale(1.15);
+  }
+
+  .box2_3-2 {
+    transform: scale(1);
+  }
+
+  .box3_3-2 {
+    transform: scale(0.75);
+  }
+}
+              </pre> </li> <li class="box2_3-2 galery-scale-item_3-2">scale: 0.2s;</li> <li class="box3_3-2 galery-scale-item_3-2">scale: 0.4s;</li> </ul> </article> </section> </main> <footer class="footer"> <div class="footer-logo"> <img src="/HelpCreatingWebsite/konikMaly24x24Squoosh.989f9831.png" alt="logoImage" width="24"> <img src="/HelpCreatingWebsite/3KLogo.b575da86.png" alt="logoText"> </div> <div id="footer-title"> <p></p> </div> <div class="footer-date"> <p>31.07.2024r.</p> </div> </footer>  <script defer type="module" src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.09e385f1.js"></script><script defer src="/HelpCreatingWebsite/htmlHtmlCss/02-html2.106d34b9.js" nomodule=""></script> </body></html>
