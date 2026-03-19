@@ -1399,6 +1399,279 @@ animation-direction: reverse;
             <li class="galery-scale-item_3-2 box2_3-2">scale: 0.2s;</li>
             <li class="galery-scale-item_3-2 box3_3-2">scale: 0.4s;</li>
           </ul>
+          <p>
+            Ze wszystkich właściwości, które mogą być animowane zaleca się używanie — jeśli to
+            możliwe — tylko dwóch: opacity (przezroczystość) i transform (transformacja). W
+            większości przypadków animowanie innych właściwości nie wpłynie znacząco na wydajność
+            strony, ale najlepiej jest przestrzegać tej zasady, aby stworzyć jak najbardziej wydajną
+            animację.
+          </p>
+        </article>
+        <article id="3.3">
+          <h3>3.3 Funkcja rotate(angle)</h3>
+          <p>
+            Funkcja rotate(angle) pozwala obrócić elementy o określoną liczbę stopni (jednostka
+            deg). Wartości dodatnie obracają element zgodnie z ruchem wskazówek zegara, a wartości
+            ujemne obracają go w kierunku przeciwnym.
+          </p>
+          <pre>
+            .box {
+              transform: rotate(45deg);
+            }
+          </pre>
+          <p>
+            Wartości mogą być przekazywane nie tylko w stopniach, ale także w "liczbie obrotów"
+            (jednostką jest turn). Na przykład rotate(0.5turn) to pół obrotu, analogicznie do
+            rotate(180deg).
+          </p>
+          <ul class="galery-rotate-list_3-3">
+            <li class="galery-rotate-item_3-3 box1_3-3">transform: rotate(45deg);</li>
+            <li class="galery-rotate-item_3-3 box2_3-3">transform: rotate(0.25turn);</li>
+            <li class="galery-rotate-item_3-3 box3_3-3">transform: rotate(-45deg);</li>
+            <li class="galery-rotate-item_3-3 box4_3-3">transform: rotate(-0.25turn);</li>
+          </ul>
+        </article>
+        <article id="3.4">
+          <h3>3.4 Funkcje translateX(tx), translateY(ty) i translate(tx, ty)</h3>
+          <p>
+            Funkcje translateX(tx), translateY(ty) i translate(tx, ty) pozwalają przesunąć element w
+            poziomie (oś X) i/lub w pionie (oś Y) względem jego oryginalnego położenia.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>Dodatnie wartości X przesuwają element w prawo, a wartości ujemne — w lewo.</li>
+            <li>Dodatnie wartości Y przesuwają element w dół, a ujemne — w górę.</li>
+          </ul>
+          <pre>
+            .box {
+              transform: translate(100px, 200px);
+            }
+          </pre>
+          <div class="galery-translate-main-container_3-4">
+            <div class="galery-translate-container_3-4">
+              <ul class="galery-translate-list_3-4">
+                <li class="galery-translate-item_3-4 box1_3-4">
+                  transform: translate(480px, 251px); transform: translate(276px, 251px);
+                </li>
+                <li class="galery-translate-item_3-4 box2_3-4">
+                  transform: translate(480px, 251px); transform: translate(480px, 251px);
+                </li>
+                <li class="galery-translate-item_3-4 box3_3-4">
+                  transform: translate(480px, 251px); transform: translate(276px, 451px);
+                </li>
+                <li class="galery-translate-item_3-4 box4_3-4">
+                  transform: translate(480px, 251px); transform: translate(480px, 451px);
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article id="3.5">
+          <h3>3.5 Przesunięcie i właściwość overflow z wartością hidden</h3>
+          <p>
+            Przesunięcie i właściwość overflow z wartością hidden są używane do tworzenia efektów
+            graficznych z ukrytą zawartością pojawiającą się spoza bloku. Poniższy przykład pokazuje
+            jak to działa w przeglądarce.
+          </p>
+          <p>
+            Efekt ten można osiągnąć w kilku prostych krokach. Przyjrzyjmy się stylom tworzącym ten
+            efekt.
+          </p>
+          <pre>
+            &ltdiv class="box">
+              &ltdiv class="overlay">&lt/div>
+            &lt/div>
+          </pre>
+          <p>
+            Najpierw ustawiamy div.overlay bezwzględnie względem div.box i rozciągamy go do pełnej
+            szerokości i wysokości div.box.
+          </p>
+          <pre>
+            .box {
+              position: relative;
+            }
+
+            .overlay {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+            }
+          </pre>
+          <p>
+            Korzystając z właściwości transform i translateY, przesuwamy div.overlay w dół o 100%
+            wysokości.
+          </p>
+          <pre>
+            .overlay {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+
+              transform: translateY(100%);
+            }
+          </pre>
+          <p>
+            Po najechaniu kursorem na div.box, używając transform i translateY, przywracamy
+            div.overlay do pierwotnej pozycji.
+          </p>
+          <pre>
+            .box:hover .overlay {
+              transform: translateY(0);
+            }
+          </pre>
+          <p>
+            Ustawiamy dla div.box właściwość overflow na hidden, aby wizualnie ukryć div.overlay,
+            gdy zostanie przesunięty poza div.box.
+          </p>
+          <pre>
+            .box {
+              position: relative;
+              overflow: hidden;
+            }
+          </pre>
+          <p>
+            Dodajemy przejście div.overlay, aby animować właściwość transform, animując w ten sposób
+            wygląd nakładki.
+          </p>
+          <pre>
+            .overlay {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+
+              transform: translateY(100%);
+              transition: transform 250ms ease-in-out;
+            }
+          </pre>
+          <div class="overflow-hidden-continer_3-5">
+            <div class="box_3-5">
+              <pre>
+.box_3-5 {
+  position: relative;
+  overflow: hidden;
+  width: 200px;
+  aspect-ratio: 1/1;
+  background-color: blue;
+
+  &:hover {
+    .overlay_3-5 {
+      transform: translateY(0);
+    }
+  }
+              </pre>
+              <div class="overlay_3-5">
+                <pre>
+.overlay_3-5 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(100%);
+  transition: transform 250ms ease-in-out;
+  background-color: rgb(58, 61, 53);
+}
+                </pre>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="3.6">
+          <h3>3.6 Pozycjonowanie w środku</h3>
+          <p>
+            Poznajmy technikę, która umożliwia umieszczenie bezwzględnie pozycjonowanego elementu
+            dokładnie w środku bloku, względem którego jest on pozycjonowany.
+          </p>
+          <pre>
+            &ltdiv class="parent">
+              &ltdiv class="box">&lt/div>
+            &lt/div>
+          </pre>
+          <p>Technika ta jest bardzo prosta i składa się z trzech kroków.</p>
+          <pre>
+            .parent {
+              position: relative;
+            }
+
+            .box {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+          </pre>
+          <ol class="numbered-list-container">
+            <li>Ustawiamy element bezwzględnie względem elementu przodka.</li>
+            <li>
+              Ustawiamy właściwości top i left elementu na 50%, co spowoduje umieszczenie lewego
+              górnego rogu elementu dokładnie na środku elementu przodka.
+            </li>
+            <li>
+              Ustawiamy element na ujemne przesunięcie (translate) wynoszące 50% wysokości i
+              szerokości. Spowoduje to przesunięcie elementu w górę i w lewo oraz wyśrodkowanie go
+              wewnątrz elementu przodka.
+            </li>
+          </ol>
+          <div class="srodek-container_3-6">
+            <div class="parent_3-6">
+              <div class="box_3-6">
+                <pre class="text-pre_3-6">
+.box_3-6 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 200px;
+  aspect-ratio: 1/1;
+  border: 10px solid #ffa000;
+  border-radius: 10px;
+  background-color: #ffc107;
+}
+                </pre>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="3.7">
+          <h3>3.7 Funkcje skewX(kąt), skewY(kąt) i skew(x-kąt, y-kąt)</h3>
+          <p>
+            Funkcje skewX(kąt), skewY(kąt) i skew(x-kąt, y-kąt) są używane do pochylania elementu
+            względem osi współrzędnych. Jeśli dla skew() określono tylko jedną wartość, druga
+            wartość będzie równa 0, będzie to odpowiednik funkcji skewX().
+          </p>
+          <pre>
+            .box {
+              transform: skew(30deg);
+            }
+          </pre>
+          <div class="skew-container_3-7">
+            <div class="skew-box_3-7">
+              <pre>
+.skew-container_3-7 {
+  display: flex;
+  justify-content: center;
+
+  &:hover {
+    .skew-box_3-7 {
+      transform: skew(30deg, 30deg);
+    }
+  }
+
+  .skew-box_3-7 {
+    width: 300px;
+    aspect-ratio: 1/0.5;
+    background-color: #303f9f;
+    transition: transform 1250ms ease-in-out;
+  }
+}
+              </pre>
+            </div>
+          </div>
         </article>
       </section>
     </main>

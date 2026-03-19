@@ -887,4 +887,210 @@
       transition-delay: 0;
     }
   }
+
+  //3.3
+  .galery-rotate-list_3-3 {
+    --gap: 140px;
+    --countImages: 4;
+    --countSpace: calc(var(--countImages) - 1);
+    --width: calc((100% - (var(--countSpace) * var(--gap))) / var(--countImages));
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    color: black;
+    border: 2px dashed black;
+    padding: 20px;
+    margin: 20px 0;
+
+    &:hover {
+      .box1_3-3 {
+        transform: rotate(45deg);
+      }
+
+      .box2_3-3 {
+        transform: rotate(0.125turn);
+      }
+
+      .box3_3-3 {
+        transform: rotate(-45deg);
+      }
+
+      .box4_3-3 {
+        transform: rotate(-0.125turn);
+      }
+    }
+
+    .galery-rotate-item_3-3 {
+      display: flex;
+      width: var(--width);
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgb(76, 0, 255);
+
+      transition-property: background-color, color, transform;
+      transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition-duration: 3s;
+      transition-delay: 0;
+    }
+  }
+
+  //3.4
+  .galery-translate-main-container_3-4 {
+    display: flex;
+    justify-content: center;
+
+    .galery-translate-container_3-4 {
+      width: 960px;
+      height: 909px;
+      border: 2px solid blue;
+      color: black;
+
+      .galery-translate-list_3-4 {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-image: url(../../images/htmlCss/siatka-m4z8.jpg);
+        background-image: linear-gradient(90deg,
+            rgba(42, 123, 155, 0.5) 0%,
+            rgba(87, 199, 133, 0.5) 50%,
+            rgba(237, 221, 83, 0.5) 100%),
+          url(../../images/htmlCss/siatka-m4z8.jpg);
+        background-position: center, center;
+
+        background-repeat: no-repeat;
+
+        .galery-translate-item_3-4 {
+          position: absolute;
+
+          width: 200px;
+          aspect-ratio: 1/1;
+          transform: translate(480px, 251px);
+          transition: transform 0.5s ease;
+        }
+      }
+
+      .box1_3-4 {
+        background-color: rgb(255, 230, 2);
+      }
+
+      .box2_3-4 {
+        background-color: rgb(145, 255, 0);
+      }
+
+      .box3_3-4 {
+        background-color: rgb(0, 81, 255);
+      }
+
+      .box4_3-4 {
+        background-color: rgb(195, 0, 255);
+      }
+
+      &:hover {
+        .box1_3-4 {
+          transform: translate(276px, 251px);
+        }
+
+        .box2_3-4 {
+          transform: translate(480px, 251px);
+        }
+
+        .box3_3-4 {
+          transform: translate(276px, 451px);
+        }
+
+        .box4_3-4 {
+          transform: translate(480px, 451px);
+        }
+      }
+    }
+  }
+
+  //3.5
+  .overflow-hidden-continer_3-5 {
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+
+    .box_3-5 {
+      position: relative;
+      overflow: hidden;
+      width: 300px;
+      aspect-ratio: 1/1;
+      background-color: blue;
+
+      &:hover {
+        .overlay_3-5 {
+          transform: translateY(0);
+        }
+      }
+
+      .overlay_3-5 {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transform: translateY(100%);
+        transition: transform 1250ms ease-in-out;
+        background-color: rgb(58, 61, 53);
+      }
+    }
+  }
+
+  //3.6
+  .srodek-container_3-6 {
+    display: flex;
+    justify-content: center;
+
+    .parent_3-6 {
+      position: relative;
+      width: 800px;
+      height: 500px;
+      border: 10px solid #303f9f;
+      border-radius: 10px;
+      background-color: #3f51b5;
+    }
+
+    .box_3-6 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      width: 400px;
+      aspect-ratio: 1/1;
+      border: 10px solid #ffa000;
+      border-radius: 10px;
+      background-color: #ffc107;
+      font-size: 1rem;
+
+      .text-pre_3-6 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #303f9f;
+      }
+    }
+  }
+
+  //3.7
+  .skew-container_3-7 {
+    display: flex;
+    justify-content: center;
+
+    &:hover {
+      .skew-box_3-7 {
+        transform: skew(30deg, 30deg);
+      }
+    }
+
+    .skew-box_3-7 {
+      width: 500px;
+      aspect-ratio: 1/0.5;
+      background-color: #303f9f;
+      transition: transform 1250ms ease-in-out;
+    }
+  }
 }
