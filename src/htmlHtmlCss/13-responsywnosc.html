@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -18,7 +18,7 @@
     <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
     <link rel="stylesheet" href="../styles/stylStartowy.scss" />
     <link rel="stylesheet" href="../styles/htmlCssStyles.scss" />
-    <link rel="stylesheet" href="../styles/htmlCssStyles/02-html2.scss" />
+    <link rel="stylesheet" href="../styles/htmlCssStyles/13-responsywnosc.scss" />
 
     <title>Responsywność</title>
   </head>
@@ -30,12 +30,1113 @@
         <ul id="this-page-menu" class="this-page-menu"></ul>
       </nav>
     </header>
-    <main class="main-container">
+    <main class="main-container responsywnosc-m6z1">
       <!-- section1 -->
       <section id="1" class="text">
-        <h1>Moduł 1 - Zajęcia 2 - Responsywność</h1>
+        <h1>Moduł 6 - Zajęcia 1 - Responsywność</h1>
         <article id="1.1">
-          <h2>1.1 Tabele</h2>
+          <h2>1.1 Strony responsywne</h2>
+          <p>
+            Za pomocą jakiego urządzenia ludzie korzystają z Internetu? Nawet dla pojedynczego
+            człowieka nie ma jednoznacznej odpowiedzi. Powiedzmy, że w podróży używamy najczęściej
+            smartphona, a w biurze - komputera stacjonarnego. Jak można powiedzieć o większości
+            ludzi? Procent użytkowników urządzeń mobilnych rośnie, jednak także komputery
+            stacjonarne utrzymują popularność. Dla developera oznacza to jedno: konieczność
+            tworzenia stron internetowych, które będą wyglądać równie dobrze na różnych urządzenia.
+            Dla tego celu powstał design responsywny.
+          </p>
+        </article>
+        <article id="1.2">
+          <h3>1.2 Design adaptacyjny i responsywny</h3>
+          <p>
+            Kiedyś design stron internetowych był tworzony ze ściśle określoną szerokością. Jeśli
+            strona była obliczona na szerokość 960 pikseli, to 960 pikseli zostawało niezależnie od
+            tego, na jakim ekranie była otwierana: czy to na dużym, czy małym.
+          </p>
+          <p>
+            Współczesne strony internetowe powinny jednakowo dobrze wyglądać na każdym ekranie:
+            telewizorze, komputerze stacjonarnym, notebooku, tablecie, smartfonie czy nawet na
+            lodówce.
+          </p>
+          <p>
+            Nowoczesne strony internetowe wykorzystują nowe podejścia przy projektowaniu i
+            tworzeniu:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>Adaptacyjność (adaptive)</li>
+            <li>Responsywność (responsive)</li>
+          </ul>
+          <p>Techniki układu adaptacyjnego i responsywnego odróżniają się:</p>
+          <ul class="unnumbered-list-container">
+            <li>tym, jak ustawiana jest szerokość treści</li>
+            <li>ilością wariantów wyświetlania strony przewidzianych przez design</li>
+          </ul>
+          <p>
+            Responsywna (responsive) strona internetowa posiada kilka opcji wyświetlania, przejścia
+            między nimi są gładkie, elementy, a kontenery są rozciągnięte jako guma. Podczas zmiany
+            rozmiaru viewportu bloki są lekko ściskane lub rozciągane, a gdy nadchodzi punkt
+            złamania, zmieniają swoją lokalizację, aby optymalnie zająć całą wolną przestrzeń w
+            poziomie
+          </p>
+          <p>
+            Adaptacyjna (adaptive) strona internetowa posiada kilka wariantów wyświetlania. W
+            przeciwieństwie do designu responsywnego — to dosłownie różne stany. Design zmienia się
+            gwałtownie w ściśle określony punkach przełamania i nie rozciąga się między nimi.
+          </p>
+          <p>
+            Rozmiar obszaru wyświetlania, w którym cały układ lub jego poszczególne części zmieniają
+            swoje style (tj. zmiana designu) nazywa się punktem przełamania (breakpoint).
+          </p>
+          <p>Jak to wygląda w praktyce?</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/responsive-adaptive-m6z1.gif" alt="" />
+          </div>
+        </article>
+        <article id="1.3">
+          <h3>1.3 Viewport (rzadko: rzutnia)</h3>
+          <p>
+            Viewport (rzadko: rzutnia) — to widoczny, prostokątny obszar strony internetowej, który
+            nie zawiera paska adresu, panelu zakładek i innych elementów serwisowych przeglądarki.
+          </p>
+          <p>
+            Przeglądarki mobilne wyświetlają stronę internetową w wirtualnym viewporcie (layout
+            viewport). Szerokość wirtualnego viewportu zależy od producenta urządzenia. Najczęściej
+            spotykana wartość szerokości wirtualnego viewportu to domyślnie 980px
+          </p>
+          <p>
+            Fizyczny viewport (visual viewport) — to wielkość, która wynosi tyle, co fizyczna
+            szerokość ekranu urządzenia. W urządzeniach mobilnych wielkość fizycznego viewportu
+            domyślnie nie zgadza się z wirtualnym. Viewport wirtualny jest szerszy od realnego
+            ekranu urządzenia.
+          </p>
+          <p>Na tym polega cały problem.</p>
+          <p>
+            Przeglądarka mobilna otwiera stronę internetową i pyta się urządzania, jaką posiada ono
+            szerokość viewportu. Domyślnie przeglądarka otrzymuje w odpowiedzi wielkość wirtualnego
+            viewportu (980px), a nie fizycznego. W efekcie zawartość strony wyświetla się na
+            fizycznym ekranie nieprawidłowo.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/visual-viewport-m6z1.png" alt="" />
+          </div>
+          <p>
+            Adaptacyjne zasady CSS, koncentrujące się na urządzeniach mobilnych, po prostu nie będą
+            używane, albo będą przekraczane w przeglądarce mobilnej. Na przykład, otwierając stronę
+            internetową na ekranie o szerokości 400px, zastosowane zostaną adaptacyjne zasady CSS,
+            obliczone na szerokość viewportu, na przykład 800px. Przez to zamienione zostaną style
+            mobilne, i zobaczymy strony dla tabletów, chociaż otwieraliśmy stronę internetową na
+            telefonie.
+          </p>
+        </article>
+        <article id="1.4">
+          <h3>1.4 Meta tag viewport</h3>
+          <p>
+            Strony, adaptowane dla przeglądania na różnych urządzeniach, powinny posiadać w
+            rozdziale &lthead> meta tag viewport. Powiadamia on przeglądarkę, w jaki sposób należy
+            kontrolowac rozmiary i skalę viewportu.
+          </p>
+          <pre>
+          &lthead>
+            &lt!-- Inne meta tagi -->
+            &ltmeta name="viewport" content="width=device-width, initial-scale=1.0" />
+            &lttitle>Meta tag viewport ważny dla stron adaptacyjnych&lt/title>
+          &lt/head>
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>
+              width=device-width — określna szerokość viewport (width), która dorównuje fizycznej
+              szerokości ekranu urządzenia (device-width).
+            </li>
+            <li>
+              initial-scale=1.0 — określa stosunek (skalę) 1:1 pomiędzy pikselami CSS i pikselami
+              fizycznymi urządzenia.
+            </li>
+          </ul>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/device-width-m6z1.png" alt="" />
+          </div>
+        </article>
+      </section>
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Zapytania Media</h2>
+          <p>
+            Zapytania Media — to instrument, który umożliwia tworzenie współczesnych adaptacyjnych
+            stron internetowych, które tak samo dobrze wyglądają na dowolnym ekranie: komputerze
+            stacjonarnym i smartphonie.
+          </p>
+          <p>
+            Praca z zapytaniami media to tak naprawdę zastosowanie tej czy innej zasady CSS. Wybór i
+            wykorzystanie określonej zasady CSS zależy od takich czynników, jak:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>wielkość okna przeglądarki (viewportu)</li>
+            <li>ustawienia przeglądarki</li>
+            <li>możliwości urządzenia</li>
+          </ul>
+          <p>Algorytm zastosowania stylów jest następujący:</p>
+          <ol class="numbered-list-container">
+            <li>Developer opisuje zestaw zapytań media i zasad CSS do nich stosowanych.</li>
+            <li>Przeglądarka śledzi zmianę rozmiaru viewportu.</li>
+            <li>
+              Przeglądarka stosuje zasady CSS z zapytań media, które pasują do aktualnego rozmiaru
+              viewportu.
+            </li>
+          </ol>
+          <p>
+            Można powiedzieć, że zapytania media to instrukcje, które można opisać w następujący
+            sposób: „chcę, aby gdy strona zostanie otwarta w szerokości X, kolor tekstu był
+            czerwony, a przy otwarciu w szerokości Y - zielony". Oprócz szerokości viewportu możemy
+            się skupić na wielu innych kryteriach. Może to być rozdzielczość ekranu, orientacja
+            urządzenia, ustawienia systemu operacyjnego itp.
+          </p>
+        </article>
+        <article id="2.2">
+          <h3>2.2 Budowa zapytania media (media queries)</h3>
+          <p>
+            Zapytanie media jest tworzone za pomocą polecenia @media, za którym może się znajdować:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>typ urządzenia (media-type)</li>
+            <li>typ funkcji media (media-feature)</li>
+          </ul>
+          <p>
+            Typ media i funkcja media to wyrażenia, które sprawdzają charakterystyki urządzenia (na
+            przykład - szerokość viewportu).
+          </p>
+          <pre>
+            @media media-type and (media-feature) {
+            /*
+            * Zestaw zasad CSS, jakie należy zastosować,
+            * jeśli warunek sprawdzenia typu media i funkcji są prawdziwe
+            }
+          </pre>
+          <p>
+            Typ media i funkcja media to logiczne wyrażenia, które zwracają prawdę (poprawnie) lub
+            fałsz (niepoprawnie). Na przykład, jeśli chcesz, aby tło &ltbody> było pomarańczowe przy
+            szerokości viewportu 900px lub większej, należy napisać następujące zapytanie media.
+          </p>
+          <pre>
+            @media screen and (min-width: 900px) {
+              body {
+                background-color: orange;
+              }
+            }
+          </pre>
+          <p>
+            W języku ludzkim można to odczytać w następujący sposób: „jeśli strona jest wyświetlana
+            na ekranie, której szerokość wynosi co najmniej 900 pikseli, musisz zastosować określoną
+            zasadę CSS".
+          </p>
+        </article>
+        <article id="2.3">
+          <h3>2.3 Funkcja min-width</h3>
+          <p>
+            Bardzo często w zapytaniu media należy zapisać warunek sprawdzania szerokości viewportu
+            przeglądarki. Funkcja min-width określa minimalną szerokość widocznego obszaru. W
+            przypadku, gdy ekran odpowiada wartości w min-width, stosowane będą zawarte w zapytaniu
+            zasady CSS.
+          </p>
+          <pre>
+            /* Poniższe reguły CSS są stosowane, jeśli szerokość viewport jest większa lub równa 800px */
+            @media (min-width: 800px) {
+              body {
+                background-color: orange;
+              }
+            }
+          </pre>
+          <p>
+            Jeśli wyobrażasz sobie szerokość widocznego obszaru jako linię prostą od 0 do
+            nieskończoności, zasada media z funkcją min-width oznacza interwał, na którym należy
+            zastosować style.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/media-min-width-m6z1.png" alt="" />
+          </div>
+          <p>
+            Na powyższym zdjęciu 800px jest breakpointem (punktem przełamania), to znaczy tym
+            rozmiarem widocznego obszaru, w którym cały układ lub poszczególne części zmieniają
+            swoje style, projekt strony zmienia się.
+          </p>
+        </article>
+        <article id="2.4">
+          <h3>2.4 Funkcja max-width</h3>
+          <p>
+            Funkcja media max-width oznacza maksymalną szerokość viewportu, do jakiej będą stosowane
+            zawarte w niej reguły CSS.
+          </p>
+          <pre>
+            /* Reguły CSS są stosowane, jeśli szerokość viewport jest mniejsza albo równa się 600px */
+            @media (max-width: 600px) {
+              body {
+                background-color: green;
+              }
+            }
+          </pre>
+          <p>
+            Jeśli wyobrażasz sobie szerokość widocznego obszaru jako linię prostą od 0 do
+            nieskończoności, zasada media z funkcją max-width oznacza interwał, na którym należy
+            zastosować style.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/media-max-width-m6z1.png" alt="" />
+          </div>
+        </article>
+        <article id="2.4">
+          <h3>2.4 Wielokrotne zapytania media</h3>
+          <p>
+            Media queries (zapytań media) może być tyle, ile chcesz. Tak naprawdę liczba punktów
+            przełamania zależy od projektu. Przeglądarka sprawdzi warunki wykonania każdego media
+            query i użyje odpowiednich stylów.
+          </p>
+          <pre>
+            body {
+              background-color: white;
+            }
+
+            /* Ma zastosowanie, jesli szerokość viewport jest poniżej 600px */
+            @media (max-width: 600px) {
+              body {
+                background-color: green;
+              }
+            }
+
+            /* Ma zastosowanie, jesli szerokość viewport jest powyżej 800px */
+            @media (min-width: 800px) {
+              body {
+                background-color: orange;
+              }
+            }
+          </pre>
+          <p>Gdy mamy taki kod, dla szerokości viewportu:</p>
+          <ul class="unnumbered-list-container">
+            <li>do 600 pikseli tło będzie miało zielony kolor</li>
+            <li>powyżej 800 pikseli — pomarańczowy</li>
+          </ul>
+          <p>
+            W zakresie od 601px do 799px - kolor tła będzie biały. Tło zaakceptuje wartości
+            domyślnie wskazane, ponieważ żadne zapytanie media nie będzie pasować.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/media-min-max-width-m6z1.png" alt="" />
+          </div>
+        </article>
+        <article id="2.5">
+          <h3>2.5 Nadpisywanie stylów</h3>
+          <p>
+            Przeglądarka może jednocześnie zastosować więcej niż jedno zapytanie media, jeśli
+            spełnione są warunki funkcji media. Zapytania o media nie zwiększają specyfiki zawartych
+            w nich selektorów, ale kolejność reguł nadal ma znaczenie. Oznacza to, że reguły zawarte
+            w żądaniach multimediów uczestniczą w standardowym kaskadowaniu podczas tworzenia
+            ostatecznych stylów elementu.
+          </p>
+          <pre>
+            /* Styl bazowy */
+            body {
+              background-color: #fff;
+            }
+
+            /* Przy 900px i więcej zamieniamy kolor tła */
+            @media (min-width: 900px) {
+              body {
+                background-color: #388e3c;
+              }
+            }
+          </pre>
+        </article>
+        <article id="2.6">
+          <h3>2.6 Typy mediów (media types)</h3>
+          <p>
+            Typ mediów służy do opisania typu urządzeń, na których można wyświetlić stronę
+            internetową. Ogólnie rzecz biorąc, wszystkie nowoczesne przeglądarki obsługują trzy typy
+          </p>
+          <p>
+            1. Wartość print umożliwia zdefiniowanie stylów, które zostaną zastosowane przy
+            wysyłaniu do druku. Druk można wykonać na drukarce fizycznej lub wirtualnie. W tym
+            drugim przypadku mamy na myśli urządzenia przeznaczone do odtwarzania wersji drukowanej,
+            np. przeglądarkę internetową wyświetlającą dokument w trybie „Podgląd".
+          </p>
+          <pre>
+            @media print {
+              body {
+                color: green;
+              }
+            }
+          </pre>
+          <p>
+            2. Wartość screen definiuje style, które będą stosowane tylko do urządzeń z fizycznym
+            ekranem: smartfony, tablety, monitory, telewizory itp. Oznacza to wszystko, co nie jest
+            objęte wartością print. Wartość screen jest używana bardzo często, ponieważ wiele
+            rodzajów mediów to urządzenia z ekranami.
+          </p>
+          <pre>
+            @media screen and (min-width: 400px) { /* ... */ }
+          </pre>
+          <p>Można nie określać osobno typu mediów screen, jeśli:</p>
+          <ul class="unnumbered-list-container">
+            <li>Style są pisane tylko dla ekranów (nie ma oddzielnych stylów do druku)</li>
+            <li>Style są zgodne ze stylami druku.</li>
+          </ul>
+          <p>
+            3. Jeśli nie określono typu nośnika, zostanie użyta wartość domyślna all. Oznacza ono
+            dowolne urządzenie.
+          </p>
+          <pre>
+            @media (min-width: 400px) { /* ... */ }
+          </pre>
+          <p>
+            Warunek zapytania media może być złożony lub prosty. Wszystko zależy od tego, czego
+            wymaga sytuacja. W większości przypadków wystarczy określić typ nośnika urządzenia
+            (najczęściej screen) i sprawdzić szerokość viewportu.
+          </p>
+        </article>
+      </section>
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Operatory logiczne</h2>
+          <p>
+            Przyjrzeliśmy się, jak napisać warunek stylu przed i po punkcie przełomu. Powiedzmy, że
+            chcemy opisać przedział od 600px do 900pxlub pogrupować reguły z tymi samymi stylami
+            przed 600 pikseli i po 900 pikseli. Jak stworzyć zapytanie medialne o style, które
+            zostaną zastosowane w zielonej przestrzeni?
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/operatory-logiczne-m6z1.png" alt="" />
+          </div>
+          <p>Zapytania media obsługują operatory logiczne and, or, not.</p>
+          <p>Dzięki operatorom logicznym możesz łączyć warunki żądania zapytań media.</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Operator logiczny and (i) — wymusza spełnienie wszystkich warunków, aby stwierdzenie
+              było prawdziwe.
+            </li>
+            <li>
+              Logiczne or (lub) — zakłada spełnienie co najmniej jednego warunku ze zbioru, aby
+              stwierdzenie było prawdziwe.
+            </li>
+            <li>
+              Logiczne not (NIE) — implikuje inwersję, to znaczy stwierdzenie będzie prawdziwe w
+              odwrotności: gdy warunek NIE zostanie spełniony.
+            </li>
+          </ul>
+          <p>Jeśli nie określono żadnego operatora, używana jest wartość domyślna — only.</p>
+          <pre>
+            @media only|not media-type ****only|and|not ****(media-feature) {
+              /*
+                Zestaw reguł CSS do zastosowania w dokumencie,
+                jeśli warunek sprawdzenia typu media i wyrażenia jest prawdziwy
+              */
+            }
+          </pre>
+        </article>
+        <article id="3.2">
+          <h3>3.2 Operator and</h3>
+          <p>Operator and (dosłownie "i") jest stosowany:</p>
+          <ul class="unnumbered-list-container">
+            <li>pomiędzy typem nośnika a zapytaniem media,</li>
+            <li>
+              dla łączenia kilku funkcji media ze sprawdzaniem wartości — to znaczy definiowaniem
+              odstępu między dwoma punktami przełamania.
+            </li>
+          </ul>
+          <p>W praktyce operator ten jest używany najczęściej.</p>
+          <pre>
+            @media screen and (min-width: 400px) and (max-width: 800px) {
+              body {
+                background-color: red;
+              }
+            }
+          </pre>
+          <p>
+            Takie zapytanie media zostanie zrealizowane tylko wtedy, gdy zostaną spełnione dwa
+            warunki:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>Strona internetowa jest otwarta na ekranie.</li>
+            <li>Szerokość viewportu mieści się w zakresie 400px do 800px.</li>
+          </ul>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/operator-and-m6z1.png" alt="" />
+          </div>
+        </article>
+        <article id="3.3">
+          <h3>3.3 Operator or</h3>
+          <p>
+            Operator or (dosłownie "LUB") pozwala określić zestaw wyrażeń, przy spełnieniu chociaż
+            jednego z których zostanie wykonane zapytanie media. Powiedzmy, że musisz zastosować te
+            same style w zakresie do 600px lub ponad 900px. Operator logiczny lub w kodzie jest
+            zapisywany jako przecinek (,)
+          </p>
+          <pre>
+            @media screen and (max-width: 600px), (min-width: 900px) {
+              body {
+                background-color: orange;
+              }
+            }
+          </pre>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/operator-or-m6z1.png" alt="" />
+          </div>
+          <p>
+            Widzimy, że jest to po prostu wyliczenie zbioru zapytań media, dla których należy
+            zastosować style. Można je zapisać jako dwa różne żądania multimediów. Jednak w takim
+            przypadku kod stylu zostanie zduplikowany.
+          </p>
+          <pre>
+            @media (max-width: 600px) {
+              body {
+                background-color: orange;
+              }
+            }
+
+            @media (min-width: 900px) {
+              body {
+                background-color: orange;
+              }
+            }
+          </pre>
+          <p>
+            Istnieje sekret, który pomoże ci poprawnie odczytać przedziały wartości: max-width
+            zamieniamy na słowo "DO" min-width — na słowo "OD"
+          </p>
+          <p>
+            Zatem powyższy przykład zapytania o media można odczytać jako: — w przedziale do 600px —
+            w przedziale od 900px
+          </p>
+        </article>
+        <article id="3.4">
+          <h3>3.4 Operator not</h3>
+          <p>
+            Operator not (dosłownie "NIE") umożliwia na wykonanie zaprzeczenia, czyli anulowanie
+            zapytania media. Słowo kluczowe not jest dodawane na początku zapytania media i dotyczy
+            całego żądania. Jest używane niezwykle rzadko. Zapiszmy warunek, w którym style powinny
+            mieć zastosowanie wszędzie z wyjątkiem wydruku.
+          </p>
+          <pre>
+            @media not print {
+              /* ... */
+            }
+          </pre>
+          <p>
+            Przy wykorzystaniu operatora not obowiązkowo trzeba wskazać typ nośnika. Jeśli nie
+            określisz typu nośnika, zostanie on ustawiony na wartość domyślną all. W ten sposób
+            pojawi się wyrażenie not all, które dosłownie będzie rozumiane jako „nie dotyczy
+            wszystkich nośników", a zapytanie media nigdy nie zostanie wykonane.
+          </p>
+          <pre>
+            /* Nigdy nie jest wykonywane */
+            @media not (max-width: 500px) {
+              /* ... */
+            }
+          </pre>
+          <p>
+            Kolejne zapytanie media zostanie zrealizowane tylko wtedy, gdy strona zostanie otwarta
+            na urządzeniu z ekranem, a szerokość widoku będzie większa 500px.
+          </p>
+          <pre>
+            @media not screen and (max-width: 500px) {
+              body {
+                background-color: tomato;
+              }
+            }
+          </pre>
+          <p>
+            Zwróć uwagę! W powyższym przykładzie operator logiczny not dotyczy obu warunków w
+            wyrażeniu screen and (max-width: 500px). Jest to cecha składni, o której należy
+            pamiętać.
+          </p>
+          <p>
+            W tym przypadku, dla ułatwienia odczytania kodu, zamiast negacji max-width, prościej
+            jest po prostu zastosować min-width.
+          </p>
+          <pre>
+            @media (min-width: 500px) {
+              body {
+                background-color: tomato;
+              }
+            }
+          </pre>
+        </article>
+      </section>
+      <section id="4" class="text">
+        <article id="4.1">
+          <h2>4.1 Podejście "Mobile First"</h2>
+          <p>
+            Projektowanie nowoczesnych stron internetowych jest zorientowane przede wszystkim na
+            urządzenia mobilne.
+          </p>
+          <p>
+            Podejście Mobile First polega na tym, że najpierw powstaje projekt wersji mobilnej,
+            potem wersji na tablety, a na końcu wersji desktopowej (webowej) - od mniejszej do
+            większej.
+          </p>
+          <p>Zalety podejścia Mobile First.</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Jedna strona internetowa — tylko jeden projekt dla wszystkich urządzeń. Zmniejsza
+              liczbę wymaganych programistów.
+            </li>
+            <li>
+              Wygoda interfejsu — użytkownicy na samym początku otrzymują najistotniejsze
+              informacje.
+            </li>
+            <li>
+              Szybkość ładowania — ilość pobieranych i wyświetlanych na urządzeniach mobilnych
+              danych może być mniejsza. Dzięki temu strona może ładować się szybciej.
+            </li>
+            <li>
+              Rankingi wyszukiwarek — wyszukiwarki, takie jak Google, priorytetowo traktują witryny
+              zoptymalizowane pod kątem urządzeń mobilnych.
+            </li>
+          </ul>
+        </article>
+        <article id="4.2">
+          <h3>4.2 Implementacja</h3>
+          <p>Technicznie implementacja jest dość prosta:</p>
+          <ul class="unnumbered-list-container">
+            <li>style dla urządzeń mobilnych — to domyślne style poza zapytaniami media.</li>
+            <li>
+              dla każdego punktu przełamań dodawane jest zapytanie o media, w którym wcześniej
+              zdefiniowane są niezbędne style bazowe.
+            </li>
+            <li>następnie dodawane są style z poprzedniego zakresu lub nowe style.</li>
+          </ul>
+          <p>
+            Poniższy diagram przedstawia strukturę zapytań media i stylów dla strony z dwoma
+            punktami przełamania: 768px i 1024px.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/implementacja-m6z1.png" alt="" />
+          </div>
+          <p>
+            W pierwszej kolejności tworzona jest wersja stylu podstawowego i mobilnego. Wszystkie
+            style dla szerszych ekranów są zamykane w odpowiednich zapytaniach o media. Znaczniki
+            HTML nie ulegają zmianie.
+          </p>
+          <p>
+            Przy podejściu Mobile First w zapytaniach media, w większości wypadków wykorzystuje się
+            funkcję media min-width, ponieważ style są zapisywane od mniejszego do większego
+            rozmiaru viewportu.
+          </p>
+          <pre>
+            selector {
+              /* Style bazowe */
+            }
+
+            @media (min-width: szerokość-tabletu) {
+              selector {
+                /* Style tabletu */
+              }
+            }
+
+            @media (min-width: szerokość-pulpitu) {
+              selector {
+                /* Style pulpitu */
+              }
+            }
+          </pre>
+          <p>Zalety takiego designu:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Uporządkowanie kodu, bo pomaga nam bieg dokumentu i model blokowy przy pozycjonowaniu
+              elementów interfejsu.
+            </li>
+            <li>„Dziedziczenie stylów" (inherit) od wąskich na szerokie ekrany.</li>
+            <li>Minimalne zastępowanie stylów pozycjonowania.</li>
+          </ul>
+        </article>
+        <article id="4.3">
+          <h3>4.3 Range styles (style zakresu)</h3>
+          <p>
+            W większości sytuacji wystarczy skorzystać z tej funkcji min-width i dodać lub zastąpić
+            style. Są jednak chwile, gdy korzystanie z funkcji media max-width sprawia, że kod jest
+            prostszy i bardziej przejrzysty.
+          </p>
+          <p>Rozważmy sytuację:</p>
+          <ol class="numbered-list-container">
+            <li>Na urządzeniu mobilnym (do 767px) do elementu należy dodać ramkę.</li>
+            <li>Dla tabletu (w zakresie od 768px do 1023px) element powinien posiadać cień.</li>
+            <li>Dla urządzeń desktopowych (od 1024px) element nie ma cienia.</li>
+          </ol>
+          <p>
+            Wykorzystanie wyłącznie min-width doprowadzi do tego, że w punkcie przełamania 768px
+            będziemy musieli wyzerować style ramki. A w punkcie przełamania 1024px będziemy zerować
+            style cienia. To kiepskie rozwiązanie.
+          </p>
+          <pre>
+            /* ❌ ŹLE */
+            .box {
+              border: 1px solid black;
+            }
+
+            @media (min-width: 768px) {
+              .box {
+                border: none;
+                box-shadow: 2px 2px 4px 2px black;
+              }
+            }
+
+            @media (min-width: 1024px) {
+              .box {
+                box-shadow: none;
+              }
+            }
+          </pre>
+          <p>
+            W takich sytuacjach lepszym rozwiązaniem może być zamknięcie określonych stylów w
+            określonych zakresach viewportu.
+          </p>
+          <p>Aby rozwiązać ten problem, używamy funkcji media max-width.</p>
+          <pre>
+            /* ✅ DOBRZE */
+            @media (max-width: 767px) {
+              .box {
+                border: 1px solid black;
+              }
+            }
+
+            @media (min-width: 768px) and (max-width: 1023px) {
+              .box {
+                box-shadow: 2px 2px 4px 2px black;
+              }
+            }
+          </pre>
+        </article>
+        <article id="4.4">
+          <h3>4.4 Adaptive grid (siatka adaptacyjna)</h3>
+          <p>
+            Rozważmy technikę tworzenia adaptacyjnej siatki elementów, gdy liczba wierszy i
+            elementów w rzędzie zmienia się w zależności od szerokości viewportu.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/adaptive-grid-m6z1.png" alt="" />
+          </div>
+          <p>
+            Użyjmy następującego znacznika HTML i umieśćmy go div.element w środku div.container
+            zgodnie z ilustracją (makietą) z dwoma punktami przełamania 768px i 1024px.
+          </p>
+          <pre>
+          &ltdiv class="container">
+            &ltdiv class="element">1&lt/div>
+            &ltdiv class="element">2&lt/div>
+            &ltdiv class="element">3&lt/div>
+            &ltdiv class="element">4&lt/div>
+            &ltdiv class="element">5&lt/div>
+            &ltdiv class="element">6&lt/div>
+          &lt/div>
+          </pre>
+          <p>Zapiszmy podstawowe style i style na urządzenia mobilne, czyli bez zapytania media.</p>
+          <p>
+            Nie ma stylów elementów związanych konkretnie z pozycjonowaniem. Istnieją jedynie style
+            kontenera, służące do regulacji jego szerokości, centrowania i ustawiania odstępu
+            pomiędzy elementami.
+          </p>
+          <pre>
+            .container {
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+              max-width: 1170px;
+              min-width: 320px;
+              maring: 0 auto;
+            }
+          </pre>
+          <p>
+            Minimalną i maksymalną szerokość kontenera określa szablon - jest to szerokość treści
+            strony w wersji mobilnej i desktopowej.
+          </p>
+          <p>
+            W pierwszym punkcie przełamania 768px konieczne jest ułożenie elementów poziomo, aby
+            mieściły się one w dwóch rzędach. Aby to zrobić, zmień kierunek osi głównej i spraw, aby
+            kontener był wieloliniowy. Dla elementów ustalamy wielkość według znanego już wzoru z
+            techniki tworzenia siatek.
+          </p>
+          <pre>
+            @media (min-width: 768px) {
+              .container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+              }
+
+              .element {
+                flex-basis: calc((100% - 10px) / 2);
+              }
+            }
+          </pre>
+          <p>
+            Zwróć uwagę na gap, która się zmieniła. Zrobiono to specjalnie, aby pokazać, że
+            przestrzenie między elementami mogą zmieniać się w różnych punktach przełamania.
+            Wszystko zależy od designu, dlatego należy być uważnym i sprawdzć, czy wartości
+            właściwości zmieniają się na różnych urządzeniach.
+          </p>
+          <p>
+            Ostatnim krokiem będzie zmiana odstępu, ilości i rozmiaru elementów punktu przełamania
+            1024px zgodnie z makietą.
+          </p>
+          <pre>
+            @media screen and (min-width: 1024px) {
+              .container {
+                gap: 15px;
+              }
+
+              .element {
+                flex-basis: calc((100% - 30px) / 3);
+              }
+            }
+          </pre>
+        </article>
+      </section>
+      <section id="5" class="text">
+        <article id="5.1">
+          <h2>5.1 Adaptacyjna grafika</h2>
+          <p>
+            Fizyczne piksele (device pixel albo hardware pixel) to najmniejsze elementy każdego
+            ekranu (jego matrycy), z których każdy ma swój własny kolor i jasność.
+          </p>
+          <p>
+            Rozdzielczość ekranu to liczba fizycznych pikseli na ekranie urządzenia. Na przykład
+            rozdzielczość 1920x1080 oznacza, że ekran ma fizyczną szerokość 1920 pikseli i wysokość
+            1080. Jeśli to pomnożysz, całkowita liczba pikseli na takim ekranie wyniesie 2073600.
+          </p>
+          <p>
+            Zagęszczenie pikseli (pixel density) to liczba fizycznych pikseli zawartych w jednym
+            calu. Mierzona jest w jednostkach ppi (pixels per inch). Im wyższa gęstość, tym mniejszy
+            rozmiar pikseli i tym więcej ich na ekranie.
+          </p>
+          <p>
+            Na urządzeniach z ekranami o większej gęstości pikseli więcej fizycznych pikseli mieści
+            się na tym samym rozmiarze ekranu ze względu na mniejszy rozmiar piksela. Zwiększa to
+            jakość i klarowność obrazu, sprawia, że obrazy są bardziej nasycone i realistyczne.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/retina-m6z1.jpeg" alt="" />
+          </div>
+        </article>
+        <article id="5.2">
+          <h3>5.2 Piksele CSS (device-independent pixels)</h3>
+          <p>
+            Na zwykłych ekranach jeden piksel CSS odpowiada jednemu pikselowi urządzenia fizycznego.
+          </p>
+          <p>
+            W przypadku powiększania i na ekranach o dużej gęstości pikseli w jednym pikselu CSS
+            może znajdować się więcej niż jeden piksel fizyczny. Powiedzmy, że mamy blok pikseli
+            2x2.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/retina1-m6z1.png" alt="" />
+          </div>
+          <p>Wiemy, że wymiary w pliku CSS i w dokumencie HTML są określane w pikselach CSS.</p>
+          <ul class="unnumbered-list-container">
+            <li>Na zwykłych ekranach element będzie zajmować obszar 2x2 pikseli fizycznych.</li>
+            <li>
+              Na ekranach, na przykład z zagęszczeniem 2, ten sam blok otrzyma 4x4 fizycznych
+              pikseli. Czyli: dwa razy więcej w pionie i poziomie.
+            </li>
+          </ul>
+          <p>
+            Zatem na ekranach o dwukrotnie większym standardowym zagęszczeniu pikseli liczba pikseli
+            jest 4 razy większa niż na normalnych ekranach.
+          </p>
+        </article>
+        <article id="5.3">
+          <h3>5.3 Piksele mapy bitowej (bitmap pixels)</h3>
+          <p>
+            Piksele mapy bitowej (bitmap pixels), rzadziej: piksele rastrowe — najmniejsze części
+            tworzące obraz rastrowy (png, jpg, gif itp.). Każdy piksel zawiera informację o swoim
+            kolorze i położeniu w układzie współrzędnych obrazu.
+          </p>
+          <p>W kodzie HTML lub CSS wymiary obrazu są określone w pikselach CSS.</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Podczas wyświetlania na normalnym ekranie jeden piksel mapy bitowej odpowiada jednemu
+              pikselowi CSS.
+            </li>
+            <li>
+              Na ekranach o zagęszczeniu 2 każdy piksel mapy bitowej jest mnożony czterokrotnie, co
+              prowadzi do utraty jakości obrazu, który nie jest przygotowany do retiny
+              (dostosowania).
+            </li>
+          </ul>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/retina2-m6z1.png" alt="" />
+          </div>
+          <p>
+            Dlatego obrazy rastrowe dla ekranów o zwiększonej gęstości pikseli muszą mieć większą
+            liczbę pikseli rastrowych. Zagwarantuje to ich normalną jakość podczas wyświetlania w
+            przeglądarce.
+          </p>
+        </article>
+        <article id="5.4">
+          <h3>5.4 Retinyzacja grafiki</h3>
+          <p>
+            Ekrany o zwiększonej gęstości pikseli wymagają specjalnie przygotowanych zasobów. Tekst
+            i grafika wektorowa wyglądają równie dobrze na każdym ekranie.
+          </p>
+          <p>
+            Retinyzacja — to technika przygotowania grafiki rastrowej. Aby to zrobić, musisz
+            wyeksportować większy obraz z szablonu. Aby pokazać obraz 200x300 pikseli CSS na ekranie
+            z zagęszczeniem 2, konieczne jest przygotowanie jego wariantu w rozmiarze 400x600, a dla
+            ekranu z zagęszczeniem 3 ten obraz powinien wynosić 600x900.
+          </p>
+          <p>Poniższy przykład wykorzystuje usługę obrazów online.</p>
+          <p>Przesyłane są trzy zdjęcia:</p>
+          <ol class="numbered-list-container">
+            <li>320x240 — dla zwyczajnych ekranów (1x),</li>
+            <li>640x480 — dla ekranów z zagęszczeniem 2 (2x)</li>
+            <li>960x720 — dla ekranów z zagęszczeniem 3 (3x)</li>
+          </ol>
+          <p>Rozmiar wszystkich elementów img jest taki sam — 320x240 pikseli CSS.</p>
+          <pre>
+            &lt!-- Image format from an image service.: https://picsum.photos/id/237/width/height -->
+
+          &lt!-- x1 -->
+          &ltimg
+            src="https://picsum.photos/id/237/320/240"
+            alt="Cute puppy"
+            width="320"
+            height="240"
+          />
+
+          &lt!-- x2 -->
+          &ltimg
+            src="https://picsum.photos/id/237/640/480"
+            alt="Cute puppy"
+            width="320"
+            height="240"
+          />
+
+          &lt!-- x3 -->
+          &ltimg
+            src="https://picsum.photos/id/237/960/720"
+            alt="Cute puppy"
+            width="320"
+            height="240"
+          />
+          </pre>
+          <div class="retinyzacja-grafiki-container_5-4">
+            <!-- x1 -->
+            <img
+              src="https://picsum.photos/id/237/320/240"
+              alt="Cute puppy"
+              width="320"
+              height="240"
+              class=""
+            />
+
+            <!-- x2 -->
+            <img
+              src="https://picsum.photos/id/237/640/480"
+              alt="Cute puppy"
+              width="320"
+              height="240"
+            />
+
+            <!-- x3 -->
+            <img
+              src="https://picsum.photos/id/237/960/720"
+              alt="Cute puppy"
+              width="320"
+              height="240"
+            />
+          </div>
+          <p>Rozmiar wszystkich elementów img jest taki sam — 320x240 pikseli CSS.</p>
+          <p>
+            Jeśli przejdziesz do przykładu za pomocą telefonu lub po prostu powiększysz stronę z
+            przykładem, zobaczysz, że:
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>Pierwsze zdjęcie jest bardzo rozmyte.</li>
+            <li>Drugie pozostaje dość wysokiej jakości.</li>
+            <li>Trzecie jest zawsze wyraźne.</li>
+          </ul>
+          <p>
+            W przypadku grafiki rastrowej wystarczy jedynie przygotować wersje 1x i 2x . Większość
+            ludzi o dobrym wzroku nie zauważy różnicy pomiędzy obrazami 2x i 3x, ale "waga" tego
+            ostatniego będzie znacznie większa, co negatywnie wpłynie na prędkość jego ładowania.
+          </p>
+          <h4>Proces retynizacji</h4>
+          <p>Proces przygotowania składa się z:</p>
+          <ol class="numbered-list-container">
+            <li>Eksport obrazów N razy większych niż rozmiar oryginalny.</li>
+            <li>
+              Zapisanie dużych obrazów z odpowiednimi przedrostkami @2x i @3x. Dla wersji
+              oryginalnej przedrostek nie jest konieczny.
+            </li>
+          </ol>
+          <p>Nie ma również potrzeby eksportowania i przesyłania największego obrazu.</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/proces-retynizacji-m6z1.png" alt="" />
+          </div>
+        </article>
+        <article id="5.5">
+          <h3>5.5 Obrazy elastyczne i responsywne</h3>
+          <h4>Obrazy elastyczne</h4>
+          <p>
+            Wyobraź sobie obraz o rozmiarze 1200x600 pikseli. Świetnie wygląda na szerokim ekranie.
+            A co się stanie, jeśli otworzymy stronę na telefonie lub tablecie? Kiepska sprawa.
+          </p>
+          <p>
+            Obraz nadal będzie mieć szerokość 1200 pikseli. W związku z tym pojawi się poziomy pasek
+            przewijania. A obraz będzie niewyraźny na ekranach o zwiększonym zagęszczeniu pikseli.
+          </p>
+          <h4>Obrazy responsywne</h4>
+          <p>
+            Obrazy reposnsywne — to termin używany do opisania zestawu technik stosowanych w HTML i
+            CSS, dzięki którym zawartość i obrazy tła wyglądają równie dobrze na urządzeniach o
+            różnych rozmiarach i gęstościach ekranów. Najłatwiejszym sposobem wdrożenia
+            responsywności jest elastyczność grafiki, czyli użycie jednego obrazu dla wszystkich
+            urządzeń i globalne określenie zestawu właściwości CSS (patrz kod poniżej).
+          </p>
+          <pre>
+            img {
+              display: block;
+              max-width: 100%;
+            }
+          </pre>
+          <ul class="unnumbered-list-container">
+            <li>Obraz musi być blokowy, aby usunąć dolną „przerwę" elementu wiersza.</li>
+            <li>
+              Maksymalna szerokość 100% gwarantuje, że w razie potrzeby obraz zostanie zmniejszony.
+              Jednocześnie nie będzie się rozciągać bardziej, niż 100% swojej pierwotnej szerokości,
+              aby nie tracić jakości.
+            </li>
+          </ul>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlCss/obrazy-reposnsywne-m6z1.png" alt="" />
+          </div>
+          <p>
+            Tak działa prosta technika elastycznego obrazu - jeden obraz dla wszystkich urządzeń,
+            który dopasowuje się do aktualnej szerokości elementu nadrzędnego.
+          </p>
+          <pre>
+            .obrazy-responsywne-main-container_5-5 {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+
+              .obrazy-responsywne-container_5-5 {
+                max-width: 960px;
+                min-width: 320px;
+                margin: 0 auto;
+
+                img {
+                  display: block;
+                  max-width: 100%;
+                }
+              }
+            }
+          </pre>
+          <div class="obrazy-responsywne-main-container_5-5">
+            <div class="obrazy-responsywne-container_5-5">
+              <img src="https://unsplash.it/960/480" alt="A random image" />
+            </div>
+          </div>
+        </article>
+        <article id="5.6">
+          <h3>5.6 Obrazy responsywne</h3>
+          <p>Aby umożliwić przeglądarce ładowanie różnych obrazów:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              developer określa listę obrazów dostępnych do pobrania, wraz z ich rozmiarami i
+              gęstością pikseli, za pomocą atrybutów srcset i sizes.
+            </li>
+            <li>
+              przeglądarka wybiera obraz, odpowiadający zagęszczeniu pikseli ekranu i szerokości
+              viewportu, i pobiera go.
+            </li>
+          </ul>
+          <p>
+            Załóżmy, że developer określił dwa dostępne obrazy: 300x300 i 600x600 pikseli. Jeśli
+            przeglądarce wystarczy obraz 300x300, oznacza to czterokrotną oszczędność wagi
+            ładowanego obrazu. Im mniejszy rozmiar ekranu urządzenia, tym szybsze pobieranie.
+          </p>
+          <pre>
+             &ltimg srcset="./img/photo.jpg 1x, ./img/photo@2x.jpg 2x" />
+          </pre>
+          <p>
+            Aby przeglądarka wybrała odpowiedni obraz, konieczne jest użycie elementu img z
+            atrybutem srcset.
+          </p>
+          <p>
+            Atrybut srcset określa listę wersji obrazu w różnych rozmiarach. Po ścieżce obrazu
+            dodawany jest deskryptor x, który informuje przeglądarkę, dla jakiej gęstości ekranu
+            jest odpowiednia ta wersja obrazu. Lista tych zgłoszeń jest oddzielona przecinkiem.
+          </p>
+          <pre>
+            &ltimg
+            srcset="./img/photo.jpg 1x, ./img/photo@2x.jpg 2x"
+            src="./img/photo.jpg"
+            alt="Opis obrazów dla wszystkich wersji"
+          />
+          </pre>
+          <p>
+            W atrybucie src obowiązkowo należy podać wersję obrazu w jakości standardowej. Ta wersja
+            obrazu zostanie użyta, jeśli przeglądarka jest starsza i nie wie, jak obsługiwać atrybut
+            srcset.
+          </p>
+        </article>
+        <article id="5.7">
+          <h3>5.7 Obrazy tła</h3>
+          <p>
+            Rastrowe obrazy tła należy również przygotować dla ekranów o dużym zagęszczeniu. Aby
+            dokonać retinizacji obrazu tła, należy ustawić rozmiar tła elementu równy rozmiarowi
+            samego elementu.
+          </p>
+          <pre>
+            .box {
+              width: 200px;
+              height: 300px;
+              background-image: url('photo.png');
+              background-size: 200px 300px;
+            }
+          </pre>
+          <p>
+            Jeśli element nie ma stałej szerokości i wysokości, czyli zależy od szerokości elementu
+            nadrzędnego, rozmiar tła można ustawić na wartość cover. W tym wypadku obraz w pełni
+            wypełni tło.
+          </p>
+          <pre>
+            .box {
+              background-image: url('photo.png');
+              background-size: cover;
+            }
+          </pre>
+          <p>
+            Na jakość wyświetlania tła wpływa również zagęszczenia pikseli ekranu. Aby określić
+            zagęszczenie pikseli ekranu CSS, dostępne są funkcje media: resolution, min-resolution i
+            max-resolution. Pozwalają sprawdzić dokładne dopasowanie oraz minimalną/maksymalną
+            wartość zagęszczenia pikseli urządzenia.
+          </p>
+          <p>
+            Wewnątrz żądania media ze sprawdzeniem zagęszczenia pikseli nadpisujemy ścieżkę do
+            obrazu tła.
+          </p>
+          <pre>
+            /* Style bazowe i 1x grafika */
+            .box {
+              width: 200px;
+              height: 300px;
+              background-image: url('photo.png');
+              background-size: 200px 300px;
+            }
+
+            /* Określamy nową ścieżkę do obrazu jeśli zagęszczenie obrazu wynosi minimum 2x */
+            @media (min-resolution: 192dpi) {
+              .box {
+                background-image: url('photo@2x.png');
+              }
+            }
+          </pre>
+          <p>
+            Wartością funkcji media sprawdzenia zagęszczenia pikseli to jednostka dpi (dots per
+            inch), czyli ilość fizycznych pikseli na cal ekranu.
+          </p>
+          <p>
+            Na ekranach o standardowym zagęszczeniu pikseli wynoszącym jeden cal jest 96 punktów.
+            Dlatego w celu sprawdzenia ekranów z zagęszczeniem 2 i więcej podajemy wartość 192dpi
+            (96x2).
+          </p>
         </article>
       </section>
       <section id="7" class="text">
@@ -68,6 +1169,5 @@
     </footer>
     <!-- SKRYPTY JS -->
     <script defer type="module" src="../scripts/menuHtmlCss.mjs"></script>
-    <script defer type="module" src="../scripts/htmlCssScripts/02-html.mjs"></script>
   </body>
 </html>

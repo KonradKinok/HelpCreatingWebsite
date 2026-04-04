@@ -1,0 +1,27 @@
+.responsywnosc-m6z1 {
+
+  //5.4
+  .retinyzacja-grafiki-container_5-4 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .obrazy-responsywne-main-container_5-5 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .obrazy-responsywne-container_5-5 {
+      max-width: 960px;
+      min-width: 320px;
+      margin: 0 auto;
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+    }
+  }
+}
