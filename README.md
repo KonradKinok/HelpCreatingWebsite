@@ -1,5 +1,6 @@
 HelpCreatingWebsite
 
+https://konradkinok.github.io/HelpCreatingWebsite/
 
 # GoIT FSON17: JavaScript
 
@@ -43,7 +44,7 @@ SCSS to inny format CSS, który musi być *skompilowany*, tj. zbudowany do zwyk�
 ```scss
 .parent {
   background: #fff;
-  
+
   .main {
     background: #eee;
 
