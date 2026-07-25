@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
+    />
+    <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
+    <link rel="stylesheet" href="../styles/stylStartowy.scss" />
+    <link rel="stylesheet" href="../styles/htmlCssStyles.scss" />
+
+    <title>Git</title>
+  </head>
+  <body class="body-container">
+    <header class="menu-sticky">
+      <nav class="nav-container">
+        <!-- Nawigacja do innych stron -->
+        <ul id="main-menu" class="nav-list-container"></ul>
+        <ul id="this-page-menu" class="this-page-menu"></ul>
+      </nav>
+    </header>
+    <main class="main-container">
+      <!-- section1 -->
+      <section id="1" class="text">
+        <article id="1.1">
+          <h2>1.1 Git</h2>
+          <p>
+            System kontroli wersji - program, który pozwala śledzić, modyfikować i zapisywać różne
+            wersje plików projektu. Program ten działa na zasadzie punktów kontrolnych (commitów), w
+            których przechowywane są różne stany plików.
+          </p>
+          <p>
+            W repozytorium projektu (repozytorium bieżącego projektu, które jest pod kontrolą
+            programu - w naszym przypadku programu git) przechowywane są różne commity (wersje) tego
+            projektu. Obszar roboczy zawiera wszystkie pozostałe pliki projektu: style, znaczniki,
+            ilustracje, skrypty itp.
+          </p>
+          <p>UWAGA! O czym należy pamiętać w przypadku commitów?</p>
+          <ul class="unnumbered-list-container">
+            <li>Commit zapisuje pełny stan przestrzeni roboczej projektu (pliki, foldery).</li>
+            <li>Jeśli w przestrzeni roboczej były zmiany, możemy je zapisać jako osobny commit.</li>
+            <li>
+              W repozytorium pojawi się nowy commit z unikalnym identyfikatorem - numerem wersji.
+            </li>
+            <li>Dodaj opis do commita, aby mieć pojęcie, co się zmieniło w tej wersji.</li>
+            <li>Wszystkie commity projektu są przechowywane w repozytorium.</li>
+            <li>
+              Możesz cofnąć się do dowolnego commitu i zobaczyć, jak wyglądały pliki projektu.
+            </li>
+          </ul>
+          <p>
+            Git - to popularny systemem kontroli wersji, który jest obecnie używany w większości
+            projektów. Dzięki git możesz tworzyć lokalne repozytoria na swoim komputerze.
+          </p>
+          <p>
+            GitHub - to jedna z usług opartych na git, która pozwala na przechowywanie repozytoriów
+            na serwerach w chmurze. GitHub umożliwia pracę ze zdalnymi repozytoriami, a tym samym
+            dzielenie się kodem z zespołem - nad projektami może pracować jednocześnie 20-30
+            programistów lub więcej.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Git</th>
+                <th>GitHub</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Co?</td>
+                <td>Program do kontroli wersji&nbsp;</td>
+                <td>Serwis oparty na git</td>
+              </tr>
+              <tr>
+                <td>Gdzie?</td>
+                <td>Na komputerze</td>
+                <td>
+                  Na stronie
+                  <a href="http://github.com/" target="_blank" rel="noopener noreferrer"
+                    >http://github.com/</a
+                  >, gdzie można zarejestrować się jako sieć społecznościowa
+                </td>
+              </tr>
+              <tr>
+                <td>Co to znaczy?</td>
+                <td>Pozwala na tworzenie lokalnych repozytoriów</td>
+                <td>Umożliwia przechowywanie kodu w zdalnym repozytorium w chmurze</td>
+              </tr>
+              <tr>
+                <td>Do czego to służy?</td>
+                <td>
+                  Śledzenie i zapisywanie zmian lokalnie oraz wygodna praca nad projektem nawet bez
+                  dostępu do Internetu
+                </td>
+                <td>
+                  Pozwala zawsze mieć dostęp do swojego projektu z cudzego komputera lub aby
+                  ponownie pobrać swój projekt w przypadku problemów z komputerem
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+      <section id="2" class="text">
+        <article id="2.1">
+          <h2>2.1 Tworzymy repozytorium na GitHub</h2>
+          <ol class="numbered-list-container">
+            <li>Otwórz narzędzia programistyczne i przejdź do karty „Network".</li>
+            <li>Wybierz filtr „CSS", aby były wyświetlane tylko pliki stylów.</li>
+            <li>Kliknij plik z Google Fonts.</li>
+            <li>Wybierz kartę „Preview", która wyświetli zawartość pliku.</li>
+          </ol>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-logo">
+        <img src="../images/footer/konikMaly24x24Squoosh.png" alt="logoImage" width="24" />
+        <img src="../images/footer/3KLogo.png" alt="logoText" />
+      </div>
+      <div id="footer-title">
+        <p></p>
+      </div>
+      <div class="footer-date">
+        <p>31.07.2024r.</p>
+      </div>
+    </footer>
+    <!-- SKRYPTY JS -->
+    <script defer type="module" src="../scripts/menuInstalacja.mjs"></script>
+  </body>
+</html>
