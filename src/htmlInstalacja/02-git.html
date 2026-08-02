@@ -115,12 +115,173 @@
       <section id="2" class="text">
         <article id="2.1">
           <h2>2.1 Tworzymy repozytorium na GitHub</h2>
+          <ul class="unnumbered-list-container">
+            <li>
+              Publiczne repozytorium (Public) to repozytorium, którego kod źródłowy jest dostępny
+              pod linkiem, czyli autor umożliwia innym korzystanie ze swojego kodu (nazywa się to
+              open source software). Na GitHub możesz tworzyć nieograniczoną liczbę publicznych
+              repozytoriów.
+            </li>
+            <li>
+              Prywatne repozytorium (Private) jest wykorzystywane do prywatnych projektów, dostęp do
+              kodu w prywatnych repozytoriach jest ograniczony. Na GitHub można bezpłatnie utworzyć
+              tylko 3 prywatne repozytoria. Tworzenie kolejnych prywatnych repozytoriów jest płatne.
+            </li>
+          </ul>
+          <p>
+            Na Github istnieje opcja .gitignore, która służy do ukrywania plików i folderów przed
+            systemem kontroli wersji Git. Zazwyczaj pliki, których nie musimy kontrolować za
+            pośrednictwem Git to ustawienia edytora VS Code, atrybuty folderów na komputerze,
+            układy, pliki konfiguracyjne (zwłaszcza z hasłami), itp. Wszystko to można umieścić w
+            .gitignore.
+          </p>
+        </article>
+      </section>
+      <section id="3" class="text">
+        <article id="3.1">
+          <h2>3.1 Instalujemy GitHub Desktop na Windows</h2>
+          <p>
+            Przejdź za pomocą linku
+            <a href="https://desktop.github.com/" target="_blank" rel="noopener noreferrer"
+              >https://desktop.github.com/</a
+            >
+            i kliknij przycisk Download, aby rozpocząć proces pobierania.
+          </p>
+          <ul class="unnumbered-list-container">
+            <li>
+              Publiczne repozytorium (Public) to repozytorium, którego kod źródłowy jest dostępny
+              pod linkiem, czyli autor umożliwia innym korzystanie ze swojego kodu (nazywa się to
+              open source software). Na GitHub możesz tworzyć nieograniczoną liczbę publicznych
+              repozytoriów.
+            </li>
+            <li>
+              Prywatne repozytorium (Private) jest wykorzystywane do prywatnych projektów, dostęp do
+              kodu w prywatnych repozytoriach jest ograniczony. Na GitHub można bezpłatnie utworzyć
+              tylko 3 prywatne repozytoria. Tworzenie kolejnych prywatnych repozytoriów jest płatne.
+            </li>
+          </ul>
+          <p>
+            Na Github istnieje opcja .gitignore, która służy do ukrywania plików i folderów przed
+            systemem kontroli wersji Git. Zazwyczaj pliki, których nie musimy kontrolować za
+            pośrednictwem Git to ustawienia edytora VS Code, atrybuty folderów na komputerze,
+            układy, pliki konfiguracyjne (zwłaszcza z hasłami), itp. Wszystko to można umieścić w
+            .gitignore.
+          </p>
+        </article>
+        <article id="3.2">
+          <h2>3.2 Synchronizujemy GitHub Desktop i profil na github.com</h2>
           <ol class="numbered-list-container">
-            <li>Otwórz narzędzia programistyczne i przejdź do karty „Network".</li>
-            <li>Wybierz filtr „CSS", aby były wyświetlane tylko pliki stylów.</li>
-            <li>Kliknij plik z Google Fonts.</li>
-            <li>Wybierz kartę „Preview", która wyświetli zawartość pliku.</li>
+            <li>
+              Aby skopiować repozytorium z Internetu na komputer, naciśnij przycisk Clone a
+              Repository...
+            </li>
+            <li>
+              Aby zalogować się na swoje konto GitHub i sklonować utworzone tam repozytorium
+              naciśnij przycisk Sign in i naciśnij przycisk Continue with browser. Upewnij się, że
+              masz otwarty profil GitHub w przeglądarce.
+            </li>
+            <li>
+              Aby zsynchronizować profil na github.com z programem, który właśnie pobrałeś na
+              komputer naciśnij przycisk Authorize desktop i poczekaj na przekierowanie do programu
+              GitHub Desktop.
+            </li>
+            <li>
+              Teraz na ekranie wyświetla się folder/repozytorium, które zostało utworzone w profilu
+              na stronie github.com.
+            </li>
           </ol>
+        </article>
+        <article id="3.3">
+          <h2>3.3 Klonujemy repozytorium z profilu github.com na komputer</h2>
+          <ol class="numbered-list-container">
+            <li>
+              Aby skopiować repozytorium z Internetu na komputer, naciśnij przycisk Clone a
+              Repository...
+            </li>
+            <li>
+              Wybierz interesujące Cię repozytorium ze zsynchronizowanego profilu GitHub kliknij na
+              repozytorium i naciśnij Clone. Innym możliwym sposobem pobrania repozytorium jest
+              wprowadzenie linku do repozytorium z Internetu. Aby to zrobić, należy: Nacisnąć
+              przycisk URL Skopiować adres URL repozytorium z zakładki w Internecie i wstawić do
+              pola wejściowego
+            </li>
+            <li>
+              Za pierwszym razem sprawdź, gdzie dokładnie na komputerze znajduje się folder, do
+              którego klonowane jest repozytorium. Aby to zrobić Naciśnij przycisk Choose i wybierz
+              lub utwórz folder, w którym będą przechowywane wszystkie projekty z GitHub. Wybierz
+              folder i naciśnij przycisk Select.
+            </li>
+            <li>
+              Naciśnij Clone. Poczekaj i sprawdź, czy repozytorium pojawiło się w określonym
+              folderze.
+            </li>
+          </ol>
+        </article>
+        <article id="3.4">
+          <h2>3.4 Synchronizujemy GitHub i edytor VS Code</h2>
+          <ol class="numbered-list-container">
+            <li>Otwórz edytor kodu VS Code na swoim komputerze</li>
+            <li>Naciśnij File i wybierz Open</li>
+            <li>Otwórz folder z repozytorium, które sklonowałeś z Internetu</li>
+            <li>
+              Aby utworzyć nowy plik, w którym można pisać kod: umieść kursor na ikonie liścia i
+              kliknij lewym przyciskiem myszy. W polu wejściowym wprowadź nazwę, na przykład
+              index.html Naciśnij Enter. Pierwszy plik w tym projekcie został utworzony!
+            </li>
+            <li>
+              Wprowadźmy zmiany w pliku index.html. Naciśnij klawisz Shift i cyfrę 1 Z listy
+              rozwijanej wybierz ! (wykrzyknik) i Naciśnij Enter
+            </li>
+          </ol>
+        </article>
+        <article id="3.5">
+          <h2>3.5 Tworzymy nowe repozytorium na podstawie poprzedniego</h2>
+          <ol class="numbered-list-container">
+            <li>
+              Aby wszystkie materiały z istniejącego repozytorium znalazły się w nowym, należy
+              utworzyć z niego szablon. W tym celu: otwórz repozytorium pierwszej pracy domowej na
+              github, otwórz zakładkę Settings, zaznacz pole obok Template repository.
+            </li>
+            <li>
+              Aby utworzyć nowe repozytorium, kliknij ikonę z + (plus), wybierz New repository z
+              listy rozwijanej i wprowadź nazwę nowego repozytorium,
+            </li>
+            <li>
+              Wybierz szablon, z którego należy wyciągnąć pliki. W tym celu: w bloku Repository
+              template naciśnij przycisk No templates, z listy rozwijanej wybierz potrzebny szablon
+              i naciśnij Create repository na dole strony.
+            </li>
+            <li>
+              Aby utworzyć nowy plik, w którym można pisać kod: umieść kursor na ikonie liścia i
+              kliknij lewym przyciskiem myszy. W polu wejściowym wprowadź nazwę, na przykład
+              index.html Naciśnij Enter. Pierwszy plik w tym projekcie został utworzony!
+            </li>
+            <li>
+              Wprowadźmy zmiany w pliku index.html. Naciśnij klawisz Shift i cyfrę 1 Z listy
+              rozwijanej wybierz ! (wykrzyknik) i Naciśnij Enter
+            </li>
+          </ol>
+        </article>
+      </section>
+      <section id="4" class="text">
+        <article id="4.1">
+          <h2>4.1 Filmy</h2>
+          <p>
+            <a
+              href="https://www.youtube.com/watch?v=PkPqDHx3nVA"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub - nagranie pomocnicze</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://www.youtube.com/watch?v=-vVxea2jdTc"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub - nagranie pomocnicze 2</a
+            >
+          </p>
         </article>
       </section>
     </main>
