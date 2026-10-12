@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
+    />
+    <!-- <style type="text/css">	@import url(./styles/stylStartowy.css);	</style> -->
+    <link rel="stylesheet" href="../styles/stylStartowy.scss" />
+    <link rel="stylesheet" href="../styles/htmlCssStyles.scss" />
+
+    <title>Nowy projekt</title>
+  </head>
+  <body class="body-container">
+    <header class="menu-sticky">
+      <nav class="nav-container">
+        <!-- Nawigacja do innych stron -->
+        <ul id="main-menu" class="nav-list-container"></ul>
+        <ul id="this-page-menu" class="this-page-menu"></ul>
+      </nav>
+    </header>
+    <main class="main-container">
+      <!-- section1 -->
+      <section id="1" class="text">
+        <article id="1.1">
+          <h2>1.1 Nowy projekt</h2>
+        </article>
+        <article id="1.2">
+          <h3>1.2 GitHub Desktop</h3>
+          <p>W GitHub Desktop wybierz:</p>
+          <ol class="numbered-list-container">
+            <li>File -> New repository... (Ctrl+N)</li>
+            <li>Uzupełnij: Name</li>
+            <li>Zaznacz: Initialize this repository with a README</li>
+            <li>
+              Jeżeli projekt będzie tworzony w React + TypeScript + Vite to w
+              <b>Git ignore</b> wybierz <b>Node</b>. To jest właściwy .gitignore dla większości
+              projektów JavaScript/TypeScript opartych o Node.js (React, Vite, Next.js, Express
+              itd.). Będzie on ignorował m.in.:
+              <ul class="unnumbered-list-container">
+                <li>node_modules/</li>
+                <li>logi (*.log)</li>
+                <li>niektóre pliki tymczasowe</li>
+                <li>pliki środowiskowe (w zależności od konfiguracji)</li>
+              </ul>
+            </li>
+            <li>
+              Choose a license: MIT (jeśli projekt ma być otwartoźródłowy) albo None (jeśli na razie
+              nie chcesz dodawać licencji)
+            </li>
+            <li>Na koniec wybierz: Create repository</li>
+          </ol>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/01-np-github-start.webp" alt="" />
+          </div>
+          <p>
+            Po utworzeniu lokalnego repozytorium otwórz Visual Studio przez: Open in Visual Studio
+            Code
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/02-np-github-startVSC.webp" alt="" />
+          </div>
+        </article>
+        <article id="1.3">
+          <h3>1.3 Visual Studio Code</h3>
+          <p>Po otwarciu Visual Studio Code, uruchom i przejdź na zakładkę: Terminal</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/03-np-vscStart.webp" alt="" />
+          </div>
+          <p>
+            W terminalu wpisz: <b>npm create vite@latest .</b> (kropka na końcu jest wymagana) i
+            naciśnij enter
+          </p>
+          <p>
+            Kluczowa jest tutaj kropka . — oznacza "utwórz projekt w bieżącym katalogu", czyli
+            bezpośrednio w ApiTest.
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/04-createVite.webp" alt="" />
+          </div>
+          <p>Po wpisaniu pojawi się komunikat:</p>
+          <pre>
+            Need to install the following packages:
+            create-vite@9.2.1
+            Ok to proceed? (y)
+          </pre>
+          <p>Wpisz: y i naciśnij enter</p>
+          <p>Po wpisaniu "y" pojawi się komunikat:</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/05-np-createVite2.webp" alt="" />
+          </div>
+          <pre>
+            ◆  Current directory is not empty. Please choose how to proceed:
+            │  ○ Cancel operation
+            │  ○ Remove existing files and continue
+            │  ● Ignore files and continue
+            │  ↑/↓ to navigate • Enter: confirm
+            └
+          </pre>
+          <p>Wybierz: <b>Ignore files and continue</b> i naciśnij enter</p>
+          <p>
+            Ponieważ w katalogu ApiTest są utworzone pliki przez GitHub Desktop, przede wszystkim
+            README.md i .gitignore. Nie chcemy ich usuwać.
+          </p>
+          <p>
+            Nie wybieraj <b>Remove existing files and continue</b>, bo ta opcja może usunąć
+            istniejące pliki z katalogu przed utworzeniem projektu.
+          </p>
+          <p>Po wybraniu <b>Ignore files and continue</b> pojawi się komunikat:</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/06-np-createVite3.webp" alt="" />
+          </div>
+          <pre>
+            ◇  Current directory is not empty. Please choose how to proceed:
+            │  Ignore files and continue
+            │
+            ◆  Package name:
+            │  apitest
+            └
+          </pre>
+          <p>Vite pyta o nazwę pakietu npm</p>
+          <p>Możesz zostawić apitest i po prostu nacisnąć Enter.</p>
+          <p>
+            Dlaczego jest apitest, a nie ApiTest? Nazwy pakietów npm powinny być pisane małymi
+            literami, więc Vite proponuje poprawną nazwę.
+          </p>
+          <p>Po naciśnięciu enter pojawi się komunikat:</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/07-np-createVite4.webp" alt="" />
+          </div>
+          <pre>
+            ◆  Select a framework:
+            │  ● Vanilla
+            │  ○ Vue
+            │  ○ React
+            │  ...
+            │  ↑/↓ to navigate • Enter: confirm
+            └
+          </pre>
+          <p>Strzałką ↓ przejdź na <b>React</b> i naciśnij enter</p>
+          <p>Po naciśnięciu enter pojawi się komunikat:</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/08-np-createVite5.webp" alt="" />
+          </div>
+          <pre>
+            ◆  Select a variant:
+            │  ● TypeScript
+            │  ○ TypeScript + React Compiler
+            │  ○ JavaScript
+            │  ...
+            │  ↑/↓ to navigate • Enter: confirm
+            └
+          </pre>
+          <p>Strzałką ↓ przejdź na <b>TypeScript</b> i naciśnij enter</p>
+          <p>Po naciśnięciu enter pojawi się komunikat:</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/09-np-createVite6.webp" alt="" />
+          </div>
+          <pre>
+            ◆  Which linter to use?
+            │  ● Oxlint
+            │  ○ ESLint
+            │  ↑/↓ to navigate • Enter: confirm
+            └
+          </pre>
+          <p>Strzałką ↓ przejdź na <b>ESLint</b> i naciśnij enter</p>
+          <p>
+            <b>ESLint</b> jest rozwiązaniem starszym, bardzo dojrzałym i ma ogromny ekosystem
+            pluginów. Znajdziesz też znacznie więcej poradników i odpowiedzi dotyczących jego
+            konfiguracji w React + TypeScript.
+          </p>
+          <p>
+            <b>Oxlint</b> jest nowszym linterem napisanym w Rust. Jego dużą zaletą jest przede
+            wszystkim szybkość. Jest obecnie coraz szerzej stosowany, ale ESLint nadal daje bardzo
+            szeroki ekosystem i będzie dobrym wyborem do projektu, który dopiero tworzysz.
+          </p>
+          <p>Później będziesz mógł uruchomić kontrolę całego projektu poleceniem:</p>
+          <pre>
+            npm run lint
+          </pre>
+          <p>
+            npm run lint sprawdza Twój kod pod kątem błędów i problemów wskazywanych przez linter. W
+            Twoim przypadku, ponieważ wybrałeś ESLint, uruchomi ESLint.
+          </p>
+          <p>
+            Ważne: nie uruchamia aplikacji i standardowo nie zmienia kodu — przede wszystkim go
+            analizuje.
+          </p>
+          <p>Po naciśnięciu enter pojawi się komunikat:</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/10-np-createVite7.webp" alt="" />
+          </div>
+          <pre>
+            ◆  Install with npm and start now?
+            │  ● Yes / ○ No
+            └
+          </pre>
+          <p>Strzałką -> przejdź na <b>Yes</b> i naciśnij enter</p>
+          <p>Ta opcja zrobi za Ciebie od razu dwie rzeczy:</p>
+          <ul class="unnumbered-list-container">
+            <li>
+              npm install — zainstaluje wszystkie potrzebne pakiety/zależności projektu, m.in.
+              React, TypeScript, Vite i ESLint. Powstanie też katalog node_modules
+            </li>
+            <li>
+              Uruchomi projekt — odpowiednik npm run dev, czyli wystartuje lokalny serwer Vite.
+            </li>
+          </ul>
+          <p>Po naciśnięciu enter pojawi się komunikat:</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/11-np-createVite8.webp" alt="" />
+          </div>
+          <pre>
+             VITE v8.3.4  ready in 399 ms
+
+              ➜  Local:   http://localhost:5173/
+              ➜  Network: use --host to expose
+              ➜  press h + enter to show help
+          </pre>
+          <p>Gotowe — Vite + React + TypeScript + ESLint są zainstalowane, a projekt działa.</p>
+          <p>Otwórz w przeglądarce adres pokazany przez Vite:</p>
+          <pre>
+            http://localhost:5173/
+          </pre>
+          <p>Powinieneś zobaczyć domyślną stronę startową Vite/React.</p>
+          <p>To, co widzisz w terminalu, oznacza:</p>
+          <p>Vite uruchomił serwer deweloperski w 399 ms.</p>
+          <pre>
+            VITE v8.3.4  ready in 399 ms
+          </pre>
+          <p>Tutaj działa Twoja aplikacja na Twoim komputerze.</p>
+          <pre>
+            Local: http://localhost:5173/
+          </pre>
+          <p>
+            Opcja pozwalająca później udostępnić aplikację innym urządzeniom w Twojej sieci lokalnej
+          </p>
+          <pre>
+            Network: use --host to expose
+          </pre>
+          <p>
+            To jest bardzo przydatne przy tworzeniu strony responsywnej, bo możesz pisać kod na
+            komputerze w VS Code, a jednocześnie oglądać stronę na prawdziwym telefonie
+          </p>
+          <p>Jak tego użyć</p>
+          <p>Najpierw zatrzymaj obecnie działający Vite:</p>
+          <pre>
+            Ctrl + C
+          </pre>
+          <p>Następnie zamiast:</p>
+          <pre>
+            npm run dev
+          </pre>
+          <p>uruchom:</p>
+          <pre>
+            npm run dev -- --host
+          </pre>
+          <p>Vite powinien pokazać coś podobnego:</p>
+          <pre>
+            VITE v8.3.4  ready in 300 ms
+            ➜  Local:   http://localhost:5173/
+            ➜  Network: http://192.168.1.15:5173/
+          </pre>
+          <p>Teraz:</p>
+          <ul class="unnumbered-list-container">
+            <li>na komputerze korzystasz z http://localhost:5173/</li>
+            <li>na telefonie otwierasz adres z pozycji Network, np. http://192.168.1.15:5173/.</li>
+          </ul>
+          <p>
+            Komputer i telefon powinny być podłączone do tej samej sieci lokalnej, np. tego samego
+            domowego Wi-Fi
+          </p>
+        </article>
+        <article id="1.4">
+          <h3>1.4 GitHub Desktop c.d.</h3>
+          <p>Przejdź na GitHub Desktop</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/12-np-gitHubDesktop1.webp" alt="" />
+          </div>
+          <p>Następnie uzupełnij nazwę commit i kliknij: Commit ?? files to main</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/13-np-gitHubDesktop2.webp" alt="" />
+          </div>
+          <p>Następnie kliknij: Publish repository Publish this repository to GitHub</p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/14-np-gitHubDesktop3.webp" alt="" />
+          </div>
+          <p>
+            Po pojawieniu się nowego okna, opcjonalnie odznacz: Keep this code private a następnie
+            kliknij: Publish repository
+          </p>
+          <div class="img-container grow_up-img">
+            <img src="../images/htmlInstalacja/15-np-gitHubDesktop4.webp" alt="" />
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-logo">
+        <img src="../images/footer/konikMaly24x24Squoosh.png" alt="logoImage" width="24" />
+        <img src="../images/footer/3KLogo.png" alt="logoText" />
+      </div>
+      <div id="footer-title">
+        <p></p>
+      </div>
+      <div class="footer-date">
+        <p>31.07.2024r.</p>
+      </div>
+    </footer>
+    <!-- SKRYPTY JS -->
+    <script defer type="module" src="../scripts/menuInstalacja.mjs"></script>
+  </body>
+</html>

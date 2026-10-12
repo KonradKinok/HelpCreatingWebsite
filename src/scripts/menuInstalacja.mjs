@@ -16,6 +16,14 @@ const menuItem = [
     name: '02. Git',
     link: '../htmlInstalacja/02-git.html',
   },
+  {
+    name: '03. Nowy projekt',
+    link: '../htmlInstalacja/03-nowyProjekt.html',
+  },
+  {
+    name: '04. Biblioteki',
+    link: '../htmlInstalacja/04-biblioteki.html',
+  },
 ];
 
 menuItem.forEach(element => {
