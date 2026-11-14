@@ -66,6 +66,133 @@
             numer wersji.
           </p>
         </article>
+        <article id="1.4">
+          <h3>1.4 react-tooltip</h3>
+          <pre>
+            npm i react-tooltip
+          </pre>
+          <p>
+            react-tooltip to biblioteka działająca po stronie klienta. Wykorzystuje ona hooki,
+            obserwatory DOM, zdarzenia przeglądarki oraz pomiary układu strony, dlatego sam
+            komponent tooltipa musi działać w obrębie komponentu klienta. Rozwiązanie to sprawdza
+            się w frameworkach takich jak Next.js z obsługą Server Components, jednak komponent
+            Tooltip należy renderować wewnątrz komponentu klienta, a atrybuty lub selektory tooltipa
+            przypisywać do elementów renderowanych w tym samym obszarze klienta. W przypadku
+            korzystania z React Server Components obowiązuje prosta zasada praktyczna: komponenty
+            serwera mogą renderować znacznik elementu kotwicy (anchor), komponenty klienta powinny
+            renderować i obsługiwać react-tooltip. W Next.js typową praktyką jest eksportowanie
+            tooltipa z niewielkiego pliku opakowującego (wrapper), oznaczonego dyrektywą 'use
+            client'.
+          </p>
+          <p>
+            <a
+              href="https://react-tooltip.com/docs/getting-started"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://react-tooltip.com/docs/getting-started</a
+            >
+          </p>
+        </article>
+        <article id="1.5">
+          <h3>1.5 Lodash</h3>
+          <pre>
+            npm i lodash
+          </pre>
+          <p>
+            Lodash ułatwia pracę z językiem JavaScript, eliminując trudności związane z obsługą
+            tablic, liczb, obiektów, ciągów znaków itp. Modułowe metody biblioteki Lodash świetnie
+            sprawdzają się w: Iterowaniu po tablicach, obiektach i ciągach znaków Manipulowaniu
+            wartościami i ich weryfikacji Tworzeniu funkcji złożonych
+          </p>
+          <p>
+            <a href="https://lodash.com/" target="_blank" rel="noopener noreferrer"
+              >https://lodash.com/</a
+            >
+          </p>
+        </article>
+        <article id="1.6">
+          <h3>1.6 Lucide React</h3>
+          <pre>
+            npm i lucide-react
+          </pre>
+          <pre>
+            npm install --save-dev @types/lodash
+          </pre>
+
+          <p>
+            Lucide udostępnia bibliotekę komponentów React do wykorzystania ikon w aplikacjach.
+            Każda ikona dostępna jest jako samodzielny komponent renderujący zoptymalizowany kod SVG
+            typu inline. Kluczowe cechy: Łatwość użycia - importuj ikony i korzystaj z nich
+            bezpośrednio w JSX. Możliwość dostosowania - zmieniaj rozmiar, kolor, grubość linii i
+            inne właściwości za pomocą propsów. Obsługa tree-shakingu - w finalnym pakiecie
+            aplikacji uwzględniane są tylko te ikony, które faktycznie zaimportowano. Obsługa
+            TypeScript - w pełni typowane komponenty zapewniające większy komfort pracy programisty.
+          </p>
+          <p>
+            <a href="https://lucide.dev/guide/react/" target="_blank" rel="noopener noreferrer"
+              >https://lucide.dev/guide/react/</a
+            >
+          </p>
+        </article>
+        <article id="1.7">
+          <h3>1.7 React Loader Spinner</h3>
+          <pre>
+            npm i react-loader-spinner
+          </pre>
+          <p>
+            🎯 Ponad 35 pięknych spinnerów - szeroki wybór animacji ładowania 🎨 Pełna
+            konfigurowalność - kolory, rozmiary i style 📦 Lekkość - brak zewnętrznych zależności
+            (poza Reactem) 🌲 Tree-shaking - importujesz tylko to, czego potrzebujesz 💪 TypeScript
+            - pełne definicje typów w zestawie ⚡ React 17, 18 i 19 - kompatybilność ze wszystkimi
+            nowoczesnymi wersjami Reacta 🎭 Bez CSS - animacje oparte wyłącznie na SVG ♿ Dostępność
+            - etykiety ARIA i semantyczny kod HTML
+          </p>
+          <p>
+            <a
+              href="https://mhnpd.github.io/react-loader-spinner/docs/category/components/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >react-loader-spinner</a
+            >
+          </p>
+        </article>
+        <article id="1.8">
+          <h3>1.8 react-hot-toast</h3>
+          <pre>
+            npm i react-hot-toast
+          </pre>
+          <p>
+            Cechy 🔥 Domyślnie atrakcyjny wygląd 🔩 Łatwa konfiguracja ⏳ Obsługa Promise API -
+            automatyczne ładowanie na podstawie obietnicy (Promise) 🕊 Lekkość - poniżej 5 KB
+            (wliczając style) ✅ Dostępność 🤯 Hooki typu "headless" - twórz własne rozwiązania
+            dzięki `useToaster()`
+          </p>
+          <p>
+            <a href="https://react-hot-toast.com/docs" target="_blank" rel="noopener noreferrer"
+              >https://react-hot-toast.com/docs</a
+            >
+          </p>
+        </article>
+        <article id="1.9">
+          <h3>1.9 Axios</h3>
+          <pre>
+            npm i axios
+          </pre>
+          <p>
+            Wysyłaj żądania XMLHttpRequest z poziomu przeglądarki. Wysyłaj żądania HTTP z poziomu
+            Node.js. Korzystaj z API Promise do asynchronicznej obsługi żądań. Przechwytuj żądania i
+            odpowiedzi, aby dodać własną logikę lub przekształcić dane. Przekształcaj dane żądań i
+            odpowiedzi. Anuluj żądania za pomocą wbudowanych mechanizmów anulowania. Serializuj i
+            parsuj dane w formacie JSON. Serializuj obiekty danych do formatów multipart/form-data
+            lub application/x-www-form-urlencoded. Dodaj zabezpieczenia po stronie klienta przed
+            atakami typu Cross-Site Request Forgery (CSRF).
+          </p>
+          <p>
+            <a href="https://axios.rest/" target="_blank" rel="noopener noreferrer"
+              >https://axios.rest/</a
+            >
+          </p>
+        </article>
       </section>
     </main>
     <footer class="footer">
